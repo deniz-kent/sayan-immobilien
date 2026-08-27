@@ -1,0 +1,6 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro"; import Header from "./Header.astro"; import Footer from "./Footer.astro";
+interface Props{title:string;eyebrow:string;notice:string} const {title,eyebrow,notice}=Astro.props;
+---
+<BaseLayout title={`${title} | SAYAN Immobilien`} description={`${title} von SAYAN Immobilien Köln.`}><Header/><main id="main"><section class="page-hero"><div class="container"><p class="eyebrow">{eyebrow}</p><h1>{title}.</h1><p>Diese Seite ist für die Testansicht strukturell angelegt. Fehlende rechtliche Angaben sind sichtbar markiert.</p></div></section><section class="section section--light"><div class="container legal-copy"><slot/><aside class="legal-notice"><strong>Prüfung erforderlich</strong><p>{notice}</p></aside></div></section></main><Footer/></BaseLayout>
+<style>.legal-notice{margin-top:3rem;padding:1.5rem;border-left:4px solid var(--accent);background:var(--brand-100)}.legal-notice p{margin-top:.5rem!important}</style>

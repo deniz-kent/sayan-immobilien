@@ -1,0 +1,14 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Logo from "../components/Logo.astro";
+interface Props { title: string; description: string; noindex?: boolean; }
+const { title, description, noindex = false } = Astro.props;
+---
+<BaseLayout {title} {description} {noindex}>
+  <header class="reduced-head"><a href="/" aria-label="Zur Startseite"><Logo variant="dark" /></a><a href="/">Zur Startseite →</a></header>
+  <slot />
+</BaseLayout>
+<style>
+  .reduced-head { position: absolute; z-index: 5; inset: 0 0 auto; display: flex; align-items: center; justify-content: space-between; width: min(100% - 3rem, 1240px); min-height: 5rem; margin-inline: auto; color: var(--ink); }
+  .reduced-head > a:last-child { font-size: .72rem; font-weight: 700; }
+</style>

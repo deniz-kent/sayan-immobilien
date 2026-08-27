@@ -1,0 +1,51 @@
+---
+import Logo from "./Logo.astro";
+
+const columns = [
+  { title: "Immobilien", links: ["Kaufen", "Mieten", "Kapitalanlagen"] },
+  { title: "Eigentümer", links: ["Verkaufen", "Vermieten", "Bewerten"] },
+  { title: "SAYAN", links: ["Team", "Referenzen", "Arbeitsweise"] },
+  { title: "Service", links: ["Kontakt", "Termin", "Häufige Fragen"] },
+];
+const liveLinks: Record<string, string> = {
+  "Kaufen": "/#objekte",
+  "Mieten": "/#objekte",
+  "Kapitalanlagen": "/#objekte",
+  "Verkaufen": "/leistung/",
+  "Vermieten": "/kontakt/#termin",
+  "Bewerten": "/leistung/formular/",
+  "Team": "/#unternehmen",
+  "Referenzen": "/#referenzen",
+  "Arbeitsweise": "/leistung/",
+  "Kontakt": "/kontakt/",
+  "Termin": "/kontakt/#termin",
+  "Häufige Fragen": "/leistung/#faq",
+};
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <Logo variant="light" />
+      <p>Persönliche Immobilienvermittlung in Köln. Seit 2001.</p>
+      <a href="tel:+4922116892660">+49 221 168 926 60</a>
+      <a href="mailto:info@sayan-immo.de">info@sayan-immo.de</a>
+      <address>Sternengasse 3<br />50676 Köln</address>
+    </div>
+    {columns.map((column) => (
+      <div class="footer-column">
+        <p>{column.title}</p>
+        {column.links.map((link) => <a href={liveLinks[link]}>{link}</a>)}
+      </div>
+    ))}
+  </div>
+  <div class="container footer-legal">
+    <span>© {new Date().getFullYear()} SAYAN Immobilien Köln GmbH</span>
+    <div>
+      <a href="/impressum/">Impressum</a>
+      <a href="/datenschutz/">Datenschutz</a>
+      <a href="/widerrufsbelehrung/">Widerruf</a>
+      <a href="#cookie-einstellungen" data-open-consent>Cookie-Einstellungen</a>
+    </div>
+  </div>
+</footer>

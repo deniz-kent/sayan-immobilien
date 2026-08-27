@@ -1,0 +1,39 @@
+<aside class="consent" data-consent hidden aria-labelledby="consent-title">
+  <div>
+    <p class="eyebrow">Datenschutz</p>
+    <h2 id="consent-title">Sie entscheiden über externe Inhalte.</h2>
+    <p>In dieser Testversion werden keine Analyse- oder Marketingdienste geladen. Ihre Auswahl wird nur lokal in diesem Browser gespeichert.</p>
+  </div>
+  <div class="consent__actions">
+    <button class="button button--secondary" type="button" data-consent-choice="deny">Nur notwendige</button>
+    <button class="button" type="button" data-consent-choice="accept">Alle zulassen</button>
+  </div>
+</aside>
+
+<style>
+  .consent { position: fixed; z-index: 500; right: 1rem; bottom: 1rem; left: 1rem; width: min(calc(100% - 2rem), 58rem); margin-inline: auto; padding: 1.4rem; border: 1px solid var(--hairline); border-radius: var(--radius-card); background: var(--brand-900); color: var(--cream); box-shadow: var(--shadow-lg); }
+  .consent:not([hidden]) { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2rem; }
+  .consent h2 { max-width: none; font-size: 1.8rem; }
+  .consent p:not(.eyebrow) { max-width: 62ch; margin-top: .55rem; color: color-mix(in srgb, var(--cream) 66%, transparent); font-size: .72rem; }
+  .consent__actions { display: flex; gap: .6rem; }
+  .consent .button--secondary { color: var(--cream); }
+  @media (max-width: 767px) { .consent:not([hidden]) { grid-template-columns: 1fr; } .consent__actions { display: grid; grid-template-columns: 1fr 1fr; } }
+</style>
+
+<script>
+  const consent = document.querySelector<HTMLElement>("[data-consent]");
+  const savedChoice = localStorage.getItem("sayan-consent");
+  if (consent && !savedChoice) consent.hidden = false;
+  document.querySelectorAll<HTMLButtonElement>("[data-consent-choice]").forEach((button) => {
+    button.addEventListener("click", () => {
+      localStorage.setItem("sayan-consent", button.dataset.consentChoice ?? "deny");
+      if (consent) consent.hidden = true;
+    });
+  });
+  document.querySelectorAll<HTMLElement>("[data-open-consent]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      if (consent) consent.hidden = false;
+    });
+  });
+</script>

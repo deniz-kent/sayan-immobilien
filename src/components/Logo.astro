@@ -1,0 +1,25 @@
+---
+interface Props {
+  variant?: "light" | "dark";
+}
+
+const { variant = "dark" } = Astro.props;
+---
+
+<span class:list={["logo", `logo--${variant}`]} aria-label="SAYAN Immobilien Köln – vorläufige Wortmarke">
+  <span class="logo__mark" aria-hidden="true">S</span>
+  <span class="logo__type">
+    <strong>SAYAN</strong>
+    <small>Immobilien Köln</small>
+  </span>
+</span>
+
+<style>
+  .logo { display: inline-flex; align-items: center; gap: .72rem; color: currentColor; }
+  .logo__mark { width: 2.35rem; height: 2.35rem; display: grid; place-items: center; border: 1px solid currentColor; font: 600 1.45rem/1 "Cormorant Garamond", serif; }
+  .logo__type { display: grid; gap: .05rem; }
+  .logo__type strong { font: 600 1.08rem/1 "Manrope", sans-serif; letter-spacing: .2em; }
+  .logo__type small { font: 500 .58rem/1.2 "Manrope", sans-serif; letter-spacing: .13em; text-transform: uppercase; opacity: .72; }
+  .logo--light { color: var(--cream); }
+  .logo--dark { color: var(--brand-900); }
+</style>

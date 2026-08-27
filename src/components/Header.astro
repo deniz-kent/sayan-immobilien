@@ -1,0 +1,179 @@
+---
+import Logo from "./Logo.astro";
+
+const groups = [
+  {
+    label: "Immobilien",
+    columns: [
+      { title: "Angebot", links: ["Immobilien kaufen", "Immobilien mieten", "Kapitalanlagen"] },
+      { title: "Service", links: ["Suchauftrag", "Diskrete Angebote", "Finanzierung"] },
+    ],
+    promo: "Immobilien in Köln",
+    promoHref: "/#objekte",
+    promoAction: "Auswahl ansehen →",
+  },
+  {
+    label: "Verkaufen",
+    columns: [
+      { title: "Eigentümer", links: ["Immobilie verkaufen", "Immobilie vermieten", "Diskret vermarkten"] },
+      { title: "Verfahren", links: ["Wertermittlung", "Vermarktung", "Übergabe"] },
+    ],
+    promo: "Verkaufsanfrage in wenigen Schritten",
+    promoHref: "/leistung/formular/",
+    promoAction: "Anfrage starten →",
+  },
+  {
+    label: "Unternehmen",
+    columns: [
+      { title: "SAYAN", links: ["Team", "Arbeitsweise", "Seit 2001"] },
+      { title: "Einblicke", links: ["Referenzen", "Partner", "Häufige Fragen"] },
+    ],
+    promo: "Persönlich geführt. Regional verankert.",
+    promoHref: "/#unternehmen",
+    promoAction: "SAYAN kennenlernen →",
+  },
+];
+const liveLinks: Record<string, string> = {
+  "Immobilien kaufen": "/#objekte",
+  "Immobilien mieten": "/#objekte",
+  "Kapitalanlagen": "/#objekte",
+  "Suchauftrag": "/kontakt/#termin",
+  "Diskrete Angebote": "/#diskretion",
+  "Finanzierung": "/kontakt/#termin",
+  "Immobilie verkaufen": "/leistung/",
+  "Immobilie vermieten": "/kontakt/#termin",
+  "Diskret vermarkten": "/#diskretion",
+  "Wertermittlung": "/leistung/formular/",
+  "Vermarktung": "/leistung/",
+  "Übergabe": "/leistung/",
+  "Team": "/#unternehmen",
+  "Arbeitsweise": "/leistung/",
+  "Seit 2001": "/#unternehmen",
+  "Referenzen": "/#referenzen",
+  "Partner": "/#partner",
+  "Häufige Fragen": "/leistung/#faq",
+};
+---
+
+<header class="site-header" data-header>
+  <div class="utility-bar" data-utility>
+    <div class="container utility-bar__inner">
+      <div class="utility-bar__left">
+        <a href="tel:+4922116892660">0221 / 168 926 60</a>
+        <span>Sternengasse 3 · 50676 Köln</span>
+      </div>
+      <a href="/kontakt/#termin">Termin vereinbaren →</a>
+    </div>
+  </div>
+
+  <div class="nav-wrap">
+    <div class="container nav-inner">
+      <a class="brand-link" href="/" aria-label="Zur Startseite">
+        <span class="logo-light"><Logo variant="dark" /></span>
+        <span class="logo-dark"><Logo variant="dark" /></span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Hauptnavigation">
+        {groups.map((group, index) => (
+          <div class="nav-group">
+            <button class="nav-trigger" type="button" aria-expanded="false" aria-controls={`mega-${index}`}>
+              {group.label}<span aria-hidden="true">⌄</span>
+            </button>
+            <div class="mega-menu" id={`mega-${index}`} hidden>
+              <div class="container mega-menu__inner">
+                {group.columns.map((column) => (
+                  <div class="mega-column">
+                    <p>{column.title}</p>
+                    {column.links.map((link) => <a href={liveLinks[link]}>{link}</a>)}
+                  </div>
+                ))}
+                <a class="mega-promo" href={group.promoHref}>
+                  <span>Direkter Einstieg</span>
+                  <strong>{group.promo}</strong>
+                  <small>{group.promoAction}</small>
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+        <a href="/#magazin">Magazin</a>
+      </nav>
+
+      <a class="button button--small nav-cta" href="/kontakt/#termin">Termin vereinbaren →</a>
+      <button class="menu-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu" id="mobile-menu" hidden>
+    <div class="mobile-menu__top">
+      <Logo variant="dark" />
+      <button class="menu-close" type="button" aria-label="Menü schließen">×</button>
+    </div>
+    <div class="mobile-menu__groups">
+      {groups.map((group) => (
+        <details>
+          <summary>{group.label}</summary>
+          {group.columns.flatMap((column) => column.links).map((link) => <a href={liveLinks[link]}>{link}</a>)}
+        </details>
+      ))}
+      <a href="/#magazin">Magazin</a>
+    </div>
+    <div class="mobile-menu__footer">
+      <a class="button" href="/kontakt/#termin">Termin vereinbaren →</a>
+      <a href="tel:+4922116892660">0221 / 168 926 60</a>
+    </div>
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>("[data-header]");
+  const utility = document.querySelector<HTMLElement>("[data-utility]");
+  const triggers = document.querySelectorAll<HTMLButtonElement>(".nav-trigger");
+  const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
+  const closeButton = document.querySelector<HTMLButtonElement>(".menu-close");
+  const mobileMenu = document.querySelector<HTMLElement>("#mobile-menu");
+
+  const closeMegaMenus = (except?: HTMLButtonElement) => {
+    triggers.forEach((trigger) => {
+      if (trigger === except) return;
+      trigger.setAttribute("aria-expanded", "false");
+      const panel = document.getElementById(trigger.getAttribute("aria-controls") ?? "");
+      if (panel) panel.hidden = true;
+    });
+  };
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", () => {
+      const willOpen = trigger.getAttribute("aria-expanded") !== "true";
+      closeMegaMenus(trigger);
+      trigger.setAttribute("aria-expanded", String(willOpen));
+      const panel = document.getElementById(trigger.getAttribute("aria-controls") ?? "");
+      if (panel) panel.hidden = !willOpen;
+    });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target as Element).closest(".nav-group")) closeMegaMenus();
+  });
+
+  let previousY = window.scrollY;
+  const updateHeader = () => {
+    const currentY = window.scrollY;
+    header?.classList.toggle("is-scrolled", currentY > 60);
+    if (utility) utility.classList.toggle("is-hidden", currentY > previousY && currentY > 80);
+    previousY = currentY;
+  };
+  window.addEventListener("scroll", updateHeader, { passive: true });
+  updateHeader();
+
+  const setMobileMenu = (open: boolean) => {
+    if (!mobileMenu || !toggle) return;
+    mobileMenu.hidden = !open;
+    toggle.setAttribute("aria-expanded", String(open));
+    document.body.classList.toggle("menu-open", open);
+  };
+  toggle?.addEventListener("click", () => setMobileMenu(toggle.getAttribute("aria-expanded") !== "true"));
+  closeButton?.addEventListener("click", () => setMobileMenu(false));
+</script>
