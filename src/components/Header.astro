@@ -34,9 +34,9 @@ const groups = [
   },
 ];
 const liveLinks: Record<string, string> = {
-  "Immobilien kaufen": "/#objekte",
-  "Immobilien mieten": "/#objekte",
-  "Kapitalanlagen": "/#objekte",
+  "Immobilien kaufen": "/immobilien/?typ=kaufen",
+  "Immobilien mieten": "/immobilien/?typ=mieten",
+  "Kapitalanlagen": "/immobilien/",
   "Suchauftrag": "/kontakt/",
   "Diskrete Angebote": "/#diskretion",
   "Finanzierung": "/kontakt/",
@@ -56,16 +56,6 @@ const liveLinks: Record<string, string> = {
 ---
 
 <header class="site-header" data-header>
-  <div class="utility-bar" data-utility>
-    <div class="container utility-bar__inner">
-      <div class="utility-bar__left">
-        <a href="tel:+4922116892660">0221 / 168 926 60</a>
-        <span>Sternengasse 3 · 50676 Köln</span>
-      </div>
-      <a href="/kontakt/">Termin vereinbaren →</a>
-    </div>
-  </div>
-
   <div class="nav-wrap">
     <div class="container nav-inner">
       <a class="brand-link" href="/" aria-label="Zur Startseite">
@@ -129,7 +119,6 @@ const liveLinks: Record<string, string> = {
 
 <script>
   const header = document.querySelector<HTMLElement>("[data-header]");
-  const utility = document.querySelector<HTMLElement>("[data-utility]");
   const triggers = document.querySelectorAll<HTMLButtonElement>(".nav-trigger");
   const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
   const closeButton = document.querySelector<HTMLButtonElement>(".menu-close");
@@ -158,12 +147,8 @@ const liveLinks: Record<string, string> = {
     if (!(event.target as Element).closest(".nav-group")) closeMegaMenus();
   });
 
-  let previousY = window.scrollY;
   const updateHeader = () => {
-    const currentY = window.scrollY;
-    header?.classList.toggle("is-scrolled", currentY > 60);
-    if (utility) utility.classList.toggle("is-hidden", currentY > previousY && currentY > 80);
-    previousY = currentY;
+    header?.classList.toggle("is-scrolled", window.scrollY > 60);
   };
   window.addEventListener("scroll", updateHeader, { passive: true });
   updateHeader();
