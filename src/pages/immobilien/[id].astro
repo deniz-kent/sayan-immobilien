@@ -1,0 +1,151 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { properties } from "../../data/properties";
+
+// TODO: onOffice/OnImmo-Anbindung
+// Sobald der API-Zugang vorliegt, getStaticPaths() durch einen Abruf der
+// echten Objekt-IDs ersetzen (oder – falls Objekte sich häufig ändern – auf
+// einen Server-Endpoint mit `export const prerender = false;` umstellen) und
+// die Platzhalterfelder unten durch die tatsächlichen Exposé-Daten ersetzen.
+// Struktur orientiert sich an einem typischen Exposé: Objektdaten,
+// Informationen, Details, Beschreibung, Energieausweis, Ansprechpartner.
+export function getStaticPaths() {
+  return properties.map((property) => ({
+    params: { id: property.id },
+    props: { property },
+  }));
+}
+
+const { property } = Astro.props;
+const typeLabel = property.type === "kaufen" ? "Kaufen" : "Mieten";
+---
+
+<BaseLayout
+  title={`${property.category} in Köln (${typeLabel}) | SAYAN Immobilien`}
+  description="Objektdetails folgen in Kürze. Sprechen Sie uns gern direkt zu diesem Angebot an."
+  noindex={false}
+>
+  <Header />
+  <main id="main">
+    <section class="page-hero expose-hero">
+      <div class="container">
+        <a class="text-link" href="/immobilien/">← Alle Immobilien</a>
+        <p class="eyebrow">{typeLabel} · Köln</p>
+        <h1>{property.category} <em>in Vorbereitung.</em></h1>
+        <p>Die vollständigen Objektdaten und Fotos werden ergänzt, sobald die Anbindung an unser Maklerverwaltungsprogramm abgeschlossen ist.</p>
+        <div class="expose-hero__price">Preis auf Anfrage</div>
+      </div>
+    </section>
+
+    <section class="section section--paper">
+      <div class="container expose-layout">
+        <div class="expose-main">
+          <div class="expose-gallery">
+            <div class="expose-gallery__main" aria-hidden="true">
+              <svg viewBox="0 0 64 64" width="36" height="36">
+                <path d="M6 34 L32 12 L58 34" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="miter" />
+                <rect x="16" y="46" width="32" height="6" fill="currentColor" />
+              </svg>
+            </div>
+            <div class="expose-gallery__thumbs" aria-hidden="true">
+              <span></span><span></span><span></span><span></span>
+            </div>
+          </div>
+
+          <h2>Objektdaten.</h2>
+          <dl class="expose-facts">
+            <div><dt>Objekt-Nr.</dt><dd>wird ergänzt</dd></div>
+            <div><dt>Objektart</dt><dd>{property.category}</dd></div>
+            <div><dt>Wohnfläche</dt><dd>—</dd></div>
+            <div><dt>Zimmer</dt><dd>—</dd></div>
+          </dl>
+
+          <h2>Informationen.</h2>
+          <dl class="expose-facts">
+            <div><dt>Baujahr</dt><dd>—</dd></div>
+            <div><dt>Grundstücksfläche</dt><dd>—</dd></div>
+            <div><dt>Zustand</dt><dd>wird ergänzt</dd></div>
+            <div><dt>Bezugsfrei ab</dt><dd>nach Vereinbarung</dd></div>
+          </dl>
+
+          <h2>Details.</h2>
+          <dl class="expose-facts">
+            <div><dt>Etagen</dt><dd>—</dd></div>
+            <div><dt>Schlafzimmer</dt><dd>—</dd></div>
+            <div><dt>Badezimmer</dt><dd>—</dd></div>
+            <div><dt>Ausstattung</dt><dd>wird ergänzt</dd></div>
+          </dl>
+
+          <h2>Beschreibung.</h2>
+          <p class="expose-copy">Die Objektbeschreibung folgt in Kürze. Bis dahin informiert Sie Candan Sayan gern persönlich zu Lage, Ausstattung und Kaufpreis dieses Angebots.</p>
+
+          <h2>Energieausweis.</h2>
+          <dl class="expose-facts">
+            <div><dt>Endenergiebedarf</dt><dd>wird ergänzt</dd></div>
+            <div><dt>Energieträger</dt><dd>wird ergänzt</dd></div>
+            <div><dt>Gültig bis</dt><dd>wird ergänzt</dd></div>
+            <div><dt>Heizung</dt><dd>wird ergänzt</dd></div>
+          </dl>
+        </div>
+
+        <aside class="expose-aside">
+          <div class="expose-contact">
+            <p class="eyebrow">Ansprechpartner</p>
+            <h3>Candan Sayan.</h3>
+            <p class="expose-contact__role">Inhaber, SAYAN Immobilien</p>
+            <div class="expose-contact__links">
+              <a href="tel:+4922116892660">0221 / 168 926 60</a>
+              <a href="mailto:info@sayan-immo.de">info@sayan-immo.de</a>
+            </div>
+            <a class="button" href="/kontakt/">Unverbindlich anfragen →</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="wide-cta">
+      <div class="container">
+        <p class="eyebrow">Interessiert?</p>
+        <h2>Sprechen Sie uns <em>direkt an.</em></h2>
+        <p>Ein kurzer Anruf oder eine Nachricht genügt. Wir melden uns, sobald das Objekt vollständig online ist.</p>
+        <div class="cta-actions">
+          <a class="button" href="/kontakt/">Kontakt aufnehmen →</a>
+          <a class="button button--outline" href="/immobilien/">Weitere Objekte ansehen →</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .expose-hero__price { display: inline-block; margin-top: 1.5rem; padding: .6rem 1.2rem; border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: .85rem; }
+  .expose-layout { display: grid; grid-template-columns: minmax(0, 7fr) minmax(18rem, 4fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+  .expose-gallery { display: grid; gap: .75rem; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+  .expose-gallery__main { display: grid; place-items: center; height: 20rem; border-radius: var(--radius-card); background: var(--cream); color: var(--accent); }
+  .expose-gallery__thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; }
+  .expose-gallery__thumbs span { height: 4.5rem; border-radius: var(--radius-sm); background: var(--cream); }
+  .expose-main h2 { margin: clamp(2rem, 4vw, 2.75rem) 0 1rem; font-size: 1.5rem; }
+  .expose-main h2:first-of-type { margin-top: 0; }
+  .expose-facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border-top: 1px solid var(--line-dark); }
+  .expose-facts div { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding: .9rem 0; border-bottom: 1px solid var(--line-dark); }
+  .expose-facts dt { color: var(--ink-muted); font-size: .82rem; }
+  .expose-facts dd { margin: 0; font-weight: 600; font-size: .85rem; }
+  .expose-copy { max-width: 68ch; color: var(--ink-muted); }
+  .expose-aside { position: sticky; top: 7rem; }
+  .expose-contact { padding: clamp(1.5rem, 3vw, 2rem); border: 1px solid var(--line-dark); border-radius: var(--radius-card); background: var(--paper); box-shadow: var(--shadow-lg); }
+  .expose-contact h3 { margin-top: .3rem; font-size: 1.5rem; }
+  .expose-contact__role { margin: .3rem 0 1.2rem; color: var(--ink-muted); font-size: .85rem; }
+  .expose-contact__links { display: grid; gap: .5rem; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line-dark); font-size: .85rem; font-weight: 600; }
+  .expose-contact .button { width: 100%; }
+  .cta-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
+  .wide-cta .button--outline { border-color: var(--ink); background: transparent; color: var(--ink); }
+
+  @media (max-width: 900px) {
+    .expose-layout { grid-template-columns: 1fr; }
+    .expose-aside { position: static; }
+    .expose-facts { grid-template-columns: 1fr; }
+  }
+</style>
