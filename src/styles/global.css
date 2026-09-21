@@ -77,8 +77,7 @@ address { font-style: normal; }
 .section--dark-alt { background: var(--brand-800); color: var(--cream); }
 .section--light { background: var(--cream); color: var(--ink); }
 .section--paper { background: var(--paper); color: var(--ink); }
-.section--brand { background: var(--accent); color: var(--ink); }
-.section--brand em, .page-hero em, .wide-cta em { color: var(--ink); }
+.section--brand { background: var(--paper); color: var(--ink); }
 .grid-12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 1.5rem; }
 
 h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: -.035em; }
@@ -152,7 +151,7 @@ em { color: var(--accent); font-style: normal; font-weight: 600; }
 .js [data-reveal] { opacity: 0; transform: translateY(16px); transition: opacity 500ms cubic-bezier(.2,.7,.2,1), transform 500ms cubic-bezier(.2,.7,.2,1); }
 .js [data-reveal].is-visible { opacity: 1; transform: none; }
 
-.page-hero { padding: clamp(10rem, 18vw, 14rem) 0 var(--section-space); background: var(--accent); }
+.page-hero { padding: clamp(10rem, 18vw, 14rem) 0 var(--section-space); background: var(--cream); }
 .page-hero h1 { max-width: 11ch; }
 .page-hero p:not(.eyebrow) { max-width: 55ch; margin-top: 1.5rem; }
 .page-hero__actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
@@ -165,7 +164,7 @@ em { color: var(--accent); font-style: normal; font-weight: 600; }
 .check-list { display: grid; list-style: none; }
 .check-list li { position: relative; padding: .9rem 0 .9rem 1.8rem; border-top: 1px solid currentColor; }
 .check-list li::before { position: absolute; left: 0; color: var(--accent); content: "✓"; }
-.wide-cta { padding: var(--section-space) 0; background: var(--accent); color: var(--ink); text-align: center; }
+.wide-cta { padding: var(--section-space) 0; background: var(--paper); color: var(--ink); text-align: center; }
 .wide-cta h2 { margin-inline: auto; }
 .wide-cta p { max-width: 52ch; margin: 1.2rem auto 2rem; }
 .wide-cta .button { border-color: var(--ink); background: var(--ink); color: var(--cream); }
