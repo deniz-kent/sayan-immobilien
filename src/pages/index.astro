@@ -3,695 +3,175 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SectionHeader from "../components/SectionHeader.astro";
-import PropertyCard from "../components/PropertyCard.astro";
-import StatBlock from "../components/StatBlock.astro";
 
-const principles = [
-  { number: "01", title: "Eine Person bleibt verantwortlich.", copy: "Von der ersten Einordnung bis zur Übergabe bleibt klar, wer Ihr Anliegen führt. Zuständigkeit ist bei uns kein Kleingedrucktes." },
-  { number: "02", title: "Diskretion ist ein Verfahren.", copy: "Nicht jedes Objekt gehört sofort auf ein Portal. Wir klären gemeinsam, welche Sichtbarkeit zur Situation und zum gewünschten Ergebnis passt." },
-  { number: "03", title: "Jede Aussage braucht Herkunft.", copy: "Zahlen, Bewertungen und Marktangaben erscheinen erst, wenn Quelle und Stichtag feststehen. Bis dahin bleiben sie sichtbar als Platzhalter markiert." },
+const services = [
+  {
+    number: "01",
+    title: "Verkaufen",
+    copy: "Von der fundierten Einordnung über die Präsentation bis zum Notartermin: Sie behalten jederzeit den Überblick.",
+    href: "/leistung/",
+    link: "Verkauf vorbereiten",
+  },
+  {
+    number: "02",
+    title: "Vermieten",
+    copy: "Wir positionieren Ihre Immobilie passend, prüfen Interessenten sorgfältig und begleiten Sie bis zur Übergabe.",
+    href: "/leistung/#vermietung",
+    link: "Vermietung besprechen",
+  },
+  {
+    number: "03",
+    title: "Kaufen & mieten",
+    copy: "Sagen Sie uns, was Sie suchen. Wir gleichen Ihr Profil mit passenden öffentlichen und diskreten Angeboten ab.",
+    href: "/kontakt/",
+    link: "Suchprofil mitteilen",
+  },
+];
+
+const process = [
+  ["01", "Verstehen", "Wir klären Ihre Situation, Ihre Ziele und den gewünschten Zeitrahmen."],
+  ["02", "Einordnen", "Wir betrachten Lage, Zustand, Unterlagen und die aktuelle Nachfrage."],
+  ["03", "Vermarkten", "Wir wählen den passenden Weg – öffentlich, vorgemerkt oder diskret."],
+  ["04", "Abschließen", "Wir begleiten Verhandlung, Notartermin und geordnete Übergabe."],
 ];
 ---
 
 <BaseLayout
   title="SAYAN Immobilien Köln | Persönlich seit 2001"
-  description="SAYAN Immobilien begleitet Verkäufer und Käufer in Köln persönlich, diskret und mit Erfahrung seit 2001."
+  description="Persönliche Immobilienvermittlung in Köln: Verkauf, Vermietung und Immobiliensuche mit Candan Sayan als direktem Ansprechpartner."
 >
   <Header />
   <main id="main">
-    <section class="hero section--brand">
-      <div class="hero-media" aria-hidden="true">
-        <span>Hero-Medium · Platzhalter</span>
-      </div>
-      <div class="hero-overlay"></div>
-      <div class="container hero-grid">
-        <div class="hero-copy" data-reveal>
+    <section class="home-hero">
+      <div class="container home-hero__grid">
+        <div class="home-hero__copy" data-reveal>
           <p class="eyebrow">Immobilienvermittlung · Köln</p>
-          <h1>Immobilien verdienen eine klare <em>Entscheidung.</em></h1>
-          <p class="hero-lead">SAYAN begleitet Verkäufer und Käufer persönlich, diskret und mit Erfahrung seit 2001.</p>
-          <div class="hero-actions">
-            <a class="button" href="/kontakt/#termin">Termin vereinbaren →</a>
-            <a class="button button--secondary" href="#unternehmen">SAYAN kennenlernen →</a>
+          <h1>Ihre Immobilie verdient eine klare <em>Entscheidung.</em></h1>
+          <p class="home-hero__lead">
+            Ob Verkauf, Vermietung oder Suche: Candan Sayan begleitet Sie persönlich, verbindlich und mit
+            Erfahrung seit 2001.
+          </p>
+          <div class="home-hero__actions">
+            <a class="button" href="/leistung/formular/">Immobilie bewerten →</a>
+            <a class="button button--outline" href="/kontakt/">Persönlich sprechen →</a>
           </div>
         </div>
 
-        <form class="hero-form" action="/leistung/formular/" method="get" data-entry-form novalidate data-reveal>
-          <p class="hero-form__eyebrow">Ihr Einstieg · ca. 60 Sekunden</p>
-          <h2>Was dürfen wir für Sie einordnen?</h2>
-          <div class="mini-proof" aria-label="Leistungsversprechen">
-            <span><small>Erfahrung</small><strong>seit 2001</strong></span>
-            <span><small>Kontakt</small><strong>persönlich</strong></span>
-            <span><small>Schritt 1</small><strong>unverbindlich</strong></span>
-          </div>
-          <div class="entry-tabs" role="tablist" aria-label="Anfragetyp">
-            <button type="button" role="tab" aria-selected="true" data-tab="verkaufen">Verkaufen</button>
-            <button type="button" role="tab" aria-selected="false" data-tab="kaufen">Kaufen</button>
-          </div>
-          <input type="hidden" name="anliegen" value="verkaufen" data-intent />
-          <label for="entry-location">Adresse oder gewünschte Lage</label>
-          <div class="entry-field">
-            <input id="entry-location" name="ort" type="text" autocomplete="street-address" placeholder="z. B. Köln-Lindenthal" aria-describedby="entry-error entry-note" required />
-            <button type="submit" aria-label="Eingabe übernehmen">→</button>
-          </div>
-          <p class="field-error" id="entry-error" aria-live="polite"></p>
-          <p class="micro" id="entry-note">Unverbindlich · ohne Anmeldung · keine Weitergabe an Dritte</p>
-        </form>
+        <aside class="hero-statement" data-reveal aria-label="SAYAN Immobilien auf einen Blick">
+          <span class="hero-statement__city">KÖLN</span>
+          <div><p>Inhabergeführt</p><strong>Candan Sayan</strong></div>
+          <div><p>Gegründet</p><strong>2001</strong></div>
+          <div><p>Begleitung</p><strong>Bis zur Übergabe</strong></div>
+        </aside>
       </div>
-      <div class="trust-bar">
-        <div class="container trust-bar__inner">
-          <span><small>Gründung</small><strong>2001</strong></span>
-          <span><small>Bewertungen</small><strong>Platzhalter</strong></span>
-          <span><small>Verband</small><strong>Logo folgt</strong></span>
-          <span><small>Auszeichnung</small><strong>Nachweis folgt</strong></span>
+      <div class="proof-line">
+        <div class="container proof-line__inner">
+          <span>Persönlicher Ansprechpartner</span>
+          <span>Fundierte Wertermittlung</span>
+          <span>Öffentliche oder diskrete Vermarktung</span>
+          <span>Köln & Region</span>
         </div>
       </div>
     </section>
 
     <section class="section section--light" id="unternehmen">
-      <div class="container">
-        <div class="about-grid grid-12">
-          <div class="about-media media-placeholder" role="img" aria-label="Unternehmensbild Platzhalter" data-reveal>
-            <span>Unternehmensbild<br />Platzhalter</span>
-          </div>
-          <div class="about-copy" data-reveal>
-            <p class="eyebrow">Wer wir sind</p>
-            <h2>Persönlich geführt, klar <em>verantwortet.</em></h2>
-            <p>SAYAN Immobilien wurde 2001 in Köln gegründet. Candan Sayan begleitet Eigentümer, Käufer und Mieter persönlich bei Entscheidungen rund um Wohn-, Gewerbe- und Anlageimmobilien.</p>
-            <p>Persönliche Zuständigkeit und eine klare Einordnung stehen vor öffentlicher Lautstärke. Bei sensiblen Situationen kann die Vermarktung bewusst diskret beginnen.</p>
-            <a class="text-link" href="/kontakt/#termin">Candan Sayan kontaktieren →</a>
-          </div>
+      <div class="container owner-grid">
+        <div class="owner-mark" aria-hidden="true" data-reveal><span>CS</span><small>Persönlich für Sie da</small></div>
+        <div class="owner-copy" data-reveal>
+          <p class="eyebrow">Candan Sayan · Inhaber</p>
+          <h2>Eine Entscheidung. Ein fester <em>Ansprechpartner.</em></h2>
+          <p>Eine Immobilie zu verkaufen oder zu vermieten ist selten nur eine sachliche Entscheidung. Es geht um Vermögen, Veränderungen und oft auch um persönliche Geschichte. Deshalb führt Candan Sayan Ihr Anliegen selbst – vom ersten Gespräch bis zur Übergabe.</p>
+          <p>Seit 1998 in der Immobilienbranche und seit 2001 mit SAYAN Immobilien in Köln verbindet er lokale Marktkenntnis mit einer ruhigen, nachvollziehbaren Beratung.</p>
+          <a class="text-link" href="/kontakt/">Candan Sayan kennenlernen →</a>
         </div>
       </div>
     </section>
 
-    <section class="section section--dark-alt">
+    <section class="section section--paper" id="leistungen">
       <div class="container">
-        <SectionHeader
-          eyebrow="Vermarktung und Verfahren"
-          title="Vermarktung beginnt mit <em>Klarheit.</em>"
-          lead="Bewertung, Präsentation und Auswahl der Interessenten folgen einem nachvollziehbaren Ablauf. Belegbare Kennzahlen werden ergänzt, sobald Quellen und Stichtage vorliegen."
-        />
-        <div class="technology-grid grid-12">
-          <div class="technology-copy" data-reveal>
-            <p>Jede Immobilie beginnt mit einer Einordnung: Lage, Zustand, Zielgruppe und Anlass. Erst danach entscheidet sich, ob das Objekt öffentlich, vorgemerkt oder vollständig diskret angeboten wird.</p>
-          </div>
-          <div class="technology-stats">
-            <StatBlock value="seit 2001" label="SAYAN Immobilien in Köln" source="Unternehmensangabe: Gründung 2001." />
-            <StatBlock value="Daten folgen" label="Belegte Vermarktungsergebnisse" source="Platzhalter bis zur bestätigten Datengrundlage." placeholder />
-          </div>
-        </div>
-        <div class="partner-strip" id="partner" data-reveal>
-          <p class="eyebrow">Integrierte Partner und Plattformen · Platzhalter</p>
-          <div class="marquee" aria-label="Partnerlogos Platzhalter">
-            <div class="marquee__track">
-              {["Partnerlogo 01", "Partnerlogo 02", "Partnerlogo 03", "Partnerlogo 04", "Partnerlogo 01", "Partnerlogo 02", "Partnerlogo 03", "Partnerlogo 04"].map((logo) => <span>{logo}</span>)}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--paper" id="objekte">
-      <div class="container">
-        <SectionHeader
-          eyebrow="Ausgewähltes Projekt · Platzhalter"
-          title="Ein Projekt zeigt den <em>Anspruch.</em>"
-          lead="Die folgenden Inhalte markieren die spätere Referenzdarstellung. Objektangaben werden erst nach Freigabe veröffentlicht."
-          linkLabel="Objekt anfragen"
-          linkHref="#kontakt"
-        />
-        <div class="featured-project">
-          <div class="featured-project__media media-placeholder" role="img" aria-label="Referenzprojekt Bild Platzhalter" data-reveal>
-            <span>Referenzbild · Platzhalter</span>
-          </div>
-          <div class="featured-project__content" data-reveal>
-            <p class="eyebrow">Köln · Kategorie folgt</p>
-            <h3>Ausgewähltes Referenzprojekt.</h3>
-            <p>Beschreibung, Vermarktungsweg und Ergebnis werden nach Freigabe eines echten Projekts ergänzt.</p>
-            <div class="mini-stats">
-              <span><small>Fläche</small><strong>folgt</strong></span>
-              <span><small>Zimmer</small><strong>folgt</strong></span>
-              <span><small>Ergebnis</small><strong>folgt</strong></span>
-            </div>
-            <a class="button" href="#kontakt">Projekt anfragen →</a>
-          </div>
-        </div>
-        <div class="property-grid property-grid--compact">
-          <PropertyCard index="01" />
-          <PropertyCard index="02" />
-          <PropertyCard index="03" />
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--light" id="referenzen">
-      <div class="container">
-        <SectionHeader
-          eyebrow="Referenzen · Platzhalter"
-          title="Ergebnisse brauchen einen nachvollziehbaren <em>Weg.</em>"
-          lead="Echte Referenzen werden später mit Objektart, Ausgangslage und belegtem Ergebnis veröffentlicht."
-          linkLabel="Referenz anfragen"
-          linkHref="#kontakt"
-        />
-        <div class="property-grid">
-          <PropertyCard index="01" />
-          <PropertyCard index="02" />
-          <PropertyCard index="03" />
-        </div>
-        <p class="placeholder-note">Keine dargestellte Karte behauptet aktuell ein reales Objekt oder Verkaufsergebnis.</p>
-      </div>
-    </section>
-
-    <section class="section section--brand">
-      <div class="container">
-        <SectionHeader
-          eyebrow="Unser Versprechen"
-          title="Drei Zusagen, die Bestand <em>haben.</em>"
-          lead="Das Versprechen bleibt bewusst überprüfbar: Zuständigkeit, Diskretion und belegbare Aussagen."
-        />
-        <div class="principles-grid">
-          {principles.map((principle) => (
-            <article class="principle" data-reveal>
-              <span>{principle.number}</span>
-              <div>
-                <h3>{principle.title}</h3>
-                <p>{principle.copy}</p>
-              </div>
+        <SectionHeader eyebrow="Was wir für Sie tun" title="Immobilienentscheidungen brauchen <em>Orientierung.</em>" lead="Sie erhalten keinen Standardablauf, sondern einen Weg, der zu Ihrer Immobilie, Ihrem Ziel und Ihrer Situation passt." />
+        <div class="service-grid">
+          {services.map((service) => (
+            <article class="service-card" data-reveal>
+              <span>{service.number}</span><h3>{service.title}.</h3><p>{service.copy}</p>
+              <a class="text-link" href={service.href}>{service.link} →</a>
             </article>
           ))}
         </div>
-        <div class="milestone-cta" data-reveal>
-          <p>Ein erstes Gespräch klärt Anlass, Zeitrahmen und den passenden Vermarktungsweg.</p>
-          <a class="button" href="#kontakt">Gespräch anfragen →</a>
-        </div>
       </div>
     </section>
 
-    <section class="section section--light">
+    <section class="section section--dark-alt" id="ablauf">
       <div class="container">
-        <SectionHeader
-          eyebrow="Warum SAYAN"
-          title="Persönliche Verantwortung statt großer <em>Versprechen.</em>"
-          lead="Die Gegenüberstellung beschreibt typische Arbeitsmodelle im Markt. Sie bewertet keine einzelnen Wettbewerber."
-        />
-        <div class="market-compare">
-          <article class="market-compare__own" data-reveal>
-            <p class="eyebrow">Das SAYAN-Modell</p>
-            <h3>Ein Ansprechpartner bleibt nah am Mandat.</h3>
-            <ul>
-              <li>Persönlicher Ansprechpartner</li>
-              <li>Einordnung vor Veröffentlichung</li>
-              <li>Öffentliche oder diskrete Vermarktung</li>
-              <li>Abstimmung der Interessentenauswahl</li>
-              <li>Begleitung bis zur Übergabe</li>
-              <li>Belegte Aussagen statt Fantasiezahlen</li>
-            </ul>
-          </article>
-          <div class="market-compare__models">
-            <article data-reveal><span>01</span><h3>Reine Portalvermarktung.</h3><p>Das Objekt wird öffentlich angeboten. Persönliche Strategie und Nachbetreuung können je nach Anbieter unterschiedlich ausfallen.</p></article>
-            <article data-reveal><span>02</span><h3>Große Vertriebsstruktur.</h3><p>Reichweite und Prozesse sind standardisiert. Zuständigkeiten können über mehrere Rollen verteilt sein.</p></article>
-            <article data-reveal><span>03</span><h3>Privater Alleingang.</h3><p>Der Eigentümer behält die volle Kontrolle, übernimmt aber Bewertung, Unterlagen, Anfragen und Verhandlungen selbst.</p></article>
-          </div>
-        </div>
-        <p class="neutrality-note">Gegenüberstellung typischer Marktmodelle. Keine Aussage über einzelne Wettbewerber.</p>
-      </div>
-    </section>
-
-    <section class="section section--dark-alt">
-      <div class="container">
-        <SectionHeader
-          eyebrow="Der Einstieg"
-          title="Zwei Wege führen zum ersten <em>Gespräch.</em>"
-          lead="Wählen Sie den Einstieg, der zu Ihrer Situation passt. Beide Wege bleiben zunächst unverbindlich."
-        />
-        <div class="path-grid">
-          <article class="path-card" data-reveal>
-            <div class="path-card__meta"><span>Online</span><span>ca. 60 Sekunden</span></div>
-            <h3>Objekt kurz einordnen.</h3>
-            <p>Teilen Sie die wichtigsten Eckdaten. Candan Sayan kann das erste Gespräch dadurch konkreter vorbereiten.</p>
-            <ul><li>Anlass auswählen</li><li>Objekt grob beschreiben</li><li>Rückrufwunsch hinterlassen</li></ul>
-            <a class="button" href="/leistung/formular/">Anfrage starten →</a>
-          </article>
-          <article class="path-card path-card--recommended" data-reveal>
-            <span class="recommendation">Empfohlen</span>
-            <div class="path-card__meta"><span>Vor Ort oder telefonisch</span><span>persönlich</span></div>
-            <h3>Situation direkt besprechen.</h3>
-            <p>Bei sensiblen, komplexen oder zeitkritischen Anlässen ist das direkte Gespräch der ruhigere Anfang.</p>
-            <ul><li>Fester Ansprechpartner</li><li>Keine Veröffentlichung</li><li>Nächste Schritte gemeinsam festlegen</li></ul>
-            <a class="button" href="#kontakt">Termin anfragen →</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--paper" id="marktdaten">
-      <div class="container">
-        <SectionHeader
-          eyebrow="Marktdaten · Quellen folgen"
-          title="Daten werden erst mit Quelle <em>sichtbar.</em>"
-          lead="Die Tabelle zeigt bereits Bedienung und Struktur. Marktwerte bleiben Platzhalter, bis Quelle, Stichtag und Nutzungsrecht bestätigt sind."
-        />
-        <div class="data-tool" data-table data-reveal>
-          <div class="data-tool__controls">
-            <div class="data-tabs" role="tablist" aria-label="Datensatz auswählen">
-              <button type="button" role="tab" aria-selected="true" data-dataset="verkauf">Verkauf</button>
-              <button type="button" role="tab" aria-selected="false" data-dataset="vermietung">Vermietung</button>
-            </div>
-            <label>Stadtteil suchen<input type="search" placeholder="z. B. Lindenthal" data-table-search /></label>
-          </div>
-          <div class="table-scroll">
-            <table>
-              <thead><tr><th><button type="button" data-sort="0" data-label="Teilmarkt">Teilmarkt ↕</button></th><th><button type="button" data-sort="1" data-label="Objektart">Objektart ↕</button></th><th><button type="button" data-sort="2" data-label="Wert">Wert ↕</button></th><th><button type="button" data-sort="3" data-label="Stichtag">Stichtag ↕</button></th><th><button type="button" data-sort="4" data-label="Tendenz">Tendenz ↕</button></th></tr></thead>
-              <tbody data-table-body="verkauf">
-                <tr><td>Innenstadt</td><td>Wohnung</td><td>Platzhalter</td><td>Quelle folgt</td><td>—</td></tr>
-                <tr><td>Lindenthal</td><td>Haus</td><td>Platzhalter</td><td>Quelle folgt</td><td>—</td></tr>
-                <tr><td>Rodenkirchen</td><td>Wohnung</td><td>Platzhalter</td><td>Quelle folgt</td><td>—</td></tr>
-                <tr><td>Ehrenfeld</td><td>Wohnung</td><td>Platzhalter</td><td>Quelle folgt</td><td>—</td></tr>
-              </tbody>
-              <tbody data-table-body="vermietung" hidden>
-                <tr><td>Innenstadt</td><td>Wohnung</td><td>Platzhalter</td><td>Quelle folgt</td><td>—</td></tr>
-                <tr><td>Lindenthal</td><td>Haus</td><td>Platzhalter</td><td>Quelle folgt</td><td>—</td></tr>
-                <tr><td>Rodenkirchen</td><td>Wohnung</td><td>Platzhalter</td><td>Quelle folgt</td><td>—</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="data-tool__footer"><span data-row-count>4 Einträge</span><span>Quelle und Stichtag: Platzhalter</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--light">
-      <div class="container">
-        <SectionHeader eyebrow="Der Ablauf" title="Vier Schritte schaffen einen klaren <em>Weg.</em>" />
-        <div class="process-line">
-          <article data-reveal><span>01</span><h3>Einordnen.</h3><p>Anlass, Objekt und Zeitrahmen gemeinsam klären.</p></article>
-          <article data-reveal><span>02</span><h3>Vorbereiten.</h3><p>Unterlagen, Bewertung und Präsentation zusammenführen.</p></article>
-          <article data-reveal><span>03</span><h3>Vermarkten.</h3><p>Interessenten gezielt und passend zum Mandat ansprechen.</p></article>
-          <article data-reveal><span>04</span><h3>Übergeben.</h3><p>Verhandlung, Abschluss und Übergabe begleiten.</p></article>
+        <SectionHeader eyebrow="Der SAYAN-Weg" title="Von der ersten Frage bis zur sicheren <em>Übergabe.</em>" lead="Sie wissen jederzeit, wo Ihr Vorhaben steht, was als Nächstes passiert und welche Entscheidung ansteht." />
+        <div class="process-grid">
+          {process.map(([number, title, copy]) => (
+            <article data-reveal><span>{number}</span><h3>{title}.</h3><p>{copy}</p></article>
+          ))}
         </div>
       </div>
     </section>
 
     <section class="section section--brand">
-      <div class="container">
-        <SectionHeader
-          eyebrow="Ihre Sicherheit"
-          title="Risiken gehören offen auf den <em>Tisch.</em>"
-          lead="Vertragsdetails werden nicht mit Werbesätzen ersetzt. Diese Karten zeigen, welche Punkte vor einem Auftrag konkret geklärt werden müssen."
-        />
-        <div class="security-grid">
-          <article data-reveal><span>Risiko</span><h3>Was wird veröffentlicht?</h3><p>Vor dem Start wird festgelegt, welche Daten, Bilder und Grundrisse öffentlich erscheinen dürfen.</p></article>
-          <article data-reveal><span>Preis</span><h3>Welche Kosten entstehen?</h3><p>Provision und mögliche Zusatzleistungen werden vor Beauftragung schriftlich eingeordnet. Konkrete Konditionen folgen im Angebot.</p></article>
-          <article data-reveal><span>Bindung</span><h3>Wie lange gilt der Auftrag?</h3><p>Laufzeit, Kündigung und Pflichten beider Seiten müssen im Maklervertrag eindeutig benannt sein.</p></article>
+      <div class="container valuation-grid">
+        <div data-reveal>
+          <p class="eyebrow">Für Eigentümer</p><h2>Was ist Ihre Immobilie heute <em>wert?</em></h2>
+          <p>Eine gute Verkaufsentscheidung beginnt mit einer realistischen Einordnung. Starten Sie online mit den wichtigsten Eckdaten – unverbindlich und in wenigen Schritten.</p>
+          <a class="button button--dark" href="/leistung/formular/">Online-Bewertung starten →</a>
+        </div>
+        <div class="valuation-points" data-reveal>
+          <span><strong>01</strong> Eckdaten zur Immobilie angeben</span>
+          <span><strong>02</strong> Erste Einschätzung erhalten</span>
+          <span><strong>03</strong> Ergebnis persönlich vertiefen</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--light" id="objekte">
+      <div class="container buyer-grid">
+        <div data-reveal><p class="eyebrow">Für Käufer und Mieter</p><h2>Die passende Immobilie beginnt mit Ihrem <em>Suchprofil.</em></h2></div>
+        <div data-reveal>
+          <p>Nicht jedes Angebot wird öffentlich vermarktet. Teilen Sie uns mit, welche Lage, Größe und Nutzung Sie suchen. Sobald eine passende Immobilie verfügbar ist, kann Ihre Anfrage gezielt berücksichtigt werden.</p>
+          <div class="inline-actions"><a class="button button--dark" href="/kontakt/">Suchprofil mitteilen →</a><a class="text-link" href="tel:+4922116892660">0221 / 168 926 60 →</a></div>
         </div>
       </div>
     </section>
 
     <section class="section section--dark" id="diskretion">
-      <div class="container discretion-grid grid-12">
-        <div class="discretion-copy" data-reveal>
-          <p class="eyebrow">Diskrete Vermarktung</p>
-          <h2>Nicht jedes Objekt braucht <em>Öffentlichkeit.</em></h2>
-          <p>Bei familiären Veränderungen, sensiblen Vermögenssituationen oder prominenten Objekten kann eine Vermarktung ohne öffentliche Anzeigen der richtige Weg sein.</p>
-          <p>Dann werden Informationen nur kontrolliert und an ausgewählte Interessenten weitergegeben. Umfang und Vorgehen werden vorher gemeinsam festgelegt.</p>
-          <a class="button" href="#kontakt">Diskret anfragen →</a>
+      <div class="container discretion-grid">
+        <div data-reveal><p class="eyebrow">Diskrete Vermarktung</p><h2>Nicht jede Immobilie braucht <em>Öffentlichkeit.</em></h2></div>
+        <div data-reveal>
+          <p>Wenn persönliche Umstände, Privatsphäre oder die besondere Positionierung des Objekts es erfordern, sprechen wir ausgewählte Interessenten direkt an. Informationen werden kontrolliert weitergegeben, Besichtigungen gezielt koordiniert und der gesamte Prozess vertraulich geführt.</p>
+          <a class="button" href="/kontakt/">Diskreten Verkauf besprechen →</a>
         </div>
-        <div class="discretion-number" data-reveal><strong>01</strong><span>vertraulicher Weg, abgestimmt auf Ihre Situation</span></div>
       </div>
     </section>
 
     <section class="section section--paper">
       <div class="container">
-        <SectionHeader
-          eyebrow="Ergebnisse und Bewertungen"
-          title="Vertrauen braucht überprüfbare <em>Belege.</em>"
-          lead="Bewertungswerte, Transaktionszahlen und Kundenstimmen werden erst nach Prüfung ihrer Herkunft veröffentlicht."
-        />
-        <div class="results-stats">
-          <StatBlock value="seit 2001" label="in Köln tätig" source="Unternehmensangabe: Gründung 2001." />
-          <StatBlock value="Daten folgen" label="vermittelte Objekte" source="Platzhalter bis zur Freigabe." placeholder />
-          <StatBlock value="Daten folgen" label="Bewertungsschnitt" source="Plattform und Stichtag folgen." placeholder />
-        </div>
-        <div class="review-grid">
-          {[1, 2, 3].map((item) => (
-            <article class="review-card" data-reveal>
-              <p class="review-stars">Bewertung · Platzhalter</p>
-              <blockquote>„Originale Kundenstimme wird nach Freigabe und Quellenprüfung ergänzt.“</blockquote>
-              <div><span>P{item}</span><p><strong>Name folgt</strong><small>Quelle folgt</small></p></div>
-            </article>
-          ))}
-        </div>
-        <p class="neutrality-note">Noch keine Bewertung wird als echt dargestellt. Plattform, Datum und Herkunft werden später ergänzt.</p>
-      </div>
-    </section>
-
-    <section class="section section--light" id="magazin">
-      <div class="container">
-        <SectionHeader eyebrow="Magazin" title="Wissen macht Entscheidungen <em>ruhiger.</em>" linkLabel="Thema besprechen" linkHref="#kontakt" />
-        <div class="article-grid">
-          <article data-reveal><div class="media-placeholder"><span>Beitragsbild · Platzhalter</span></div><p class="eyebrow">Verkauf</p><h3>Welche Unterlagen zuerst gebraucht werden.</h3><small>Ratgeber · Lesedauer folgt</small></article>
-          <article data-reveal><div class="media-placeholder"><span>Beitragsbild · Platzhalter</span></div><p class="eyebrow">Bewertung</p><h3>Warum Angebotspreis und Marktwert abweichen.</h3><small>Ratgeber · Lesedauer folgt</small></article>
-          <article data-reveal><div class="media-placeholder"><span>Beitragsbild · Platzhalter</span></div><p class="eyebrow">Diskretion</p><h3>Wann ein Verkauf ohne Portal sinnvoll ist.</h3><small>Ratgeber · Lesedauer folgt</small></article>
+        <SectionHeader eyebrow="Wenn sich etwas verändert" title="Wir schaffen Klarheit – auch in anspruchsvollen <em>Situationen.</em>" />
+        <div class="situation-grid">
+          {["Geplanter Verkauf", "Erbschaft", "Trennung", "Beruflicher Umzug", "Altersbedingter Wechsel", "Kapitalanlage"].map((item) => <span data-reveal>{item}</span>)}
         </div>
       </div>
     </section>
 
-    <section class="section section--dark-alt" id="kontakt">
-      <div class="container contact-grid">
-        <div class="contact-copy" data-reveal>
-          <p class="eyebrow">Kontakt</p>
-          <h2>Ein Gespräch bringt schnell <em>Klarheit.</em></h2>
-          <p>Beschreiben Sie kurz Ihr Anliegen. In der Testversion wird das Formular lokal bestätigt und noch nicht versendet.</p>
-          <div class="contact-channels">
-            <a href="tel:+4922116892660"><span>01</span><strong>+49 221 168 926 60</strong><small>Telefonischer Kontakt</small></a>
-            <a href="mailto:info@sayan-immo.de"><span>02</span><strong>info@sayan-immo.de</strong><small>Antwortzeit wird noch bestätigt</small></a>
-            <span><span>03</span><strong>Sternengasse 3 · Köln</strong><small>Termin nach Vereinbarung</small></span>
-          </div>
+    <section class="contact-cta" id="kontakt">
+      <div class="container contact-cta__grid">
+        <div data-reveal><p class="eyebrow">Ihr nächster Schritt</p><h2>Was dürfen wir für Sie <em>einordnen?</em></h2><p>Ein erstes Gespräch ist unverbindlich und bringt schnell Klarheit über die nächsten Schritte.</p></div>
+        <div class="contact-cta__links" data-reveal>
+          <a href="tel:+4922116892660"><small>Telefon</small><strong>+49 221 168 926 60</strong><span>Direkt anrufen →</span></a>
+          <a href="mailto:info@sayan-immo.de"><small>E-Mail</small><strong>info@sayan-immo.de</strong><span>Nachricht schreiben →</span></a>
+          <span><small>Adresse</small><strong>Sternengasse 3</strong><span>50676 Köln</span></span>
         </div>
-        <form class="contact-form" data-local-form novalidate data-reveal>
-          <div class="field"><label for="contact-name">Name</label><input id="contact-name" name="name" autocomplete="name" required /><p class="field-error" data-error="name"></p></div>
-          <div class="field"><label for="contact-email">E-Mail</label><input id="contact-email" name="email" type="email" autocomplete="email" required /><p class="field-error" data-error="email"></p></div>
-          <div class="field"><label for="contact-phone">Telefon</label><input id="contact-phone" name="phone" type="tel" autocomplete="tel" /></div>
-          <div class="field"><label for="contact-topic">Anliegen</label><select id="contact-topic" name="topic"><option>Immobilie verkaufen</option><option>Immobilie kaufen</option><option>Immobilie vermieten</option><option>Sonstiges</option></select></div>
-          <div class="field field--full"><label for="contact-message">Nachricht</label><textarea id="contact-message" name="message" rows="5" required></textarea><p class="field-error" data-error="message"></p></div>
-          <label class="consent-check field--full"><input type="checkbox" name="consent" required /> Ich stimme der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage zu.</label>
-          <div class="field--full"><button class="button" type="submit">Anfrage vorbereiten →</button><p class="micro">Unverbindlich · keine Weitergabe · in der Testversion ohne Versand</p><p class="form-success" data-form-success hidden>Vielen Dank. Der lokale Test wurde erfolgreich abgeschlossen; es wurden keine Daten versendet.</p></div>
-        </form>
       </div>
     </section>
   </main>
   <Footer />
-
-  <script>
-    const tabButtons = document.querySelectorAll<HTMLButtonElement>("[data-tab]");
-    const intentInput = document.querySelector<HTMLInputElement>("[data-intent]");
-    tabButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        tabButtons.forEach((item) => item.setAttribute("aria-selected", String(item === button)));
-        if (intentInput) intentInput.value = button.dataset.tab ?? "verkaufen";
-      });
-    });
-
-    const entryForm = document.querySelector<HTMLFormElement>("[data-entry-form]");
-    const locationInput = document.querySelector<HTMLInputElement>("#entry-location");
-    const error = document.querySelector<HTMLElement>("#entry-error");
-    entryForm?.addEventListener("submit", (event) => {
-      if (!locationInput?.value.trim()) {
-        event.preventDefault();
-        if (error) error.textContent = "Bitte geben Sie eine Adresse oder gewünschte Lage ein.";
-        locationInput?.setAttribute("aria-invalid", "true");
-        locationInput?.focus();
-      }
-    });
-    locationInput?.addEventListener("input", () => {
-      if (locationInput.value.trim()) {
-        if (error) error.textContent = "";
-        locationInput.removeAttribute("aria-invalid");
-      }
-    });
-
-    const dataTabs = document.querySelectorAll<HTMLButtonElement>("[data-dataset]");
-    const tableBodies = document.querySelectorAll<HTMLTableSectionElement>("[data-table-body]");
-    const tableSearch = document.querySelector<HTMLInputElement>("[data-table-search]");
-    const rowCount = document.querySelector<HTMLElement>("[data-row-count]");
-    let activeDataset = "verkauf";
-    const updateTable = () => {
-      const query = tableSearch?.value.trim().toLocaleLowerCase("de") ?? "";
-      let visible = 0;
-      tableBodies.forEach((body) => {
-        const active = body.dataset.tableBody === activeDataset;
-        body.hidden = !active;
-        body.querySelectorAll<HTMLTableRowElement>("tr").forEach((row) => {
-          const matches = !query || Boolean(row.textContent?.toLocaleLowerCase("de").includes(query));
-          row.hidden = !active || !matches;
-          if (active && matches) visible += 1;
-        });
-      });
-      if (rowCount) rowCount.textContent = `${visible} ${visible === 1 ? "Eintrag" : "Einträge"}`;
-    };
-    dataTabs.forEach((button) => button.addEventListener("click", () => {
-      activeDataset = button.dataset.dataset ?? "verkauf";
-      dataTabs.forEach((item) => item.setAttribute("aria-selected", String(item === button)));
-      updateTable();
-    }));
-    tableSearch?.addEventListener("input", updateTable);
-
-    document.querySelectorAll<HTMLButtonElement>("[data-sort]").forEach((button) => {
-      button.addEventListener("click", () => {
-        const column = Number(button.dataset.sort ?? 0);
-        const direction = button.dataset.direction === "asc" ? "desc" : "asc";
-        button.dataset.direction = direction;
-        const body = [...tableBodies].find((item) => item.dataset.tableBody === activeDataset);
-        if (!body) return;
-        [...body.rows]
-          .sort((a, b) => {
-            const left = a.cells[column]?.textContent?.trim() ?? "";
-            const right = b.cells[column]?.textContent?.trim() ?? "";
-            return left.localeCompare(right, "de") * (direction === "asc" ? 1 : -1);
-          })
-          .forEach((row) => body.append(row));
-        document.querySelectorAll<HTMLButtonElement>("[data-sort]").forEach((item) => {
-          const marker = item === button ? (direction === "asc" ? "↑" : "↓") : "↕";
-          item.textContent = `${item.dataset.label ?? "Spalte"} ${marker}`;
-        });
-        updateTable();
-      });
-    });
-
-    document.querySelectorAll<HTMLFormElement>("[data-local-form]").forEach((form) => {
-      form.addEventListener("submit", (event) => {
-        event.preventDefault();
-        let valid = true;
-        form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input[required], textarea[required]").forEach((field) => {
-          const fieldValid = field.type === "checkbox" ? (field as HTMLInputElement).checked : field.validity.valid && Boolean(field.value.trim());
-          field.toggleAttribute("aria-invalid", !fieldValid);
-          const target = form.querySelector<HTMLElement>(`[data-error="${field.name}"]`);
-          if (target) target.textContent = fieldValid ? "" : field.type === "email" ? "Bitte geben Sie eine gültige E-Mail-Adresse ein." : "Bitte füllen Sie dieses Feld aus.";
-          if (!fieldValid && valid) field.focus();
-          valid = valid && fieldValid;
-        });
-        const success = form.querySelector<HTMLElement>("[data-form-success]");
-        if (success) success.hidden = !valid;
-      });
-    });
-  </script>
 </BaseLayout>
 
 <style>
-  .hero { position: relative; min-height: 100svh; display: grid; align-content: end; overflow: hidden; padding-top: 10rem; }
-  .hero-media { position: absolute; inset: 0; background: var(--paper); }
-  .hero-media::before, .hero-media::after { position: absolute; border: 1px solid color-mix(in srgb, var(--brand-700) 18%, transparent); content: ""; }
-  .hero-media::before { inset: 12% 8% 12% 42%; }
-  .hero-media::after { inset: 23% 16% 0 58%; border-bottom: 0; }
-  .hero-media > span { position: absolute; right: 8%; bottom: 18%; color: color-mix(in srgb, var(--brand-900) 46%, transparent); font-size: .64rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
-  .hero-overlay { position: absolute; inset: 0; background: color-mix(in srgb, var(--cream) 38%, transparent); }
-  .hero-grid { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 7fr) minmax(20rem, 5fr); gap: clamp(2rem, 6vw, 6rem); align-items: end; padding-bottom: clamp(4rem, 8vw, 7rem); }
-  .hero-copy { max-width: 48rem; padding-top: 5rem; }
-  .hero-copy h1 { max-width: 10ch; }
-  .hero-lead { max-width: 45ch; margin-top: 1.6rem; color: color-mix(in srgb, var(--ink) 78%, transparent); font-size: clamp(1rem, 1.5vw, 1.15rem); }
-  .hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
-  .hero .button { border-color: var(--ink); background: var(--ink); color: var(--cream); }
-  .hero .button--secondary { background: transparent; color: var(--ink); }
-  .hero-form { padding: clamp(1.35rem, 2.5vw, 2rem); border: 1px solid color-mix(in srgb, var(--cream) 20%, transparent); border-radius: var(--radius-card); background: color-mix(in srgb, var(--brand-900) 94%, transparent); color: var(--cream); box-shadow: var(--shadow-lg); backdrop-filter: blur(18px); }
-  .hero-form__eyebrow { color: var(--accent); font-size: .64rem; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; }
-  .hero-form h2 { margin-top: .75rem; font-size: clamp(2rem, 3vw, 2.65rem); }
-  .mini-proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin-block: 1.4rem; padding-block: 1rem; border-block: 1px solid var(--hairline); }
-  .mini-proof span { display: grid; }
-  .mini-proof small { color: color-mix(in srgb, var(--cream) 52%, transparent); font-size: .57rem; text-transform: uppercase; }
-  .mini-proof strong { font-size: .71rem; }
-  .entry-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: .25rem; margin-bottom: 1rem; padding: .25rem; border: 1px solid var(--hairline); border-radius: var(--radius-pill); }
-  .entry-tabs button { min-height: 2.4rem; border: 0; border-radius: var(--radius-pill); background: transparent; color: var(--cream); cursor: pointer; font-size: .7rem; font-weight: 600; }
-  .entry-tabs button[aria-selected="true"] { background: var(--cream); color: var(--ink); }
-  .hero-form label { display: block; margin-bottom: .45rem; font-size: .67rem; font-weight: 600; }
-  .entry-field { display: grid; grid-template-columns: 1fr 2.8rem; gap: .5rem; }
-  .entry-field input { width: 100%; min-width: 0; min-height: 2.8rem; padding: .7rem .85rem; border: 1px solid color-mix(in srgb, var(--cream) 28%, transparent); border-radius: var(--radius-sm); background: color-mix(in srgb, var(--cream) 8%, transparent); color: var(--cream); }
-  .entry-field input::placeholder { color: color-mix(in srgb, var(--cream) 48%, transparent); }
-  .entry-field input[aria-invalid="true"] { border-color: #f0a79c; }
-  .entry-field button { display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--accent); color: var(--accent-ink); cursor: pointer; font-weight: 600; }
-  .field-error { min-height: 1.3rem; color: #f2b6ad; font-size: .66rem; }
-  .micro { color: color-mix(in srgb, var(--cream) 52%, transparent); font-size: .61rem; }
-  .trust-bar { position: relative; z-index: 2; border-top: 1px solid color-mix(in srgb, var(--ink) 22%, transparent); }
-  .trust-bar__inner { display: grid; grid-template-columns: repeat(4, 1fr); }
-  .trust-bar__inner > span { display: grid; gap: .18rem; padding: 1.15rem 1.5rem; border-left: 1px solid color-mix(in srgb, var(--ink) 22%, transparent); }
-  .trust-bar__inner > span:last-child { border-right: 1px solid color-mix(in srgb, var(--ink) 22%, transparent); }
-  .trust-bar small { color: color-mix(in srgb, var(--ink) 58%, transparent); font-size: .56rem; letter-spacing: .12em; text-transform: uppercase; }
-  .trust-bar strong { font-size: .68rem; font-weight: 600; }
-
-  .about-grid { align-items: center; }
-  .about-media { grid-column: 1 / span 7; aspect-ratio: 7 / 6; }
-  .about-copy { grid-column: 9 / -1; display: grid; gap: 1.2rem; }
-  .about-copy p:not(.eyebrow) { color: var(--ink-muted); }
-  .placeholder-note { max-width: 72ch; margin-top: 1.5rem; color: var(--ink-muted); font-size: .68rem; }
-
-  .technology-grid { align-items: start; }
-  .technology-copy { grid-column: 1 / span 5; max-width: 52ch; color: color-mix(in srgb, var(--cream) 70%, transparent); font-size: 1.08rem; }
-  .technology-stats { grid-column: 7 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-  .partner-strip { margin-top: clamp(4rem, 7vw, 6rem); padding-top: 2rem; border-top: 1px solid var(--hairline); }
-  .marquee { overflow: hidden; }
-  .marquee__track { width: max-content; display: flex; animation: marquee 26s linear infinite; }
-  .marquee span { min-width: 13rem; padding: 1.2rem 2rem; border-right: 1px solid var(--hairline); color: color-mix(in srgb, var(--cream) 62%, transparent); font: 500 .72rem/1 var(--font-body); letter-spacing: .14em; text-align: center; text-transform: uppercase; }
-  @keyframes marquee { to { transform: translateX(-50%); } }
-
-  .featured-project { display: grid; grid-template-columns: minmax(0, 7fr) minmax(20rem, 5fr); overflow: hidden; border-radius: var(--radius-card); background: var(--brand-900); color: var(--cream); box-shadow: var(--shadow-lg); }
-  .featured-project__media { min-height: 34rem; border: 0; }
-  .featured-project__content { display: grid; align-content: center; gap: 1.2rem; padding: clamp(2rem, 5vw, 4rem); }
-  .featured-project__content p:not(.eyebrow) { color: color-mix(in srgb, var(--cream) 66%, transparent); }
-  .mini-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; padding-block: 1.2rem; border-block: 1px solid var(--hairline); }
-  .mini-stats span { display: grid; }
-  .mini-stats small { color: color-mix(in srgb, var(--cream) 48%, transparent); font-size: .55rem; text-transform: uppercase; }
-  .mini-stats strong { font: 500 1.25rem/1 var(--font-display); }
-  .featured-project__content .button { justify-self: start; }
-  .property-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
-  .property-grid--compact { margin-top: 1.5rem; }
-  .property-grid--compact :global(.media-placeholder--property) { aspect-ratio: 16 / 9; }
-
-  .principles-grid { display: grid; }
-  .principle { display: grid; grid-template-columns: minmax(5rem, 2fr) minmax(0, 10fr); gap: 2rem; padding-block: 2rem; border-top: 1px solid color-mix(in srgb, var(--ink) 20%, transparent); }
-  .principle > span { color: color-mix(in srgb, var(--ink) 22%, transparent); font: 500 clamp(3.4rem, 7vw, 6rem)/.8 var(--font-display); }
-  .principle > div { display: grid; grid-template-columns: minmax(15rem, 4fr) minmax(0, 5fr); gap: 2rem; }
-  .principle p { color: color-mix(in srgb, var(--ink) 72%, transparent); }
-  .milestone-cta { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-top: 3rem; padding: 1.6rem; border: 1px solid color-mix(in srgb, var(--ink) 20%, transparent); border-radius: var(--radius-card); }
-  .milestone-cta p { max-width: 52ch; color: color-mix(in srgb, var(--ink) 74%, transparent); }
-  .section--brand .button { border-color: var(--ink); background: var(--ink); color: var(--cream); }
-
-  .market-compare { display: grid; grid-template-columns: minmax(0, 7fr) minmax(20rem, 5fr); gap: 1.5rem; }
-  .market-compare__own { padding: clamp(2rem, 5vw, 4rem); border-radius: var(--radius-card); background: var(--brand-900); color: var(--cream); }
-  .market-compare__own h3 { max-width: 13ch; margin-block: .8rem 2.5rem; font-size: clamp(2rem, 4vw, 3.5rem); }
-  .market-compare ul, .path-card ul { display: grid; list-style: none; }
-  .market-compare li, .path-card li { position: relative; padding: .9rem 0 .9rem 1.8rem; border-top: 1px solid var(--hairline); }
-  .market-compare li::before, .path-card li::before { position: absolute; left: 0; color: var(--accent); content: "✓"; }
-  .market-compare__models { display: grid; gap: 1rem; }
-  .market-compare__models article { padding: 1.6rem; border: 1px solid var(--line-dark); border-radius: var(--radius-card); background: var(--paper); }
-  .market-compare__models span { color: var(--accent-ink); font-size: .65rem; font-weight: 700; }
-  .market-compare__models h3 { margin-block: .5rem; }
-  .market-compare__models p, .neutrality-note { color: var(--ink-muted); }
-  .neutrality-note { margin-top: 1.3rem; font-size: .68rem; }
-  .path-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-  .path-card { position: relative; display: grid; align-content: start; gap: 1.2rem; padding: clamp(1.6rem, 4vw, 3rem); border: 1px solid var(--hairline); border-radius: var(--radius-card); background: var(--brand-700); }
-  .path-card__meta { display: flex; justify-content: space-between; gap: 1rem; color: color-mix(in srgb, var(--cream) 52%, transparent); font-size: .62rem; text-transform: uppercase; }
-  .path-card p { color: color-mix(in srgb, var(--cream) 68%, transparent); }
-  .path-card .button { justify-self: start; }
-  .recommendation { position: absolute; top: -.7rem; right: 1.5rem; padding: .35rem .7rem; border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-ink); font-size: .58rem; font-weight: 700; text-transform: uppercase; }
-  .data-tool { overflow: hidden; border: 1px solid var(--line-dark); border-radius: var(--radius-card); background: var(--paper); }
-  .data-tool__controls { display: flex; align-items: end; justify-content: space-between; gap: 1rem; padding: 1.25rem; border-bottom: 1px solid var(--line-dark); }
-  .data-tabs { display: flex; gap: .25rem; padding: .25rem; border-radius: var(--radius-pill); background: var(--brand-100); }
-  .data-tabs button { padding: .65rem 1.1rem; border: 0; border-radius: var(--radius-pill); background: transparent; cursor: pointer; }
-  .data-tabs button[aria-selected="true"] { background: var(--brand-900); color: var(--cream); }
-  .data-tool label { display: grid; gap: .4rem; font-size: .64rem; font-weight: 700; }
-  .data-tool input { min-height: 2.7rem; padding: .6rem .8rem; border: 1px solid var(--line-dark); border-radius: var(--radius-sm); background: var(--cream); }
-  .table-scroll { overflow-x: auto; }
-  .data-tool table { width: 100%; min-width: 42rem; border-collapse: collapse; }
-  .data-tool th, .data-tool td { padding: 1rem 1.25rem; border-bottom: 1px solid var(--line-dark); text-align: left; }
-  .data-tool th { font-size: .62rem; text-transform: uppercase; }
-  .data-tool th button { padding: 0; border: 0; background: transparent; color: inherit; cursor: pointer; font: inherit; text-transform: inherit; }
-  .data-tool td { color: var(--ink-muted); font-size: .8rem; }
-  .data-tool__footer { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 1.25rem; color: var(--ink-muted); font-size: .62rem; }
-  .process-line { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
-  .process-line::before { position: absolute; top: 1rem; right: 4%; left: 4%; height: 1px; background: var(--line-dark); content: ""; }
-  .process-line article { position: relative; padding-top: 3rem; }
-  .process-line article > span { position: absolute; top: .45rem; display: grid; width: 1.15rem; height: 1.15rem; place-items: center; border-radius: 50%; background: var(--accent); font-size: .48rem; font-weight: 700; }
-  .process-line p { margin-top: .6rem; color: var(--ink-muted); }
-  .security-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-  .security-grid article { min-height: 18rem; padding: 2rem; border: 1px solid color-mix(in srgb, var(--ink) 20%, transparent); border-radius: var(--radius-card); }
-  .security-grid span { font-size: .62rem; font-weight: 700; text-transform: uppercase; }
-  .security-grid h3 { max-width: 15ch; margin-block: 3.5rem 1rem; }
-  .security-grid p { color: color-mix(in srgb, var(--ink) 72%, transparent); }
-  .discretion-grid { align-items: center; }
-  .discretion-copy { grid-column: 1 / span 7; }
-  .discretion-copy p:not(.eyebrow) { max-width: 56ch; margin-top: 1rem; color: color-mix(in srgb, var(--cream) 68%, transparent); }
-  .discretion-copy .button { margin-top: 2rem; }
-  .discretion-number { grid-column: 9 / -1; display: grid; gap: 1rem; padding: 2rem; border-left: 1px solid var(--hairline); }
-  .discretion-number strong { color: var(--accent); font: 500 clamp(6rem, 13vw, 11rem)/.75 var(--font-display); }
-  .discretion-number span { max-width: 20ch; color: color-mix(in srgb, var(--cream) 62%, transparent); }
-  .results-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-  .review-grid, .article-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
-  .review-card { padding: 1.6rem; border: 1px solid var(--line-dark); border-radius: var(--radius-card); background: var(--cream); }
-  .review-stars { color: var(--accent-ink); font-size: .64rem; font-weight: 700; text-transform: uppercase; }
-  .review-card blockquote { min-height: 9rem; margin-block: 1.5rem; font: 500 1.3rem/1.35 var(--font-display); }
-  .review-card > div { display: flex; gap: .8rem; align-items: center; }
-  .review-card > div > span { display: grid; width: 2.4rem; height: 2.4rem; place-items: center; border-radius: 50%; background: var(--brand-100); font-size: .65rem; }
-  .review-card > div p { display: grid; }
-  .article-grid article { display: grid; gap: .8rem; }
-  .article-grid .media-placeholder { aspect-ratio: 16 / 9; }
-  .article-grid small { color: var(--ink-muted); }
-  .contact-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(3rem, 8vw, 8rem); }
-  .contact-copy > p:not(.eyebrow) { margin-top: 1rem; color: color-mix(in srgb, var(--cream) 68%, transparent); }
-  .contact-channels { display: grid; margin-top: 2.5rem; }
-  .contact-channels > * { display: grid; grid-template-columns: 2rem 1fr; column-gap: .5rem; padding-block: 1rem; border-top: 1px solid var(--hairline); color: var(--cream); text-decoration: none; }
-  .contact-channels > * > span { grid-row: span 2; color: var(--accent); font-size: .62rem; }
-  .contact-channels small { color: color-mix(in srgb, var(--cream) 48%, transparent); }
-  .contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; padding: clamp(1.4rem, 4vw, 2.5rem); border-radius: var(--radius-card); background: var(--cream); color: var(--ink); }
-  .field, .contact-form .field--full { display: grid; gap: .4rem; }
-  .contact-form .field--full { grid-column: 1 / -1; }
-  .field label { font-size: .65rem; font-weight: 700; }
-  .field input, .field select, .field textarea { width: 100%; padding: .75rem; border: 1px solid var(--line-dark); border-radius: var(--radius-sm); background: var(--paper); }
-  .field [aria-invalid="true"] { border-color: #a63b2c; }
-  .contact-form .field-error { color: #a63b2c; }
-  .consent-check { display: flex !important; grid-column: 1 / -1 !important; gap: .6rem; align-items: start; font-size: .68rem; }
-  .contact-form .micro { margin-top: .6rem; color: var(--ink-muted); }
-  .form-success { margin-top: 1rem; padding: .9rem; border-left: 3px solid var(--accent); background: var(--brand-100); font-size: .72rem; }
-
-  @media (max-width: 1023px) {
-    .hero { min-height: auto; }
-    .hero-grid { grid-template-columns: 1fr; }
-    .hero-copy { padding-top: 3rem; }
-    .hero-form { max-width: 40rem; }
-    .about-media { grid-column: 1 / span 7; }
-    .about-copy { grid-column: 8 / -1; }
-    .featured-project { grid-template-columns: 1fr; }
-    .featured-project__media { min-height: 26rem; }
-    .principle > div { grid-template-columns: 1fr; gap: .75rem; }
-    .market-compare { grid-template-columns: 1fr; }
-    .process-line { grid-template-columns: 1fr 1fr; }
-    .process-line::before { display: none; }
-    .security-grid { grid-template-columns: 1fr; }
-    .security-grid article { min-height: auto; }
-    .security-grid h3 { margin-top: 2rem; }
-    .discretion-copy { grid-column: 1 / span 7; }
-    .discretion-number { grid-column: 8 / -1; }
-  }
-
-  @media (max-width: 767px) {
-    .hero { padding-top: 6rem; }
-    .hero-grid { padding-bottom: 3.5rem; }
-    .hero-media::before { inset: 10% 6% 42% 20%; }
-    .hero-media::after { inset: 32% 12% 10% 46%; }
-    .trust-bar__inner { grid-template-columns: 1fr 1fr; }
-    .trust-bar__inner > span:nth-child(3) { border-top: 1px solid var(--hairline); }
-    .trust-bar__inner > span:nth-child(4) { border-top: 1px solid var(--hairline); border-right: 1px solid var(--hairline); }
-    .about-media, .about-copy, .technology-copy, .technology-stats { grid-column: 1 / -1; }
-    .about-copy { margin-top: 2rem; }
-    .technology-stats { margin-top: 2.5rem; }
-    .property-grid { grid-template-columns: 1fr; }
-    .property-grid--compact { grid-template-columns: 1fr; }
-    .principle { grid-template-columns: 4rem 1fr; gap: 1rem; }
-    .milestone-cta { display: grid; }
-    .milestone-cta .button { justify-self: start; }
-    .path-grid, .results-stats, .review-grid, .article-grid, .contact-grid { grid-template-columns: 1fr; }
-    .data-tool__controls { align-items: stretch; flex-direction: column; }
-    .process-line { grid-template-columns: 1fr; }
-    .process-line article { padding: 0 0 1.5rem 3rem; border-left: 1px solid var(--line-dark); }
-    .process-line article > span { top: 0; left: -.6rem; }
-    .discretion-copy, .discretion-number { grid-column: 1 / -1; }
-    .discretion-number { margin-top: 3rem; border-top: 1px solid var(--hairline); border-left: 0; }
-    .contact-form { grid-template-columns: 1fr; }
-    .field, .contact-form .field--full { grid-column: 1 / -1; }
-  }
-
-  @media (max-width: 479px) {
-    .hero-grid { gap: 2.5rem; }
-    .hero-form { padding: 1.2rem; }
-    .mini-proof { grid-template-columns: 1fr 1fr; }
-    .mini-proof span:last-child { display: none; }
-    .trust-bar__inner > span { padding: .9rem .75rem; }
-    .technology-stats { grid-template-columns: 1fr; }
-    .featured-project__media { min-height: 18rem; }
-    .mini-stats { grid-template-columns: 1fr; }
-    .principle { grid-template-columns: 1fr; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .marquee__track { width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); animation: none; }
-    .marquee span:nth-child(n+5) { display: none; }
-  }
+  .home-hero{min-height:100svh;display:grid;align-content:end;padding-top:10rem;overflow:hidden;background:var(--accent)}.home-hero__grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(18rem,4fr);gap:clamp(2rem,7vw,7rem);align-items:end;padding-block:clamp(4rem,9vw,8rem)}.home-hero__copy h1{max-width:10ch}.home-hero__lead{max-width:48ch;margin-top:1.6rem;font-size:clamp(1rem,1.5vw,1.2rem)}.home-hero__actions,.inline-actions{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;margin-top:2rem}.button--dark,.home-hero .button{border-color:var(--ink);background:var(--ink);color:var(--cream)}.button--outline{background:transparent!important;color:var(--ink)!important}.hero-statement{display:grid;padding:clamp(1.5rem,3vw,2.5rem);overflow:hidden;border:1px solid color-mix(in srgb,var(--ink) 24%,transparent);background:color-mix(in srgb,var(--paper) 52%,transparent)}.hero-statement__city{margin:-1rem 0 2rem;color:color-mix(in srgb,var(--ink) 10%,transparent);font:600 clamp(4.5rem,9vw,8rem)/1 var(--font-display);letter-spacing:-.08em}.hero-statement div{display:grid;grid-template-columns:1fr 1.4fr;gap:1rem;padding:1rem 0;border-top:1px solid color-mix(in srgb,var(--ink) 20%,transparent)}.hero-statement p{font-size:.66rem;text-transform:uppercase;opacity:.6}.hero-statement strong{font-size:.82rem}.proof-line{border-top:1px solid color-mix(in srgb,var(--ink) 24%,transparent)}.proof-line__inner{display:grid;grid-template-columns:repeat(4,1fr)}.proof-line span{padding:1.2rem 1rem;border-left:1px solid color-mix(in srgb,var(--ink) 24%,transparent);font-size:.7rem;font-weight:600;text-align:center}.proof-line span:last-child{border-right:1px solid color-mix(in srgb,var(--ink) 24%,transparent)}.owner-grid,.valuation-grid,.buyer-grid,.discretion-grid,.contact-cta__grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(3rem,8vw,8rem);align-items:center}.owner-mark{min-height:28rem;display:grid;place-content:center;justify-items:center;background:var(--brand-900);color:var(--cream)}.owner-mark span{color:var(--accent);font:600 clamp(6rem,14vw,11rem)/1 var(--font-display);letter-spacing:-.08em}.owner-mark small{margin-top:1rem;font-size:.65rem;letter-spacing:.16em;text-transform:uppercase}.owner-copy p:not(.eyebrow){max-width:60ch;margin-top:1.2rem;color:var(--ink-muted)}.owner-copy .text-link{margin-top:1.8rem}.service-grid{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line-dark)}.service-card{display:grid;align-content:start;min-height:22rem;padding:2rem;border-right:1px solid var(--line-dark)}.service-card:first-child{border-left:1px solid var(--line-dark)}.service-card>span,.process-grid span{color:var(--accent-ink);font-size:.65rem;font-weight:700}.service-card h3{margin:3rem 0 1rem}.service-card p{color:var(--ink-muted)}.service-card .text-link{margin-top:auto;padding-top:2rem}.process-grid{display:grid;grid-template-columns:repeat(4,1fr);border-block:1px solid var(--hairline)}.process-grid article{min-height:16rem;padding:1.5rem;border-right:1px solid var(--hairline)}.process-grid article:first-child{border-left:1px solid var(--hairline)}.process-grid h3{margin:3rem 0 1rem}.process-grid p,.discretion-grid p{color:color-mix(in srgb,var(--cream) 68%,transparent)}.valuation-grid>div>p:not(.eyebrow),.buyer-grid p{max-width:58ch;margin-top:1.2rem}.valuation-grid .button{margin-top:2rem}.valuation-points{display:grid}.valuation-points span{display:grid;grid-template-columns:3rem 1fr;gap:1rem;padding:1.4rem 0;border-top:1px solid color-mix(in srgb,var(--ink) 22%,transparent)}.valuation-points strong{font-size:.65rem}.buyer-grid{align-items:start}.discretion-grid{align-items:end}.discretion-grid .button{margin-top:2rem}.situation-grid{display:grid;grid-template-columns:repeat(3,1fr)}.situation-grid span{padding:1.6rem;border:1px solid var(--line-dark);margin:-1px 0 0 -1px;font:500 1.2rem/1.2 var(--font-display)}.contact-cta{padding-block:var(--section-space);background:var(--accent)}.contact-cta__grid{align-items:start}.contact-cta__grid>div>p:not(.eyebrow){max-width:50ch;margin-top:1.2rem}.contact-cta__links{display:grid}.contact-cta__links>a,.contact-cta__links>span{display:grid;grid-template-columns:6rem 1fr auto;gap:1rem;align-items:center;padding:1.2rem 0;border-top:1px solid color-mix(in srgb,var(--ink) 24%,transparent)}.contact-cta__links small,.contact-cta__links span span{font-size:.65rem}.contact-cta__links>a>span{font-size:.7rem;font-weight:600}
+  @media(max-width:900px){.proof-line__inner,.process-grid{grid-template-columns:1fr 1fr}.service-grid{grid-template-columns:1fr}.service-card{min-height:auto;border-left:1px solid var(--line-dark);border-bottom:1px solid var(--line-dark)}.situation-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:767px){.home-hero__grid,.owner-grid,.valuation-grid,.buyer-grid,.discretion-grid,.contact-cta__grid{grid-template-columns:1fr}.home-hero__grid{padding-top:2rem}.home-hero{min-height:auto}.owner-mark{min-height:18rem}.proof-line__inner,.process-grid,.situation-grid{grid-template-columns:1fr}.proof-line span{border-right:1px solid color-mix(in srgb,var(--ink) 24%,transparent);border-bottom:1px solid color-mix(in srgb,var(--ink) 24%,transparent)}.contact-cta__links>a,.contact-cta__links>span{grid-template-columns:1fr}.contact-cta__links>a>span{display:none}}
 </style>

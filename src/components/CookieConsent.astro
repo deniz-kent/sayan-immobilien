@@ -1,12 +1,11 @@
 <aside class="consent" data-consent hidden aria-labelledby="consent-title">
   <div>
     <p class="eyebrow">Datenschutz</p>
-    <h2 id="consent-title">Sie entscheiden über externe Inhalte.</h2>
-    <p>In dieser Testversion werden keine Analyse- oder Marketingdienste geladen. Ihre Auswahl wird nur lokal in diesem Browser gespeichert.</p>
+    <h2 id="consent-title">Hinweis zu externen Inhalten.</h2>
+    <p>Diese Website speichert Ihre Bestätigung lokal im Browser. Beim Aufruf der Online-Immobilienbewertung wird ein externer Dienst von BOTTIMMO geladen. Details finden Sie im <a href="/datenschutz/">Datenschutz</a>.</p>
   </div>
   <div class="consent__actions">
-    <button class="button button--secondary" type="button" data-consent-choice="deny">Nur notwendige</button>
-    <button class="button" type="button" data-consent-choice="accept">Alle zulassen</button>
+    <button class="button" type="button" data-consent-choice="acknowledged">Verstanden</button>
   </div>
 </aside>
 
@@ -15,9 +14,10 @@
   .consent:not([hidden]) { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2rem; }
   .consent h2 { max-width: none; font-size: 1.8rem; }
   .consent p:not(.eyebrow) { max-width: 62ch; margin-top: .55rem; color: color-mix(in srgb, var(--cream) 66%, transparent); font-size: .72rem; }
+  .consent p a { text-decoration: underline; text-underline-offset: .2em; }
   .consent__actions { display: flex; gap: .6rem; }
   .consent .button--secondary { color: var(--cream); }
-  @media (max-width: 767px) { .consent:not([hidden]) { grid-template-columns: 1fr; } .consent__actions { display: grid; grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 767px) { .consent:not([hidden]) { grid-template-columns: 1fr; } .consent__actions { display: grid; } }
 </style>
 
 <script>

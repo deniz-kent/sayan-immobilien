@@ -4,7 +4,7 @@ import Logo from "./Logo.astro";
 const columns = [
   { title: "Immobilien", links: ["Kaufen", "Mieten", "Kapitalanlagen"] },
   { title: "Eigentümer", links: ["Verkaufen", "Vermieten", "Bewerten"] },
-  { title: "SAYAN", links: ["Über SAYAN", "Referenzen", "Arbeitsweise"] },
+  { title: "SAYAN", links: ["Über SAYAN", "Ablauf", "Arbeitsweise"] },
   { title: "Service", links: ["Kontakt", "Termin", "Häufige Fragen"] },
 ];
 const liveLinks: Record<string, string> = {
@@ -12,13 +12,13 @@ const liveLinks: Record<string, string> = {
   "Mieten": "/#objekte",
   "Kapitalanlagen": "/#objekte",
   "Verkaufen": "/leistung/",
-  "Vermieten": "/kontakt/#termin",
+  "Vermieten": "/leistung/#vermietung",
   "Bewerten": "/leistung/formular/",
   "Über SAYAN": "/#unternehmen",
-  "Referenzen": "/#referenzen",
-  "Arbeitsweise": "/leistung/",
+  "Ablauf": "/#ablauf",
+  "Arbeitsweise": "/#ablauf",
   "Kontakt": "/kontakt/",
-  "Termin": "/kontakt/#termin",
+  "Termin": "/kontakt/",
   "Häufige Fragen": "/leistung/#faq",
 };
 ---
@@ -40,12 +40,12 @@ const liveLinks: Record<string, string> = {
     ))}
   </div>
   <div class="container footer-legal">
-    <span>© {new Date().getFullYear()} SAYAN Immobilien Köln GmbH</span>
+    <span>© {new Date().getFullYear()} SAYAN Immobilien Köln</span>
     <div>
       <a href="/impressum/">Impressum</a>
       <a href="/datenschutz/">Datenschutz</a>
       <a href="/widerrufsbelehrung/">Widerruf</a>
-      <a href="#cookie-einstellungen" data-open-consent>Cookie-Einstellungen</a>
+      <a href="#datenschutzhinweis" data-open-consent>Datenschutzhinweis</a>
     </div>
   </div>
 </footer>

@@ -8,9 +8,9 @@ const groups = [
       { title: "Angebot", links: ["Immobilien kaufen", "Immobilien mieten", "Kapitalanlagen"] },
       { title: "Service", links: ["Suchauftrag", "Diskrete Angebote", "Finanzierung"] },
     ],
-    promo: "Immobilien in Köln",
+    promo: "Ihr Suchprofil für Köln",
     promoHref: "/#objekte",
-    promoAction: "Auswahl ansehen →",
+    promoAction: "Suche mitteilen →",
   },
   {
     label: "Verkaufen",
@@ -26,7 +26,7 @@ const groups = [
     label: "Unternehmen",
     columns: [
       { title: "SAYAN", links: ["Über SAYAN", "Arbeitsweise", "Seit 2001"] },
-      { title: "Einblicke", links: ["Referenzen", "Partner", "Häufige Fragen"] },
+      { title: "Einblicke", links: ["Leistungen", "Kontakt", "Häufige Fragen"] },
     ],
     promo: "Persönlich geführt. Regional verankert.",
     promoHref: "/#unternehmen",
@@ -37,20 +37,20 @@ const liveLinks: Record<string, string> = {
   "Immobilien kaufen": "/#objekte",
   "Immobilien mieten": "/#objekte",
   "Kapitalanlagen": "/#objekte",
-  "Suchauftrag": "/kontakt/#termin",
+  "Suchauftrag": "/kontakt/",
   "Diskrete Angebote": "/#diskretion",
-  "Finanzierung": "/kontakt/#termin",
+  "Finanzierung": "/kontakt/",
   "Immobilie verkaufen": "/leistung/",
-  "Immobilie vermieten": "/kontakt/#termin",
+  "Immobilie vermieten": "/leistung/#vermietung",
   "Diskret vermarkten": "/#diskretion",
   "Wertermittlung": "/leistung/formular/",
-  "Vermarktung": "/leistung/",
-  "Übergabe": "/leistung/",
+  "Vermarktung": "/leistung/#ablauf",
+  "Übergabe": "/leistung/#ablauf",
   "Über SAYAN": "/#unternehmen",
-  "Arbeitsweise": "/leistung/",
+  "Arbeitsweise": "/#ablauf",
   "Seit 2001": "/#unternehmen",
-  "Referenzen": "/#referenzen",
-  "Partner": "/#partner",
+  "Leistungen": "/#leistungen",
+  "Kontakt": "/kontakt/",
   "Häufige Fragen": "/leistung/#faq",
 };
 ---
@@ -62,7 +62,7 @@ const liveLinks: Record<string, string> = {
         <a href="tel:+4922116892660">0221 / 168 926 60</a>
         <span>Sternengasse 3 · 50676 Köln</span>
       </div>
-      <a href="/kontakt/#termin">Termin vereinbaren →</a>
+      <a href="/kontakt/">Termin vereinbaren →</a>
     </div>
   </div>
 
@@ -96,10 +96,10 @@ const liveLinks: Record<string, string> = {
             </div>
           </div>
         ))}
-        <a href="/#magazin">Magazin</a>
+        <a href="/kontakt/">Kontakt</a>
       </nav>
 
-      <a class="button button--small nav-cta" href="/kontakt/#termin">Termin vereinbaren →</a>
+      <a class="button button--small nav-cta" href="/kontakt/">Termin vereinbaren →</a>
       <button class="menu-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
         <span></span><span></span>
       </button>
@@ -118,10 +118,10 @@ const liveLinks: Record<string, string> = {
           {group.columns.flatMap((column) => column.links).map((link) => <a href={liveLinks[link]}>{link}</a>)}
         </details>
       ))}
-      <a href="/#magazin">Magazin</a>
+      <a href="/kontakt/">Kontakt</a>
     </div>
     <div class="mobile-menu__footer">
-      <a class="button" href="/kontakt/#termin">Termin vereinbaren →</a>
+      <a class="button" href="/kontakt/">Termin vereinbaren →</a>
       <a href="tel:+4922116892660">0221 / 168 926 60</a>
     </div>
   </div>
