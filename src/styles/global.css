@@ -1,15 +1,47 @@
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/Archivo-Regular.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/Archivo-Medium.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/Archivo-SemiBold.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/Archivo-Bold.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 700;
+}
+
 :root {
-  --brand-900: #1f2923;
-  --brand-800: #19221d;
-  --brand-700: #314037;
-  --brand-100: #f1f6d4;
-  --cream: #f3f0e8;
-  --paper: #f8f6f0;
-  --ink: #20231f;
-  --ink-muted: #6a6e67;
-  --accent: #aecb06;
-  --accent-ink: #17200f;
-  --ok: #71850b;
+  --brand-900: #333b3e;
+  --brand-800: #2b3235;
+  --brand-700: #54544f;
+  --brand-100: #f0f4d3;
+  --cream: #f4f4f2;
+  --paper: #ffffff;
+  --ink: #333b3e;
+  --ink-muted: #54544f;
+  --accent: #adca06;
+  --accent-ink: #333b3e;
+  --ok: #768a05;
   --warn: #9a564a;
   --hairline: color-mix(in srgb, var(--cream) 18%, transparent);
   --line-dark: color-mix(in srgb, var(--ink) 16%, transparent);
@@ -21,8 +53,8 @@
   --radius-sm: 4px;
   --radius-card: 12px;
   --radius-pill: 999px;
-  --font-display: "Cormorant Garamond", Georgia, serif;
-  --font-body: "Manrope", Arial, sans-serif;
+  --font-display: "Archivo", Arial, sans-serif;
+  --font-body: "Archivo", Arial, sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -49,11 +81,11 @@ address { font-style: normal; }
 .section--brand em, .page-hero em, .wide-cta em { color: var(--ink); }
 .grid-12 { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 1.5rem; }
 
-h1, h2, h3 { font-family: var(--font-display); font-weight: 500; letter-spacing: -.02em; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: -.035em; }
 h1 { font-size: clamp(3.25rem, 7vw, 5.8rem); line-height: .94; }
 h2 { max-width: 16ch; font-size: clamp(2.6rem, 4.6vw, 4rem); line-height: 1.02; }
 h3 { font-size: clamp(1.45rem, 2.2vw, 1.9rem); line-height: 1.12; }
-em { color: var(--accent); font-weight: 500; }
+em { color: var(--accent); font-style: normal; font-weight: 600; }
 .eyebrow { margin-bottom: 1rem; font-size: .72rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; opacity: .66; }
 .section-head { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: clamp(3rem, 6vw, 5rem); }
 .section-lead { max-width: 62ch; margin-top: 1.3rem; color: var(--ink-muted); font-size: clamp(1rem, 1.4vw, 1.1rem); }
@@ -123,12 +155,6 @@ em { color: var(--accent); font-weight: 500; }
 .media-placeholder--portrait { aspect-ratio: 4 / 5; }
 .media-placeholder--property { aspect-ratio: 4 / 3; }
 
-.person-card { min-width: 0; background: var(--paper); border-radius: var(--radius-card); overflow: hidden; box-shadow: var(--shadow-sm); }
-.person-card__body { display: grid; align-items: start; gap: .65rem; padding: 1.4rem; }
-.person-card__body > p:not(.person-role) { color: var(--ink-muted); font-size: .82rem; }
-.person-role { font-size: .68rem; font-weight: 600; letter-spacing: .11em; text-transform: uppercase; }
-.person-proof { font-size: .72rem; }
-.signature-placeholder { display: block; min-height: 3.3rem; padding-top: 1rem; border-bottom: 1px solid var(--line-dark); color: var(--ink-muted); font: italic 500 1.05rem/1 var(--font-display); }
 .stat-block { display: grid; align-content: start; gap: .2rem; padding-top: 1.25rem; border-top: 1px solid currentColor; }
 .stat-block strong { color: var(--accent); font: 500 clamp(2.8rem, 5vw, 4.6rem)/.92 var(--font-display); font-variant-numeric: tabular-nums; }
 .stat-block span { max-width: 24ch; font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
@@ -174,6 +200,7 @@ em { color: var(--accent); font-weight: 500; }
 .placeholder-box { display: grid; min-height: 18rem; place-items: center; padding: 2rem; border: 1px solid currentColor; border-radius: var(--radius-card); background: color-mix(in srgb, currentColor 5%, transparent); font-size: .66rem; font-weight: 700; letter-spacing: .15em; text-align: center; text-transform: uppercase; }
 
 @media (max-width: 767px) {
+  h1 { font-size: clamp(2.25rem, 10.5vw, 3rem); }
   .content-grid { grid-template-columns: 1fr; }
 }
 
@@ -197,7 +224,7 @@ em { color: var(--accent); font-weight: 500; }
 }
 
 @media (max-width: 479px) {
-  h1 { font-size: clamp(3rem, 16vw, 4.2rem); }
+  h1 { font-size: clamp(2.25rem, 10.5vw, 3rem); }
   h2 { font-size: clamp(2.45rem, 13vw, 3.2rem); }
   .footer-grid { grid-template-columns: 1fr; }
 }

@@ -13,8 +13,6 @@
     "portable": "node scripts/make-portable-preview.mjs"
   },
   "dependencies": {
-    "@fontsource/cormorant-garamond": "^5.2.8",
-    "@fontsource/manrope": "^5.2.8",
     "astro": "^5.13.5",
     "zod": "^3.25.76"
   },
