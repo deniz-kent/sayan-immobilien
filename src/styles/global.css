@@ -87,6 +87,7 @@ h3 { font-size: clamp(1.45rem, 2.2vw, 1.9rem); line-height: 1.12; }
 em { color: var(--accent); font-style: normal; font-weight: 600; }
 .eyebrow { margin-bottom: 1rem; font-size: .72rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; opacity: .66; }
 .section-head { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: clamp(3rem, 6vw, 5rem); }
+.section-head > div { min-width: 0; }
 .section-lead { max-width: 62ch; margin-top: 1.3rem; color: var(--ink-muted); font-size: clamp(1rem, 1.4vw, 1.1rem); }
 .section--dark .section-lead, .section--dark-alt .section-lead { color: color-mix(in srgb, var(--cream) 68%, transparent); }
 
@@ -161,6 +162,9 @@ em { color: var(--accent); font-style: normal; font-weight: 600; }
 .content-card > span { color: var(--accent-ink); font-size: .62rem; font-weight: 700; text-transform: uppercase; }
 .content-card h3 { margin-block: 1rem; }
 .content-card p { color: var(--ink-muted); }
+.widget-card { padding: clamp(1.5rem, 3vw, 2.5rem); border: 1px solid var(--line-dark); border-radius: var(--radius-card); background: var(--paper); box-shadow: var(--shadow-lg); }
+.widget-card__head { max-width: 52ch; margin-bottom: 1.5rem; }
+.widget-card btm-widget { display: block; width: 100%; }
 .check-list { display: grid; list-style: none; }
 .check-list li { position: relative; padding: .9rem 0 .9rem 1.8rem; border-top: 1px solid currentColor; }
 .check-list li::before { position: absolute; left: 0; color: var(--accent); content: "✓"; }
@@ -193,6 +197,7 @@ em { color: var(--accent); font-style: normal; font-weight: 600; }
   :root { --gutter: 1.25rem; --section-space: 5rem; }
   .grid-12 { gap: 1rem; }
   .section-head { display: grid; align-items: start; }
+  h2 { overflow-wrap: anywhere; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-brand { grid-column: 1 / -1; grid-row: auto; margin-bottom: 1.5rem; }
   .footer-legal { display: grid; }
@@ -200,7 +205,7 @@ em { color: var(--accent); font-style: normal; font-weight: 600; }
 
 @media (max-width: 479px) {
   h1 { font-size: clamp(2.25rem, 10.5vw, 3rem); }
-  h2 { font-size: clamp(2.45rem, 13vw, 3.2rem); }
+  h2 { font-size: clamp(2.1rem, 9vw, 2.6rem); }
   .footer-grid { grid-template-columns: 1fr; }
 }
 
