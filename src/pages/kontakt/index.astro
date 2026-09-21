@@ -12,13 +12,37 @@ import SectionHeader from "../../components/SectionHeader.astro";
     <section class="section section--light" id="termin"><div class="container contact-grid"><div><SectionHeader eyebrow="Direkter Kontakt" title="Sie erreichen Candan Sayan <em>persönlich.</em>" lead="Für Verkauf, Vermietung, Immobiliensuche oder eine erste Einschätzung." /><div class="contact-actions"><a href="tel:+4922116892660"><small>Telefon</small><strong>+49 221 168 926 60</strong><span>Jetzt anrufen →</span></a><a href="mailto:info@sayan-immo.de"><small>Email</small><strong>info@sayan-immo.de</strong><span>Nachricht schreiben →</span></a></div></div><aside class="address-card"><p class="eyebrow">Büro in Köln</p><h2>Sternengasse 3.</h2><address>50676 Köln<br />Deutschland</address><dl><div><dt>Bürozeiten</dt><dd>Montag bis Freitag<br />9:30 bis 18:00 Uhr</dd></div><div><dt>Wochenende</dt><dd>Nach Vereinbarung</dd></div><div><dt>Telefax</dt><dd>+49 221 168 926 61</dd></div></dl></aside></div></section>
     <section class="section section--paper" id="rueckruf"><div class="container"><div class="widget-card"><div class="widget-card__head"><p class="eyebrow">Rückruf anfordern</p><h2>Wir rufen Sie <em>zurück.</em></h2></div><btm-widget widget="return-call"></btm-widget></div></div></section>
     <section class="section section--light"><div class="container"><SectionHeader eyebrow="Worum geht es?" title="Der passende Einstieg für Ihr <em>Anliegen.</em>" /><div class="topic-grid"><article><span>01</span><h3>Immobilie verkaufen.</h3><p>Sie möchten Wert, Vorgehen und möglichen Zeitrahmen einordnen.</p><a class="text-link" href="/leistung/formular/">Bewertung starten →</a></article><article><span>02</span><h3>Immobilie vermieten.</h3><p>Sie suchen Unterstützung bei Positionierung, Auswahl und Übergabe.</p><a class="text-link" href="mailto:info@sayan-immo.de?subject=Vermietungsanfrage">Vermietung anfragen →</a></article><article><span>03</span><h3>Immobilie suchen.</h3><p>Sie möchten Ihr Suchprofil für öffentliche und diskrete Angebote hinterlegen.</p><a class="text-link" href="mailto:info@sayan-immo.de?subject=Suchprofil">Suchprofil senden →</a></article></div></div></section>
-    <section class="contact-end"><div class="container"><p class="eyebrow">Unverbindlich kennenlernen</p><h2>Ein kurzer Anruf schafft oft schon <em>Klarheit.</em></h2><a class="button button--dark" href="tel:+4922116892660">0221 / 168 926 60 anrufen →</a></div></section>
+    <section class="contact-end"><div class="container"><p class="eyebrow">Unverbindlich kennenlernen</p><h2>Ein kurzer Anruf schafft oft schon <em>Klarheit.</em></h2><a class="button button--dark" href="tel:+4922116892660">0221 / 168 926 60 anrufen</a></div></section>
   </main>
   <Footer />
   <script is:inline src="https://components.bottimmo.com/components/6a9a8e5ddd651d6512580de2/btm-widget/de-DE" defer></script>
 </BaseLayout>
 
 <style>
-  .contact-grid{display:grid;grid-template-columns:7fr 5fr;gap:clamp(3rem,8vw,8rem);align-items:center}.contact-actions{display:grid;margin-top:2rem}.contact-actions a{display:grid;grid-template-columns:5rem 1fr auto;gap:1rem;align-items:center;padding:1.25rem 0;border-top:1px solid var(--line-dark)}.contact-actions small,.contact-actions span{font-size:.67rem}.contact-actions strong{font:500 clamp(1rem,2vw,1.35rem)/1.2 var(--font-display)}.address-card{padding:clamp(1.5rem,4vw,3rem);background:var(--brand-900);color:var(--cream)}.address-card h2{font-size:clamp(2.2rem,4vw,3.4rem)}.address-card address{margin:1rem 0 3rem;color:color-mix(in srgb,var(--cream) 72%,transparent)}.address-card dl{margin:0}.address-card dl div{display:grid;grid-template-columns:1fr 1fr;gap:1rem;padding:1rem 0;border-top:1px solid var(--hairline)}.address-card dt{font-size:.62rem;text-transform:uppercase;opacity:.6}.address-card dd{margin:0;font-size:.78rem}.topic-grid{display:grid;grid-template-columns:repeat(3,1fr)}.topic-grid article{display:grid;min-height:19rem;padding:2rem;border:1px solid var(--line-dark);margin-left:-1px}.topic-grid article>span{font-size:.62rem;font-weight:700}.topic-grid h3{margin:2.5rem 0 1rem}.topic-grid p{color:var(--ink-muted)}.topic-grid .text-link{margin-top:auto;padding-top:2rem}.contact-end{padding-block:var(--section-space);background:var(--paper);text-align:center}.contact-end h2{margin:0 auto 2rem}.button--dark{border-color:var(--ink);background:var(--ink);color:var(--cream)}
-  @media(max-width:767px){.contact-grid,.topic-grid{grid-template-columns:1fr}.contact-actions a{grid-template-columns:1fr}.contact-actions a span{display:none}.topic-grid article{min-height:auto}}
+  .contact-grid { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(3rem, 8vw, 8rem); align-items: center; }
+  .contact-actions { display: grid; margin-top: 2rem; }
+  .contact-actions a { display: grid; grid-template-columns: 5rem 1fr auto; gap: 1rem; align-items: center; padding: 1.4rem 0; border-top: 1px solid var(--n-border); }
+  .contact-actions small, .contact-actions span { font-size: .8rem; color: var(--n-text-secondary); }
+  .contact-actions strong { font: 400 clamp(1.25rem, 2vw, 1.6rem)/1.2 var(--font-display); }
+  .address-card { padding: clamp(2rem, 4vw, 3rem); border-radius: var(--radius-card); background: var(--brand-900); color: #fff; }
+  .address-card h2 { font-size: clamp(2.2rem, 4vw, 3.4rem); }
+  .address-card address { margin: 1rem 0 3rem; color: color-mix(in srgb, #fff 75%, transparent); }
+  .address-card dl { margin: 0; }
+  .address-card dl div { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding: 1rem 0; border-top: 1px solid color-mix(in srgb, #fff 16%, transparent); }
+  .address-card dt { font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; opacity: .7; }
+  .address-card dd { margin: 0; font-size: .9rem; }
+  .topic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+  .topic-grid article { display: grid; min-height: 19rem; padding: 2.5rem; border-radius: var(--radius-card); background: var(--n-surface); }
+  .topic-grid article > span { color: var(--n-text-secondary); font-size: .78rem; font-weight: 700; }
+  .topic-grid h3 { margin: 2.5rem 0 1rem; text-transform: none; }
+  .topic-grid p { color: var(--n-text-secondary); }
+  .topic-grid .text-link { margin-top: auto; padding-top: 2rem; }
+  .contact-end { padding-block: var(--section-space); background: var(--n-surface); text-align: center; }
+  .contact-end h2 { margin: 0 auto 2rem; }
+  @media (max-width: 767px) {
+    .contact-grid, .topic-grid { grid-template-columns: 1fr; }
+    .contact-actions a { grid-template-columns: 1fr; }
+    .contact-actions a span { display: none; }
+    .topic-grid article { min-height: auto; }
+  }
 </style>

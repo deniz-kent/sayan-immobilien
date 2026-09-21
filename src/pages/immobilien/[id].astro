@@ -99,7 +99,7 @@ const typeLabel = property.type === "kaufen" ? "Kaufen" : "Mieten";
               <a href="tel:+4922116892660">0221 / 168 926 60</a>
               <a href="mailto:info@sayan-immo.de">info@sayan-immo.de</a>
             </div>
-            <a class="button" href="/kontakt/">Unverbindlich anfragen →</a>
+            <a class="button" href="/kontakt/">Unverbindlich anfragen</a>
           </div>
         </aside>
       </div>
@@ -111,8 +111,8 @@ const typeLabel = property.type === "kaufen" ? "Kaufen" : "Mieten";
         <h2>Sprechen Sie uns <em>direkt an.</em></h2>
         <p>Ein kurzer Anruf oder eine Nachricht genügt. Wir melden uns, sobald das Objekt vollständig online ist.</p>
         <div class="cta-actions">
-          <a class="button" href="/kontakt/">Kontakt aufnehmen →</a>
-          <a class="button button--outline" href="/immobilien/">Weitere Objekte ansehen →</a>
+          <a class="button" href="/kontakt/">Kontakt aufnehmen</a>
+          <a class="button button--outline" href="/immobilien/">Weitere Objekte ansehen</a>
         </div>
       </div>
     </section>
@@ -124,24 +124,24 @@ const typeLabel = property.type === "kaufen" ? "Kaufen" : "Mieten";
   .expose-hero__price { display: inline-block; margin-top: 1.5rem; padding: .6rem 1.2rem; border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: .85rem; }
   .expose-layout { display: grid; grid-template-columns: minmax(0, 7fr) minmax(18rem, 4fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
   .expose-gallery { display: grid; gap: .75rem; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
-  .expose-gallery__main { display: grid; place-items: center; height: 20rem; border-radius: var(--radius-card); background: var(--cream); color: var(--accent); }
+  .expose-gallery__main { display: grid; place-items: center; height: 20rem; border-radius: var(--radius-media); background: var(--n-surface); color: var(--accent); }
   .expose-gallery__thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; }
-  .expose-gallery__thumbs span { height: 4.5rem; border-radius: var(--radius-sm); background: var(--cream); }
-  .expose-main h2 { margin: clamp(2rem, 4vw, 2.75rem) 0 1rem; font-size: 1.5rem; }
+  .expose-gallery__thumbs span { height: 4.5rem; border-radius: var(--radius-field); background: var(--n-surface); }
+  .expose-main h2 { margin: clamp(2rem, 4vw, 2.75rem) 0 1rem; text-transform: none; font-size: 1.5rem; font-weight: 600; letter-spacing: 0; max-width: none; }
   .expose-main h2:first-of-type { margin-top: 0; }
-  .expose-facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border-top: 1px solid var(--line-dark); }
-  .expose-facts div { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding: .9rem 0; border-bottom: 1px solid var(--line-dark); }
-  .expose-facts dt { color: var(--ink-muted); font-size: .82rem; }
-  .expose-facts dd { margin: 0; font-weight: 600; font-size: .85rem; }
-  .expose-copy { max-width: 68ch; color: var(--ink-muted); }
+  .expose-facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border-top: 1px solid var(--n-border); }
+  .expose-facts div { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding: .9rem 0; border-bottom: 1px solid var(--n-border); }
+  .expose-facts dt { color: var(--n-text-secondary); font-size: .85rem; }
+  .expose-facts dd { margin: 0; font-weight: 600; font-size: .88rem; }
+  .expose-copy { max-width: 68ch; color: var(--n-text-secondary); }
   .expose-aside { position: sticky; top: 7rem; }
-  .expose-contact { padding: clamp(1.5rem, 3vw, 2rem); border: 1px solid var(--line-dark); border-radius: var(--radius-card); background: var(--paper); box-shadow: var(--shadow-lg); }
+  .expose-contact { padding: clamp(1.75rem, 3vw, 2.25rem); border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; }
   .expose-contact h3 { margin-top: .3rem; font-size: 1.5rem; }
-  .expose-contact__role { margin: .3rem 0 1.2rem; color: var(--ink-muted); font-size: .85rem; }
-  .expose-contact__links { display: grid; gap: .5rem; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line-dark); font-size: .85rem; font-weight: 600; }
-  .expose-contact .button { width: 100%; }
+  .expose-contact__role { margin: .3rem 0 1.2rem; color: var(--n-text-secondary); font-size: .9rem; }
+  .expose-contact__links { display: grid; gap: .5rem; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--n-border); font-size: .9rem; font-weight: 600; }
+  .expose-contact .button { width: 100%; justify-content: center; }
   .cta-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
-  .wide-cta .button--outline { border-color: var(--ink); background: transparent; color: var(--ink); }
+  .wide-cta .button--outline { border-color: var(--n-border); background: transparent; color: var(--n-text); }
 
   @media (max-width: 900px) {
     .expose-layout { grid-template-columns: 1fr; }

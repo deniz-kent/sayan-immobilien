@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import PropertyCard from "../../components/PropertyCard.astro";
 import { properties } from "../../data/properties";
 ---
 
@@ -22,7 +23,7 @@ import { properties } from "../../data/properties";
           ohne öffentliche Vermarktung. Teilen Sie uns dafür gern Ihr Suchprofil mit.
         </p>
         <div class="page-hero__actions">
-          <a class="button" href="/kontakt/">Suchprofil mitteilen →</a>
+          <a class="button" href="/kontakt/">Suchprofil mitteilen</a>
           <a class="text-link" href="/leistung/formular/">Immobilie bewerten →</a>
         </div>
       </div>
@@ -36,27 +37,11 @@ import { properties } from "../../data/properties";
           <button type="button" data-filter="mieten">Mieten</button>
         </div>
 
-        <div class="property-grid">
+        <div class="property-grid" data-reveal-group>
           {properties.map((property, index) => (
-            <article class="property-card" data-type={property.type}>
-              <div class="property-card__media" aria-hidden="true">
-                <svg viewBox="0 0 64 64" width="28" height="28">
-                  <path d="M6 34 L32 12 L58 34" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="miter" />
-                  <rect x="16" y="46" width="32" height="6" fill="currentColor" />
-                </svg>
-              </div>
-              <div class="property-card__body">
-                <span class="property-card__badge">{property.type === "kaufen" ? "Kaufen" : "Mieten"}</span>
-                <h3>{property.category} {String(index + 1).padStart(2, "0")}.</h3>
-                <p class="property-card__meta">Köln · Objektdaten folgen in Kürze</p>
-                <dl class="property-card__facts">
-                  <div><dt>Zimmer</dt><dd>—</dd></div>
-                  <div><dt>Wohnfläche</dt><dd>—</dd></div>
-                  <div><dt>Preis</dt><dd>Auf Anfrage</dd></div>
-                </dl>
-                <a class="text-link" href={`/immobilien/${property.id}/`}>Details ansehen →</a>
-              </div>
-            </article>
+            <div data-type={property.type} data-reveal style={`--stagger:${index}`}>
+              <PropertyCard property={property} label={String(index + 1).padStart(2, "0")} />
+            </div>
           ))}
         </div>
 
@@ -73,8 +58,8 @@ import { properties } from "../../data/properties";
         <h2>Sollen wir Sie <em>informieren?</em></h2>
         <p>Hinterlegen Sie Lage, Größe und Nutzung. Wir gleichen Ihr Profil mit passenden öffentlichen und diskreten Angeboten ab.</p>
         <div class="cta-actions">
-          <a class="button" href="/kontakt/">Suchprofil mitteilen →</a>
-          <a class="button button--outline" href="tel:+4922116892660">0221 / 168 926 60 →</a>
+          <a class="button" href="/kontakt/">Suchprofil mitteilen</a>
+          <a class="button button--outline" href="tel:+4922116892660">0221 / 168 926 60</a>
         </div>
       </div>
     </section>
@@ -83,7 +68,7 @@ import { properties } from "../../data/properties";
 
   <script>
     const buttons = document.querySelectorAll<HTMLButtonElement>(".property-filter button");
-    const cards = document.querySelectorAll<HTMLElement>(".property-card");
+    const cards = document.querySelectorAll<HTMLElement>(".property-grid > [data-type]");
 
     function applyFilter(filter: string) {
       buttons.forEach((b) => b.classList.toggle("is-active", b.dataset.filter === filter));
@@ -105,27 +90,9 @@ import { properties } from "../../data/properties";
 
 <style>
   .property-filter { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
-  .property-filter button { padding: .6rem 1.2rem; border: 1px solid var(--line-dark); border-radius: var(--radius-pill); background: transparent; color: var(--ink-muted); font-size: .78rem; font-weight: 600; cursor: pointer; transition: background 120ms ease, color 120ms ease, border-color 120ms ease; }
-  .property-filter button.is-active { border-color: var(--ink); background: var(--ink); color: var(--cream); }
-  .property-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-  .property-card { display: grid; align-content: start; border: 1px solid var(--line-dark); border-radius: var(--radius-card); overflow: hidden; background: var(--paper); }
-  .property-card__media { display: grid; place-items: center; height: 9rem; background: var(--cream); color: var(--accent); }
-  .property-card__body { display: grid; align-content: start; gap: .5rem; padding: 1.5rem; }
-  .property-card__badge { justify-self: start; padding: .3rem .7rem; border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-ink); font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
-  .property-card h3 { margin-top: .3rem; font-size: 1.3rem; }
-  .property-card__meta { color: var(--ink-muted); font-size: .78rem; }
-  .property-card__facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; margin: .5rem 0; padding-top: .8rem; border-top: 1px solid var(--line-dark); }
-  .property-card__facts dt { font-size: .6rem; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-muted); }
-  .property-card__facts dd { margin: .2rem 0 0; font-size: .8rem; font-weight: 600; }
-  .property-card .text-link { margin-top: .5rem; }
-  .property-note { max-width: 60ch; margin-top: clamp(2.5rem, 5vw, 3.5rem); color: var(--ink-muted); }
+  .property-filter button { padding: .7rem 1.4rem; border: 1px solid var(--n-border); border-radius: var(--radius-pill); background: transparent; color: var(--n-text-secondary); font-size: .9rem; font-weight: 500; cursor: pointer; transition: background var(--motion-hover) ease, color var(--motion-hover) ease, border-color var(--motion-hover) ease; }
+  .property-filter button.is-active { border-color: var(--brand-900); background: var(--brand-900); color: #fff; }
+  .property-note { max-width: 60ch; margin-top: clamp(2.5rem, 5vw, 3.5rem); color: var(--n-text-secondary); }
   .cta-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
-  .wide-cta .button--outline { border-color: var(--ink); background: transparent; color: var(--ink); }
-
-  @media (max-width: 900px) {
-    .property-grid { grid-template-columns: 1fr 1fr; }
-  }
-  @media (max-width: 600px) {
-    .property-grid { grid-template-columns: 1fr; }
-  }
+  .wide-cta .button--outline { border-color: var(--n-border); background: transparent; color: var(--n-text); }
 </style>

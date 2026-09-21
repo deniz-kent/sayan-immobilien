@@ -8,9 +8,9 @@ const columns = [
   { title: "Service", links: ["Kontakt", "Termin", "Häufige Fragen"] },
 ];
 const liveLinks: Record<string, string> = {
-  "Kaufen": "/#objekte",
-  "Mieten": "/#objekte",
-  "Kapitalanlagen": "/#objekte",
+  "Kaufen": "/immobilien/?typ=kaufen",
+  "Mieten": "/immobilien/?typ=mieten",
+  "Kapitalanlagen": "/immobilien/",
   "Verkaufen": "/leistung/",
   "Vermieten": "/leistung/#vermietung",
   "Bewerten": "/leistung/formular/",
@@ -23,6 +23,8 @@ const liveLinks: Record<string, string> = {
 };
 ---
 
+<!-- TODO: sobald echtes Bildmaterial vorliegt, hier per astro:assets ein Bild einsetzen statt des Verlaufs. -->
+<div class="footer-band" aria-hidden="true"></div>
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-brand">

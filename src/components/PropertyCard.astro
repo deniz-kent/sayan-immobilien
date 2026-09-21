@@ -1,0 +1,29 @@
+---
+import type { PlaceholderProperty } from "../data/properties";
+
+interface Props {
+  property: PlaceholderProperty;
+  label: string;
+}
+
+const { property, label } = Astro.props;
+---
+
+<article class="property-card" data-type={property.type}>
+  <a class="property-card__media" href={`/immobilien/${property.id}/`} aria-hidden="true" tabindex="-1">
+    <span class="property-card__tag">{property.type === "kaufen" ? "Kaufen" : "Mieten"}</span>
+    <svg viewBox="0 0 64 64" width="30" height="30">
+      <path d="M6 34 L32 12 L58 34" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="miter" />
+      <rect x="16" y="46" width="32" height="6" fill="currentColor" />
+    </svg>
+  </a>
+  <div class="property-card__body">
+    <p class="property-card__location"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.5-7-11a7 7 0 1 1 14 0c0 5.5-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg> Köln</p>
+    <div class="property-card__row"><h3>{property.category} {label}.</h3><span class="property-card__price">Auf Anfrage</span></div>
+    <dl class="property-card__facts">
+      <div><dt>Zimmer</dt><dd>—</dd></div>
+      <div><dt>Wohnfläche</dt><dd>—</dd></div>
+    </dl>
+    <a class="text-link" href={`/immobilien/${property.id}/`}>Details ansehen →</a>
+  </div>
+</article>
