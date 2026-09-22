@@ -185,7 +185,8 @@ p { max-width: 60ch; }
 .mobile-menu__footer .button { justify-content: center; }
 
 /* Footer */
-.footer-band { height: 60vh; min-height: 22rem; background: linear-gradient(135deg, var(--brand-900), var(--brand-800)); }
+.footer-band { position: relative; height: 60vh; min-height: 22rem; overflow: hidden; background: linear-gradient(135deg, var(--brand-900), var(--brand-800)); }
+.footer-band img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .site-footer { padding-top: clamp(4rem, 7vw, 6rem); background: var(--n-dark); color: #fff; }
 .footer-grid { display: grid; grid-template-columns: 1.8fr repeat(4, 1fr); gap: 2rem; padding-bottom: 4rem; }
 .footer-brand { display: grid; align-content: start; justify-items: start; gap: .65rem; }
