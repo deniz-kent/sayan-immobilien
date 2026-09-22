@@ -50,29 +50,23 @@ const process = [
   <Header />
   <main id="main">
     <section class="home-hero">
-      <div class="container home-hero__grid">
-        <div class="home-hero__copy" data-reveal>
-          <p class="eyebrow">Immobilienvermittlung · Köln</p>
-          <h1>Ihre Immobilie verdient eine klare <em>Entscheidung.</em></h1>
-          <p class="home-hero__lead">
-            Ob Verkauf, Vermietung oder Suche: Candan Sayan begleitet Sie persönlich, verbindlich und mit
-            Erfahrung seit 2001.
-          </p>
-          <div class="home-hero__actions">
-            <a class="button" href="#online-bewertung">Bewertung starten</a>
-            <a class="button button--outline" href="/kontakt/">Persönlich sprechen</a>
+      <div class="container">
+        <div class="home-hero__media">
+          <img src="/images/haus-modern-klinker.webp" alt="" fetchpriority="high" />
+          <div class="home-hero__shade" aria-hidden="true"></div>
+          <div class="home-hero__copy" data-reveal>
+            <p class="eyebrow">Immobilienvermittlung · Köln</p>
+            <h1>Ihre Immobilie verdient eine klare <em>Entscheidung.</em></h1>
+            <p class="home-hero__lead">
+              Ob Verkauf, Vermietung oder Suche: Candan Sayan begleitet Sie persönlich, verbindlich und mit
+              Erfahrung seit 2001.
+            </p>
+            <div class="home-hero__actions">
+              <a class="button button--light" href="#online-bewertung">Bewertung starten</a>
+              <a class="button button--glass" href="/kontakt/">Persönlich sprechen</a>
+            </div>
           </div>
         </div>
-
-        <aside class="hero-valuation" id="online-bewertung" data-reveal aria-label="Online Immobilienbewertung">
-          <div class="hero-valuation__head">
-            <p class="eyebrow">Kostenlose Ersteinschätzung</p>
-            <h2>Was ist Ihre Immobilie wert?</h2>
-          </div>
-          <p class="widget-status" data-bottimmo-status>Bewertung wird geladen …</p>
-          <btm-widget widget="valuation"></btm-widget>
-          <p class="widget-error" data-bottimmo-error hidden>Die Bewertung konnte gerade nicht geladen werden. Rufen Sie uns gern unter <a href="tel:+4922116892660">0221 / 168 926 60</a> an.</p>
-        </aside>
       </div>
       <div class="proof-line">
         <div class="proof-line__track">
@@ -100,7 +94,22 @@ const process = [
       </div>
     </section>
 
-    <section class="section section--paper" id="wohntraumfinder">
+    <section class="section section--paper valuation-section" id="online-bewertung">
+      <div class="container valuation-section__grid">
+        <div class="valuation-section__copy" data-reveal>
+          <p class="eyebrow">Kostenlose Ersteinschätzung</p>
+          <h2>Was ist Ihre Immobilie wert?</h2>
+          <p>Mit wenigen Angaben erhalten Sie eine erste Orientierung. Für die persönliche Einordnung bleibt Candan Sayan Ihr direkter Ansprechpartner.</p>
+        </div>
+        <aside class="hero-valuation" data-reveal aria-label="Online Immobilienbewertung">
+          <p class="widget-status" data-bottimmo-status>Bewertung wird geladen …</p>
+          <btm-widget widget="valuation"></btm-widget>
+          <p class="widget-error" data-bottimmo-error hidden>Die Bewertung konnte gerade nicht geladen werden. Rufen Sie uns gern unter <a href="tel:+4922116892660">0221 / 168 926 60</a> an.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section--light" id="wohntraumfinder">
       <div class="container">
         <div class="widget-card">
           <div class="widget-card__head">
@@ -242,29 +251,37 @@ const process = [
 <style>
   :global(.site-header .nav-wrap) { background: color-mix(in srgb, #fff 90%, transparent); border-color: var(--n-border); backdrop-filter: blur(12px); }
 
-  .home-hero { min-height: 100svh; display: grid; align-content: end; padding-top: 6rem; overflow: hidden; background: var(--n-surface); }
-  .home-hero__grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(24rem, 5fr); gap: clamp(2rem, 6vw, 6rem); align-items: start; padding-block: clamp(3rem, 7vw, 6rem); }
-  .home-hero__copy { padding-top: clamp(1rem, 5vw, 5rem); }
-  .home-hero__copy h1 { max-width: none; }
-  .home-hero__lead { max-width: 48ch; margin-top: 1.6rem; font-size: clamp(1.1rem, 1.5vw, 1.25rem); color: var(--n-text-secondary); }
-  .home-hero__actions, .inline-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 2.5rem; }
+  .home-hero { padding-top: 6.75rem; overflow: hidden; background: #fff; }
+  .home-hero__media { position: relative; min-height: min(44rem, calc(100svh - 9rem)); display: flex; align-items: flex-end; overflow: hidden; border-radius: var(--radius-media); background: var(--brand-900); }
+  .home-hero__media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .home-hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(20 24 25 / .82) 0%, rgb(20 24 25 / .58) 42%, rgb(20 24 25 / .08) 78%); }
+  .home-hero__copy { position: relative; z-index: 1; width: min(100%, 42rem); padding: clamp(2rem, 5vw, 4.5rem); color: #fff; }
+  .home-hero__copy .eyebrow { border-color: rgb(255 255 255 / .3); background: rgb(255 255 255 / .12); color: #fff; backdrop-filter: blur(8px); }
+  .home-hero__copy h1 { max-width: 14ch; }
+  .home-hero__copy em { color: #fff; }
+  .home-hero__lead { max-width: 47ch; margin-top: 1.25rem; font-size: clamp(.98rem, 1.2vw, 1.08rem); color: rgb(255 255 255 / .82); }
+  .home-hero__actions, .inline-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-top: 2rem; }
+  .button--light { border-color: #fff; background: #fff; color: var(--n-text); }
+  .button--glass { border-color: rgb(255 255 255 / .45); background: rgb(255 255 255 / .08); color: #fff; backdrop-filter: blur(8px); }
 
-  .hero-valuation { min-height: 38rem; padding: clamp(1.25rem, 2vw, 2rem); overflow: clip; border: 1px solid var(--n-border); border-radius: var(--radius-media); background: #fff; }
-  .hero-valuation__head { padding: .5rem .5rem 1.5rem; }
-  .hero-valuation__head h2 { max-width: none; font-size: clamp(1.6rem, 2.4vw, 2.1rem); }
-  .hero-valuation .eyebrow { margin-bottom: .75rem; padding: .4rem 1rem; font-size: .8rem; }
+  .valuation-section { padding-top: clamp(3.5rem, 6vw, 5.5rem); }
+  .valuation-section__grid { display: grid; grid-template-columns: minmax(15rem, 4fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+  .valuation-section__copy { position: sticky; top: 7rem; padding-top: .75rem; }
+  .valuation-section__copy p:not(.eyebrow) { max-width: 40ch; margin-top: 1rem; color: var(--n-text-secondary); }
+  .hero-valuation { padding: clamp(1rem, 2vw, 1.5rem); overflow: clip; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; }
   .hero-valuation btm-widget { display: block; width: 100%; }
+  @supports (zoom: .88) { .hero-valuation btm-widget { width: 113.64%; zoom: .88; } }
   .widget-status, .widget-error { padding: 1rem; color: var(--n-text-secondary); font-size: .85rem; text-align: center; }
   .widget-error a { text-decoration: underline; }
 
-  .proof-line { overflow: hidden; border-top: 1px solid var(--n-border); border-bottom: 1px solid var(--n-border); background: #fff; }
+  .proof-line { margin-top: 1.25rem; overflow: hidden; border-top: 1px solid var(--n-border); border-bottom: 1px solid var(--n-border); background: #fff; }
   .proof-line__track { display: flex; width: max-content; animation: proof-scroll 36s linear infinite; }
   .proof-line:hover .proof-line__track { animation-play-state: paused; }
   .proof-line__group { display: flex; flex-shrink: 0; }
-  .proof-line span { display: flex; align-items: center; justify-content: center; width: 19rem; padding: 1.2rem 1rem; border-left: 1px solid var(--n-border); font-size: .85rem; font-weight: 500; color: var(--n-text-secondary); text-align: center; white-space: nowrap; }
+  .proof-line span { display: flex; align-items: center; justify-content: center; width: 16rem; padding: .9rem 1rem; border-left: 1px solid var(--n-border); font-size: .75rem; font-weight: 500; color: var(--n-text-secondary); text-align: center; white-space: nowrap; }
   @keyframes proof-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-  .owner-grid, .valuation-grid, .buyer-grid, .discretion-grid, .contact-cta__grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(3rem, 8vw, 8rem); align-items: center; }
+  .owner-grid, .valuation-grid, .buyer-grid, .discretion-grid, .contact-cta__grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: center; }
   .section-photo { position: relative; min-height: 22rem; border-radius: var(--radius-media); overflow: hidden; background: var(--n-surface); }
   .section-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
@@ -272,26 +289,26 @@ const process = [
   .corner-notch { position: relative; }
   .corner-notch::after { content: ""; position: absolute; right: 0; bottom: 0; width: 3.5rem; height: 3.5rem; background: radial-gradient(circle at 100% 100%, transparent 2rem, var(--n-surface) 2rem); }
 
-  .owner-mark { position: relative; min-height: 28rem; border-radius: var(--radius-media); overflow: hidden; background: var(--brand-900); }
+  .owner-mark { position: relative; min-height: 24rem; border-radius: var(--radius-media); overflow: hidden; background: var(--brand-900); }
   .owner-mark img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .owner-copy p:not(.eyebrow) { max-width: 60ch; margin-top: 1.2rem; color: var(--n-text-secondary); }
   .owner-copy .text-link { margin-top: 1.8rem; }
 
-  .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
-  .service-card { display: grid; align-content: start; padding: 2rem; border-radius: var(--radius-card); background: var(--n-surface); border: 1px solid transparent; transition: background var(--motion-hover) ease, border-color var(--motion-hover) ease; }
+  .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+  .service-card { display: grid; align-content: start; padding: 1.25rem; border-radius: var(--radius-card); background: var(--n-surface); border: 1px solid transparent; transition: background var(--motion-hover) ease, border-color var(--motion-hover) ease; }
   .service-card:hover { background: #fff; border-color: var(--n-border); }
-  .service-card__media { position: relative; aspect-ratio: 4 / 3; margin-bottom: 2rem; border-radius: var(--radius-field); overflow: hidden; }
+  .service-card__media { position: relative; aspect-ratio: 4 / 3; margin-bottom: 1.25rem; border-radius: var(--radius-field); overflow: hidden; }
   .service-card__media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--ease-out-expo); }
   .service-card:hover .service-card__media img { transform: scale(1.04); }
   .service-card__media span { position: absolute; left: 1rem; bottom: 1rem; display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: var(--radius-pill); background: #fff; color: var(--n-text); font-size: 1rem; font-weight: 600; }
-  .service-card h3 { margin: 0 0 1rem; text-transform: none; }
+  .service-card h3 { margin: 0 0 .65rem; text-transform: none; }
   .service-card p { color: var(--n-text-secondary); }
-  .service-card .text-link { margin-top: 1.25rem; padding-top: 0; }
+  .service-card .text-link { margin-top: 1rem; padding-top: 0; }
 
-  .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.75rem; }
-  .process-grid article { padding: 2.5rem 0; border-top: 1px solid color-mix(in srgb, #fff 18%, transparent); }
+  .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+  .process-grid article { padding: 1.75rem 0; border-top: 1px solid color-mix(in srgb, #fff 18%, transparent); }
   .process-grid span { color: var(--accent); font-size: .95rem; font-weight: 600; }
-  .process-grid h3 { margin: 2.5rem 0 .85rem; text-transform: none; color: #fff; }
+  .process-grid h3 { margin: 1.75rem 0 .65rem; text-transform: none; color: #fff; }
   .process-grid p, .discretion-grid p { color: color-mix(in srgb, #fff 70%, transparent); }
 
   .valuation-grid > div > p:not(.eyebrow), .buyer-grid p { max-width: 58ch; margin-top: 1.2rem; color: var(--n-text-secondary); }
@@ -301,8 +318,8 @@ const process = [
   .valuation-points strong { font-weight: 400; font-size: 1.5rem; color: var(--n-text); }
   .discretion-grid .button { margin-top: 2rem; }
 
-  .situation-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
-  .situation-grid span { display: flex; align-items: center; padding: 1.75rem; border-radius: var(--radius-card); background: var(--n-surface); font: 500 1.15rem/1.2 var(--font-display); }
+  .situation-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .situation-grid span { display: flex; align-items: center; min-height: 4.5rem; padding: 1.25rem; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; font: 500 1rem/1.25 var(--font-display); }
 
   .property-preview__cta { display: flex; justify-content: center; margin-top: clamp(2.5rem, 5vw, 3.5rem); }
   .contact-cta { padding-block: var(--section-space); background: var(--n-surface); }
@@ -318,13 +335,20 @@ const process = [
     .situation-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 767px) {
-    .home-hero__grid, .owner-grid, .valuation-grid, .buyer-grid, .discretion-grid, .contact-cta__grid { grid-template-columns: 1fr; }
-    .home-hero__grid { padding-top: 1rem; }
-    .home-hero { min-height: auto; padding-top: 2.5rem; }
-    .hero-valuation { min-height: 42rem; }
+    .valuation-section__grid, .owner-grid, .valuation-grid, .buyer-grid, .discretion-grid, .contact-cta__grid { grid-template-columns: 1fr; }
+    .home-hero { padding-top: 5.75rem; }
+    .home-hero__media { min-height: 34rem; }
+    .home-hero__shade { background: linear-gradient(0deg, rgb(20 24 25 / .86) 0%, rgb(20 24 25 / .48) 68%, rgb(20 24 25 / .12) 100%); }
+    .home-hero__copy { padding: 1.5rem; }
+    .home-hero__copy h1 { max-width: 14ch; font-size: clamp(1.75rem, 7.3vw, 2.05rem); overflow-wrap: normal; }
+    .home-hero__actions { align-items: stretch; }
+    .home-hero__actions .button { flex: 1 1 auto; }
+    .valuation-section__copy { position: static; padding-top: 0; }
+    .hero-valuation { padding: .75rem; }
     .owner-mark { min-height: 18rem; }
     .process-grid, .situation-grid { grid-template-columns: 1fr; }
-    .proof-line span { width: 13.5rem; }
+    .proof-line { margin-top: .75rem; }
+    .proof-line span { width: 12.5rem; padding-block: .75rem; }
     .contact-cta__links > a, .contact-cta__links > span { grid-template-columns: 1fr; }
     .contact-cta__links > a > span { display: none; }
   }
