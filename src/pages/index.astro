@@ -186,11 +186,10 @@ const process = [
 
     <section class="section section--light" id="objekte">
       <div class="container buyer-grid">
-        <div class="section-photo" data-reveal>
-          <div class="section-photo__frame" aria-hidden="true"><img src="/images/strasse-altbau-koeln.webp" alt="" loading="lazy" /></div>
-          <div class="section-photo__panel"><p class="eyebrow">Für Käufer und Mieter</p><h2>Die passende Immobilie beginnt mit Ihrem <em>Suchprofil.</em></h2></div>
-        </div>
+        <div class="section-photo" data-reveal aria-hidden="true"><img src="/images/strasse-altbau-koeln.webp" alt="" loading="lazy" /></div>
         <div data-reveal>
+          <p class="eyebrow">Für Käufer und Mieter</p>
+          <h2>Die passende Immobilie beginnt mit Ihrem <em>Suchprofil.</em></h2>
           <p>Nicht jedes Angebot wird öffentlich vermarktet. Teilen Sie uns mit, welche Lage, Größe und Nutzung Sie suchen. Sobald eine passende Immobilie verfügbar ist, kann Ihre Anfrage gezielt berücksichtigt werden.</p>
           <div class="inline-actions"><a class="button button--dark" href="/kontakt/">Suchprofil mitteilen</a><a class="text-link" href="tel:+4922116892660">0221 / 168 926 60 →</a></div>
         </div>
@@ -199,11 +198,10 @@ const process = [
 
     <section class="section section--dark" id="diskretion">
       <div class="container discretion-grid">
-        <div class="section-photo" data-reveal>
-          <div class="section-photo__frame" aria-hidden="true"><img src="/images/altbau-zimmer-leer.webp" alt="" loading="lazy" /></div>
-          <div class="section-photo__panel"><p class="eyebrow">Diskrete Vermarktung</p><h2>Nicht jede Immobilie braucht <em>Öffentlichkeit.</em></h2></div>
-        </div>
+        <div class="section-photo" data-reveal aria-hidden="true"><img src="/images/altbau-zimmer-leer.webp" alt="" loading="lazy" /></div>
         <div data-reveal>
+          <p class="eyebrow">Diskrete Vermarktung</p>
+          <h2>Nicht jede Immobilie braucht <em>Öffentlichkeit.</em></h2>
           <p>Wenn persönliche Umstände, Privatsphäre oder die besondere Positionierung des Objekts es erfordern, sprechen wir ausgewählte Interessenten direkt an. Informationen werden kontrolliert weitergegeben, Besichtigungen gezielt koordiniert und der gesamte Prozess vertraulich geführt.</p>
           <a class="button" href="/kontakt/">Diskreten Verkauf besprechen</a>
         </div>
@@ -267,11 +265,8 @@ const process = [
   @keyframes proof-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
   .owner-grid, .valuation-grid, .buyer-grid, .discretion-grid, .contact-cta__grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(3rem, 8vw, 8rem); align-items: center; }
-  .section-photo { position: relative; min-height: 22rem; border-radius: var(--radius-media); overflow: hidden; }
-  .section-photo__frame { position: absolute; inset: 0; z-index: 0; }
-  .section-photo__frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
-  .section-photo__panel { position: relative; z-index: 1; display: inline-grid; gap: .75rem; max-width: 22rem; margin: 1.5rem; padding: 1.75rem; border-radius: var(--radius-card); background: #fff; box-shadow: 0 30px 60px -30px rgba(20, 22, 20, .35); }
-  .section-photo__panel h2 { max-width: none; color: var(--n-text); }
+  .section-photo { position: relative; min-height: 22rem; border-radius: var(--radius-media); overflow: hidden; background: var(--n-surface); }
+  .section-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
   /* Signature-Detail: ausgesparte Ecke. Kein Trust-Content vorhanden -> bleibt leer. */
   .corner-notch { position: relative; }
