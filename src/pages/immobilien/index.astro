@@ -91,7 +91,7 @@ import { properties } from "../../data/properties";
 <style>
   .property-filter { display: flex; flex-wrap: wrap; gap: .6rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
   .property-filter button { padding: .7rem 1.4rem; border: 1px solid var(--n-border); border-radius: var(--radius-pill); background: transparent; color: var(--n-text-secondary); font-size: .9rem; font-weight: 500; cursor: pointer; transition: background var(--motion-hover) ease, color var(--motion-hover) ease, border-color var(--motion-hover) ease; }
-  .property-filter button.is-active { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }
+  .property-filter button.is-active { border-color: var(--accent); background: var(--accent); color: #fff; font-weight: 700; -webkit-text-stroke: .6px var(--accent-ink); text-shadow: 0 1px 1px var(--accent-ink); }
   .property-note { max-width: 60ch; margin-top: clamp(2.5rem, 5vw, 3.5rem); color: var(--n-text-secondary); }
   .cta-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
   .wide-cta .button--outline { border-color: var(--n-border); background: transparent; color: var(--n-text); }

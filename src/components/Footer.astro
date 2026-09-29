@@ -1,5 +1,8 @@
 ---
 import Logo from "./Logo.astro";
+import { version } from "../../package.json";
+
+const displayVersion = version.split(".").slice(0, 2).join(".");
 
 const columns = [
   { title: "Immobilien", links: ["Kaufen", "Mieten", "Kapitalanlagen"] },
@@ -43,7 +46,7 @@ const liveLinks: Record<string, string> = {
     ))}
   </div>
   <div class="container footer-legal">
-    <span>© {new Date().getFullYear()} SAYAN Immobilien Köln</span>
+    <div><span>© {new Date().getFullYear()} SAYAN Immobilien Köln</span><span>Version {displayVersion}</span></div>
     <div>
       <a href="/impressum/">Impressum</a>
       <a href="/datenschutz/">Datenschutz</a>

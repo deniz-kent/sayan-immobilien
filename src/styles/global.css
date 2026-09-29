@@ -42,7 +42,6 @@
   --ink-muted: #54544f;
   --accent: #adca06;
   --accent-ink: #333b3e;
-  --accent-text: #596700;
   --ok: #768a05;
   --warn: #9a564a;
   --hairline: color-mix(in srgb, var(--cream) 18%, transparent);
@@ -116,7 +115,7 @@ h1, h2 { text-transform: uppercase; font-weight: 700; hyphens: none; overflow-wr
 h1 { font-size: clamp(2.2rem, 4vw, 3.4rem); line-height: 1.03; letter-spacing: -0.025em; }
 h2 { max-width: 22ch; font-size: clamp(1.55rem, 2.3vw, 2.1rem); line-height: 1.15; letter-spacing: -0.015em; }
 h3 { font-size: clamp(1.15rem, 1.3vw, 1.35rem); line-height: 1.25; font-weight: 600; letter-spacing: 0; }
-em { color: var(--accent-text); font-style: normal; font-weight: inherit; }
+em { color: var(--accent); font-style: normal; font-weight: inherit; }
 .section--dark em, .section--dark-alt em { color: var(--accent); }
 p { max-width: 60ch; }
 
@@ -133,12 +132,12 @@ p { max-width: 60ch; }
 .section-head--center .section-lead { margin-inline: auto; }
 
 /* Buttons: schlichte, gefüllte Pill ohne Icon. */
-.button { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 3.1rem; padding: 0 1.45rem; border: 1px solid var(--accent); border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-ink); font-size: .9rem; font-weight: 600; letter-spacing: 0; transition: background var(--motion-hover) ease, filter var(--motion-hover) ease, border-color var(--motion-hover) ease; }
+.button { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 3.1rem; padding: 0 1.45rem; border: 1px solid var(--accent); border-radius: var(--radius-pill); background: var(--accent); color: #fff; font-size: .9rem; font-weight: 700; letter-spacing: 0; -webkit-text-stroke: .6px var(--accent-ink); text-shadow: 0 1px 1px var(--accent-ink); transition: background var(--motion-hover) ease, filter var(--motion-hover) ease, border-color var(--motion-hover) ease; }
 .button:hover { filter: brightness(1.2); }
 .button--accent { border-color: var(--accent); background: var(--accent); }
-.button--dark { border-color: var(--brand-900); background: var(--brand-900); color: #fff; }
-.button--secondary { border-color: color-mix(in srgb, #fff 40%, transparent); background: transparent; color: #fff; }
-.button--outline { border-color: var(--n-border); background: transparent; color: var(--n-text); }
+.button--dark { border-color: var(--brand-900); background: var(--brand-900); color: #fff; -webkit-text-stroke: 0; text-shadow: none; }
+.button--secondary { border-color: color-mix(in srgb, #fff 40%, transparent); background: transparent; color: #fff; -webkit-text-stroke: 0; text-shadow: none; }
+.button--outline { border-color: var(--n-border); background: transparent; color: var(--n-text); -webkit-text-stroke: 0; text-shadow: none; }
 .button--small { min-height: 3rem; padding: 0 1.4rem; font-size: .88rem; }
 
 .text-link { position: relative; display: inline-flex; width: fit-content; align-items: center; font-size: .95rem; font-weight: 600; }
@@ -175,7 +174,7 @@ p { max-width: 60ch; }
 .menu-toggle span { display: block; width: 1.5rem; height: 1px; margin: 2.5px auto; background: currentColor; }
 
 /* Header-CTA: Statuspunkt + Label + Icon-Kreis */
-.nav-cta { display: inline-flex; align-items: center; gap: .6rem; min-height: 3.25rem; padding: 0 1.5rem; border: 1px solid var(--accent); border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-ink); font-size: .88rem; font-weight: 600; transition: filter var(--motion-hover) ease; }
+.nav-cta { display: inline-flex; align-items: center; gap: .6rem; min-height: 3.25rem; padding: 0 1.5rem; border: 1px solid var(--accent); border-radius: var(--radius-pill); background: var(--accent); color: #fff; font-size: .88rem; font-weight: 700; -webkit-text-stroke: .6px var(--accent-ink); text-shadow: 0 1px 1px var(--accent-ink); transition: filter var(--motion-hover) ease; }
 .nav-cta:hover { filter: brightness(1.12); }
 .nav-cta__dot { width: .5rem; height: .5rem; border-radius: 50%; background: var(--accent-ink); }
 
@@ -215,7 +214,7 @@ p { max-width: 60ch; }
 .page-hero h1 { max-width: 14ch; }
 .page-hero p:not(.eyebrow) { max-width: 55ch; margin-top: 1.25rem; color: var(--n-text-secondary); font-size: 1.05rem; }
 .page-hero__actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
-.page-hero .button { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }
+.page-hero .button { border-color: var(--accent); background: var(--accent); color: #fff; }
 
 .content-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
 .content-card { padding: clamp(1.5rem, 2.5vw, 2.25rem); border-radius: var(--radius-card); background: var(--n-surface); color: var(--n-text-body); transition: background var(--motion-hover) ease, border-color var(--motion-hover) ease; border: 1px solid transparent; }
@@ -256,7 +255,7 @@ p { max-width: 60ch; }
 .wide-cta { padding: var(--section-space) 0; background: var(--n-surface); color: var(--n-text-body); text-align: center; }
 .wide-cta h2 { margin-inline: auto; }
 .wide-cta p { max-width: 52ch; margin: 1.2rem auto 2rem; color: var(--n-text-secondary); }
-.wide-cta .button { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }
+.wide-cta .button { border-color: var(--accent); background: var(--accent); color: #fff; }
 
 .legal-copy { max-width: 50rem; }
 .legal-copy h1 { text-transform: none; font-size: clamp(2.5rem, 5vw, 3.75rem); }
