@@ -12,7 +12,7 @@ const services = [
   {
     number: "01",
     title: "Verkaufen",
-    copy: "Von der fundierten Einordnung über die Präsentation bis zum Notartermin: Sie behalten jederzeit den Überblick.",
+    copy: "Wir bewerten Ihre Immobilie, bereiten Exposé und Vermarktung vor, prüfen Interessenten und begleiten Sie bis zum Notartermin und zur Übergabe.",
     href: "/leistung/",
     link: "Verkauf vorbereiten",
     image: "/images/haus-modern-klinker.webp",
@@ -20,7 +20,7 @@ const services = [
   {
     number: "02",
     title: "Vermieten",
-    copy: "Wir positionieren Ihre Immobilie passend, prüfen Interessenten sorgfältig und begleiten Sie bis zur Übergabe.",
+    copy: "Von den Fotos über Besichtigungen und Bonitätsprüfung bis zum Mietvertrag und zur Wohnungsübergabe kümmern wir uns um die Vermietung.",
     href: "/leistung/#vermietung",
     link: "Vermietung besprechen",
     image: "/images/fassade-balkone-klinker.webp",
@@ -28,16 +28,16 @@ const services = [
 ];
 
 const process = [
-  ["01", "Verstehen", "Wir klären Ihre Situation, Ihre Ziele und den gewünschten Zeitrahmen."],
-  ["02", "Einordnen", "Wir betrachten Lage, Zustand, Unterlagen und die aktuelle Nachfrage."],
-  ["03", "Vermarkten", "Wir wählen den passenden Weg: öffentlich, vorgemerkt oder diskret."],
-  ["04", "Abschließen", "Wir begleiten Verhandlung, Notartermin und geordnete Übergabe."],
+  ["01", "Besichtigen", "Wir sehen uns Ihre Immobilie an und besprechen, was Sie vorhaben."],
+  ["02", "Bewerten", "Wir prüfen Unterlagen, Lage und Markt und legen den Angebotspreis mit Ihnen fest."],
+  ["03", "Vermarkten", "Wir erstellen Fotos und Exposé, wählen die passenden Kanäle und organisieren Besichtigungen."],
+  ["04", "Abwickeln", "Wir prüfen Interessenten, führen Verhandlungen und begleiten Vertrag und Übergabe."],
 ];
 ---
 
 <BaseLayout
   title="SAYAN Immobilien Köln | Persönlich seit 2001"
-  description="Persönliche Immobilienvermittlung in Köln: Verkauf und Vermietung mit Candan Sayan als direktem Ansprechpartner."
+  description="SAYAN Immobilien Köln: persönliche Betreuung durch unser Team bei Verkauf, Vermietung und Immobilienbewertung."
 >
   <Header />
   <main id="main">
@@ -48,10 +48,10 @@ const process = [
           <div class="home-hero__shade" aria-hidden="true"></div>
           <div class="home-hero__copy" data-reveal>
             <p class="eyebrow">Immobilienvermittlung · Köln</p>
-            <h1>Ihre Immobilie verdient eine klare <em>Entscheidung.</em></h1>
+            <h1>Engagiert für Sie und Ihre <em>Immobilie.</em></h1>
             <p class="home-hero__lead">
-              Ob Verkauf oder Vermietung: Candan Sayan begleitet Sie persönlich, verbindlich und mit
-              Erfahrung seit 2001.
+              Sie möchten verkaufen oder vermieten? SAYAN Immobilien kümmert sich um Bewertung,
+              Vermarktung und Vermittlung. Persönlich, mit einem Team vor Ort in Köln.
             </p>
             <div class="home-hero__actions">
               <a class="button button--light" href="#online-bewertung">Bewertung starten</a>
@@ -91,7 +91,7 @@ const process = [
         <div class="valuation-section__copy" data-reveal>
           <p class="eyebrow">Kostenlose Ersteinschätzung</p>
           <h2>Was ist Ihre Immobilie wert?</h2>
-          <p>Mit wenigen Angaben erhalten Sie eine erste Orientierung. Für die persönliche Einordnung bleibt Candan Sayan Ihr direkter Ansprechpartner.</p>
+          <p>Ein zu hoch angesetzter Preis kann den Verkauf unnötig verzögern. Geben Sie hier die Eckdaten ein. Für eine fundierte Einschätzung sehen wir uns Ihre Immobilie und den Markt persönlich an.</p>
         </div>
         <aside class="hero-valuation" data-reveal aria-label="Online Immobilienbewertung">
           <p class="widget-status" data-bottimmo-status>Bewertung wird geladen …</p>
@@ -103,7 +103,7 @@ const process = [
 
     <section class="section section--paper" id="objekte-vorschau">
       <div class="container">
-        <SectionHeader eyebrow="Aktuelle Objekte" title="Ausgewählte <em>Angebote.</em>" />
+        <SectionHeader eyebrow="Immobilien" title="Ein Blick auf unsere <em>Angebote.</em>" lead="Die Objekte auf dieser Testseite sind noch Beispiele. Aktuelle Angebote erscheinen hier nach der Anbindung an onOffice." />
         <div class="property-grid" data-reveal-group>
           {featuredProperties.map((property, index) => (
             <div data-reveal style={`--stagger:${index}`}>
@@ -123,18 +123,18 @@ const process = [
           <img src="/images/buero-candan-sayan-koeln.jpg" alt="" loading="lazy" />
         </div>
         <div class="owner-copy" data-reveal>
-          <p class="eyebrow">Candan Sayan · Inhaber</p>
-          <h2>Eine Entscheidung. Ein fester <em>Ansprechpartner.</em></h2>
-          <p>Eine Immobilie zu verkaufen oder zu vermieten ist selten nur eine sachliche Entscheidung. Es geht um Vermögen, Veränderungen und oft auch um persönliche Geschichte. Deshalb führt Candan Sayan Ihr Anliegen selbst, vom ersten Gespräch bis zur Übergabe.</p>
-          <p>Seit 1998 in der Immobilienbranche und seit 2001 mit SAYAN Immobilien in Köln verbindet er lokale Marktkenntnis mit einer ruhigen, nachvollziehbaren Beratung.</p>
-          <a class="text-link" href="/kontakt/">Candan Sayan kennenlernen →</a>
+          <p class="eyebrow">SAYAN Immobilien Köln</p>
+          <h2>Inhabergeführt. Vor Ort in <em>Köln.</em></h2>
+          <p>Seit 2001 vermitteln wir Wohn- und Gewerbeimmobilien, beraten Eigentümer und kümmern uns auch nach dem Vertragsabschluss um offene Fragen. Sie werden von unserem Team persönlich betreut.</p>
+          <p>Unser Büro gehört weder zu einer Bank noch zu einem Franchise. Wir besprechen mit Ihnen, wie Ihre Immobilie angeboten wird und welche Schritte sinnvoll sind.</p>
+          <a class="text-link" href="/kontakt/">Nehmen Sie Kontakt mit uns auf →</a>
         </div>
       </div>
     </section>
 
     <section class="section section--paper" id="leistungen">
       <div class="container">
-        <SectionHeader eyebrow="Was wir für Sie tun" title="Immobilienentscheidungen brauchen <em>Orientierung.</em>" lead="Sie erhalten keinen Standardablauf, sondern einen Weg, der zu Ihrer Immobilie, Ihrem Ziel und Ihrer Situation passt." />
+        <SectionHeader eyebrow="Für Eigentümer" title="Verkauf und Vermietung aus <em>einer Hand.</em>" lead="Von der Preisfindung über Fotos, Exposé und Besichtigungen bis zum Vertrag übernehmen wir die Arbeit, die eine Vermittlung mit sich bringt." />
         <div class="service-grid" data-reveal-group>
           {services.map((service, i) => (
             <article class="service-card" data-reveal style={`--stagger:${i}`}>
@@ -149,26 +149,11 @@ const process = [
 
     <section class="section section--dark-alt" id="ablauf">
       <div class="container">
-        <SectionHeader eyebrow="Der SAYAN Weg" title="Von der ersten Frage bis zur sicheren <em>Übergabe.</em>" lead="Sie wissen jederzeit, wo Ihr Vorhaben steht, was als Nächstes passiert und welche Entscheidung ansteht." />
+        <SectionHeader eyebrow="So arbeiten wir" title="Vom ersten Termin bis zur <em>Übergabe.</em>" lead="Wir stimmen den Vermarktungsplan mit Ihnen ab und halten Sie über Anfragen und Besichtigungen auf dem Laufenden." />
         <div class="process-grid" data-reveal-group>
           {process.map(([number, title, copy], i) => (
             <article data-reveal style={`--stagger:${i}`}><span>{number}</span><h3>{title}.</h3><p>{copy}</p></article>
           ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--brand">
-      <div class="container valuation-grid">
-        <div data-reveal>
-          <p class="eyebrow">Für Eigentümer</p><h2>Was ist Ihre Immobilie heute <em>wert?</em></h2>
-          <p>Eine gute Verkaufsentscheidung beginnt mit einer realistischen Einordnung. Starten Sie online mit den wichtigsten Eckdaten, unverbindlich und in wenigen Schritten.</p>
-          <a class="button button--dark" href="/leistung/formular/">Online Bewertung starten</a>
-        </div>
-        <div class="valuation-points" data-reveal>
-          <span><strong>01</strong> Eckdaten zur Immobilie angeben</span>
-          <span><strong>02</strong> Erste Einschätzung erhalten</span>
-          <span><strong>03</strong> Ergebnis persönlich vertiefen</span>
         </div>
       </div>
     </section>
@@ -179,7 +164,7 @@ const process = [
         <div data-reveal>
           <p class="eyebrow">Diskrete Vermarktung</p>
           <h2>Nicht jede Immobilie braucht <em>Öffentlichkeit.</em></h2>
-          <p>Wenn persönliche Umstände, Privatsphäre oder die besondere Positionierung des Objekts es erfordern, sprechen wir ausgewählte Interessenten direkt an. Informationen werden kontrolliert weitergegeben, Besichtigungen gezielt koordiniert und der gesamte Prozess vertraulich geführt.</p>
+          <p>Sie möchten Ihre Verkaufsabsicht nicht öffentlich machen? Dann bieten wir Ihre Immobilie ausgewählten Interessenten aus unserer Kartei an, ohne Anzeigen und öffentliche Bilder. Welche Informationen wir weitergeben, stimmen wir mit Ihnen ab.</p>
           <a class="button" href="/kontakt/">Diskreten Verkauf besprechen</a>
         </div>
       </div>
@@ -187,16 +172,16 @@ const process = [
 
     <section class="section section--paper">
       <div class="container">
-        <SectionHeader eyebrow="Wenn sich etwas verändert" title="Wir schaffen Klarheit, auch in anspruchsvollen <em>Situationen.</em>" />
+        <SectionHeader eyebrow="Ihre Immobilie" title="Auch für besondere <em>Aufgaben.</em>" />
         <div class="situation-grid">
-          {["Geplanter Verkauf", "Erbschaft", "Trennung", "Beruflicher Umzug", "Altersbedingter Wechsel", "Kapitalanlage"].map((item) => <span data-reveal>{item}</span>)}
+          {["Wohnimmobilien", "Gewerbeimmobilien", "Grundstücke", "Kapitalanlagen", "Bauträgerprojekte", "Immobilienportfolios"].map((item) => <span data-reveal>{item}</span>)}
         </div>
       </div>
     </section>
 
     <section class="contact-cta section--brand" id="kontakt">
       <div class="container contact-cta__grid">
-        <div data-reveal><p class="eyebrow">Ihr nächster Schritt</p><h2>Was dürfen wir für Sie <em>einordnen?</em></h2><p>Ein erstes Gespräch ist unverbindlich und bringt schnell Klarheit über die nächsten Schritte.</p></div>
+        <div data-reveal><p class="eyebrow">Sprechen Sie mit uns</p><h2>Was haben Sie mit Ihrer Immobilie <em>vor?</em></h2><p>Rufen Sie uns an oder schreiben Sie uns. Wir freuen uns auf Sie und Ihre Immobilie.</p></div>
         <div class="contact-cta__links" data-reveal>
           <a href="tel:+4922116892660"><small>Telefon</small><strong>+49 221 168 926 60</strong><span>Direkt anrufen →</span></a>
           <a href="mailto:info@sayan-immo.de"><small>Email</small><strong>info@sayan-immo.de</strong><span>Nachricht schreiben →</span></a>

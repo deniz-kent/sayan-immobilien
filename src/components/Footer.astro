@@ -6,8 +6,8 @@ const displayVersion = version.split(".").slice(0, 2).join(".");
 
 const columns = [
   { title: "Immobilien", links: ["Kaufen", "Mieten", "Kapitalanlagen"] },
-  { title: "Eigentümer", links: ["Verkaufen", "Vermieten", "Bewerten"] },
-  { title: "SAYAN", links: ["Über SAYAN", "Ablauf", "Arbeitsweise"] },
+  { title: "Eigentümer", links: ["Verkaufen", "Vermieten", "Bewerten", "Bauträger & Portfolios"] },
+  { title: "SAYAN", links: ["Über SAYAN", "Leistungen", "Besichtigungen"] },
   { title: "Service", links: ["Kontakt", "Termin", "Häufige Fragen"] },
 ];
 const liveLinks: Record<string, string> = {
@@ -17,9 +17,10 @@ const liveLinks: Record<string, string> = {
   "Verkaufen": "/leistung/",
   "Vermieten": "/leistung/#vermietung",
   "Bewerten": "/leistung/formular/",
+  "Bauträger & Portfolios": "/leistung/#spezialleistungen",
   "Über SAYAN": "/#unternehmen",
-  "Ablauf": "/#ablauf",
-  "Arbeitsweise": "/#ablauf",
+  "Leistungen": "/leistung/",
+  "Besichtigungen": "/leistung/#vermarktung",
   "Kontakt": "/kontakt/",
   "Termin": "/kontakt/",
   "Häufige Fragen": "/leistung/#faq",
@@ -33,7 +34,7 @@ const liveLinks: Record<string, string> = {
   <div class="container footer-grid">
     <div class="footer-brand">
       <Logo variant="light" />
-      <p>Persönliche Immobilienvermittlung in Köln. Seit 2001.</p>
+      <p>Wohn- und Gewerbeimmobilien in Köln und Nordrhein-Westfalen. Inhabergeführt seit 2001.</p>
       <a href="tel:+4922116892660">+49 221 168 926 60</a>
       <a href="mailto:info@sayan-immo.de">info@sayan-immo.de</a>
       <address>Sternengasse 3<br />50676 Köln</address>

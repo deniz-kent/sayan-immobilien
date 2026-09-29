@@ -1,5 +1,12 @@
 # Änderungen
 
+## 1.7 — 29. September 2026
+
+- Texte auf Start-, Leistungs- und Kontaktseite an die konkrete Arbeit von SAYAN Immobilien angepasst.
+- Leistungen für Verkäufer und Vermieter sowie Fotografie, 360-Grad-Besichtigungen, Home Staging, Bauträger- und Portfoliovertrieb ergänzt.
+- Marketingtexte in eine einheitliche Wir-Ansprache gebracht; Name des Inhabers bleibt in den rechtlichen Angaben.
+- Beispielobjekte auf der Startseite bis zur onOffice-Anbindung ausdrücklich als Beispiele gekennzeichnet.
+
 ## 1.6 — 29. September 2026
 
 - Den FAQ-Bereich auf der Leistungsseite hell gestaltet, damit er sich vom dunklen Abschnitt darüber abhebt.
