@@ -1,5 +1,11 @@
 # Änderungen
 
+## 1.8 — 29. September 2026
+
+- Die bisher lange Leistungsseite in eine kurze Übersicht mit 19 eigenen Unterseiten umgebaut.
+- Häufige Fragen auf eine eigene Seite verschoben.
+- Navigation, Footer und Startseite mit den neuen Leistungsseiten verknüpft.
+
 ## 1.7 — 29. September 2026
 
 - Texte auf Start-, Leistungs- und Kontaktseite an die konkrete Arbeit von SAYAN Immobilien angepasst.

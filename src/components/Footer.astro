@@ -6,7 +6,7 @@ const displayVersion = version.split(".").slice(0, 2).join(".");
 
 const columns = [
   { title: "Immobilien", links: ["Kaufen", "Mieten", "Kapitalanlagen"] },
-  { title: "Eigentümer", links: ["Verkaufen", "Vermieten", "Bewerten", "Bauträger & Portfolios"] },
+  { title: "Eigentümer", links: ["Verkaufen", "Vermieten", "Bewerten", "Bauträgervertrieb", "Portfoliovertrieb"] },
   { title: "SAYAN", links: ["Über SAYAN", "Leistungen", "Besichtigungen"] },
   { title: "Service", links: ["Kontakt", "Termin", "Häufige Fragen"] },
 ];
@@ -14,16 +14,17 @@ const liveLinks: Record<string, string> = {
   "Kaufen": "/immobilien/?typ=kaufen",
   "Mieten": "/immobilien/?typ=mieten",
   "Kapitalanlagen": "/immobilien/",
-  "Verkaufen": "/leistung/",
-  "Vermieten": "/leistung/#vermietung",
+  "Verkaufen": "/leistung/immobilienverkauf/",
+  "Vermieten": "/leistung/immobilienvermietung/",
   "Bewerten": "/leistung/formular/",
-  "Bauträger & Portfolios": "/leistung/#spezialleistungen",
+  "Bauträgervertrieb": "/leistung/bautraeger-vertrieb/",
+  "Portfoliovertrieb": "/leistung/portfolio-vertrieb/",
   "Über SAYAN": "/#unternehmen",
   "Leistungen": "/leistung/",
-  "Besichtigungen": "/leistung/#vermarktung",
+  "Besichtigungen": "/leistung/besichtigungen/",
   "Kontakt": "/kontakt/",
   "Termin": "/kontakt/",
-  "Häufige Fragen": "/leistung/#faq",
+  "Häufige Fragen": "/leistung/faq/",
 };
 ---
 

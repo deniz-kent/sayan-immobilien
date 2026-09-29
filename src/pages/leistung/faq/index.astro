@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+
+const questions = [
+  ["Muss meine Immobilie sofort öffentlich angeboten werden?", "Nein. Wir können zunächst vorgemerkte Interessenten ansprechen oder eine diskrete Vermarktung vereinbaren."],
+  ["Wie entsteht die Preiseinschätzung?", "Wir prüfen Immobilie, Lage, Zustand, Unterlagen und die Nachfrage vor Ort. Eine Empfehlung für den Angebotspreis geben wir nach der persönlichen Besichtigung."],
+  ["Welche Unterlagen werden benötigt?", "Das hängt von der Immobilie ab. Häufig benötigen wir Grundbuchauszug, Grundrisse, Flächenangaben und Energieausweis. Wir gehen mit Ihnen durch, was bereits vorliegt."],
+  ["Was kostet die Vermittlung?", "Provision und Konditionen hängen von Objekt und Auftrag ab. Wir besprechen sie vor einer Beauftragung und halten sie schriftlich fest."],
+  ["Wie lange dauert ein Verkauf?", "Das hängt unter anderem von Objekt, Angebotspreis, Nachfrage und vollständigen Unterlagen ab. Nach der ersten Prüfung können wir den möglichen Zeitrahmen besser einschätzen."],
+  ["Ist die erste Anfrage verbindlich?", "Nein. Ein erstes Gespräch oder die Online-Bewertung verpflichtet Sie nicht zu einem Maklerauftrag."],
+];
+---
+<BaseLayout title="Häufige Fragen | SAYAN Immobilien Köln" description="Antworten auf häufige Fragen zum Immobilienverkauf und zur Vermietung.">
+  <Header />
+  <main id="main">
+    <section class="page-hero"><div class="container"><p class="eyebrow">Gut zu wissen</p><h1>Häufige Fragen</h1><p>Hier finden Sie Antworten auf Fragen, die uns Eigentümer häufig stellen.</p></div></section>
+    <section class="section section--paper"><div class="container faq-content">
+      {questions.map(([question, answer]) => <article><h2>{question}</h2><p>{answer}</p></article>)}
+      <p>Ihre Frage ist nicht dabei? <a href="/kontakt/">Sprechen Sie mit uns →</a></p>
+    </div></section>
+  </main>
+  <Footer />
+</BaseLayout>
+<style>
+  .faq-content { max-width: 56rem; }
+  .faq-content article { padding: 1.75rem 0; border-top: 1px solid var(--n-border); }
+  .faq-content h2 { font-size: clamp(1.2rem, 2vw, 1.6rem); text-transform: none; }
+  .faq-content article p { max-width: 68ch; margin-top: .65rem; color: var(--n-text-secondary); }
+  .faq-content > p { margin-top: 2rem; }
+  .faq-content > p a { text-decoration: underline; text-underline-offset: .2em; }
+</style>

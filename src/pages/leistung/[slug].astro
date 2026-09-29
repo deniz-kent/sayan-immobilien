@@ -1,0 +1,106 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { services, serviceBySlug, type Service } from "../../data/services";
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+const { service } = Astro.props as { service: Service };
+const relatedServices = service.related.map((slug) => serviceBySlug[slug]).filter(Boolean);
+---
+
+<BaseLayout title={`${service.title} | SAYAN Immobilien Köln`} description={service.intro}>
+  <Header />
+  <main id="main">
+    <section class="page-hero service-hero">
+      <div class="container">
+        <nav class="breadcrumbs" aria-label="Brotkrumen">
+          <a href="/leistung/">Leistungen</a><span aria-hidden="true">/</span><span aria-current="page">{service.title}</span>
+        </nav>
+        <p class="eyebrow">{service.group}</p>
+        <h1>{service.title}</h1>
+        <p class="service-hero__intro">{service.intro}</p>
+        <a class="text-link" href="/kontakt/">Sprechen Sie mit uns →</a>
+      </div>
+    </section>
+
+    <section class="section section--paper">
+      <div class="container detail-grid">
+        <div class="detail-copy">
+          <p class="detail-label">Was wir für Sie tun</p>
+          <h2>{service.summary}</h2>
+          {service.details.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+        <aside class="detail-aside" aria-label="Leistungsüberblick">
+          <h2>Im Überblick</h2>
+          <ul>{service.points.map((point) => <li>{point}</li>)}</ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section--light">
+      <div class="container related-layout">
+        <div>
+          <p class="eyebrow">Weitere Leistungen</p>
+          <h2>Das könnte Sie auch interessieren.</h2>
+        </div>
+        <div class="related-links">
+          {relatedServices.map((related) => (
+            <a href={`/leistung/${related.slug}/`}>
+              <strong>{related.title}</strong><span>{related.summary}</span>
+            </a>
+          ))}
+          <a href="/leistung/"><strong>Alle Leistungen</strong><span>Zurück zur Übersicht</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="wide-cta">
+      <div class="container">
+        <p class="eyebrow">Kontakt</p>
+        <h2>Sprechen wir über Ihre Immobilie.</h2>
+        <p>Rufen Sie uns an oder schreiben Sie uns. Wir besprechen, welche Leistungen für Ihr Vorhaben sinnvoll sind.</p>
+        <div class="cta-actions">
+          <a class="button" href="/kontakt/">Kontakt aufnehmen</a>
+          <a class="button button--outline" href="tel:+4922116892660">0221 / 168 926 60</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .service-hero { padding-bottom: clamp(3rem, 6vw, 5rem); }
+  .service-hero h1 { max-width: 18ch; }
+  .service-hero__intro { max-width: 65ch !important; }
+  .service-hero .text-link { margin-top: 1.75rem; }
+  .breadcrumbs { display: flex; flex-wrap: wrap; gap: .55rem; margin-bottom: 2rem; font-size: .85rem; color: var(--n-text-secondary); }
+  .breadcrumbs a { text-decoration: underline; text-underline-offset: .2em; }
+  .breadcrumbs a:hover { color: var(--n-text); }
+  .detail-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(16rem, 4fr); gap: clamp(2rem, 7vw, 7rem); align-items: start; }
+  .detail-copy { max-width: 68ch; }
+  .detail-label { margin-bottom: 1rem; color: var(--n-text-secondary); font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+  .detail-copy h2 { max-width: 18ch; margin-bottom: 1.5rem; }
+  .detail-copy > p:not(.detail-label) { margin-top: 1.1rem; color: var(--n-text-secondary); }
+  .detail-aside { padding: clamp(1.5rem, 3vw, 2.25rem); border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; }
+  .detail-aside h2 { margin-bottom: 1rem; font-size: 1.2rem; text-transform: none; }
+  .detail-aside ul { margin: 0; padding: 0; list-style: none; }
+  .detail-aside li { padding: .85rem 0; border-top: 1px solid var(--n-border); font-size: .95rem; }
+  .related-layout { display: grid; grid-template-columns: 4fr 7fr; gap: clamp(2rem, 7vw, 7rem); }
+  .related-layout h2 { max-width: 16ch; }
+  .related-links { display: grid; }
+  .related-links a { display: grid; grid-template-columns: 1fr 1.2fr; gap: 1rem; align-items: baseline; padding: 1.1rem 0; border-top: 1px solid var(--n-border); }
+  .related-links a:hover strong { text-decoration: underline; text-underline-offset: .2em; }
+  .related-links strong { font-weight: 600; }
+  .related-links span { color: var(--n-text-secondary); font-size: .9rem; }
+  .cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; }
+  .wide-cta .button--outline { border-color: var(--n-border); background: transparent; color: var(--n-text); }
+  @media (max-width: 767px) {
+    .detail-grid, .related-layout { grid-template-columns: 1fr; }
+    .related-links a { grid-template-columns: 1fr; gap: .3rem; }
+  }
+</style>

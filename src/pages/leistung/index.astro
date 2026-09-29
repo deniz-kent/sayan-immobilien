@@ -2,126 +2,98 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import SectionHeader from "../../components/SectionHeader.astro";
+import { services } from "../../data/services";
 
-const faq = [
-  ["Muss meine Immobilie sofort öffentlich angeboten werden?", "Nein. Je nach Objekt und Situation kann die Vermarktung zunächst über vorgemerkte Interessenten oder vollständig diskret erfolgen."],
-  ["Wie entsteht die Preiseinschätzung?", "Wir verbinden die Eckdaten der Immobilie mit Lage, Zustand, Unterlagen, Vergleichsangeboten und der aktuellen Nachfrage. Eine belastbare Empfehlung entsteht nach der persönlichen Prüfung."],
-  ["Welche Unterlagen werden benötigt?", "Je nach Objekt unter anderem Grundbuchauszug, Grundrisse, Wohnflächenberechnung, Energieausweis und bei Eigentumswohnungen Unterlagen der Gemeinschaft. Wir klären mit Ihnen, was bereits vorliegt und was noch beschafft werden muss."],
-  ["Was kostet die Vermittlung?", "Die konkrete Provision richtet sich nach Objekt, Auftrag und gesetzlichem Rahmen. Alle Konditionen werden vor Beauftragung transparent und schriftlich vereinbart."],
-  ["Wie lange dauert ein Verkauf?", "Das hängt von Objekt, Preispositionierung, Nachfrage und Unterlagen ab. Nach der ersten Prüfung erhalten Sie eine realistische Einschätzung zum möglichen Zeitrahmen."],
-  ["Ist die erste Anfrage verbindlich?", "Nein. Die Online Bewertung und das erste Gespräch dienen der Orientierung und verpflichten Sie nicht zu einem Maklerauftrag."],
-];
-const sellerServices = [
-  "Besichtigung und fundierte Bewertung Ihrer Immobilie",
-  "Marktpreisanalyse und gemeinsam festgelegter Angebotspreis",
-  "Zusammenstellung der Verkaufsunterlagen und Energieausweis",
-  "Professionelle Immobilienfotos, Grundrisse und individuelles Exposé",
-  "Bei Bedarf Home Staging, Video oder 360-Grad-Rundgang",
-  "Inserate in geeigneten Portalen und regionalen Medien",
-  "Auf Wunsch diskrete Vermittlung über unsere Interessentenkartei",
-  "Organisation von Einzelbesichtigungen oder Open House",
-  "Prüfung von Kaufinteressenten und deren Finanzierung",
-  "Verhandlungen, Kaufvertragsentwurf und Koordination des Notartermins",
-  "Begleitung bei der Übergabe und auch danach ansprechbar",
-];
-const landlordServices = [
-  "Immobilienfotos und Exposé",
-  "Vermarktung über passende Portale, regionale Medien und unsere Interessentenkartei",
-  "Besichtigungstermine und Bonitätsprüfung der Interessenten",
-  "Energieausweis und Mietvertrag",
-  "Wohnungsübergabe bei Einzug und Abnahme bei Auszug",
-  "Auf Wunsch Handwerkerservice und Mietverwaltung",
-];
+const featured = ["immobilienverkauf", "immobilienvermietung", "wertermittlung"];
+const groups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"] as const;
 ---
 
-<BaseLayout title="Leistungen für Eigentümer | SAYAN Immobilien Köln" description="Immobilienverkauf, Vermietung, Bauträger- und Portfoliovertrieb: alle Leistungen von SAYAN Immobilien Köln im Überblick.">
+<BaseLayout title="Leistungen | SAYAN Immobilien Köln" description="Verkauf, Vermietung, Bewertung und weitere Leistungen von SAYAN Immobilien Köln im Überblick.">
   <Header />
   <main id="main">
-    <section class="page-hero"><div class="container offer-hero"><div><p class="eyebrow">Für Eigentümer · Köln</p><h1>Wir kümmern uns um Ihre <em>Immobilie.</em></h1><p>Verkauf und Vermietung sind Arbeit. Wir übernehmen Bewertung, Unterlagen, Präsentation, Besichtigungen und Verhandlungen. Was wir tun und wie wir Ihre Immobilie anbieten, besprechen wir mit Ihnen.</p><div class="page-hero__actions"><a class="button" href="/leistung/formular/">Immobilie bewerten</a><a class="text-link" href="/kontakt/">Mit uns sprechen →</a></div></div><aside class="offer-facts"><span><small>Gegründet</small><strong>2001 in Köln</strong></span><span><small>Unternehmen</small><strong>inhabergeführt</strong></span><span><small>Objekte</small><strong>Wohnen & Gewerbe</strong></span></aside></div></section>
+    <section class="page-hero overview-hero">
+      <div class="container">
+        <p class="eyebrow">Unsere Leistungen</p>
+        <h1>Was können wir für Sie tun?</h1>
+        <p>Ob Sie verkaufen, vermieten oder sich zunächst über den Wert Ihrer Immobilie informieren möchten: Wählen Sie das Thema, das Sie interessiert. Auf den Unterseiten erklären wir die einzelnen Leistungen.</p>
+      </div>
+    </section>
 
-    <section class="section section--light" id="ablauf"><div class="container"><SectionHeader eyebrow="Immobilienverkauf" title="Vom ersten Besuch bis zum <em>Notartermin.</em>" lead="Wir besichtigen Ihre Immobilie, ermitteln einen marktgerechten Preis und vereinbaren mit Ihnen, wie sie angeboten wird." /><div class="content-grid process-cards"><article class="content-card"><span>01 · Kennenlernen</span><h3>Wir sehen uns Ihr Objekt an.</h3><p>Beim ersten Termin sprechen wir über Ihre Immobilie, Ihre Pläne und unsere Arbeit.</p></article><article class="content-card"><span>02 · Preis festlegen</span><h3>Bewertung mit Marktkenntnis.</h3><p>Wir prüfen Lage, Zustand und Unterlagen und legen den Angebotspreis gemeinsam mit Ihnen fest.</p></article><article class="content-card"><span>03 · Interessenten finden</span><h3>Fotos, Exposé, Besichtigungen.</h3><p>Wir erstellen die Präsentation, beantworten Anfragen und führen geeignete Interessenten durch Ihr Objekt.</p></article><article class="content-card"><span>04 · Verkauf abwickeln</span><h3>Verhandeln und übergeben.</h3><p>Wir prüfen die Finanzierung, koordinieren den Notartermin und begleiten auf Wunsch die Übergabe.</p></article></div></div></section>
+    <section class="section section--paper featured-section" aria-labelledby="featured-title">
+      <div class="container">
+        <h2 id="featured-title">Der erste Schritt</h2>
+        <div class="featured-grid">
+          {featured.map((slug) => {
+            const service = services.find((item) => item.slug === slug)!;
+            return <a class="featured-card" href={`/leistung/${service.slug}/`}><span>{service.group}</span><h3>{service.title}</h3><p>{service.summary}</p><strong>Mehr erfahren →</strong></a>;
+          })}
+        </div>
+      </div>
+    </section>
 
-    <section class="section section--dark"><div class="container"><SectionHeader eyebrow="Wertermittlung" title="Der richtige Preis ist keine <em>Schätzung.</em>" lead="Ein zu hoher Angebotspreis kann Interessenten abschrecken und den Verkauf verzögern. Wir bewerten Ihre Immobilie anhand ihrer Eigenschaften und der Nachfrage vor Ort." /><div class="content-grid"><article class="content-card dark-card"><span>Immobilie</span><h3>Wir prüfen die Fakten.</h3><p>Fläche, Baujahr, Zustand, Modernisierungen und Unterlagen gehören zur Bewertung.</p></article><article class="content-card dark-card"><span>Lage</span><h3>Wir kennen die Region.</h3><p>Die konkrete Straße, das Umfeld und die Anbindung zählen ebenso wie die Lage auf der Karte.</p></article><article class="content-card dark-card"><span>Markt</span><h3>Wir vergleichen Angebote.</h3><p>Nachfrage und vergleichbare Immobilien helfen uns, einen marktgerechten Preis vorzuschlagen.</p></article></div></div></section>
-
-    <section class="section section--brand" id="verkaufsleistungen"><div class="container benefit-grid"><div><p class="eyebrow">Unsere Leistungen für Verkäufer</p><h2>Was wir beim Verkauf für Sie <em>übernehmen.</em></h2><p>Welche Maßnahmen für Ihr Objekt sinnvoll sind, legen wir gemeinsam fest. Nicht jede Immobilie braucht dieselbe Art von Werbung.</p></div><ul class="check-list">{sellerServices.map((service) => <li>{service}</li>)}</ul></div></section>
-
-    <section class="section section--paper" id="vermietung"><div class="container rental-grid"><div><p class="eyebrow">Immobilie vermieten</p><h2>Wir suchen den passenden <em>Mieter.</em></h2><p>Für Vermieter übernehmen wir nicht nur das Inserat. Wir prüfen Anfragen, führen Besichtigungen durch und kümmern uns um Vertrag und Übergabe.</p></div><div><ul class="check-list">{landlordServices.map((service) => <li>{service}</li>)}</ul><a class="button button--dark" href="/kontakt/">Vermietung besprechen</a></div></div></section>
-
-    <section class="section section--light" id="vermarktung"><div class="container"><SectionHeader eyebrow="Präsentation und Besichtigungen" title="Damit Interessenten Ihre Immobilie <em>kennenlernen.</em>" lead="Gute Fotos und klare Informationen sind der Anfang. Wir entscheiden mit Ihnen, welche weiteren Maßnahmen zum Objekt passen." /><div class="occasion-grid"><article><span>01</span><h3>Immobilienfotografie.</h3><p>Wir fotografieren Innen- und Außenbereiche professionell und erstellen ein Exposé mit den wichtigen Angaben zum Objekt.</p></article><article><span>02</span><h3>360-Grad-Rundgang.</h3><p>Wo es sinnvoll ist, können vorselektierte Interessenten die Immobilie zunächst online besichtigen. Der Zugang kann geschützt vergeben werden.</p></article><article><span>03</span><h3>Home Staging.</h3><p>Manchmal helfen kleine Veränderungen bei Möbeln, Licht oder Ausstattung. Ob sich eine optische Auffrischung lohnt, besprechen wir mit Ihnen.</p></article><article><span>04</span><h3>Öffentlich oder diskret.</h3><p>Wir inserieren auf passenden Portalen und in regionalen Medien oder sprechen Interessenten direkt aus unserer Kartei an.</p></article><article><span>05</span><h3>Besichtigungen.</h3><p>Wir beantworten Fragen vorab, koordinieren Termine und führen qualifizierte Interessenten durch Ihre Immobilie.</p></article><article><span>06</span><h3>Nach dem Abschluss.</h3><p>Auf Wunsch begleiten wir die Übergabe mit Protokoll und vermitteln Kontakte zu Handwerkern oder anderen Dienstleistern.</p></article></div></div></section>
-
-    <section class="section section--paper" id="spezialleistungen"><div class="container"><SectionHeader eyebrow="Weitere Aufgaben" title="Auch für besondere Vorhaben haben wir <em>Erfahrung.</em>" /><div class="occasion-grid"><article><span>01</span><h3>Bauträgervertrieb.</h3><p>Wir entwickeln ein Konzept für Ihr Bauprojekt, möglichst schon in der Planungsphase. Dazu können Projektseite, Portale, Print, Außenwerbung, Grundrissvisualisierung, Besichtigungen und eine Verkaufsstelle vor Ort gehören.</p></article><article><span>02</span><h3>Portfoliovertrieb.</h3><p>Für private und institutionelle Eigentümer bewerten, vermieten und verkaufen wir Immobilienbestände. Bei einem selektiven Verkauf stimmen wir Vertraulichkeit und Interessentenfreigabe mit Ihnen ab.</p></article><article><span>03</span><h3>Finanzierung und Kontakte.</h3><p>Käufer unterstützen wir auf Wunsch bei Fragen zu Finanzierungsbedarf und Konditionen. Außerdem vermitteln wir Kontakte zu Finanzierungspartnern, Handwerkern und weiteren Fachleuten.</p></article><article><span>04</span><h3>Tippgeber.</h3><p>Sie kennen jemanden, der eine Immobilie verkaufen möchte? Sprechen Sie uns an. Wir erklären Ihnen, wie unser Tippgeber-Service funktioniert.</p></article></div></div></section>
-
-    <section class="section section--dark-alt"><div class="container owner-callout"><div><p class="eyebrow">SAYAN Immobilien Köln</p><h2>Inhabergeführt und <em>unabhängig.</em></h2></div><div><p>Wir betreuen Eigentümer, Käufer, Vermieter und Mieter persönlich. Unser Büro ist seit 2001 in Köln tätig und gehört weder zu einer Bank noch zu einem Franchise.</p><a class="button" href="/kontakt/">Gespräch vereinbaren</a></div></div></section>
-
-    <section class="section section--paper" id="faq">
-      <div class="container faq-layout">
-        <SectionHeader eyebrow="Häufige Fragen" title="Was Eigentümer vor dem Start wissen <em>möchten.</em>" />
-        <div class="faq-list">
-          {faq.map(([question, answer], i) => (
-            <div class="faq-item" data-faq-item data-open="false">
-              <h3 class="faq-item__question-wrap">
-                <button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls={`faq-panel-${i}`} id={`faq-trigger-${i}`}>
-                  <span class="faq-item__question">{question}</span>
-                  <span class="faq-item__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
-                </button>
-              </h3>
-              <div class="faq-item__panel" id={`faq-panel-${i}`} role="region" aria-labelledby={`faq-trigger-${i}`}>
-                <div class="faq-item__panel-inner"><p>{answer}</p></div>
+    <section class="section section--light all-services" aria-labelledby="all-services-title">
+      <div class="container">
+        <div class="section-intro">
+          <p class="eyebrow">Im Detail</p>
+          <h2 id="all-services-title">Alle Leistungen</h2>
+          <p>Von der Vorbereitung bis zur Übergabe: Jeder Bereich hat seine eigene Seite.</p>
+        </div>
+        <div class="service-groups">
+          {groups.map((group) => (
+            <div class="service-group">
+              <h3>{group}</h3>
+              <div class="service-links">
+                {services.filter((service) => service.group === group).map((service) => (
+                  <a href={`/leistung/${service.slug}/`}><span>{service.title}</span><small>{service.summary}</small><span class="link-arrow" aria-hidden="true">→</span></a>
+                ))}
               </div>
             </div>
           ))}
         </div>
       </div>
     </section>
-    <section class="wide-cta"><div class="container"><p class="eyebrow">Kontakt</p><h2>Wann dürfen wir für Sie <em>aktiv werden?</em></h2><p>Kontaktieren Sie uns unverbindlich. Wir freuen uns auf Sie und Ihre Immobilie.</p><div class="cta-actions"><a class="button" href="/leistung/formular/">Online Bewertung starten</a><a class="button button--outline" href="/kontakt/">Kontakt aufnehmen</a></div></div></section>
+
+    <section class="overview-contact">
+      <div class="container overview-contact__inner">
+        <div><p class="eyebrow">Persönlich klären</p><h2>Sie wissen noch nicht, wo Sie anfangen sollen?</h2><p>Beschreiben Sie uns kurz Ihr Vorhaben. Wir besprechen mit Ihnen, welche Schritte sinnvoll sind.</p></div>
+        <div class="overview-actions"><a class="button" href="/kontakt/">Kontakt aufnehmen</a><a class="text-link" href="/leistung/formular/">Online-Bewertung starten →</a></div>
+      </div>
+    </section>
   </main>
   <Footer />
-
-  <script>
-    document.querySelectorAll<HTMLElement>("[data-faq-item]").forEach((item) => {
-      const trigger = item.querySelector<HTMLButtonElement>(".faq-item__trigger");
-      trigger?.addEventListener("click", () => {
-        const isOpen = item.dataset.open === "true";
-        item.dataset.open = String(!isOpen);
-        trigger.setAttribute("aria-expanded", String(!isOpen));
-      });
-    });
-  </script>
 </BaseLayout>
 
 <style>
-  .offer-hero, .benefit-grid, .rental-grid, .owner-callout { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(2rem, 7vw, 7rem); align-items: center; }
-  .offer-facts { display: grid; padding: 1.75rem; border-radius: var(--radius-card); background: #fff; border: 1px solid var(--n-border); }
-  .offer-facts span { display: grid; grid-template-columns: 1fr 1.6fr; gap: 1rem; padding: 1.1rem 0; border-top: 1px solid var(--n-border); }
-  .offer-facts span:first-child { border-top: 0; }
-  .offer-facts small { font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; color: var(--n-text-secondary); }
-  .offer-facts strong { font-weight: 400; font-size: 1.5rem; color: var(--n-text); }
-  .process-cards { grid-template-columns: repeat(4, 1fr); }
-  .dark-card { background: var(--brand-700); color: #fff; }
-  .dark-card p { color: color-mix(in srgb, #fff 68%, transparent); }
-  .benefit-grid .check-list { margin: 0; }
-  .rental-grid p, .owner-callout p { max-width: 60ch; color: var(--n-text-secondary); }
-  .rental-grid .button, .owner-callout .button { margin-top: 2rem; }
-  .owner-callout p { color: color-mix(in srgb, #fff 70%, transparent); }
-  .occasion-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
-  .occasion-grid article { padding: 2rem; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: var(--paper); }
-  .occasion-grid span { color: var(--n-text-secondary); font-size: .78rem; font-weight: 700; }
-  .occasion-grid h3 { margin: 2.5rem 0 .7rem; text-transform: none; }
-  .occasion-grid p { color: var(--n-text-secondary); font-size: .95rem; }
-
-  .faq-layout { max-width: 920px; }
-  .faq-item__question-wrap { margin: 0; font-weight: inherit; }
-  .faq-item__trigger { width: 100%; }
-  .faq-item__question { color: var(--n-text); }
-
-  .cta-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
-  .wide-cta .button--outline { border-color: var(--n-border); background: transparent; color: var(--n-text); }
-
-  @media (max-width: 1000px) { .process-cards { grid-template-columns: 1fr 1fr; } }
+  .overview-hero { padding-bottom: clamp(3rem, 6vw, 5rem); }
+  .overview-hero h1 { max-width: 16ch; }
+  .overview-hero p:last-child { max-width: 66ch; }
+  .featured-section { padding-top: clamp(3rem, 5vw, 5rem); }
+  .featured-section h2 { margin-bottom: 1.5rem; }
+  .featured-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  .featured-card { display: flex; flex-direction: column; min-height: 15rem; padding: clamp(1.4rem, 3vw, 2rem); border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; }
+  .featured-card:hover, .featured-card:focus-visible { border-color: var(--accent); }
+  .featured-card > span { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--n-text-secondary); }
+  .featured-card h3 { margin: 1.5rem 0 .5rem; text-transform: none; }
+  .featured-card p { color: var(--n-text-secondary); }
+  .featured-card strong { margin-top: auto; padding-top: 1.5rem; font-size: .9rem; }
+  .section-intro { margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+  .section-intro p:last-child { max-width: 60ch; color: var(--n-text-secondary); }
+  .service-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 5vw, 4.5rem); }
+  .service-group h3 { margin-bottom: 1rem; font-size: 1.15rem; text-transform: none; }
+  .service-links a { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .25rem 1rem; padding: 1rem 0; border-top: 1px solid var(--n-border); }
+  .service-links a:hover > span:first-child, .service-links a:focus-visible > span:first-child { text-decoration: underline; text-underline-offset: .2em; }
+  .service-links a > span:first-child { font-weight: 600; }
+  .service-links small { grid-column: 1; color: var(--n-text-secondary); font-size: .85rem; }
+  .link-arrow { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+  .overview-contact { padding: clamp(3rem, 6vw, 5rem) 0; background: var(--paper); }
+  .overview-contact__inner { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 2rem; align-items: end; }
+  .overview-contact h2 { max-width: 20ch; }
+  .overview-contact p:last-child { max-width: 55ch; color: var(--n-text-secondary); }
+  .overview-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
   @media (max-width: 767px) {
-    .offer-hero, .benefit-grid, .rental-grid, .owner-callout { grid-template-columns: 1fr; }
-    .process-cards, .occasion-grid { grid-template-columns: 1fr; }
-    .faq-item__trigger { padding-block: 1.75rem; }
+    .featured-grid, .service-groups, .overview-contact__inner { grid-template-columns: 1fr; }
+    .featured-card { min-height: 0; }
+    .featured-card h3 { margin-top: 1rem; }
+    .service-groups { gap: 2rem; }
   }
 </style>
