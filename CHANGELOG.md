@@ -1,5 +1,11 @@
 # Änderungen
 
+## 1.3 — 29. September 2026
+
+- Button-Schrift ohne Schatten oder Kontur; Buttons mit dezentem Glaseffekt.
+- Kontaktbereich und Slider auf das kräftige SAYAN-Grün umgestellt.
+- Texte im dunklen Navigationskasten durchgehend weiß und besser lesbar.
+
 ## 1.2 — 29. September 2026
 
 - Grüne Akzente vereinheitlicht und den Ansprechpartner-Bereich als grüne Fläche gestaltet.

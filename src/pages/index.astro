@@ -194,7 +194,7 @@ const process = [
       </div>
     </section>
 
-    <section class="contact-cta" id="kontakt">
+    <section class="contact-cta section--brand" id="kontakt">
       <div class="container contact-cta__grid">
         <div data-reveal><p class="eyebrow">Ihr nächster Schritt</p><h2>Was dürfen wir für Sie <em>einordnen?</em></h2><p>Ein erstes Gespräch ist unverbindlich und bringt schnell Klarheit über die nächsten Schritte.</p></div>
         <div class="contact-cta__links" data-reveal>
@@ -230,7 +230,7 @@ const process = [
   .home-hero__lead { max-width: 47ch; margin-top: 1.25rem; font-size: clamp(.98rem, 1.2vw, 1.08rem); color: rgb(255 255 255 / .82); }
   .home-hero__actions, .inline-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-top: 2rem; }
   .button--light { border-color: var(--accent); background: var(--accent); color: #fff; }
-  .button--glass { border-color: rgb(255 255 255 / .45); background: rgb(255 255 255 / .08); color: #fff; -webkit-text-stroke: 0; text-shadow: none; backdrop-filter: blur(8px); }
+  .button--glass { border-color: rgb(255 255 255 / .45); background: rgb(255 255 255 / .08); color: #fff; backdrop-filter: blur(8px); }
 
   .valuation-section { padding-top: clamp(3.5rem, 6vw, 5.5rem); }
   .valuation-section__grid { display: grid; grid-template-columns: minmax(15rem, 4fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
@@ -242,11 +242,11 @@ const process = [
   .widget-status, .widget-error { padding: 1rem; color: var(--n-text-secondary); font-size: .85rem; text-align: center; }
   .widget-error a { text-decoration: underline; }
 
-  .proof-line { margin-top: 1.25rem; overflow: hidden; border-top: 1px solid var(--n-border); border-bottom: 1px solid var(--n-border); background: var(--brand-100); }
+  .proof-line { margin-top: 1.25rem; overflow: hidden; border-top: 1px solid var(--accent); border-bottom: 1px solid var(--accent); background: var(--accent); }
   .proof-line__track { display: flex; width: max-content; animation: proof-scroll 36s linear infinite; }
   .proof-line:hover .proof-line__track { animation-play-state: paused; }
   .proof-line__group { display: flex; flex-shrink: 0; }
-  .proof-line span { display: flex; align-items: center; justify-content: center; width: 16rem; padding: .9rem 1rem; border-left: 1px solid var(--n-border); font-size: .75rem; font-weight: 500; color: var(--n-text-secondary); text-align: center; white-space: nowrap; }
+  .proof-line span { display: flex; align-items: center; justify-content: center; width: 16rem; padding: .9rem 1rem; border-left: 1px solid color-mix(in srgb, #fff 35%, transparent); font-size: .75rem; font-weight: 600; color: #fff; text-align: center; white-space: nowrap; }
   @keyframes proof-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
   .owner-grid, .valuation-grid, .buyer-grid, .discretion-grid, .contact-cta__grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: center; }
@@ -291,11 +291,11 @@ const process = [
   .situation-grid span { display: flex; align-items: center; min-height: 4.5rem; padding: 1.25rem; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; font: 500 1rem/1.25 var(--font-display); }
 
   .property-preview__cta { display: flex; justify-content: center; margin-top: clamp(2.5rem, 5vw, 3.5rem); }
-  .contact-cta { padding-block: var(--section-space); background: var(--brand-100); }
-  .contact-cta__grid > div > p:not(.eyebrow) { max-width: 50ch; margin-top: 1.2rem; color: var(--n-text-secondary); }
+  .contact-cta { padding-block: var(--section-space); }
+  .contact-cta__grid > div > p:not(.eyebrow) { max-width: 50ch; margin-top: 1.2rem; color: var(--accent-ink); }
   .contact-cta__links { display: grid; }
-  .contact-cta__links > a, .contact-cta__links > span { display: grid; grid-template-columns: 6rem 1fr auto; gap: 1rem; align-items: center; padding: 1.4rem 0; border-top: 1px solid var(--n-border); }
-  .contact-cta__links small, .contact-cta__links span span { font-size: .8rem; color: var(--n-text-secondary); }
+  .contact-cta__links > a, .contact-cta__links > span { display: grid; grid-template-columns: 6rem 1fr auto; gap: 1rem; align-items: center; padding: 1.4rem 0; border-top: 1px solid color-mix(in srgb, var(--accent-ink) 24%, transparent); }
+  .contact-cta__links small, .contact-cta__links span span { font-size: .8rem; color: var(--accent-ink); }
   .contact-cta__links > a > span { font-size: .85rem; font-weight: 600; }
 
   @media (max-width: 900px) {
