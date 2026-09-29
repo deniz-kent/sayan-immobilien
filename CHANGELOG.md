@@ -1,5 +1,10 @@
 # Änderungen
 
+## 1.9 — 29. September 2026
+
+- Die häufigen Fragen als aufklappbaren Bereich auf die Startseite gesetzt.
+- FAQ-Links in Navigation und Footer führen direkt zu diesem Bereich.
+
 ## 1.8 — 29. September 2026
 
 - Die bisher lange Leistungsseite in eine kurze Übersicht mit 19 eigenen Unterseiten umgebaut.

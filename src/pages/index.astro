@@ -5,6 +5,7 @@ import Footer from "../components/Footer.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import PropertyCard from "../components/PropertyCard.astro";
 import { properties } from "../data/properties";
+import { faqQuestions } from "../data/faq";
 
 const featuredProperties = properties.slice(0, 3);
 
@@ -179,6 +180,25 @@ const process = [
       </div>
     </section>
 
+    <section class="section section--light home-faq" id="faq" aria-labelledby="faq-title">
+      <div class="container home-faq__layout">
+        <div class="home-faq__intro">
+          <p class="eyebrow">Häufige Fragen</p>
+          <h2 id="faq-title">Gut zu wissen, bevor es losgeht.</h2>
+          <p>Antworten auf Fragen, die uns Eigentümer oft stellen.</p>
+        </div>
+        <div class="home-faq__questions">
+          {faqQuestions.map(([question, answer]) => (
+            <details class="home-faq__item">
+              <summary>{question}<span aria-hidden="true">+</span></summary>
+              <p>{answer}</p>
+            </details>
+          ))}
+          <a class="text-link" href="/kontakt/">Weitere Frage? Sprechen Sie mit uns →</a>
+        </div>
+      </div>
+    </section>
+
     <section class="contact-cta section--brand" id="kontakt">
       <div class="container contact-cta__grid">
         <div data-reveal><p class="eyebrow">Sprechen Sie mit uns</p><h2>Was haben Sie mit Ihrer Immobilie <em>vor?</em></h2><p>Rufen Sie uns an oder schreiben Sie uns. Wir freuen uns auf Sie und Ihre Immobilie.</p></div>
@@ -276,6 +296,16 @@ const process = [
   .situation-grid span { display: flex; align-items: center; min-height: 4.5rem; padding: 1.25rem; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; font: 500 1rem/1.25 var(--font-display); }
 
   .property-preview__cta { display: flex; justify-content: center; margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+  .home-faq { scroll-margin-top: 6rem; }
+  .home-faq__layout { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+  .home-faq__intro p:last-child { margin-top: 1rem; color: var(--n-text-secondary); }
+  .home-faq__item { border-top: 1px solid var(--n-border); }
+  .home-faq__item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.3rem 0; cursor: pointer; font-size: clamp(1rem, 1.3vw, 1.15rem); font-weight: 600; list-style: none; }
+  .home-faq__item summary::-webkit-details-marker { display: none; }
+  .home-faq__item summary span { display: grid; flex: 0 0 2.3rem; place-items: center; width: 2.3rem; height: 2.3rem; border: 1px solid var(--n-border); border-radius: 50%; font-size: 1.35rem; font-weight: 400; }
+  .home-faq__item[open] summary span { transform: rotate(45deg); }
+  .home-faq__item > p { max-width: 65ch; padding: 0 3rem 1.5rem 0; color: var(--n-text-secondary); }
+  .home-faq__questions > .text-link { margin-top: 1.5rem; }
   .contact-cta { padding-block: var(--section-space); }
   .contact-cta__grid > div > p:not(.eyebrow) { max-width: 50ch; margin-top: 1.2rem; color: var(--accent-ink); }
   .contact-cta__links { display: grid; }
@@ -289,7 +319,7 @@ const process = [
     .situation-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 767px) {
-    .valuation-section__grid, .owner-grid, .valuation-grid, .buyer-grid, .discretion-grid, .contact-cta__grid { grid-template-columns: 1fr; }
+    .valuation-section__grid, .owner-grid, .valuation-grid, .buyer-grid, .discretion-grid, .contact-cta__grid, .home-faq__layout { grid-template-columns: 1fr; }
     .home-hero { padding-top: 5.75rem; }
     .home-hero__media { min-height: 34rem; }
     .home-hero__shade { background: linear-gradient(0deg, rgb(20 24 25 / .86) 0%, rgb(20 24 25 / .48) 68%, rgb(20 24 25 / .12) 100%); }
