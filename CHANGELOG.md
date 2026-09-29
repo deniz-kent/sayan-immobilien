@@ -1,5 +1,10 @@
 # Änderungen
 
+## 1.4 — 29. September 2026
+
+- Den neuen Glaseffekt der Buttons zurückgenommen.
+- Schrift auf grünen Buttons und aktiven Filtern wieder dunkel dargestellt.
+
 ## 1.3 — 29. September 2026
 
 - Button-Schrift ohne Schatten oder Kontur; Buttons mit dezentem Glaseffekt.
