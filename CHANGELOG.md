@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.6 — 29. September 2026
+
+- Den FAQ-Bereich auf der Leistungsseite hell gestaltet, damit er sich vom dunklen Abschnitt darüber abhebt.
+
 ## 1.5 — 29. September 2026
 
 - Die sechs Kacheln unter „Typische Anlässe“ wieder sichtbar gemacht.
