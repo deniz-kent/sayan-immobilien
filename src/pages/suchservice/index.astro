@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<BaseLayout
+  title="Suchservice | SAYAN Immobilien Köln"
+  description="Teilen Sie SAYAN Immobilien mit, welche Immobilie Sie in Köln suchen."
+>
+  <Header />
+  <main id="main">
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Für Käufer und Mieter</p>
+        <h1>Ihr <em>Suchservice.</em></h1>
+        <p>Teilen Sie uns mit, welche Lage, Größe und Nutzung Sie suchen. Wir berücksichtigen Ihr Profil, wenn ein passendes Angebot verfügbar ist.</p>
+      </div>
+    </section>
+
+    <section class="section section--paper">
+      <div class="container">
+        <div class="widget-card">
+          <div class="widget-card__head">
+            <h2>Finden Sie Ihre <em>Wunschimmobilie.</em></h2>
+          </div>
+          <btm-widget widget="property-request"></btm-widget>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <script is:inline src="https://components.bottimmo.com/components/6a9a8e5ddd651d6512580de2/btm-widget/de-DE" defer></script>
+</BaseLayout>
