@@ -3,7 +3,13 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import PropertyCard from "../../components/PropertyCard.astro";
-import { properties } from "../../data/properties";
+import { getPropertyCatalog, setPropertyCacheHeaders } from "../../server/properties";
+
+export const prerender = false;
+const catalog = await getPropertyCatalog();
+const properties = catalog.properties;
+setPropertyCacheHeaders(Astro.response.headers, catalog.available);
+if (!catalog.available) Astro.response.status = 503;
 ---
 
 <BaseLayout
@@ -18,12 +24,11 @@ import { properties } from "../../data/properties";
         <p class="eyebrow">Immobilien · Köln</p>
         <h1>Aktuelle <em>Angebote.</em></h1>
         <p>
-          Hier erscheinen unsere öffentlich vermarkteten Objekte, sobald die Anbindung an unser
-          Maklerverwaltungsprogramm abgeschlossen ist. Viele Immobilien vermitteln wir zudem diskret,
-          ohne öffentliche Vermarktung. Teilen Sie uns dafür gern Ihr Suchprofil mit.
+          Hier finden Sie unsere aktuellen Kauf- und Mietangebote. Im jeweiligen Exposé sehen Sie
+          Fotos, Preise und Objektdaten. Bei Fragen zu einer Immobilie sind wir persönlich für Sie da.
         </p>
         <div class="page-hero__actions">
-          <a class="button" href="/suchservice/">Suchprofil mitteilen</a>
+          <a class="button" href="/kontakt/">Kontakt aufnehmen</a>
           <a class="text-link" href="/leistung/formular/">Immobilie bewerten →</a>
         </div>
       </div>
@@ -31,23 +36,22 @@ import { properties } from "../../data/properties";
 
     <section class="section section--paper" id="angebote">
       <div class="container">
-        <div class="property-filter" role="tablist" aria-label="Objekte filtern">
-          <button type="button" class="is-active" data-filter="alle">Alle</button>
-          <button type="button" data-filter="kaufen">Kaufen</button>
-          <button type="button" data-filter="mieten">Mieten</button>
+        <div class="property-filter" role="group" aria-label="Objekte filtern">
+          <button type="button" class="is-active" data-filter="alle" aria-pressed="true">Alle</button>
+          <button type="button" data-filter="kaufen" aria-pressed="false">Kaufen</button>
+          <button type="button" data-filter="mieten" aria-pressed="false">Mieten</button>
         </div>
 
         <div class="property-grid" data-reveal-group>
           {properties.map((property, index) => (
             <div data-type={property.type} data-reveal style={`--stagger:${index}`}>
-              <PropertyCard property={property} label={String(index + 1).padStart(2, "0")} />
+              <PropertyCard property={property} />
             </div>
           ))}
         </div>
 
-        <p class="property-note">
-          Keine passende Immobilie dabei? Viele Objekte vermitteln wir bewusst diskret. Teilen Sie uns Ihr
-          Suchprofil mit. Wir melden uns, sobald ein passendes Angebot verfügbar ist.
+        <p class="property-note" role="status" data-empty-filter hidden={properties.length > 0}>
+          {catalog.available ? "Zurzeit sind keine öffentlichen Immobilienangebote verfügbar." : "Unsere Angebote können gerade nicht geladen werden. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie uns."}
         </p>
       </div>
     </section>
@@ -55,10 +59,10 @@ import { properties } from "../../data/properties";
     <section class="wide-cta">
       <div class="container">
         <p class="eyebrow">Ihr nächster Schritt</p>
-        <h2>Sollen wir Sie <em>informieren?</em></h2>
-        <p>Hinterlegen Sie Lage, Größe und Nutzung. Wir gleichen Ihr Profil mit passenden öffentlichen und diskreten Angeboten ab.</p>
+        <h2>Fragen zu einer <em>Immobilie?</em></h2>
+        <p>Wir beantworten Ihre Fragen zum Angebot und vereinbaren gern einen Besichtigungstermin mit Ihnen.</p>
         <div class="cta-actions">
-          <a class="button" href="/suchservice/">Suchprofil mitteilen</a>
+          <a class="button" href="/kontakt/">Kontakt aufnehmen</a>
           <a class="button button--outline" href="tel:+4922116892660">0221 / 168 926 60</a>
         </div>
       </div>
@@ -69,12 +73,20 @@ import { properties } from "../../data/properties";
   <script>
     const buttons = document.querySelectorAll<HTMLButtonElement>(".property-filter button");
     const cards = document.querySelectorAll<HTMLElement>(".property-grid > [data-type]");
+    const empty = document.querySelector<HTMLElement>("[data-empty-filter]");
 
     function applyFilter(filter: string) {
-      buttons.forEach((b) => b.classList.toggle("is-active", b.dataset.filter === filter));
+      buttons.forEach((b) => {
+        b.classList.toggle("is-active", b.dataset.filter === filter);
+        b.setAttribute("aria-pressed", String(b.dataset.filter === filter));
+      });
       cards.forEach((card) => {
         card.hidden = filter !== "alle" && card.dataset.type !== filter;
       });
+      if (empty && cards.length > 0) {
+        empty.hidden = [...cards].some((card) => !card.hidden);
+        empty.textContent = "Für diese Auswahl sind zurzeit keine Immobilienangebote verfügbar.";
+      }
     }
 
     buttons.forEach((button) => {

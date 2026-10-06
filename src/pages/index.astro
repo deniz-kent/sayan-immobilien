@@ -4,10 +4,13 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SectionHeader from "../components/SectionHeader.astro";
 import PropertyCard from "../components/PropertyCard.astro";
-import { properties } from "../data/properties";
+import { getPropertyCatalog, setPropertyCacheHeaders } from "../server/properties";
 import { faqQuestions } from "../data/faq";
 
-const featuredProperties = properties.slice(0, 3);
+export const prerender = false;
+const catalog = await getPropertyCatalog();
+setPropertyCacheHeaders(Astro.response.headers, catalog.available);
+const featuredProperties = catalog.properties.slice(0, 3);
 
 const services = [
   {
@@ -104,14 +107,15 @@ const process = [
 
     <section class="section section--paper" id="objekte-vorschau">
       <div class="container">
-        <SectionHeader eyebrow="Immobilien" title="Ein Blick auf unsere <em>Angebote.</em>" lead="Die Objekte auf dieser Testseite sind noch Beispiele. Aktuelle Angebote erscheinen hier nach der Anbindung an onOffice." />
+        <SectionHeader eyebrow="Immobilien" title="Ein Blick auf unsere <em>Angebote.</em>" lead="Unsere aktuellen Kauf- und Mietangebote. Weitere Informationen, Fotos und Objektdaten finden Sie im jeweiligen Exposé." />
         <div class="property-grid" data-reveal-group>
           {featuredProperties.map((property, index) => (
             <div data-reveal style={`--stagger:${index}`}>
-              <PropertyCard property={property} label={String(index + 1).padStart(2, "0")} />
+              <PropertyCard property={property} />
             </div>
           ))}
         </div>
+        {featuredProperties.length === 0 && <p role="status">{catalog.available ? "Zurzeit sind keine öffentlichen Immobilienangebote verfügbar. Sprechen Sie uns gern persönlich an." : "Unsere Angebote können gerade nicht geladen werden. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie uns."}</p>}
         <div class="property-preview__cta">
           <a class="button" href="/immobilien/">Alle ansehen</a>
         </div>

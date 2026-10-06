@@ -2,92 +2,72 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import { properties } from "../../data/properties";
+import { getPropertyCatalog, setPropertyCacheHeaders } from "../../server/properties";
 
-// TODO: onOffice/OnImmo-Anbindung
-// Sobald der API-Zugang vorliegt, getStaticPaths() durch einen Abruf der
-// echten Objekt-IDs ersetzen (oder – falls Objekte sich häufig ändern – auf
-// einen Server-Endpoint mit `export const prerender = false;` umstellen) und
-// die Platzhalterfelder unten durch die tatsächlichen Exposé-Daten ersetzen.
-// Struktur orientiert sich an einem typischen Exposé: Objektdaten,
-// Informationen, Details, Beschreibung, Energieausweis, Ansprechpartner.
-export function getStaticPaths() {
-  return properties.map((property) => ({
-    params: { id: property.id },
-    props: { property },
-  }));
-}
-
-const { property } = Astro.props;
-const typeLabel = property.type === "kaufen" ? "Kaufen" : "Mieten";
+export const prerender = false;
+const id = Astro.params.id ?? "";
+const validId = /^[1-9]\d{0,11}$/.test(id);
+const catalog = validId ? await getPropertyCatalog() : { available: true, properties: [] };
+const property = catalog.properties.find((item) => item.id === id);
+if (!property) Astro.response.status = catalog.available ? 404 : 503;
+setPropertyCacheHeaders(Astro.response.headers, catalog.available);
+const typeLabel = property?.type === "kaufen" ? "Kaufen" : "Mieten";
+const cover = property?.images.find((image) => ["Titelbild", "Foto", "Foto_gross"].includes(image.category));
+const furtherImages = property?.images.filter((image) => image.url !== cover?.url) ?? [];
+const enquiry = property ? `mailto:info@sayan-immo.de?subject=${encodeURIComponent(`Anfrage zur Immobilie ${property.reference}`)}` : "mailto:info@sayan-immo.de";
+const sections = property ? [
+  ["Beschreibung", property.description],
+  ["Ausstattung", property.equipment],
+  ["Lage", property.locationDescription],
+  ["Weitere Informationen", property.otherInformation],
+].filter(([, text]) => text) : [];
 ---
 
 <BaseLayout
-  title={`${property.category} in Köln (${typeLabel}) | SAYAN Immobilien`}
-  description="Objektdetails folgen in Kürze. Sprechen Sie uns gern direkt zu diesem Angebot an."
-  noindex={false}
+  title={property ? `${property.title} | SAYAN Immobilien` : "Immobilienangebot | SAYAN Immobilien"}
+  description={property ? `${property.title}. ${property.price}. Fotos, Objektdaten und Kontakt für Ihre Anfrage.` : "Unsere aktuellen Kauf- und Mietangebote finden Sie in der Immobilienübersicht."}
+  noindex={!property}
 >
   <Header />
   <main id="main">
-    <section class="page-hero expose-hero">
+    {property ? <><section class="page-hero expose-hero">
       <div class="container">
         <a class="text-link" href="/immobilien/">← Alle Immobilien</a>
-        <p class="eyebrow">{typeLabel} · Köln</p>
-        <h1>{property.category} <em>in Vorbereitung.</em></h1>
-        <p>Die vollständigen Objektdaten und Fotos werden ergänzt, sobald die Anbindung an unser Maklerverwaltungsprogramm abgeschlossen ist.</p>
-        <div class="expose-hero__price">Preis auf Anfrage</div>
+        <p class="eyebrow">{[typeLabel, property.location, property.status === "Reserviert" ? "Reserviert" : ""].filter(Boolean).join(" · ")}</p>
+        <h1>{property.title}</h1>
+        <div class="expose-hero__price">{property.price}</div>
       </div>
     </section>
 
     <section class="section section--paper">
       <div class="container expose-layout">
         <div class="expose-main">
-          <div class="expose-gallery">
-            <div class="expose-gallery__main" aria-hidden="true">
+          {property.images.length > 0 && <div class="expose-gallery">
+            {cover && <a class="expose-gallery__main" href={cover.url} target="_blank" rel="noopener noreferrer" aria-label="Hauptfoto in voller Größe öffnen">
+              <img src={cover.url} alt={cover.title || property.title} width="1600" height="1200" fetchpriority="high" />
+            </a>}
+            {furtherImages.length > 0 && <div class="expose-gallery__thumbs">
+              {furtherImages.map((image, index) => <a href={image.url} target="_blank" rel="noopener noreferrer" aria-label={`${image.title || image.category} – Bild ${index + 1} öffnen`}>
+                <img src={image.url} alt={image.title || image.category} width="800" height="600" loading="lazy" />
+              </a>)}
+            </div>}
+          </div>}
+          {property.images.length === 0 && <div class="expose-gallery__main expose-gallery__empty" aria-hidden="true">
               <svg viewBox="0 0 64 64" width="36" height="36">
                 <path d="M6 34 L32 12 L58 34" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="miter" />
                 <rect x="16" y="46" width="32" height="6" fill="currentColor" />
               </svg>
-            </div>
-            <div class="expose-gallery__thumbs" aria-hidden="true">
-              <span></span><span></span><span></span><span></span>
-            </div>
-          </div>
+          </div>}
 
           <h2>Objektdaten.</h2>
           <dl class="expose-facts">
-            <div><dt>Objekt-Nr.</dt><dd>wird ergänzt</dd></div>
-            <div><dt>Objektart</dt><dd>{property.category}</dd></div>
-            <div><dt>Wohnfläche</dt><dd>—</dd></div>
-            <div><dt>Zimmer</dt><dd>—</dd></div>
+            {property.facts.map(([name, value]) => <div><dt>{name}</dt><dd>{value}</dd></div>)}
           </dl>
 
-          <h2>Informationen.</h2>
-          <dl class="expose-facts">
-            <div><dt>Baujahr</dt><dd>—</dd></div>
-            <div><dt>Grundstücksfläche</dt><dd>—</dd></div>
-            <div><dt>Zustand</dt><dd>wird ergänzt</dd></div>
-            <div><dt>Bezugsfrei ab</dt><dd>nach Vereinbarung</dd></div>
-          </dl>
-
-          <h2>Details.</h2>
-          <dl class="expose-facts">
-            <div><dt>Etagen</dt><dd>—</dd></div>
-            <div><dt>Schlafzimmer</dt><dd>—</dd></div>
-            <div><dt>Badezimmer</dt><dd>—</dd></div>
-            <div><dt>Ausstattung</dt><dd>wird ergänzt</dd></div>
-          </dl>
-
-          <h2>Beschreibung.</h2>
-          <p class="expose-copy">Die Objektbeschreibung folgt in Kürze. Fragen zu Lage, Ausstattung oder Kaufpreis beantworten wir Ihnen gern persönlich.</p>
-
-          <h2>Energieausweis.</h2>
-          <dl class="expose-facts">
-            <div><dt>Endenergiebedarf</dt><dd>wird ergänzt</dd></div>
-            <div><dt>Energieträger</dt><dd>wird ergänzt</dd></div>
-            <div><dt>Gültig bis</dt><dd>wird ergänzt</dd></div>
-            <div><dt>Heizung</dt><dd>wird ergänzt</dd></div>
-          </dl>
+          {sections.map(([name, text]) => <section><h2>{name}.</h2><p class="expose-copy">{text}</p></section>)}
+          {property.energy.length > 0 && <section><h2>Energieausweis.</h2>
+            <dl class="expose-facts">{property.energy.map(([name, value]) => <div><dt>{name}</dt><dd>{value}</dd></div>)}</dl>
+          </section>}
         </div>
 
         <aside class="expose-aside">
@@ -99,7 +79,7 @@ const typeLabel = property.type === "kaufen" ? "Kaufen" : "Mieten";
               <a href="tel:+4922116892660">0221 / 168 926 60</a>
               <a href="mailto:info@sayan-immo.de">info@sayan-immo.de</a>
             </div>
-            <a class="button" href="/kontakt/">Unverbindlich anfragen</a>
+            <a class="button" href={enquiry}>Zum Objekt anfragen</a>
           </div>
         </aside>
       </div>
@@ -109,13 +89,18 @@ const typeLabel = property.type === "kaufen" ? "Kaufen" : "Mieten";
       <div class="container">
         <p class="eyebrow">Interessiert?</p>
         <h2>Sprechen Sie uns <em>direkt an.</em></h2>
-        <p>Ein kurzer Anruf oder eine Nachricht genügt. Wir melden uns, sobald das Objekt vollständig online ist.</p>
+        <p>Gern beantworten wir Ihre Fragen und vereinbaren einen Besichtigungstermin mit Ihnen. Nennen Sie uns die Objekt-Nr. {property.reference}.</p>
         <div class="cta-actions">
-          <a class="button" href="/kontakt/">Kontakt aufnehmen</a>
+          <a class="button" href={enquiry}>Kontakt aufnehmen</a>
           <a class="button button--outline" href="/immobilien/">Weitere Objekte ansehen</a>
         </div>
       </div>
-    </section>
+    </section></> : <section class="page-hero"><div class="container">
+      <p class="eyebrow">Immobilien</p>
+      <h1>{catalog.available ? "Angebot nicht verfügbar." : "Angebote vorübergehend nicht erreichbar."}</h1>
+      <p>{catalog.available ? "Dieses Immobilienangebot ist nicht mehr öffentlich verfügbar. Unsere aktuellen Angebote finden Sie in der Übersicht." : "Bitte versuchen Sie es später noch einmal. Bei Fragen erreichen Sie uns unter 0221 / 168 926 60."}</p>
+      <a class="button" href="/immobilien/">Aktuelle Angebote ansehen</a>
+    </div></section>}
   </main>
   <Footer />
 </BaseLayout>
@@ -124,16 +109,22 @@ const typeLabel = property.type === "kaufen" ? "Kaufen" : "Mieten";
   .expose-hero__price { display: inline-block; margin-top: 1.5rem; padding: .6rem 1.2rem; border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: .85rem; }
   .expose-layout { display: grid; grid-template-columns: minmax(0, 7fr) minmax(18rem, 4fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
   .expose-gallery { display: grid; gap: .75rem; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
-  .expose-gallery__main { display: grid; place-items: center; height: 20rem; border-radius: var(--radius-media); background: var(--n-surface); color: var(--accent); }
-  .expose-gallery__thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: .75rem; }
-  .expose-gallery__thumbs span { height: 4.5rem; border-radius: var(--radius-field); background: var(--n-surface); }
+  .expose-hero h1 { max-width: 24ch; overflow-wrap: anywhere; }
+  .expose-hero .eyebrow { display: flex; width: fit-content; margin-top: 1.25rem; }
+  .expose-gallery__main { display: grid; place-items: center; aspect-ratio: 4 / 3; border-radius: var(--radius-media); overflow: hidden; background: var(--n-surface); color: var(--accent); }
+  .expose-gallery__main img { width: 100%; height: 100%; object-fit: cover; }
+  .expose-gallery__empty { margin-bottom: 2rem; }
+  .expose-gallery__thumbs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
+  .expose-gallery__thumbs a { border-radius: var(--radius-field); overflow: hidden; background: var(--n-surface); }
+  .expose-gallery__thumbs img { width: 100%; height: 100%; aspect-ratio: 4 / 3; object-fit: contain; }
   .expose-main h2 { margin: clamp(2rem, 4vw, 2.75rem) 0 1rem; text-transform: none; font-size: 1.5rem; font-weight: 600; letter-spacing: 0; max-width: none; }
   .expose-main h2:first-of-type { margin-top: 0; }
-  .expose-facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; border-top: 1px solid var(--n-border); }
+  .expose-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 1.5rem; border-top: 1px solid var(--n-border); }
   .expose-facts div { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding: .9rem 0; border-bottom: 1px solid var(--n-border); }
   .expose-facts dt { color: var(--n-text-secondary); font-size: .85rem; }
-  .expose-facts dd { margin: 0; font-weight: 600; font-size: .88rem; }
-  .expose-copy { max-width: 68ch; color: var(--n-text-secondary); }
+  .expose-facts dd { margin: 0; font-weight: 600; font-size: .88rem; overflow-wrap: anywhere; }
+  .expose-copy { max-width: 68ch; color: var(--n-text-secondary); white-space: pre-line; overflow-wrap: anywhere; }
+  .expose-main { min-width: 0; }
   .expose-aside { position: sticky; top: 7rem; }
   .expose-contact { padding: clamp(1.75rem, 3vw, 2.25rem); border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; }
   .expose-contact h3 { margin-top: .3rem; font-size: 1.5rem; }
@@ -147,5 +138,8 @@ const typeLabel = property.type === "kaufen" ? "Kaufen" : "Mieten";
     .expose-layout { grid-template-columns: 1fr; }
     .expose-aside { position: static; }
     .expose-facts { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .expose-hero h1 { font-size: clamp(1.45rem, 6vw, 2rem); }
   }
 </style>
