@@ -13,6 +13,8 @@ Die lokale Angebotsvorschau läuft unter `http://localhost:4322`.
 
 ## Prüfung
 
+Die Objektbilder öffnen sich als Großansicht auf derselben Seite. Vor-/Zurück-Pfeile und die Pfeiltasten wechseln das Bild; Schließen oder Escape führt zurück zum angeklickten Bild. Bei nur einem Bild werden die Navigationspfeile ausgeblendet.
+
 ```bash
 npm run check
 npm test

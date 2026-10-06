@@ -1,0 +1,60 @@
+---
+import type { PropertyImage } from '../data/properties';
+interface Props { images: PropertyImage[]; title: string; }
+const { images, title } = Astro.props;
+const cover = images.find(image => ['Titelbild', 'Foto', 'Foto_gross'].includes(image.category)) ?? images[0];
+const orderedImages = cover ? [cover, ...images.filter(image => image.url !== cover.url)] : [];
+---
+
+{orderedImages.length > 0 && <div class="property-gallery" data-property-gallery>
+  <div class="property-gallery__grid">
+    {orderedImages.map((image, index) => <button
+      type="button" class:list={["property-gallery__trigger", { "property-gallery__cover": index === 0 }]}
+      data-gallery-trigger aria-haspopup="dialog" aria-label={`${image.title || image.category || title} – Bild ${index + 1} groß ansehen`}>
+      <img src={image.url} alt={image.title || image.category || title} width="1600" height="1200"
+        loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} />
+      {index === 0 && <span class="property-gallery__hint">Bilder groß ansehen ↗</span>}
+    </button>)}
+  </div>
+  <dialog class="property-gallery__dialog" aria-label="Bildergalerie zur Immobilie">
+    <button type="button" class="property-gallery__control property-gallery__close" data-gallery-close autofocus aria-label="Bildergalerie schließen">×</button>
+    <div class="property-gallery__stage"><img data-gallery-image alt="" /></div>
+    <div class="property-gallery__navigation">
+      <button type="button" class="property-gallery__control" data-gallery-previous aria-label="Vorheriges Bild">←</button>
+      <p data-gallery-caption aria-live="polite" aria-atomic="true"></p>
+      <button type="button" class="property-gallery__control" data-gallery-next aria-label="Nächstes Bild">→</button>
+    </div>
+  </dialog>
+</div>}
+
+<script>
+  import { initPropertyGallery } from './property-gallery.js';
+  document.querySelectorAll<HTMLElement>('[data-property-gallery]').forEach(root => initPropertyGallery(root));
+</script>
+
+<style>
+  .property-gallery { margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+  .property-gallery__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
+  .property-gallery__trigger { position: relative; display: block; padding: 0; border: 0; border-radius: var(--radius-field); overflow: hidden; background: var(--n-surface); cursor: zoom-in; aspect-ratio: 4 / 3; }
+  .property-gallery__trigger img { width: 100%; height: 100%; object-fit: contain; }
+  .property-gallery__cover { grid-column: 1 / -1; border-radius: var(--radius-media); }
+  .property-gallery__cover img { object-fit: cover; }
+  .property-gallery__hint { position: absolute; bottom: .75rem; right: .75rem; padding: .5rem .75rem; background: var(--accent); color: var(--accent-ink); border-radius: var(--radius-pill); font-size: .8rem; font-weight: 600; }
+  .property-gallery__dialog { width: calc(100% - 2rem); max-width: 100rem; height: calc(100dvh - 2rem); max-height: none; margin: auto; padding: 1rem; border: 0; border-radius: var(--radius-field); background: #171b1c; color: #fff; }
+  .property-gallery__dialog[open] { display: grid; grid-template-rows: 3rem minmax(0, 1fr) auto; gap: .75rem; }
+  .property-gallery__dialog::backdrop { background: rgb(0 0 0 / 85%); }
+  .property-gallery__close { justify-self: end; }
+  .property-gallery__control { width: 3rem; height: 3rem; flex-shrink: 0; padding: 0; border: 0; border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-ink); font-size: 1.5rem; cursor: pointer; }
+  .property-gallery__control[hidden] { display: none; }
+  .property-gallery__stage { min-height: 0; display: grid; place-items: center; }
+  .property-gallery__stage img { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
+  .property-gallery__navigation { display: flex; align-items: center; justify-content: center; gap: 1rem; }
+  .property-gallery__navigation p { margin: 0; text-align: center; font-size: .9rem; overflow-wrap: anywhere; }
+  .property-gallery button:focus-visible { outline: 3px solid #fff; outline-offset: -5px; }
+  .property-gallery__trigger:focus-visible { outline-color: var(--accent-ink); }
+  @media (max-width: 600px) {
+    .property-gallery__dialog { width: 100%; height: 100dvh; padding: .75rem; border-radius: 0; }
+    .property-gallery__navigation { gap: .5rem; }
+    .property-gallery__navigation p { font-size: .8rem; }
+  }
+</style>

@@ -1,5 +1,10 @@
 # Änderungen
 
+## 1.12 – 2026-10-06
+
+- Inseratbilder lassen sich auf derselben Seite groß öffnen und durchblättern, auch auf dem Handy.
+- Galerie mit Bildzähler, Tastaturbedienung und Rückkehr zum angeklickten Bild beim Schließen.
+
 ## 1.9 — 29. September 2026
 
 - Die häufigen Fragen als aufklappbaren Bereich auf die Startseite gesetzt.
