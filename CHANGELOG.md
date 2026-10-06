@@ -1,5 +1,10 @@
 # Änderungen
 
+## 1.14 – 2026-10-06
+
+- Detailseiten starten direkt mit der großen Galerie links und einer kompakten Übersicht mit Titel, Preis und Kontakt rechts.
+- Beschreibung, Ausstattung, Lage und weitere Informationen sind durch klare Abstände getrennt; auf dem Handy erscheint das Objektbild zuerst.
+
 ## 1.13 – 2026-10-06
 
 - Die Galerie-Pfeile bleiben beim Durchblättern an festen Positionen, unabhängig von der Länge der Bildbeschriftung.

@@ -1,0 +1,77 @@
+---
+import type { Property } from '../data/properties';
+import PropertyGallery from './PropertyGallery.astro';
+interface Props { property: Property; enquiry: string; }
+const { property, enquiry } = Astro.props;
+const typeLabel = property.type === 'kaufen' ? 'Kaufen' : 'Mieten';
+const sections = [
+  ['Beschreibung', property.description], ['Ausstattung', property.equipment],
+  ['Lage', property.locationDescription], ['Weitere Informationen', property.otherInformation],
+].filter(([, text]) => text);
+---
+<section class="section section--paper expose-section">
+  <div class="container">
+    <a class="text-link expose-back" href="/immobilien/">← Alle Immobilien</a>
+    <div class="expose-layout">
+      <aside class="expose-aside">
+        <div class="expose-contact">
+          <p class="eyebrow">{[typeLabel, property.location, property.status === 'Reserviert' ? 'Reserviert' : ''].filter(Boolean).join(' · ')}</p>
+          <h1>{property.title}</h1>
+          <p class="expose-price">{property.price}</p>
+          <div class="expose-contact__team">
+            <h2>Ihr Kontakt</h2>
+            <p>SAYAN Immobilien · Unser Team in Köln</p>
+          </div>
+          <div class="expose-contact__links">
+            <a href="tel:+4922116892660">0221 / 168 926 60</a>
+            <a href="mailto:info@sayan-immo.de">info@sayan-immo.de</a>
+          </div>
+          <a class="button" href={enquiry}>Zum Objekt anfragen</a>
+        </div>
+      </aside>
+      <div class="expose-media">
+        <PropertyGallery images={property.images} title={property.title} />
+        {property.images.length === 0 && <div class="expose-empty">Für dieses Objekt sind derzeit keine Bilder verfügbar.</div>}
+      </div>
+      <div class="expose-details">
+        <section class="expose-content-section">
+          <h2>Objektdaten.</h2>
+          <dl class="expose-facts">{property.facts.map(([name, value]) => <div><dt>{name}</dt><dd>{value}</dd></div>)}</dl>
+        </section>
+        {sections.map(([name, text]) => <section class="expose-content-section"><h2>{name}.</h2><p class="expose-copy">{text}</p></section>)}
+        {property.energy.length > 0 && <section class="expose-content-section"><h2>Energieausweis.</h2>
+          <dl class="expose-facts">{property.energy.map(([name, value]) => <div><dt>{name}</dt><dd>{value}</dd></div>)}</dl>
+        </section>}
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  .expose-section { padding-top: clamp(7rem, 10vw, 9rem); overflow: visible; }
+  .expose-back { display: inline-block; margin-bottom: 1.5rem; }
+  .expose-layout { display: grid; grid-template-columns: minmax(0, 7fr) minmax(18rem, 4fr); grid-template-areas: 'media summary' 'details summary'; gap: 0 clamp(2rem, 5vw, 4rem); align-items: start; }
+  .expose-media { grid-area: media; min-width: 0; }
+  .expose-details { grid-area: details; min-width: 0; display: grid; gap: clamp(2.5rem, 4vw, 3.5rem); }
+  .expose-content-section h2 { margin: 0 0 1.25rem; text-transform: none; font-size: 1.5rem; font-weight: 600; letter-spacing: 0; max-width: none; }
+  .expose-empty { display: grid; place-items: center; aspect-ratio: 4 / 3; margin-bottom: 2.5rem; padding: 2rem; border-radius: var(--radius-media); background: var(--n-surface); text-align: center; color: var(--n-text-secondary); }
+  .expose-facts { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 1.5rem; border-top: 1px solid var(--n-border); }
+  .expose-facts div { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding: .9rem 0; border-bottom: 1px solid var(--n-border); }
+  .expose-facts dt { color: var(--n-text-secondary); font-size: .85rem; }
+  .expose-facts dd { margin: 0; font-weight: 600; font-size: .88rem; overflow-wrap: anywhere; }
+  .expose-copy { max-width: 68ch; color: var(--n-text-secondary); white-space: pre-line; overflow-wrap: anywhere; }
+  .expose-aside { grid-area: summary; position: sticky; top: 7rem; }
+  .expose-contact { padding: clamp(1.5rem, 3vw, 2rem); border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; }
+  .expose-contact .eyebrow { max-width: 100%; }
+  .expose-contact h1 { margin-top: 1.25rem; font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.25; text-transform: none; letter-spacing: -.02em; max-width: none; overflow-wrap: anywhere; }
+  .expose-price { display: inline-block; margin-top: 1.25rem; padding: .5rem 1rem; border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+  .expose-contact__team { margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--n-border); }
+  .expose-contact__team h2 { margin-bottom: .25rem; font-size: 1rem; text-transform: none; letter-spacing: 0; }
+  .expose-contact__team p { font-size: .85rem; color: var(--n-text-secondary); }
+  .expose-contact__links { display: grid; gap: .5rem; margin: 1rem 0 1.5rem; font-size: .9rem; font-weight: 600; overflow-wrap: anywhere; }
+  .expose-contact .button { width: 100%; justify-content: center; }
+  @media (max-width: 900px) {
+    .expose-layout { grid-template-columns: 1fr; grid-template-areas: 'media' 'summary' 'details'; }
+    .expose-aside { position: static; margin-bottom: 2rem; }
+    .expose-facts { grid-template-columns: 1fr; }
+  }
+</style>

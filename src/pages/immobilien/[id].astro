@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import PropertyGallery from "../../components/PropertyGallery.astro";
+import PropertyDetail from "../../components/PropertyDetail.astro";
 import { getPropertyCatalog, setPropertyCacheHeaders } from "../../server/properties";
 
 export const prerender = false;
@@ -12,14 +12,7 @@ const catalog = validId ? await getPropertyCatalog() : { available: true, proper
 const property = catalog.properties.find((item) => item.id === id);
 if (!property) Astro.response.status = catalog.available ? 404 : 503;
 setPropertyCacheHeaders(Astro.response.headers, catalog.available);
-const typeLabel = property?.type === "kaufen" ? "Kaufen" : "Mieten";
 const enquiry = property ? `mailto:info@sayan-immo.de?subject=${encodeURIComponent(`Anfrage zur Immobilie ${property.reference}`)}` : "mailto:info@sayan-immo.de";
-const sections = property ? [
-  ["Beschreibung", property.description],
-  ["Ausstattung", property.equipment],
-  ["Lage", property.locationDescription],
-  ["Weitere Informationen", property.otherInformation],
-].filter(([, text]) => text) : [];
 ---
 
 <BaseLayout
@@ -29,51 +22,7 @@ const sections = property ? [
 >
   <Header />
   <main id="main">
-    {property ? <><section class="page-hero expose-hero">
-      <div class="container">
-        <a class="text-link" href="/immobilien/">← Alle Immobilien</a>
-        <p class="eyebrow">{[typeLabel, property.location, property.status === "Reserviert" ? "Reserviert" : ""].filter(Boolean).join(" · ")}</p>
-        <h1>{property.title}</h1>
-        <div class="expose-hero__price">{property.price}</div>
-      </div>
-    </section>
-
-    <section class="section section--paper">
-      <div class="container expose-layout">
-        <div class="expose-main">
-          <PropertyGallery images={property.images} title={property.title} />
-          {property.images.length === 0 && <div class="expose-gallery__main expose-gallery__empty" aria-hidden="true">
-              <svg viewBox="0 0 64 64" width="36" height="36">
-                <path d="M6 34 L32 12 L58 34" fill="none" stroke="currentColor" stroke-width="6" stroke-linejoin="miter" />
-                <rect x="16" y="46" width="32" height="6" fill="currentColor" />
-              </svg>
-          </div>}
-
-          <h2>Objektdaten.</h2>
-          <dl class="expose-facts">
-            {property.facts.map(([name, value]) => <div><dt>{name}</dt><dd>{value}</dd></div>)}
-          </dl>
-
-          {sections.map(([name, text]) => <section><h2>{name}.</h2><p class="expose-copy">{text}</p></section>)}
-          {property.energy.length > 0 && <section><h2>Energieausweis.</h2>
-            <dl class="expose-facts">{property.energy.map(([name, value]) => <div><dt>{name}</dt><dd>{value}</dd></div>)}</dl>
-          </section>}
-        </div>
-
-        <aside class="expose-aside">
-          <div class="expose-contact">
-            <p class="eyebrow">Ihr Kontakt</p>
-            <h3>SAYAN Immobilien.</h3>
-            <p class="expose-contact__role">Unser Team in Köln</p>
-            <div class="expose-contact__links">
-              <a href="tel:+4922116892660">0221 / 168 926 60</a>
-              <a href="mailto:info@sayan-immo.de">info@sayan-immo.de</a>
-            </div>
-            <a class="button" href={enquiry}>Zum Objekt anfragen</a>
-          </div>
-        </aside>
-      </div>
-    </section>
+    {property ? <><PropertyDetail property={property} enquiry={enquiry} />
 
     <section class="wide-cta">
       <div class="container">
@@ -96,35 +45,7 @@ const sections = property ? [
 </BaseLayout>
 
 <style>
-  .expose-hero__price { display: inline-block; margin-top: 1.5rem; padding: .6rem 1.2rem; border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: .85rem; }
-  .expose-layout { display: grid; grid-template-columns: minmax(0, 7fr) minmax(18rem, 4fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
-  .expose-hero h1 { max-width: 24ch; overflow-wrap: anywhere; }
-  .expose-hero .eyebrow { display: flex; width: fit-content; margin-top: 1.25rem; }
-  .expose-gallery__main { display: grid; place-items: center; aspect-ratio: 4 / 3; border-radius: var(--radius-media); overflow: hidden; background: var(--n-surface); color: var(--accent); }
-  .expose-gallery__empty { margin-bottom: 2rem; }
-  .expose-main h2 { margin: clamp(2rem, 4vw, 2.75rem) 0 1rem; text-transform: none; font-size: 1.5rem; font-weight: 600; letter-spacing: 0; max-width: none; }
-  .expose-main h2:first-of-type { margin-top: 0; }
-  .expose-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 1.5rem; border-top: 1px solid var(--n-border); }
-  .expose-facts div { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding: .9rem 0; border-bottom: 1px solid var(--n-border); }
-  .expose-facts dt { color: var(--n-text-secondary); font-size: .85rem; }
-  .expose-facts dd { margin: 0; font-weight: 600; font-size: .88rem; overflow-wrap: anywhere; }
-  .expose-copy { max-width: 68ch; color: var(--n-text-secondary); white-space: pre-line; overflow-wrap: anywhere; }
-  .expose-main { min-width: 0; }
-  .expose-aside { position: sticky; top: 7rem; }
-  .expose-contact { padding: clamp(1.75rem, 3vw, 2.25rem); border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; }
-  .expose-contact h3 { margin-top: .3rem; font-size: 1.5rem; }
-  .expose-contact__role { margin: .3rem 0 1.2rem; color: var(--n-text-secondary); font-size: .9rem; }
-  .expose-contact__links { display: grid; gap: .5rem; margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--n-border); font-size: .9rem; font-weight: 600; }
-  .expose-contact .button { width: 100%; justify-content: center; }
   .cta-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; }
   .wide-cta .button--outline { border-color: var(--n-border); background: transparent; color: var(--n-text); }
 
-  @media (max-width: 900px) {
-    .expose-layout { grid-template-columns: 1fr; }
-    .expose-aside { position: static; }
-    .expose-facts { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 600px) {
-    .expose-hero h1 { font-size: clamp(1.45rem, 6vw, 2rem); }
-  }
 </style>
