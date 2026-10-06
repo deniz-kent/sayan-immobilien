@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.13 – 2026-10-06
+
+- Die Galerie-Pfeile bleiben beim Durchblättern an festen Positionen, unabhängig von der Länge der Bildbeschriftung.
+
 ## 1.12 – 2026-10-06
 
 - Inseratbilder lassen sich auf derselben Seite groß öffnen und durchblättern, auch auf dem Handy.
