@@ -20,6 +20,8 @@ test('signs read requests using HMAC v2 without writes', () => {
 test('accepts documented nullable metadata counts', () => assert.deepEqual(parseResponse(response([])).records, []));
 test('rejects upstream errors without leaking messages', () => {
   assert.throws(() => parseResponse({ status: { code: 200, errorcode: 8, message: 'private-secret' } }), /API_ERROR_8/);
+  assert.throws(() => parseResponse({ status: { code: 400, errorcode: 18, message: 'private-secret' }, response: [] }), /API_ERROR_18/);
+  assert.throws(() => parseResponse({ status: { code: 500, errorcode: 97 }, response: { results: [{ status: { errorcode: 144, message: 'private-secret' }, data: [] }] } }), /ACTION_ERROR_144/);
 });
 test('never displays inactive, unpublished, sold or reference properties', () => {
   for (const change of [{ status: 0 }, { veroeffentlichen: 0 }, { verkauft: 1 }, { referenz: 1 }]) assert.equal(mapProperty(1, { ...raw, ...change }, {}), null);

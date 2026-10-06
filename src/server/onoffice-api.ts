@@ -44,6 +44,24 @@ export function buildRequest(resource: "estate" | "estatepictures" | "fields", p
 }
 
 export function parseResponse(payload: unknown) {
+  // Error responses need not contain the successful records envelope.
+  // Inspect status first so authentication/action errors are not hidden by
+  // validation of an empty or differently shaped error payload.
+  const envelope = z.object({
+    status: z.object({ code: z.number(), errorcode: z.number() }),
+    response: z.unknown().optional(),
+  }).safeParse(payload);
+  if (!envelope.success) throw new OnOfficeError("INVALID_STATUS");
+  const actionStatus = z.object({ results: z.array(z.object({
+    status: z.object({ errorcode: z.number() }),
+  })) }).safeParse(envelope.data.response);
+  const actionError = actionStatus.success ? actionStatus.data.results[0]?.status.errorcode : undefined;
+  if (actionError && (envelope.data.status.errorcode === 97 || envelope.data.status.errorcode === 0)) {
+    throw new OnOfficeError(`ACTION_ERROR_${actionError}`);
+  }
+  if (envelope.data.status.code !== 200 || envelope.data.status.errorcode !== 0) {
+    throw new OnOfficeError(`API_ERROR_${envelope.data.status.errorcode}`);
+  }
   const parsed = responseSchema.safeParse(payload);
   if (!parsed.success) throw new OnOfficeError("INVALID_RESPONSE");
   const { status, response } = parsed.data;
