@@ -3,6 +3,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import { services, serviceBySlug, type Service } from "../../data/services";
+import EditorialPhoto from "../../components/EditorialPhoto.astro";
+import { serviceImages } from "../../data/editorial-images";
 
 export function getStaticPaths() {
   return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
@@ -10,6 +12,7 @@ export function getStaticPaths() {
 
 const { service } = Astro.props as { service: Service };
 const relatedServices = service.related.map((slug) => serviceBySlug[slug]).filter(Boolean);
+const image = serviceImages[service.slug];
 ---
 
 <BaseLayout title={`${service.title} | SAYAN Immobilien Köln`} description={service.intro}>
@@ -33,6 +36,7 @@ const relatedServices = service.related.map((slug) => serviceBySlug[slug]).filte
           <p class="detail-label">Was wir für Sie tun</p>
           <h2>{service.summary}</h2>
           {service.details.map((paragraph) => <p>{paragraph}</p>)}
+          {image && <div class="detail-photo"><EditorialPhoto image={image} /></div>}
         </div>
         <aside class="detail-aside" aria-label="Leistungsüberblick">
           <h2>Im Überblick</h2>
@@ -86,6 +90,7 @@ const relatedServices = service.related.map((slug) => serviceBySlug[slug]).filte
   .detail-label { margin-bottom: 1rem; color: var(--n-text-secondary); font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
   .detail-copy h2 { max-width: 18ch; margin-bottom: 1.5rem; }
   .detail-copy > p:not(.detail-label) { margin-top: 1.1rem; color: var(--n-text-secondary); }
+  .detail-photo { aspect-ratio: 3 / 2; margin-top: 2rem; overflow: hidden; border-radius: var(--radius-media); background: var(--n-surface); }
   .detail-aside { padding: clamp(1.5rem, 3vw, 2.25rem); border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; }
   .detail-aside h2 { margin-bottom: 1rem; font-size: 1.2rem; text-transform: none; }
   .detail-aside ul { margin: 0; padding: 0; list-style: none; }

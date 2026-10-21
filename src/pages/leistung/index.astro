@@ -3,6 +3,8 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import { services } from "../../data/services";
+import EditorialPhoto from "../../components/EditorialPhoto.astro";
+import { serviceImages } from "../../data/editorial-images";
 
 const featured = ["immobilienverkauf", "immobilienvermietung", "wertermittlung"];
 const groups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"] as const;
@@ -25,7 +27,8 @@ const groups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"]
         <div class="featured-grid">
           {featured.map((slug) => {
             const service = services.find((item) => item.slug === slug)!;
-            return <a class="featured-card" href={`/leistung/${service.slug}/`}><span>{service.group}</span><h3>{service.title}</h3><p>{service.summary}</p><strong>Mehr erfahren →</strong></a>;
+            const image = serviceImages[slug];
+            return <a class="featured-card" href={`/leistung/${service.slug}/`}>{image && <div class="featured-card__photo"><EditorialPhoto image={image} sizes="(max-width: 767px) 100vw, 30vw" decorative /></div>}<span>{service.group}</span><h3>{service.title}</h3><p>{service.summary}</p><strong>Mehr erfahren →</strong></a>;
           })}
         </div>
       </div>
@@ -72,6 +75,7 @@ const groups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"]
   .featured-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
   .featured-card { display: flex; flex-direction: column; min-height: 15rem; padding: clamp(1.4rem, 3vw, 2rem); border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; }
   .featured-card:hover, .featured-card:focus-visible { border-color: var(--accent); }
+  .featured-card__photo { aspect-ratio: 3 / 2; margin-bottom: 1.5rem; overflow: hidden; border-radius: var(--radius-field); }
   .featured-card > span { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--n-text-secondary); }
   .featured-card h3 { margin: 1.5rem 0 .5rem; text-transform: none; }
   .featured-card p { color: var(--n-text-secondary); }

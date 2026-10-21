@@ -40,3 +40,21 @@ Kontakt zum Objekt erfolgt vorerst per E-Mail/Telefon. Formulare übertragen kei
 Protokollquellen: [Authentifizierung](https://apidoc.onoffice.de/erste-schritte/), [Objekte](https://apidoc.onoffice.de/actions/datensatz-lesen/objekte/), [Homepage-Bilder](https://apidoc.onoffice.de/actions/informationen-abfragen/auf-homepage-veroeffentlichte-objektbilder/), [Feldkonfiguration](https://apidoc.onoffice.de/actions/informationen-abfragen/feldkonfiguration/).
 
 Die Angebotsvorschau ist bis zur ausdrücklichen Produktionsfreigabe für Suchmaschinen auf `noindex` gesetzt.
+
+## Redaktionelle Fotos (21. Oktober 2026)
+
+Sechs der 15 bereitgestellten Fotos werden als redaktionelle Bilder verwendet.
+Das Titelbild der Startseite bleibt unverändert; aktuelle Objektangebote erhalten weiterhin ausschließlich ihre eigenen onOffice-Bilder.
+
+| Original | WebP-Basisname | Einsatz |
+| --- | --- | --- |
+| IMG_1334.JPG | sayan-persoenlich | Unternehmensbereich auf der Startseite |
+| IMG_1335.JPG | sayan-besichtigung | Verkauf und Besichtigungen |
+| IMG_1344.JPG | sayan-vermietung | Vermietung |
+| IMG_1342.JPG | sayan-beratung | Bewertung, Marktpreisanalyse und diskrete Vermarktung |
+| IMG_1340.JPG | sayan-unterlagen | Unterlagen, Interessentenprüfung, Abwicklung und Finanzierung |
+| IMG_1345.JPG | sayan-kontakt | Kontaktseite |
+
+Die Dateien unter `public/images/` sind auf 640 beziehungsweise 1440 Pixel Breite optimiert.
+`src/data/editorial-images.ts` bündelt Auswahl, Alternativtexte und Bildpositionen; `EditorialPhoto.astro` setzt Bildgrößen, `srcset`, `sizes` und Lazy Loading.
+Die neun übrigen Originale werden nicht in das Repository aufgenommen.

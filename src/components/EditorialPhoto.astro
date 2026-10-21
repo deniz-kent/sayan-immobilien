@@ -1,0 +1,27 @@
+---
+import type { EditorialImage } from "../data/editorial-images";
+
+interface Props {
+  image: EditorialImage;
+  sizes?: string;
+  decorative?: boolean;
+}
+
+const { image, sizes = "(max-width: 767px) 100vw, 55vw", decorative = false } = Astro.props;
+---
+
+<img
+  src={image.src}
+  srcset={image.srcSet}
+  sizes={sizes}
+  width="1440"
+  height="966"
+  alt={decorative ? "" : image.alt}
+  loading="lazy"
+  decoding="async"
+  style={`object-position: ${image.position}`}
+/>
+
+<style>
+  img { display: block; width: 100%; height: 100%; object-fit: cover; }
+</style>

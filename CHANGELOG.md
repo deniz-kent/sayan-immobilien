@@ -1,5 +1,12 @@
 # Änderungen
 
+## 1.15 – 2026-10-21
+
+- Sechs ausgewählte neue Fotos auf Startseite, Leistungsübersicht, passenden Leistungsunterseiten und Kontaktseite eingebunden.
+- Bildauswahl nach Motiv: persönliche Betreuung, Besichtigung, Vermietung, Beratung und Unterlagen.
+- WebP-Dateien in zwei Größen mit responsiver Auslieferung, passenden Ausschnitten und verzögertem Laden.
+- Das bestehende Titelbild und die Angebotsbilder aus onOffice bleiben erhalten.
+
 ## 1.14 – 2026-10-06
 
 - Detailseiten starten direkt mit der großen Galerie links und einer kompakten Übersicht mit Titel, Preis und Kontakt rechts.

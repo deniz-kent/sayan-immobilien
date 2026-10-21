@@ -6,6 +6,8 @@ import SectionHeader from "../components/SectionHeader.astro";
 import PropertyCard from "../components/PropertyCard.astro";
 import { getPropertyCatalog, setPropertyCacheHeaders } from "../server/properties";
 import { faqQuestions } from "../data/faq";
+import EditorialPhoto from "../components/EditorialPhoto.astro";
+import { editorialImages } from "../data/editorial-images";
 
 export const prerender = false;
 const catalog = await getPropertyCatalog();
@@ -19,7 +21,7 @@ const services = [
     copy: "Wir bewerten Ihre Immobilie, bereiten Exposé und Vermarktung vor, prüfen Interessenten und begleiten Sie bis zum Notartermin und zur Übergabe.",
     href: "/leistung/immobilienverkauf/",
     link: "Verkauf vorbereiten",
-    image: "/images/haus-modern-klinker.webp",
+    image: editorialImages.viewing,
   },
   {
     number: "02",
@@ -27,7 +29,7 @@ const services = [
     copy: "Von den Fotos über Besichtigungen und Bonitätsprüfung bis zum Mietvertrag und zur Wohnungsübergabe kümmern wir uns um die Vermietung.",
     href: "/leistung/immobilienvermietung/",
     link: "Vermietung besprechen",
-    image: "/images/fassade-balkone-klinker.webp",
+    image: editorialImages.rental,
   },
 ];
 
@@ -124,8 +126,8 @@ const process = [
 
     <section class="section section--brand" id="unternehmen">
       <div class="container owner-grid">
-        <div class="owner-mark" aria-hidden="true" data-reveal>
-          <img src="/images/buero-candan-sayan-koeln.jpg" alt="" loading="lazy" />
+        <div class="owner-mark" data-reveal>
+          <EditorialPhoto image={editorialImages.company} />
         </div>
         <div class="owner-copy" data-reveal>
           <p class="eyebrow">SAYAN Immobilien Köln</p>
@@ -143,7 +145,7 @@ const process = [
         <div class="service-grid" data-reveal-group>
           {services.map((service, i) => (
             <article class="service-card" data-reveal style={`--stagger:${i}`}>
-              <div class="service-card__media"><img src={service.image} alt="" loading="lazy" /><span>{service.number}</span></div>
+              <div class="service-card__media"><EditorialPhoto image={service.image} sizes="(max-width: 900px) 100vw, 45vw" /><span>{service.number}</span></div>
               <h3>{service.title}.</h3><p>{service.copy}</p>
               <a class="text-link" href={service.href}>{service.link} →</a>
             </article>
@@ -165,7 +167,7 @@ const process = [
 
     <section class="section section--dark" id="diskretion">
       <div class="container discretion-grid">
-        <div class="section-photo" data-reveal aria-hidden="true"><img src="/images/altbau-zimmer-leer.webp" alt="" loading="lazy" /></div>
+        <div class="section-photo" data-reveal><EditorialPhoto image={editorialImages.advice} sizes="(max-width: 767px) 100vw, 42vw" /></div>
         <div data-reveal>
           <p class="eyebrow">Diskrete Vermarktung</p>
           <h2>Nicht jede Immobilie braucht <em>Öffentlichkeit.</em></h2>
@@ -261,14 +263,14 @@ const process = [
   .owner-grid, .valuation-grid, .buyer-grid, .discretion-grid, .contact-cta__grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: center; }
   .owner-grid { grid-template-columns: 7fr 5fr; }
   .section-photo { position: relative; min-height: 22rem; border-radius: var(--radius-media); overflow: hidden; background: var(--n-surface); }
-  .section-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .section-photo :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
   /* Signature-Detail: ausgesparte Ecke. Kein Trust-Content vorhanden -> bleibt leer. */
   .corner-notch { position: relative; }
   .corner-notch::after { content: ""; position: absolute; right: 0; bottom: 0; width: 3.5rem; height: 3.5rem; background: radial-gradient(circle at 100% 100%, transparent 2rem, var(--n-surface) 2rem); }
 
   .owner-mark { position: relative; aspect-ratio: 16 / 10; border-radius: var(--radius-media); overflow: hidden; background: var(--brand-900); }
-  .owner-mark img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .owner-mark :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .owner-copy p:not(.eyebrow) { max-width: 60ch; margin-top: 1.2rem; color: var(--n-text-secondary); }
   .owner-copy .text-link { margin-top: 1.8rem; }
 
@@ -276,8 +278,8 @@ const process = [
   .service-card { display: grid; align-content: start; padding: 1.25rem; border-radius: var(--radius-card); background: var(--n-surface); border: 1px solid transparent; transition: background var(--motion-hover) ease, border-color var(--motion-hover) ease; }
   .service-card:hover { background: #fff; border-color: var(--n-border); }
   .service-card__media { position: relative; aspect-ratio: 4 / 3; margin-bottom: 1.25rem; border-radius: var(--radius-field); overflow: hidden; }
-  .service-card__media img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--ease-out-expo); }
-  .service-card:hover .service-card__media img { transform: scale(1.04); }
+  .service-card__media :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--ease-out-expo); }
+  .service-card:hover .service-card__media :global(img) { transform: scale(1.04); }
   .service-card__media span { position: absolute; left: 1rem; bottom: 1rem; display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-ink); font-size: 1rem; font-weight: 600; }
   .service-card h3 { margin: 0 0 .65rem; text-transform: none; }
   .service-card p { color: var(--n-text-secondary); }
