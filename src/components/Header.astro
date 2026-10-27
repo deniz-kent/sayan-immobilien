@@ -88,10 +88,11 @@ const liveLinks: Record<string, string> = {
             </div>
           </div>
         ))}
+        <a href="/leistung/">Alle Leistungen</a>
         <a href="/kontakt/">Kontakt</a>
       </nav>
 
-      <a class="nav-cta" href="/kontakt/" data-open-advice><span class="nav-cta__dot" aria-hidden="true"></span>Termin vereinbaren</a>
+      <a class="nav-cta" href="/#online-bewertung" data-open-advice><span class="nav-cta__dot" aria-hidden="true"></span>Immobilie bewerten</a>
       <button class="menu-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-menu">
         <span></span><span></span><span></span>
       </button>
@@ -110,10 +111,11 @@ const liveLinks: Record<string, string> = {
           {group.columns.flatMap((column) => column.links).map((link) => <a href={liveLinks[link]}>{link}</a>)}
         </details>
       ))}
+      <a href="/leistung/">Alle Leistungen</a>
       <a href="/kontakt/">Kontakt</a>
     </div>
     <div class="mobile-menu__footer">
-      <a class="button" href="/kontakt/" data-open-advice>Termin vereinbaren</a>
+      <a class="button" href="/#online-bewertung" data-open-advice>Immobilie bewerten</a>
       <a href="tel:+4922116892660">0221 / 168 926 60</a>
     </div>
   </div>
@@ -160,7 +162,17 @@ const liveLinks: Record<string, string> = {
     mobileMenu.hidden = !open;
     toggle.setAttribute("aria-expanded", String(open));
     document.body.classList.toggle("menu-open", open);
+    if (open) closeButton?.focus();
+    else toggle.focus();
   };
   toggle?.addEventListener("click", () => setMobileMenu(toggle.getAttribute("aria-expanded") !== "true"));
   closeButton?.addEventListener("click", () => setMobileMenu(false));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") { closeMegaMenus(); if (mobileMenu && !mobileMenu.hidden) setMobileMenu(false); }
+    if (event.key !== "Tab" || !mobileMenu || mobileMenu.hidden) return;
+    const items = [...mobileMenu.querySelectorAll<HTMLElement>('a[href], button, summary')].filter(item => item.getClientRects().length);
+    const first = items[0], last = items[items.length - 1];
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+  });
 </script>

@@ -58,3 +58,11 @@ Das Titelbild der Startseite bleibt unverändert; aktuelle Objektangebote erhalt
 Die Dateien unter `public/images/` sind auf 640 beziehungsweise 1440 Pixel Breite optimiert.
 `src/data/editorial-images.ts` bündelt Auswahl, Alternativtexte und Bildpositionen; `EditorialPhoto.astro` setzt Bildgrößen, `srcset`, `sizes` und Lazy Loading.
 Die neun übrigen Originale werden nicht in das Repository aufgenommen.
+
+## Meeting-Überarbeitung (27. Oktober 2026)
+
+Version 1.17: Der Hauptbutton im Hero öffnet die Bewertungsauswahl. Online führt zum bestehenden Bewertungsformular, vor Ort zur Terminsektion. Der Erfahrungsnachweis „Seit 1999“ und das Pop-up erscheinen auf der Startseite nach zwei Sekunden. Das Pop-up wird direkt im HTML ausgegeben und hängt nicht von einem Sitzungsmerker, dem Datenschutzhinweis oder einer Scroll-Bibliothek ab.
+
+Leistungen sind direkt über die Navigation und über Icon-Karten erreichbar. Die Startseite enthält einen eigenen Fotografie-Bereich. Abschnittsabstände, Seitenköpfe, Kontaktkarten und Footer wurden kompakter abgestimmt.
+
+Die sieben Partnerbilder in `public/partners/` sind Originaldateien der bisherigen SAYAN-Website (https://www.sayan-immo.de/). Der historische ImmoScout24-Badge bleibt ausdrücklich als Premium Partner 2016 bezeichnet. Die Laufleiste kann pausiert werden und wird bei reduzierter Bewegung als statische Liste ausgegeben.

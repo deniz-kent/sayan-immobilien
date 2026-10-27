@@ -10,7 +10,7 @@ interface Props {
 const { eyebrow, title, lead, linkLabel, linkHref = "/#kontakt" } = Astro.props;
 ---
 
-<header class="section-head" data-reveal>
+<header class:list={["section-head", { "section-head--with-lead": Boolean(lead) }]} data-reveal>
   <div>
     <p class="eyebrow">{eyebrow}</p>
     <h2 set:html={title}></h2>

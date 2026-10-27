@@ -1,5 +1,15 @@
 # Änderungen
 
+## 1.17 – 2026-10-27
+
+- Kompakteres Layout über Startseite, Leistungen, Exposés, Kontakt und Bewertungsformular: kleinere Abschnittsabstände, breitere Inhaltsflächen und deutlich kürzerer Footer.
+- Hero mit Bewertungs-Hauptbutton, Positionierung für Immobilienverkauf in Köln und sichtbar einschiebendem Erfahrungsnachweis „Seit 1999“.
+- Zwei Bewertungskarten: online oder persönlich vor Ort; auch im automatisch von rechts unten erscheinenden Pop-up.
+- Eigener Startseitenbereich für professionelle Immobilienfotografie und direkte Einstiege in Verkauf, Vermietung, Bewertung und Fotografie.
+- Direkter Navigationslink zu allen Leistungen, Icons für die Leistungsübersicht und Unterseiten, verbesserte Tastaturbedienung des mobilen Menüs.
+- Laufende Partnerleiste mit sieben Originaldateien der bisherigen SAYAN-Seite; historische ImmoScout24-Auszeichnung als 2016 gekennzeichnet.
+- Inhalte bleiben auch ohne Scroll-Skript sichtbar; auf Mobilgeräten und bei reduzierter Bewegung angepasste Darstellung.
+
 ## 1.16 – 2026-10-27
 
 - Eigenständige Positionierung „Persönlich betreut. Sorgfältig vermittelt.“ auf Startseite und im Footer.

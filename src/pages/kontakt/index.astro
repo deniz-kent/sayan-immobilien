@@ -21,23 +21,26 @@ import { editorialImages } from "../../data/editorial-images";
 </BaseLayout>
 
 <style>
-  .contact-grid { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(3rem, 8vw, 8rem); align-items: center; }
+  .contact-grid { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(1.5rem, 3vw, 2.5rem); align-items: center; }
   .contact-actions { display: grid; margin-top: 2rem; }
-  .contact-actions a { display: grid; grid-template-columns: 5rem 1fr auto; gap: 1rem; align-items: center; padding: 1.4rem 0; border-top: 1px solid var(--n-border); }
+  .contact-actions a { display: grid; grid-template-columns: 4rem minmax(0,1fr); gap: 1rem; align-items: center; padding: 1.4rem 0; border-top: 1px solid var(--n-border); }
+  .contact-actions a > span { grid-column: 2; }
+  .contact-actions strong { overflow-wrap: anywhere; }
   .contact-actions small, .contact-actions span { font-size: .8rem; color: var(--n-text-secondary); }
+  .contact-grid .section-head--with-lead > div { grid-template-columns: 1fr; }
   .contact-actions strong { font: 400 clamp(1.25rem, 2vw, 1.6rem)/1.2 var(--font-display); }
-  .address-card { padding: clamp(2rem, 4vw, 3rem); border-radius: var(--radius-card); background: var(--brand-900); color: #fff; }
-  .contact-photo { aspect-ratio: 3 / 2; margin-bottom: 2rem; overflow: hidden; border-radius: var(--radius-field); }
+  .address-card { padding: 1.5rem; border-radius: var(--radius-card); background: var(--brand-900); color: #fff; }
+  .contact-photo { aspect-ratio: 16 / 9; margin-bottom: 1.25rem; overflow: hidden; border-radius: var(--radius-field); }
   .address-card h2 { font-size: clamp(2.2rem, 4vw, 3.4rem); }
-  .address-card address { margin: 1rem 0 3rem; color: color-mix(in srgb, #fff 75%, transparent); }
+  .address-card address { margin: .75rem 0 1.5rem; color: color-mix(in srgb, #fff 75%, transparent); }
   .address-card dl { margin: 0; }
   .address-card dl div { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; padding: 1rem 0; border-top: 1px solid color-mix(in srgb, #fff 16%, transparent); }
   .address-card dt { font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; opacity: .7; }
   .address-card dd { margin: 0; font-size: .9rem; }
   .topic-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
-  .topic-grid article { display: grid; min-height: 19rem; padding: 2.5rem; border-radius: var(--radius-card); background: var(--n-surface); }
+  .topic-grid article { display: grid; min-height: 0; padding: 1.5rem; border-radius: var(--radius-card); background: var(--n-surface); }
   .topic-grid article > span { color: var(--n-text-secondary); font-size: .78rem; font-weight: 700; }
-  .topic-grid h3 { margin: 2.5rem 0 1rem; text-transform: none; }
+  .topic-grid h3 { margin: 1rem 0 .75rem; text-transform: none; }
   .topic-grid p { color: var(--n-text-secondary); }
   .topic-grid .text-link { margin-top: auto; padding-top: 2rem; }
   .contact-end { padding-block: var(--section-space); background: var(--n-surface); text-align: center; }

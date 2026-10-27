@@ -47,11 +47,11 @@ const sections = [
   </div>
 </section>
 <style>
-  .expose-section { padding-top: clamp(7rem, 10vw, 9rem); overflow: visible; }
+  .expose-section { padding-top: 6.25rem; overflow: visible; }
   .expose-back { display: inline-block; margin-bottom: 1.5rem; }
-  .expose-layout { display: grid; grid-template-columns: minmax(0, 7fr) minmax(18rem, 4fr); grid-template-areas: 'media summary' 'details summary'; gap: 0 clamp(2rem, 5vw, 4rem); align-items: start; }
+  .expose-layout { display: grid; grid-template-columns: minmax(0, 7fr) minmax(18rem, 4fr); grid-template-areas: 'media summary' 'details summary'; gap: 0 clamp(1.25rem, 3vw, 2.5rem); align-items: start; }
   .expose-media { grid-area: media; min-width: 0; }
-  .expose-details { grid-area: details; min-width: 0; display: grid; gap: clamp(2.5rem, 4vw, 3.5rem); }
+  .expose-details { grid-area: details; min-width: 0; display: grid; gap: 1.75rem; }
   .expose-content-section h2 { margin: 0 0 1.25rem; text-transform: none; font-size: 1.5rem; font-weight: 600; letter-spacing: 0; max-width: none; }
   .expose-empty { display: grid; place-items: center; aspect-ratio: 4 / 3; margin-bottom: 2.5rem; padding: 2rem; border-radius: var(--radius-media); background: var(--n-surface); text-align: center; color: var(--n-text-secondary); }
   .expose-facts { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 1.5rem; border-top: 1px solid var(--n-border); }
@@ -59,8 +59,8 @@ const sections = [
   .expose-facts dt { color: var(--n-text-secondary); font-size: .85rem; }
   .expose-facts dd { margin: 0; font-weight: 600; font-size: .88rem; overflow-wrap: anywhere; }
   .expose-copy { max-width: 68ch; color: var(--n-text-secondary); white-space: pre-line; overflow-wrap: anywhere; }
-  .expose-aside { grid-area: summary; position: sticky; top: 7rem; }
-  .expose-contact { padding: clamp(1.5rem, 3vw, 2rem); border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; }
+  .expose-aside { grid-area: summary; position: sticky; top: 6rem; }
+  .expose-contact { padding: 1.25rem; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; }
   .expose-contact .eyebrow { max-width: 100%; }
   .expose-contact h1 { margin-top: 1.25rem; font-size: clamp(1.35rem, 2vw, 1.75rem); line-height: 1.25; text-transform: none; letter-spacing: -.02em; max-width: none; overflow-wrap: anywhere; }
   .expose-price { display: inline-block; margin-top: 1.25rem; padding: .5rem 1rem; border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-ink); font-weight: 700; }

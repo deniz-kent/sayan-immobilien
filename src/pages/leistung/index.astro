@@ -5,6 +5,7 @@ import Footer from "../../components/Footer.astro";
 import { services } from "../../data/services";
 import EditorialPhoto from "../../components/EditorialPhoto.astro";
 import { serviceImages } from "../../data/editorial-images";
+import ServiceIcon from "../../components/ServiceIcon.astro";
 
 const featured = ["immobilienverkauf", "immobilienvermietung", "wertermittlung"];
 const groups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"] as const;
@@ -28,7 +29,7 @@ const groups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"]
           {featured.map((slug) => {
             const service = services.find((item) => item.slug === slug)!;
             const image = serviceImages[slug];
-            return <a class="featured-card" href={`/leistung/${service.slug}/`}>{image && <div class="featured-card__photo"><EditorialPhoto image={image} sizes="(max-width: 767px) 100vw, 30vw" decorative /></div>}<span>{service.group}</span><h3>{service.title}</h3><p>{service.summary}</p><strong>Mehr erfahren →</strong></a>;
+            return <a class="featured-card" href={`/leistung/${service.slug}/`}>{image && <div class="featured-card__photo"><EditorialPhoto image={image} sizes="(max-width: 767px) 100vw, 30vw" decorative /></div>}<div class="featured-card__meta"><ServiceIcon name={service.slug}/><span>{service.group}</span></div><h3>{service.title}</h3><p>{service.summary}</p><strong>Mehr erfahren →</strong></a>;
           })}
         </div>
       </div>
@@ -47,7 +48,7 @@ const groups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"]
               <h3>{group}</h3>
               <div class="service-links">
                 {services.filter((service) => service.group === group).map((service) => (
-                  <a href={`/leistung/${service.slug}/`}><span>{service.title}</span><small>{service.summary}</small><span class="link-arrow" aria-hidden="true">→</span></a>
+                  <a href={`/leistung/${service.slug}/`}><span class="service-links__icon"><ServiceIcon name={service.slug}/></span><span>{service.title}</span><small>{service.summary}</small><span class="link-arrow" aria-hidden="true">↗</span></a>
                 ))}
               </div>
             </div>
@@ -67,29 +68,32 @@ const groups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"]
 </BaseLayout>
 
 <style>
-  .overview-hero { padding-bottom: clamp(3rem, 6vw, 5rem); }
+  .overview-hero { padding-bottom: 2rem; }
   .overview-hero h1 { max-width: 16ch; }
   .overview-hero p:last-child { max-width: 66ch; }
-  .featured-section { padding-top: clamp(3rem, 5vw, 5rem); }
+  .featured-section { padding-top: 2rem; }
   .featured-section h2 { margin-bottom: 1.5rem; }
   .featured-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
-  .featured-card { display: flex; flex-direction: column; min-height: 15rem; padding: clamp(1.4rem, 3vw, 2rem); border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; }
+  .featured-card { display: flex; flex-direction: column; min-height: 0; padding: 1.25rem; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; }
   .featured-card:hover, .featured-card:focus-visible { border-color: var(--accent); }
-  .featured-card__photo { aspect-ratio: 3 / 2; margin-bottom: 1.5rem; overflow: hidden; border-radius: var(--radius-field); }
-  .featured-card > span { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--n-text-secondary); }
-  .featured-card h3 { margin: 1.5rem 0 .5rem; text-transform: none; }
+  .featured-card__photo { aspect-ratio: 16 / 9; margin-bottom: 1rem; overflow: hidden; border-radius: var(--radius-field); }
+  .featured-card__meta { display: flex; align-items: center; gap: .65rem; }
+  .featured-card__meta > span { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--n-text-secondary); }
+  .featured-card h3 { margin: .85rem 0 .5rem; text-transform: none; }
   .featured-card p { color: var(--n-text-secondary); }
   .featured-card strong { margin-top: auto; padding-top: 1.5rem; font-size: .9rem; }
-  .section-intro { margin-bottom: clamp(2rem, 4vw, 3.5rem); }
+  .section-intro { margin-bottom: 1.5rem; }
   .section-intro p:last-child { max-width: 60ch; color: var(--n-text-secondary); }
-  .service-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2rem, 5vw, 4.5rem); }
-  .service-group h3 { margin-bottom: 1rem; font-size: 1.15rem; text-transform: none; }
-  .service-links a { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: .25rem 1rem; padding: 1rem 0; border-top: 1px solid var(--n-border); }
+  .service-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+  .service-group { padding: 1.25rem; background: var(--paper); border: 1px solid var(--n-border); border-radius: var(--radius-card); }
+  .service-group h3 { margin-bottom: .75rem; font-size: 1.15rem; text-transform: none; }
+  .service-links a { display: grid; grid-template-columns: 2.75rem minmax(0, 1fr) auto; gap: .2rem .75rem; padding: .9rem 0; border-top: 1px solid var(--n-border); }
   .service-links a:hover > span:first-child, .service-links a:focus-visible > span:first-child { text-decoration: underline; text-underline-offset: .2em; }
-  .service-links a > span:first-child { font-weight: 600; }
-  .service-links small { grid-column: 1; color: var(--n-text-secondary); font-size: .85rem; }
-  .link-arrow { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
-  .overview-contact { padding: clamp(3rem, 6vw, 5rem) 0; background: var(--paper); }
+  .service-links a > span:nth-child(2) { font-weight: 600; }
+  .service-links__icon { grid-row: 1 / span 2; align-self: center; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 10px; background: var(--brand-100); color: var(--ink); }
+  .service-links small { grid-column: 2; color: var(--n-text-secondary); font-size: .85rem; }
+  .link-arrow { grid-column: 3; grid-row: 1 / span 2; align-self: center; }
+  .overview-contact { padding: var(--section-space) 0; background: var(--paper); }
   .overview-contact__inner { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 2rem; align-items: end; }
   .overview-contact h2 { max-width: 20ch; }
   .overview-contact p:last-child { max-width: 55ch; color: var(--n-text-secondary); }

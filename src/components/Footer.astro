@@ -1,5 +1,6 @@
 ---
 import Logo from "./Logo.astro";
+import PartnerMarquee from "./PartnerMarquee.astro";
 import { version } from "../../package.json";
 
 const displayVersion = version.split(".").slice(0, 2).join(".");
@@ -28,6 +29,7 @@ const liveLinks: Record<string, string> = {
 };
 ---
 
+<PartnerMarquee />
 <div class="footer-band" aria-hidden="true">
   <img src="/images/footer-lichtzimmer-koeln.jpg" alt="" loading="lazy" />
 </div>
@@ -43,7 +45,7 @@ const liveLinks: Record<string, string> = {
     {columns.map((column) => (
       <div class="footer-column">
         <p>{column.title}</p>
-        {column.links.map((link) => <a href={liveLinks[link]} data-open-advice={link === "Termin" || undefined}>{link}</a>)}
+        {column.links.map((link) => <a href={liveLinks[link]}>{link}</a>)}
       </div>
     ))}
   </div>

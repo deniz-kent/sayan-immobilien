@@ -1,5 +1,6 @@
 ---
 import { editorialImages } from "../data/editorial-images";
+import ValuationOptions from "./ValuationOptions.astro";
 
 const autoOpen = Astro.url.pathname === "/";
 ---
@@ -7,27 +8,26 @@ const autoOpen = Astro.url.pathname === "/";
 <aside id="sayan-advice-popup" class:list={["advice-popup", { "is-open": autoOpen, "advice-popup--entrance": autoOpen }]} data-advice-popup tabindex="-1" hidden={!autoOpen} aria-labelledby="advice-title" aria-describedby="advice-description">
   <div class="advice-popup__intro">
     <img src={editorialImages.company.src} alt="Candan Sayan" width="72" height="72" loading="lazy" />
-    <div><p class="eyebrow">SAYAN Immobilien · Köln</p><p class="advice-popup__name">Persönlich für Sie da.</p></div>
+    <div><p class="eyebrow">SAYAN Immobilien · Köln</p><p class="advice-popup__name">In der Branche seit 1999.</p></div>
     <button class="advice-popup__close" type="button" data-close-advice aria-label="Beratungshinweis schließen">×</button>
   </div>
   <div class="advice-popup__body">
-    <p class="eyebrow">Eine Immobilie. Ihre Möglichkeiten.</p>
-    <h2 id="advice-title">Was haben Sie mit Ihrer Immobilie vor?</h2>
-    <p id="advice-description">Verkaufen, vermieten oder erst einmal orientieren? Lassen Sie uns in Ruhe über Ihre nächsten Schritte sprechen.</p>
-    <a class="button" href="/kontakt/#termin">Unverbindlich sprechen <span aria-hidden="true">↗</span></a>
-    <a class="advice-popup__valuation" href="/leistung/formular/">Zuerst den Immobilienwert erfahren <span aria-hidden="true">→</span></a>
+    <p class="eyebrow">Ihre Immobilie. Ihr nächster Schritt.</p>
+    <h2 id="advice-title">Was ist Ihre Immobilie wert?</h2>
+    <p id="advice-description">Wählen Sie, wie Sie Ihre Immobilie bewerten lassen möchten.</p>
+    <ValuationOptions compact />
     <button class="advice-popup__later" type="button" data-close-advice>Vielleicht später</button>
   </div>
 </aside>
 
 <style>
-  .advice-popup { position: fixed; z-index: 300; right: max(1.25rem, env(safe-area-inset-right)); bottom: max(1.25rem, env(safe-area-inset-bottom)); width: min(25rem, calc(100% - 2.5rem)); max-height: min(32rem, calc(58svh - 1.5rem)); overflow-y: auto; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: var(--paper); color: var(--ink); box-shadow: 0 20px 70px -15px rgb(0 0 0 / .25); opacity: 0; transform: translate3d(12%, calc(100% + 2rem), 0); transition: transform var(--motion-panel) var(--ease-out-expo), opacity 300ms ease; }
+  .advice-popup { position: fixed; z-index: 300; right: max(1.25rem, env(safe-area-inset-right)); bottom: max(1.25rem, env(safe-area-inset-bottom)); width: min(25rem, calc(100% - 2.5rem)); max-height: min(36rem, calc(64svh - 1.5rem)); overflow-y: auto; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: var(--paper); color: var(--ink); box-shadow: 0 20px 70px -15px rgb(0 0 0 / .25); opacity: 0; transform: translate3d(12%, calc(100% + 2rem), 0); transition: transform var(--motion-panel) var(--ease-out-expo), opacity 300ms ease; }
   .advice-popup[hidden] { display: none; }
   .advice-popup.is-open { opacity: 1; transform: translateY(0); }
-  .advice-popup--entrance { animation: advice-enter 650ms var(--ease-out-expo) 250ms both; }
+  .advice-popup--entrance { animation: advice-enter 650ms var(--ease-out-expo) 2s both; }
   @keyframes advice-enter { from { opacity: 0; transform: translate3d(12%, calc(100% + 2rem), 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
   /* Keep the privacy notice visible above the panel, including on small screens. */
-  :global(body:has(.advice-popup:not([hidden])) .consent:not([hidden])) { top: 1rem; bottom: auto; max-height: calc(42svh - 1.5rem); overflow-y: auto; }
+  :global(body:has(.advice-popup:not([hidden])) .consent:not([hidden])) { top: 1rem; bottom: auto; max-height: calc(36svh - 1.5rem); overflow-y: auto; }
   .advice-popup__intro { display: flex; gap: .85rem; align-items: center; padding: 1.2rem; background: var(--brand-100); }
   .advice-popup__intro img { width: 3.5rem; height: 3.5rem; flex-shrink: 0; border-radius: 50%; object-fit: cover; object-position: 50% 25%; }
   .advice-popup .eyebrow { margin: 0 0 .4rem; font-size: .62rem; letter-spacing: .09em; opacity: 1; }
@@ -39,9 +39,10 @@ const autoOpen = Astro.url.pathname === "/";
   .advice-popup .button { display: flex; justify-content: space-between; width: 100%; margin-top: 1.4rem; }
   .advice-popup__valuation { display: flex; justify-content: space-between; gap: .5rem; margin-top: 1rem; padding-block: .35rem; font-size: .78rem; font-weight: 600; }
   .advice-popup__valuation:hover { text-decoration: underline; text-underline-offset: .2em; }
+  .advice-popup__body > :global(.valuation-options) { margin-top: 1rem; }
   .advice-popup__later { display: block; min-height: 2.75rem; margin: .65rem auto -.5rem; padding: .5rem; border: 0; background: none; color: var(--ink-muted); font-size: .75rem; cursor: pointer; }
   @media (max-width: 767px) {
-    .advice-popup { right: .75rem; bottom: max(.75rem, env(safe-area-inset-bottom)); width: calc(100% - 1.5rem); max-height: calc(58svh - 1.5rem); }
+    .advice-popup { right: .75rem; bottom: max(.75rem, env(safe-area-inset-bottom)); width: calc(100% - 1.5rem); max-height: calc(64svh - 1.5rem); }
     .advice-popup__intro { padding: 1rem; }
     .advice-popup__body { padding: 1.25rem; }
   }

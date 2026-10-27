@@ -1,0 +1,33 @@
+---
+import ServiceIcon from "./ServiceIcon.astro";
+interface Props { compact?: boolean; }
+const { compact = false } = Astro.props;
+---
+<div class:list={["valuation-options", { "valuation-options--compact": compact }]}>
+  <a class="valuation-option" href="/leistung/formular/">
+    <span class="valuation-option__icon"><ServiceIcon name="monitor" /></span>
+    <div><span class="valuation-option__label">Direkt online</span><h3>Online bewerten lassen</h3><p>Die Eckdaten Ihrer Immobilie angeben und eine erste Einschätzung erhalten.</p><strong>Online-Bewertung starten <span aria-hidden="true">↗</span></strong></div>
+  </a>
+  <a class="valuation-option" href="/kontakt/#termin">
+    <span class="valuation-option__icon"><ServiceIcon name="pin" /></span>
+    <div><span class="valuation-option__label">Persönlich vor Ort</span><h3>Vor Ort bewerten lassen</h3><p>Wir besichtigen Ihre Immobilie und besprechen den Wert persönlich mit Ihnen.</p><strong>Termin vereinbaren <span aria-hidden="true">↗</span></strong></div>
+  </a>
+</div>
+<style>
+  .valuation-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  .valuation-option { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 1rem; padding: 1.5rem; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: var(--paper); transition: border-color 180ms ease, box-shadow 180ms ease; }
+  .valuation-option:hover { border-color: var(--accent-ink); box-shadow: var(--shadow-sm); }
+  .valuation-option__icon { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 12px; background: var(--brand-100); color: var(--ink); }
+  .valuation-option__label { display: block; margin-bottom: .4rem; color: var(--ink-muted); font-size: .7rem; }
+  .valuation-option h3 { margin: 0 0 .65rem; text-transform: none; font-size: 1.2rem; }
+  .valuation-option p { color: var(--ink-muted); font-size: .9rem; }
+  .valuation-option strong { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-top: 1.2rem; font-size: .85rem; }
+  .valuation-options--compact { grid-template-columns: 1fr; gap: .75rem; }
+  .valuation-options--compact .valuation-option { padding: 1rem; gap: .75rem; }
+  .valuation-options--compact .valuation-option__icon { width: 2.5rem; height: 2.5rem; }
+  .valuation-options--compact h3 { margin-bottom: .3rem; font-size: 1rem; }
+  .valuation-options--compact p { font-size: .8rem; }
+  .valuation-options--compact strong { margin-top: .7rem; font-size: .78rem; }
+  .valuation-options--compact .valuation-option__label { display: none; }
+  @media (max-width: 640px) { .valuation-options { grid-template-columns: 1fr; } .valuation-option { padding: 1.15rem; } }
+</style>

@@ -8,6 +8,8 @@ import { getPropertyCatalog, setPropertyCacheHeaders } from "../server/propertie
 import { faqQuestions } from "../data/faq";
 import EditorialPhoto from "../components/EditorialPhoto.astro";
 import { editorialImages } from "../data/editorial-images";
+import ServiceIcon from "../components/ServiceIcon.astro";
+import ValuationOptions from "../components/ValuationOptions.astro";
 
 export const prerender = false;
 const catalog = await getPropertyCatalog();
@@ -42,8 +44,8 @@ const process = [
 ---
 
 <BaseLayout
-  title="SAYAN Immobilien Köln | Persönlich seit 2001"
-  description="Persönlich betreut. Sorgfältig vermittelt. SAYAN Immobilien begleitet Verkauf, Vermietung und Immobilienbewertung in Köln – inhabergeführt seit 2001."
+  title="Immobilie verkaufen in Köln | SAYAN Immobilien"
+  description="Ihre Immobilie verkaufen in Köln: SAYAN Immobilien. Persönliche Beratung auf Deutsch und Türkisch, Erfahrung seit 1999, Bewertung und professionelle Immobilienfotografie."
 >
   <Header />
   <main id="main">
@@ -53,16 +55,16 @@ const process = [
           <img src="/images/haus-modern-klinker.webp" alt="" fetchpriority="high" />
           <div class="home-hero__shade" aria-hidden="true"></div>
           <div class="home-hero__copy" data-reveal>
-            <p class="eyebrow">Persönlich betreut. Sorgfältig vermittelt.</p>
-            <h1>Engagiert für Sie und Ihre <em>Immobilie.</em></h1>
+            <p class="eyebrow">Ihr Immobilienmakler in Köln</p>
+            <h1>Immobilie verkaufen in Köln? <em>SAYAN.</em></h1>
             <p class="home-hero__lead">
-              Ihre Immobilie, Ihre Pläne, unser persönlicher Einsatz. Als inhabergeführtes Maklerbüro
-              in Köln begleiten wir Sie mit Sorgfalt, Marktkenntnis und einem festen Ansprechpartner.
+              Ihr Verkauf beginnt mit einem guten Gespräch. Candan Sayan und sein Team begleiten Sie persönlich – auf Deutsch und Türkisch, mit Erfahrung und Marktkenntnis vor Ort.
             </p>
             <div class="home-hero__actions">
-              <a class="button button--light" href="#online-bewertung">Bewertung starten</a>
-              <a class="button button--glass" href="/kontakt/">Persönlich sprechen</a>
+              <a class="button button--light" href="#online-bewertung" data-open-advice>Jetzt Immobilie bewerten <span aria-hidden="true">↗</span></a>
+              <a class="button button--glass" href="/leistung/immobilienverkauf/">Immobilie verkaufen</a>
             </div>
+            <p class="hero-experience"><strong>Seit 1999</strong><span>in der Immobilienbranche</span></p>
           </div>
         </div>
       </div>
@@ -73,7 +75,7 @@ const process = [
             <span>Fundierte Wertermittlung</span>
             <span>Öffentliche oder diskrete Vermarktung</span>
             <span>Köln & Region</span>
-            <span>Seit 2001 am Markt</span>
+            <span>Erfahrung seit 1999</span>
             <span>Inhabergeführt</span>
             <span>Verkauf & Vermietung</span>
             <span>Verbindliche Beratung</span>
@@ -83,7 +85,7 @@ const process = [
             <span>Fundierte Wertermittlung</span>
             <span>Öffentliche oder diskrete Vermarktung</span>
             <span>Köln & Region</span>
-            <span>Seit 2001 am Markt</span>
+            <span>Erfahrung seit 1999</span>
             <span>Inhabergeführt</span>
             <span>Verkauf & Vermietung</span>
             <span>Verbindliche Beratung</span>
@@ -92,18 +94,26 @@ const process = [
       </div>
     </section>
 
-    <section class="section section--paper valuation-section" id="online-bewertung">
-      <div class="container valuation-section__grid">
-        <div class="valuation-section__copy" data-reveal>
-          <p class="eyebrow">Kostenlose Ersteinschätzung</p>
-          <h2>Was ist Ihre Immobilie wert?</h2>
-          <p>Ein zu hoch angesetzter Preis kann den Verkauf unnötig verzögern. Geben Sie hier die Eckdaten ein. Für eine fundierte Einschätzung sehen wir uns Ihre Immobilie und den Markt persönlich an.</p>
+    <section class="quick-access" aria-labelledby="quick-title">
+      <div class="container">
+        <div class="quick-access__head"><h2 id="quick-title">Was möchten Sie tun?</h2><a class="text-link" href="/leistung/">Alle Leistungen ansehen →</a></div>
+        <div class="quick-access__grid">
+          {[['immobilienverkauf','Immobilie verkaufen','Von der Bewertung bis zum Notartermin.'],['immobilienvermietung','Immobilie vermieten','Den passenden Mieter finden.'],['wertermittlung','Immobilie bewerten','Online oder persönlich vor Ort.'],['fotografie-und-expose','Immobilienfotografie','Bilder, die Ihre Immobilie zeigen.']].map(([slug,title,copy]) => <a href={slug === 'wertermittlung' ? '#online-bewertung' : `/leistung/${slug}/`} class="quick-access__card"><ServiceIcon name={slug}/><h3>{title}</h3><p>{copy}</p><span aria-hidden="true">↗</span></a>)}
         </div>
-        <aside class="hero-valuation" data-reveal aria-label="Online Immobilienbewertung">
-          <p class="widget-status" data-bottimmo-status>Bewertung wird geladen …</p>
-          <btm-widget widget="valuation"></btm-widget>
-          <p class="widget-error" data-bottimmo-error hidden>Die Bewertung konnte gerade nicht geladen werden. Rufen Sie uns gern unter <a href="tel:+4922116892660">0221 / 168 926 60</a> an.</p>
-        </aside>
+      </div>
+    </section>
+
+    <section class="section section--light valuation-section" id="online-bewertung">
+      <div class="container">
+        <SectionHeader eyebrow="Der erste Schritt zum Verkauf" title="Ihre Immobilie. Zwei Wege zur <em>Bewertung.</em>" lead="Starten Sie mit einer Online-Einschätzung oder vereinbaren Sie eine persönliche Bewertung vor Ort." />
+        <ValuationOptions />
+      </div>
+    </section>
+
+    <section class="section section--paper photo-feature" id="immobilienfotografie">
+      <div class="container photo-feature__grid">
+        <a href="/leistung/fotografie-und-expose/" class="photo-feature__image" aria-label="Mehr über professionelle Immobilienfotografie"><img src="/images/altbau-wohnzimmer-fischgraet.webp" alt="Heller Altbau-Wohnraum mit Fischgrätparkett" loading="lazy" width="1200" height="800"/><span><ServiceIcon name="camera"/> Professionelle Immobilienfotografie</span></a>
+        <div class="photo-feature__copy"><p class="eyebrow">Der erste Eindruck entscheidet</p><h2>Gute Immobilien verdienen <em>gute Bilder.</em></h2><p>Professionelle Immobilienfotografie ist ein fester Teil unserer Vermarktung. Wir zeigen Räume, Licht und die Besonderheiten Ihres Objekts – im Exposé und auf den Immobilienportalen.</p><ul><li>Aussagekräftige Fotos Ihrer Immobilie</li><li>Ein Exposé, das die richtigen Fragen beantwortet</li><li>Auf Wunsch mit 360°-Besichtigung und Home Staging</li></ul><a class="button button--dark" href="/leistung/fotografie-und-expose/">Immobilienfotografie entdecken ↗</a></div>
       </div>
     </section>
 
@@ -131,9 +141,9 @@ const process = [
         </div>
         <div class="owner-copy" data-reveal>
           <p class="eyebrow">Persönliche Immobilienbegleitung</p>
-          <h2>Inhabergeführt. Vor Ort in <em>Köln.</em></h2>
-          <p>Seit 2001 vermitteln wir Wohn- und Gewerbeimmobilien, beraten Eigentümer und kümmern uns auch nach dem Vertragsabschluss um offene Fragen. Sie werden von unserem Team persönlich betreut.</p>
-          <p>Unser Büro gehört weder zu einer Bank noch zu einem Franchise. Wir besprechen mit Ihnen, wie Ihre Immobilie angeboten wird und welche Schritte sinnvoll sind.</p>
+          <h2>Für Ihren Verkauf in Köln: <em>Candan Sayan.</em></h2>
+          <p>Candan Sayan ist seit 1999 in der Immobilienbranche tätig. Seit 2001 begleitet SAYAN Immobilien Eigentümer in Köln beim Verkauf und bei der Vermietung – mit einem festen Ansprechpartner und einem Team vor Ort.</p>
+          <p>Wir beraten auf Deutsch und Türkisch. Von der ersten Werteinschätzung bis zur Übergabe erklären wir jeden Schritt verständlich und halten Sie persönlich auf dem Laufenden.</p>
           <a class="text-link" href="/kontakt/">Nehmen Sie Kontakt mit uns auf →</a>
         </div>
       </div>
@@ -217,24 +227,16 @@ const process = [
     </section>
   </main>
   <Footer />
-  <script is:inline src="https://components.bottimmo.com/components/6a9a8e5ddd651d6512580de2/btm-widget/de-DE" defer></script>
-  <script>
-    const status = document.querySelector<HTMLElement>("[data-bottimmo-status]");
-    const error = document.querySelector<HTMLElement>("[data-bottimmo-error]");
-    let ready = false;
-    window.customElements.whenDefined("btm-widget").then(() => { ready = true; if (status) status.hidden = true; });
-    window.setTimeout(() => { if (!ready) { if (status) status.hidden = true; if (error) error.hidden = false; } }, 12000);
-  </script>
 </BaseLayout>
 
 <style>
   :global(.site-header .nav-wrap) { background: color-mix(in srgb, #fff 90%, transparent); border-color: var(--n-border); backdrop-filter: blur(12px); }
 
-  .home-hero { padding-top: 6.75rem; overflow: hidden; background: #fff; }
-  .home-hero__media { position: relative; min-height: min(44rem, calc(100svh - 9rem)); display: flex; align-items: flex-end; overflow: hidden; border-radius: var(--radius-media); background: var(--brand-900); }
+  .home-hero { padding-top: 5.6rem; overflow: hidden; background: #fff; }
+  .home-hero__media { position: relative; min-height: clamp(28rem, 38vw, 35rem); display: flex; align-items: flex-end; overflow: hidden; border-radius: var(--radius-media); background: var(--brand-900); }
   .home-hero__media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .home-hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(20 24 25 / .82) 0%, rgb(20 24 25 / .58) 42%, rgb(20 24 25 / .08) 78%); }
-  .home-hero__copy { position: relative; z-index: 1; width: min(100%, 42rem); padding: clamp(2rem, 5vw, 4.5rem); color: #fff; }
+  .home-hero__copy { position: relative; z-index: 1; width: min(100%, 42rem); padding: clamp(1.5rem, 3vw, 3rem); color: #fff; }
   .home-hero__copy .eyebrow { border-color: rgb(255 255 255 / .3); background: rgb(255 255 255 / .12); color: #fff; backdrop-filter: blur(8px); }
   .home-hero__copy h1 { max-width: 14ch; }
   .home-hero__copy em { color: var(--accent); }
@@ -243,31 +245,18 @@ const process = [
   .button--light { border-color: var(--accent); background: var(--accent); color: var(--n-text); }
   .button--glass { border-color: rgb(255 255 255 / .45); background: rgb(255 255 255 / .08); color: #fff; backdrop-filter: blur(8px); }
 
-  .valuation-section { padding-top: clamp(3.5rem, 6vw, 5.5rem); }
-  .valuation-section__grid { display: grid; grid-template-columns: minmax(15rem, 4fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
-  .valuation-section__copy { position: sticky; top: 7rem; padding-top: .75rem; }
-  .valuation-section__copy p:not(.eyebrow) { max-width: 40ch; margin-top: 1rem; color: var(--n-text-secondary); }
-  .hero-valuation { padding: clamp(1rem, 2vw, 1.5rem); overflow: clip; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; }
-  .hero-valuation btm-widget { display: block; width: 100%; }
-  @supports (zoom: .88) { .hero-valuation btm-widget { width: 113.64%; zoom: .88; } }
-  .widget-status, .widget-error { padding: 1rem; color: var(--n-text-secondary); font-size: .85rem; text-align: center; }
-  .widget-error a { text-decoration: underline; }
-
+  .valuation-section { border-bottom: 1px solid var(--n-border); }
   .proof-line { margin-top: 1.25rem; overflow: hidden; border-top: 1px solid var(--accent); border-bottom: 1px solid var(--accent); background: var(--accent); }
   .proof-line__track { display: flex; width: max-content; animation: proof-scroll 36s linear infinite; }
   .proof-line:hover .proof-line__track { animation-play-state: paused; }
   .proof-line__group { display: flex; flex-shrink: 0; }
-  .proof-line span { display: flex; align-items: center; justify-content: center; width: 16rem; padding: .9rem 1rem; border-left: 1px solid color-mix(in srgb, #fff 35%, transparent); font-size: .75rem; font-weight: 600; color: #fff; text-align: center; white-space: nowrap; }
+  .proof-line span { display: flex; align-items: center; justify-content: center; width: 16rem; padding: .9rem 1rem; border-left: 1px solid color-mix(in srgb, #fff 35%, transparent); font-size: .75rem; font-weight: 600; color: var(--accent-ink); text-align: center; white-space: nowrap; }
   @keyframes proof-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-  .owner-grid, .valuation-grid, .buyer-grid, .discretion-grid, .contact-cta__grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(2.5rem, 6vw, 5rem); align-items: center; }
-  .owner-grid { grid-template-columns: 7fr 5fr; }
-  .section-photo { position: relative; min-height: 22rem; border-radius: var(--radius-media); overflow: hidden; background: var(--n-surface); }
+  .owner-grid, .valuation-grid, .buyer-grid, .discretion-grid, .contact-cta__grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(1.5rem, 3vw, 2.75rem); align-items: center; }
+  .owner-grid { grid-template-columns: 1fr 1fr; }
+  .section-photo { position: relative; min-height: 19rem; border-radius: var(--radius-media); overflow: hidden; background: var(--n-surface); }
   .section-photo :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-
-  /* Signature-Detail: ausgesparte Ecke. Kein Trust-Content vorhanden -> bleibt leer. */
-  .corner-notch { position: relative; }
-  .corner-notch::after { content: ""; position: absolute; right: 0; bottom: 0; width: 3.5rem; height: 3.5rem; background: radial-gradient(circle at 100% 100%, transparent 2rem, var(--n-surface) 2rem); }
 
   .owner-mark { position: relative; aspect-ratio: 16 / 10; border-radius: var(--radius-media); overflow: hidden; background: var(--brand-900); }
   .owner-mark :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -277,7 +266,7 @@ const process = [
   .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
   .service-card { display: grid; align-content: start; padding: 1.25rem; border-radius: var(--radius-card); background: var(--n-surface); border: 1px solid transparent; transition: background var(--motion-hover) ease, border-color var(--motion-hover) ease; }
   .service-card:hover { background: #fff; border-color: var(--n-border); }
-  .service-card__media { position: relative; aspect-ratio: 4 / 3; margin-bottom: 1.25rem; border-radius: var(--radius-field); overflow: hidden; }
+  .service-card__media { position: relative; aspect-ratio: 16 / 9; margin-bottom: 1rem; border-radius: var(--radius-field); overflow: hidden; }
   .service-card__media :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--ease-out-expo); }
   .service-card:hover .service-card__media :global(img) { transform: scale(1.04); }
   .service-card__media span { position: absolute; left: 1rem; bottom: 1rem; display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-ink); font-size: 1rem; font-weight: 600; }
@@ -291,19 +280,14 @@ const process = [
   .process-grid h3 { margin: 1.75rem 0 .65rem; text-transform: none; color: #fff; }
   .process-grid p, .discretion-grid p { color: color-mix(in srgb, #fff 70%, transparent); }
 
-  .valuation-grid > div > p:not(.eyebrow), .buyer-grid p { max-width: 58ch; margin-top: 1.2rem; color: var(--n-text-secondary); }
-  .valuation-grid .button { margin-top: 2rem; }
-  .valuation-points { display: grid; }
-  .valuation-points span { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding: 1.4rem 0; border-top: 1px solid color-mix(in srgb, var(--accent-ink) 24%, transparent); }
-  .valuation-points strong { font-weight: 400; font-size: 1.5rem; color: var(--n-text); }
   .discretion-grid .button { margin-top: 2rem; }
 
   .situation-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
   .situation-grid span { display: flex; align-items: center; min-height: 4.5rem; padding: 1.25rem; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; font: 500 1rem/1.25 var(--font-display); }
 
-  .property-preview__cta { display: flex; justify-content: center; margin-top: clamp(2.5rem, 5vw, 3.5rem); }
+  .property-preview__cta { display: flex; justify-content: center; margin-top: 1.5rem; }
   .home-faq { scroll-margin-top: 6rem; }
-  .home-faq__layout { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+  .home-faq__layout { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(1.5rem, 3vw, 2.75rem); align-items: start; }
   .home-faq__intro p:last-child { margin-top: 1rem; color: var(--n-text-secondary); }
   .home-faq__item { border-top: 1px solid var(--n-border); }
   .home-faq__item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.3rem 0; cursor: pointer; font-size: clamp(1rem, 1.3vw, 1.15rem); font-weight: 600; list-style: none; }
@@ -315,31 +299,57 @@ const process = [
   .contact-cta { padding-block: var(--section-space); }
   .contact-cta__grid > div > p:not(.eyebrow) { max-width: 50ch; margin-top: 1.2rem; color: var(--accent-ink); }
   .contact-cta__links { display: grid; }
-  .contact-cta__links > a, .contact-cta__links > span { display: grid; grid-template-columns: 6rem 1fr auto; gap: 1rem; align-items: center; padding: 1.4rem 0; border-top: 1px solid color-mix(in srgb, var(--accent-ink) 24%, transparent); }
+  .contact-cta__links > a, .contact-cta__links > span { display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: .75rem; align-items: center; padding: 1.4rem 0; border-top: 1px solid color-mix(in srgb, var(--accent-ink) 24%, transparent); }
+  .contact-cta__links > a > span, .contact-cta__links > span > span { grid-column: 2; }
+  @media (max-width: 767px) { .contact-cta__links > span > span { grid-column: 1; } }
+  .contact-cta__links strong { overflow-wrap: anywhere; }
   .contact-cta__links small, .contact-cta__links span span { font-size: .8rem; color: var(--accent-ink); }
   .contact-cta__links > a > span { font-size: .85rem; font-weight: 600; }
 
   @media (max-width: 900px) {
     .process-grid { grid-template-columns: 1fr 1fr; }
-    .service-grid { grid-template-columns: 1fr; }
+    .service-grid { grid-template-columns: 1fr 1fr; }
     .situation-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 767px) {
-    .valuation-section__grid, .owner-grid, .valuation-grid, .buyer-grid, .discretion-grid, .contact-cta__grid, .home-faq__layout { grid-template-columns: 1fr; }
-    .home-hero { padding-top: 5.75rem; }
-    .home-hero__media { min-height: 34rem; }
+    .owner-grid, .valuation-grid, .buyer-grid, .discretion-grid, .contact-cta__grid, .home-faq__layout { grid-template-columns: 1fr; }
+    .home-hero { padding-top: 5rem; }
+    .home-hero__media { min-height: 30rem; }
     .home-hero__shade { background: linear-gradient(0deg, rgb(20 24 25 / .86) 0%, rgb(20 24 25 / .48) 68%, rgb(20 24 25 / .12) 100%); }
     .home-hero__copy { padding: 1.5rem; }
     .home-hero__copy h1 { max-width: 14ch; font-size: clamp(1.75rem, 7.3vw, 2.05rem); overflow-wrap: normal; }
     .home-hero__actions { align-items: stretch; }
     .home-hero__actions .button { flex: 1 1 auto; }
-    .valuation-section__copy { position: static; padding-top: 0; }
-    .hero-valuation { padding: .75rem; }
     .owner-mark { aspect-ratio: 3 / 2; }
-    .process-grid, .situation-grid { grid-template-columns: 1fr; }
+    .service-grid { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: 1fr; }
+    .situation-grid { grid-template-columns: 1fr 1fr; }
     .proof-line { margin-top: .75rem; }
     .proof-line span { width: 12.5rem; padding-block: .75rem; }
     .contact-cta__links > a, .contact-cta__links > span { grid-template-columns: 1fr; }
     .contact-cta__links > a > span { display: none; }
   }
+  .hero-experience { display: flex; align-items: center; gap: .75rem; width: fit-content; margin-top: 1.5rem; padding: .65rem .85rem; border-left: 3px solid var(--accent); background: rgb(20 24 25 / .55); animation: experience-in 350ms ease 2s both; }
+  .hero-experience strong { color: var(--accent); font-size: 1.4rem; white-space: nowrap; }
+  .hero-experience span { max-width: 15ch; font-size: .8rem; line-height: 1.25; }
+  @keyframes experience-in { from { opacity: 0; transform: translateY(.5rem); } to { opacity: 1; transform: none; } }
+  .quick-access { padding-block: 1.5rem; background: var(--paper); }
+  .quick-access__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+  .quick-access__head h2 { text-transform: none; font-size: 1.2rem; }
+  .quick-access__grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: .85rem; }
+  .quick-access__card { position: relative; display: grid; align-content: start; gap: .65rem; padding: 1.25rem; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: var(--paper); }
+  .quick-access__card:hover { border-color: var(--ink); background: var(--brand-100); }
+  .quick-access__card :global(svg) { color: var(--ink); }
+  .quick-access__card h3 { font-size: 1rem; }
+  .quick-access__card p { margin: 0; color: var(--ink-muted); font-size: .8rem; }
+  .quick-access__card > span { position: absolute; top: 1rem; right: 1rem; font-size: 1.2rem; }
+  .photo-feature__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem,3vw,2.75rem); align-items: center; }
+  .photo-feature__image { position: relative; display: block; aspect-ratio: 16/11; overflow: hidden; border-radius: var(--radius-media); }
+  .photo-feature__image img { width: 100%; height: 100%; object-fit: cover; }
+  .photo-feature__image > span { position: absolute; inset: auto 1rem 1rem; display: flex; align-items: center; gap: .65rem; padding: .85rem; border-radius: var(--radius-field); background: var(--brand-900); color: white; font-size: .8rem; }
+  .photo-feature__copy > p:not(.eyebrow) { margin-top: 1rem; color: var(--ink-muted); }
+  .photo-feature__copy ul { display: grid; gap: .4rem; margin: 1rem 0 1.25rem; padding-left: 1.2rem; font-size: .9rem; }
+  @media (max-width: 900px) { .quick-access__grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+  @media (max-width: 767px) { .photo-feature__grid { grid-template-columns: 1fr; } .quick-access__head { align-items: start; flex-direction: column; gap: .5rem; } .quick-access__card { padding: 1rem; } .hero-experience { margin-top: 1rem; } }
+  @media (prefers-reduced-motion: reduce) { .hero-experience { animation: none; } .proof-line__track { animation: none; } }
 </style>
