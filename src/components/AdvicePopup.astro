@@ -1,8 +1,10 @@
 ---
 import { editorialImages } from "../data/editorial-images";
+
+const autoOpen = Astro.url.pathname === "/";
 ---
 
-<aside id="sayan-advice-popup" class="advice-popup" data-advice-popup tabindex="-1" hidden aria-labelledby="advice-title" aria-describedby="advice-description">
+<aside id="sayan-advice-popup" class:list={["advice-popup", { "is-open": autoOpen, "advice-popup--entrance": autoOpen }]} data-advice-popup tabindex="-1" hidden={!autoOpen} aria-labelledby="advice-title" aria-describedby="advice-description">
   <div class="advice-popup__intro">
     <img src={editorialImages.company.src} alt="Candan Sayan" width="72" height="72" loading="lazy" />
     <div><p class="eyebrow">SAYAN Immobilien · Köln</p><p class="advice-popup__name">Persönlich für Sie da.</p></div>
@@ -19,9 +21,13 @@ import { editorialImages } from "../data/editorial-images";
 </aside>
 
 <style>
-  .advice-popup { position: fixed; z-index: 300; right: max(1.25rem, env(safe-area-inset-right)); bottom: max(1.25rem, env(safe-area-inset-bottom)); width: min(25rem, calc(100% - 2.5rem)); max-height: calc(100svh - 2.5rem); overflow-y: auto; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: var(--paper); color: var(--ink); box-shadow: 0 20px 70px -15px rgb(0 0 0 / .25); opacity: 0; transform: translateY(calc(100% + 2rem)); transition: transform var(--motion-panel) var(--ease-out-expo), opacity 300ms ease; }
+  .advice-popup { position: fixed; z-index: 300; right: max(1.25rem, env(safe-area-inset-right)); bottom: max(1.25rem, env(safe-area-inset-bottom)); width: min(25rem, calc(100% - 2.5rem)); max-height: min(32rem, calc(58svh - 1.5rem)); overflow-y: auto; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: var(--paper); color: var(--ink); box-shadow: 0 20px 70px -15px rgb(0 0 0 / .25); opacity: 0; transform: translate3d(12%, calc(100% + 2rem), 0); transition: transform var(--motion-panel) var(--ease-out-expo), opacity 300ms ease; }
   .advice-popup[hidden] { display: none; }
   .advice-popup.is-open { opacity: 1; transform: translateY(0); }
+  .advice-popup--entrance { animation: advice-enter 650ms var(--ease-out-expo) 250ms both; }
+  @keyframes advice-enter { from { opacity: 0; transform: translate3d(12%, calc(100% + 2rem), 0); } to { opacity: 1; transform: translate3d(0, 0, 0); } }
+  /* Keep the privacy notice visible above the panel, including on small screens. */
+  :global(body:has(.advice-popup:not([hidden])) .consent:not([hidden])) { top: 1rem; bottom: auto; max-height: calc(42svh - 1.5rem); overflow-y: auto; }
   .advice-popup__intro { display: flex; gap: .85rem; align-items: center; padding: 1.2rem; background: var(--brand-100); }
   .advice-popup__intro img { width: 3.5rem; height: 3.5rem; flex-shrink: 0; border-radius: 50%; object-fit: cover; object-position: 50% 25%; }
   .advice-popup .eyebrow { margin: 0 0 .4rem; font-size: .62rem; letter-spacing: .09em; opacity: 1; }
@@ -35,93 +41,59 @@ import { editorialImages } from "../data/editorial-images";
   .advice-popup__valuation:hover { text-decoration: underline; text-underline-offset: .2em; }
   .advice-popup__later { display: block; min-height: 2.75rem; margin: .65rem auto -.5rem; padding: .5rem; border: 0; background: none; color: var(--ink-muted); font-size: .75rem; cursor: pointer; }
   @media (max-width: 767px) {
-    .advice-popup { right: .75rem; bottom: max(.75rem, env(safe-area-inset-bottom)); width: calc(100% - 1.5rem); max-height: calc(100svh - 1.5rem); }
+    .advice-popup { right: .75rem; bottom: max(.75rem, env(safe-area-inset-bottom)); width: calc(100% - 1.5rem); max-height: calc(58svh - 1.5rem); }
     .advice-popup__intro { padding: 1rem; }
     .advice-popup__body { padding: 1.25rem; }
   }
-  @media (prefers-reduced-motion: reduce) { .advice-popup { transition: none; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .advice-popup { transition: none; animation: none; transform: none; } }
 </style>
 
 <script>
   const popup = document.querySelector<HTMLElement>("[data-advice-popup]");
   if (popup) {
-    const consent = document.querySelector<HTMLElement>("[data-consent]");
-    const storageKey = "sayan-advice-dismissed";
-    let dismissed = false;
-    try { dismissed = sessionStorage.getItem(storageKey) === "1"; } catch { /* Storage is optional. */ }
-    let eligible = false;
-    let requested = window.location.hash === "#beratung";
     let closingTimer: number | undefined;
     let returnFocus: HTMLElement | null = null;
 
-    function tryOpen() {
-      if (!popup || !popup.hidden || document.hidden) return;
-      if (!requested && (!eligible || dismissed)) return;
-      if (consent && !consent.hidden) return;
-      if (document.body.classList.contains("menu-open") || document.querySelector('.nav-trigger[aria-expanded="true"], dialog[open]')) return;
-      if (!requested && document.activeElement?.matches("input, textarea, select, iframe, [contenteditable]")) return;
-      const focusPopup = requested;
-      requested = false;
-      dismissed = true;
+    const openPopup = (trigger: HTMLElement | null = null) => {
+      returnFocus = trigger;
+      if (closingTimer !== undefined) {
+        window.clearTimeout(closingTimer);
+        closingTimer = undefined;
+      }
+      if (document.body.classList.contains("menu-open")) document.querySelector<HTMLButtonElement>(".menu-close")?.click();
       popup.inert = false;
       popup.hidden = false;
+      popup.classList.remove("advice-popup--entrance");
       requestAnimationFrame(() => requestAnimationFrame(() => {
         if (!popup.inert) {
           popup.classList.add("is-open");
-          if (focusPopup) popup.focus({ preventScroll: true });
+          popup.focus({ preventScroll: true });
         }
       }));
-    }
+    };
     const closePopup = () => {
       if (popup.hidden || popup.inert) return;
-      requested = false;
-      dismissed = true;
-      try { sessionStorage.setItem(storageKey, "1"); } catch { /* Dismissal also works in memory. */ }
       if (popup.contains(document.activeElement)) {
         const target = returnFocus?.isConnected && returnFocus.getClientRects().length
           ? returnFocus : document.querySelector<HTMLElement>(".nav-cta, .menu-toggle");
         target?.focus({ preventScroll: true });
       }
       popup.inert = true;
-      popup.classList.remove("is-open");
+      popup.classList.remove("advice-popup--entrance", "is-open");
       closingTimer = window.setTimeout(() => { popup.hidden = true; closingTimer = undefined; }, window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 600);
-    };
-    const requestOpen = (trigger: HTMLElement | null = null) => {
-      returnFocus = trigger;
-      requested = true;
-      if (closingTimer !== undefined) {
-        window.clearTimeout(closingTimer);
-        closingTimer = undefined;
-        popup.hidden = true;
-      }
-      if (document.body.classList.contains("menu-open")) document.querySelector<HTMLButtonElement>(".menu-close")?.click();
-      tryOpen();
     };
     document.querySelectorAll<HTMLAnchorElement>("[data-open-advice]").forEach((trigger) => {
       trigger.addEventListener("click", (event) => {
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
         event.preventDefault();
-        requestOpen(trigger);
+        openPopup(trigger);
       });
     });
     popup.querySelectorAll("[data-close-advice]").forEach((button) => button.addEventListener("click", closePopup));
-    popup.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => {
-      try { sessionStorage.setItem(storageKey, "1"); } catch { /* Navigation needs no storage. */ }
-    }));
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && !popup.hidden) closePopup();
     });
-    const observer = new MutationObserver(() => {
-      if (consent && !consent.hidden && !popup.hidden) closePopup();
-      else tryOpen();
-    });
-    if (consent) observer.observe(consent, { attributes: true, attributeFilter: ["hidden"] });
-    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-    document.querySelectorAll(".nav-trigger, dialog").forEach((element) => observer.observe(element, { attributes: true, attributeFilter: ["aria-expanded", "open"] }));
-    document.addEventListener("visibilitychange", tryOpen);
-    document.addEventListener("focusout", () => window.setTimeout(tryOpen, 0));
-    window.addEventListener("hashchange", () => { if (window.location.hash === "#beratung") requestOpen(); });
-    if (!dismissed) window.setTimeout(() => { eligible = true; tryOpen(); }, 10000);
-    tryOpen();
+    window.addEventListener("hashchange", () => { if (window.location.hash === "#beratung") openPopup(); });
+    if (window.location.hash === "#beratung" && popup.hidden) openPopup();
   }
 </script>

@@ -4,8 +4,8 @@
 
 - Eigenständige Positionierung „Persönlich betreut. Sorgfältig vermittelt.“ auf Startseite und im Footer.
 - SAYAN-Grün behutsam von #ADCA06 auf das ruhigere #A6BF36 abgestimmt.
-- Beratungs-Pop-up gleitet nach zehn Sekunden von unten ein; Gespräch und Wertermittlung führen zu bestehenden Angeboten.
-- Schließen per Button und Escape, Sitzungs-Merker, Rücksicht auf Datenschutzhinweis, Menüs, Formulare und reduzierte Bewegung.
+- Beratungs-Pop-up gleitet auf der Startseite unmittelbar von rechts unten ein, bei jedem Aufruf und ohne Klick oder Sitzungsmerker; Gespräch und Wertermittlung führen zu bestehenden Angeboten.
+- Schließen per Button und Escape; Datenschutzhinweis bleibt oberhalb des Pop-ups sichtbar. Reduzierte Bewegung wird berücksichtigt.
 - Jederzeit erneut über „Termin vereinbaren“ oder den direkten Link /#beratung aufrufbar, auch nach vorherigem Schließen.
 - Titelbild, redaktionelle Fotos und onOffice-Angebote bleiben erhalten.
 
