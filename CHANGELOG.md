@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.19.1 · 2026.10.27
+
+Neue persönliche Überschrift auf der Startseite. Direkter Zugang zu allen Leistungen bleibt zusätzlich in der Hauptnavigation erhalten.
+
 ## 1.19.0 · 2026.10.27
 
 Alle 19 Leistungsseiten erhalten ein großes thematisch passendes Bild direkt am Einstieg und bebilderte Verweise zu weiteren Leistungen. Alle Leistungen ist oben in jedem Mega Menü und an erster Stelle im mobilen Menü erreichbar. Dekorative Pfeile wurden aus Links und Karten entfernt.
