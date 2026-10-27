@@ -1,5 +1,13 @@
 # Änderungen
 
+## 1.18 – 2026-10-27
+
+- Großes Desktop-Mega-Menü mit breiter Fläche, großen Icon-Links, klaren Spalten, Bildkachel und schließbarem Hintergrund.
+- Großflächigen Hero mit dem bisherigen Titelbild, abgerundeten Ecken und Text auf dem Bild wiederhergestellt.
+- Partnerlogos wieder in Originalfarben, ohne sichtbare schwarze oder weiße Hintergrundkästen und ohne Zellrahmen.
+- Aktionsbuttons wieder pillenförmig; dekorative Pfeile aus Buttons und der Bewertungsauswahl entfernt.
+- Bewertungs-Hauptbutton und Erfahrungsnachweis seit 1999 bleiben im Hero.
+
 ## 1.17 – 2026-10-27
 
 - Warmer Offwhite-Grundton (#F6F3EB), ruhigere Satzschreibung und Schriftgewichte, weniger Pillen-Labels und weichere Kontraste. Hero als klarer Text-/Bild-Einstieg mit unverändertem Titelmotiv.

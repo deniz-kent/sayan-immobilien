@@ -1,5 +1,6 @@
 ---
 import Logo from "./Logo.astro";
+import ServiceIcon from "./ServiceIcon.astro";
 
 const groups = [
   {
@@ -10,7 +11,8 @@ const groups = [
     ],
     promo: "Aktuelle Immobilien in Köln",
     promoHref: "/immobilien/",
-    promoAction: "Angebote ansehen →",
+    promoAction: "Angebote ansehen",
+    promoImage: "/images/haus-modern-klinker.webp",
   },
   {
     label: "Verkaufen",
@@ -20,7 +22,8 @@ const groups = [
     ],
     promo: "Immobilie bewerten lassen",
     promoHref: "/leistung/formular/",
-    promoAction: "Anfrage starten →",
+    promoAction: "Bewertung starten",
+    promoImage: "/images/sayan-beratung-640.webp",
   },
   {
     label: "Unternehmen",
@@ -30,7 +33,8 @@ const groups = [
     ],
     promo: "SAYAN Immobilien Köln seit 2001",
     promoHref: "/#unternehmen",
-    promoAction: "SAYAN kennenlernen →",
+    promoAction: "SAYAN kennenlernen",
+    promoImage: "/images/sayan-persoenlich-640.webp",
   },
 ];
 const liveLinks: Record<string, string> = {
@@ -55,9 +59,16 @@ const liveLinks: Record<string, string> = {
   "Kontakt": "/kontakt/",
   "Häufige Fragen": "/#faq",
 };
+const linkIcon = (label: string) => {
+  const service = liveLinks[label]?.match(/^\/leistung\/([^/]+)\//)?.[1];
+  if (service) return service;
+  const icons: Record<string, string> = { "Immobilien kaufen": "home", "Immobilien mieten": "key", "Kapitalanlagen": "building", "Suchauftrag": "monitor", "Diskrete Angebote": "lock", "Über SAYAN": "users", "Arbeitsweise": "handshake", "Kontakt": "users", "Häufige Fragen": "file" };
+  return icons[label] ?? "building";
+};
 ---
 
 <header class="site-header" data-header>
+  <button class="nav-backdrop" type="button" data-close-mega hidden aria-label="Navigation schließen"></button>
   <div class="nav-wrap">
     <div class="container nav-inner">
       <a class="brand-link" href="/" aria-label="Zur Startseite">
@@ -72,14 +83,16 @@ const liveLinks: Record<string, string> = {
               {group.label}<span aria-hidden="true">⌄</span>
             </button>
             <div class="mega-menu" id={`mega-${index}`} hidden>
+              <div class="container mega-menu__head"><div><p>SAYAN Immobilien Köln</p><h2>{group.label}</h2></div><button type="button" data-close-mega>Schließen <span aria-hidden="true">×</span></button></div>
               <div class="container mega-menu__inner">
                 {group.columns.map((column) => (
                   <div class="mega-column">
                     <p>{column.title}</p>
-                    {column.links.map((link) => <a href={liveLinks[link]}>{link}</a>)}
+                    {column.links.map((link) => <a href={liveLinks[link]}><span class="mega-link-icon"><ServiceIcon name={linkIcon(link)} /></span><span>{link}</span></a>)}
                   </div>
                 ))}
                 <a class="mega-promo" href={group.promoHref}>
+                  <img src={group.promoImage} alt="" loading="lazy" width="640" height="430" />
                   <span>Direkter Einstieg</span>
                   <strong>{group.promo}</strong>
                   <small>{group.promoAction}</small>
@@ -127,6 +140,12 @@ const liveLinks: Record<string, string> = {
   const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
   const closeButton = document.querySelector<HTMLButtonElement>(".menu-close");
   const mobileMenu = document.querySelector<HTMLElement>("#mobile-menu");
+  const backdrop = document.querySelector<HTMLButtonElement>(".nav-backdrop");
+  const syncMegaState = () => {
+    const open = [...triggers].some(trigger => trigger.getAttribute("aria-expanded") === "true");
+    header?.classList.toggle("mega-open", open);
+    if (backdrop) backdrop.hidden = !open;
+  };
 
   const closeMegaMenus = (except?: HTMLButtonElement) => {
     triggers.forEach((trigger) => {
@@ -135,6 +154,7 @@ const liveLinks: Record<string, string> = {
       const panel = document.getElementById(trigger.getAttribute("aria-controls") ?? "");
       if (panel) panel.hidden = true;
     });
+    syncMegaState();
   };
 
   triggers.forEach((trigger) => {
@@ -144,12 +164,23 @@ const liveLinks: Record<string, string> = {
       trigger.setAttribute("aria-expanded", String(willOpen));
       const panel = document.getElementById(trigger.getAttribute("aria-controls") ?? "");
       if (panel) panel.hidden = !willOpen;
+      syncMegaState();
     });
   });
 
   document.addEventListener("click", (event) => {
-    if (!(event.target as Element).closest(".nav-group")) closeMegaMenus();
+    if (event.target instanceof Element && !event.target.closest(".nav-group")) closeMegaMenus();
   });
+
+  document.querySelectorAll<HTMLButtonElement>("[data-close-mega]").forEach(button => {
+    button.addEventListener("click", () => {
+      const active = [...triggers].find(trigger => trigger.getAttribute("aria-expanded") === "true");
+      closeMegaMenus();
+      active?.focus();
+    });
+  });
+  window.matchMedia("(max-width: 1023px)").addEventListener("change", event => { if (event.matches) closeMegaMenus(); });
+  document.addEventListener("focusin", event => { if (event.target instanceof Node && !header?.contains(event.target)) closeMegaMenus(); });
 
   const updateHeader = () => {
     header?.classList.toggle("is-scrolled", window.scrollY > 60);

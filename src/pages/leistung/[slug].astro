@@ -42,7 +42,7 @@ const image = serviceImages[service.slug];
         <aside class="detail-aside" aria-label="Leistungsüberblick">
           <h2>Im Überblick</h2>
           <ul>{service.points.map((point) => <li>{point}</li>)}</ul>
-          <a class="button button--dark" href="/kontakt/">Persönlich besprechen ↗</a>
+          <a class="button button--dark" href="/kontakt/">Persönlich besprechen</a>
           {image && <div class="detail-photo"><EditorialPhoto image={image} sizes="(max-width: 767px) 100vw, 35vw" /></div>}
         </aside>
       </div>

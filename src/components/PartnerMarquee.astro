@@ -3,11 +3,24 @@ const partners = [
   ["immoscout24-premium-2016", "ImmoScout24 · Premium Partner 2016"], ["kalaydo", "kalaydo"], ["oc-real-estate", "OC Real Estate"],
   ["bvfi", "BVFI"], ["ogulo", "Ogulo · 360°-Rundgänge"], ["onoffice", "onOffice"], ["mls", "MLS Immobiliennetzwerk"],
 ];
+const solidBackgrounds: Record<string, string> = { bvfi: "black", onoffice: "white", mls: "white" };
 ---
+<svg class="partner-logo-filters" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="partner-remove-white" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -1 -1 -1 0 3" />
+      <feComponentTransfer><feFuncA type="linear" slope="255" intercept="-1" /></feComponentTransfer>
+    </filter>
+    <filter id="partner-remove-black" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  1 1 1 0 0" />
+      <feComponentTransfer><feFuncA type="linear" slope="255" intercept="-1" /></feComponentTransfer>
+    </filter>
+  </defs>
+</svg>
 <section class="partner-marquee" aria-labelledby="partners-title">
   <div class="container partner-marquee__head"><div><p class="eyebrow">Gut vernetzt</p><h2 id="partners-title">Partner & Netzwerk</h2></div><button type="button" data-marquee-toggle aria-pressed="false">Laufleiste pausieren <span aria-hidden="true">Ⅱ</span></button></div>
   <div class="partner-marquee__viewport"><div class="partner-marquee__track" data-partner-track>
-    {[false, true].map((duplicate) => <div class="partner-marquee__group" aria-hidden={duplicate || undefined}>{partners.map(([file, name]) => <div class="partner-marquee__item"><img src={`/partners/${file}.png`} alt={duplicate ? "" : name} loading="eager" width="117" height="115" /><span>{name}</span></div>)}</div>)}
+    {[false, true].map((duplicate) => <div class="partner-marquee__group" aria-hidden={duplicate || undefined}>{partners.map(([file, name]) => <div class="partner-marquee__item"><img src={`/partners/${file}.png`} alt={duplicate ? "" : name} data-background={solidBackgrounds[file]} style={solidBackgrounds[file] ? `filter: url(#partner-remove-${solidBackgrounds[file]})` : undefined} loading="eager" width="117" height="115" /><span>{name}</span></div>)}</div>)}
   </div></div>
 </section>
 <style>
@@ -19,8 +32,9 @@ const partners = [
   .partner-marquee__viewport { overflow: hidden; }
   .partner-marquee__track { display: flex; width: max-content; animation: partner-scroll 32s linear infinite; }
   .partner-marquee__group { display: flex; flex-shrink: 0; }
-  .partner-marquee__item { display: grid; place-items: center; align-content: center; gap: .5rem; width: 11.5rem; padding: .5rem 1rem; border-right: 1px solid var(--n-border); }
-  .partner-marquee__item img { width: auto; height: 4.5rem; max-width: 7.3rem; object-fit: contain; filter: grayscale(1); opacity: .8; mix-blend-mode: multiply; }
+  .partner-marquee__item { display: grid; place-items: center; align-content: center; gap: .5rem; width: 11.5rem; padding: .5rem 1rem; background: transparent; }
+  .partner-marquee__item img { width: auto; height: 4.5rem; max-width: 7.3rem; object-fit: contain; filter: none; opacity: 1; }
+  .partner-logo-filters { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
   .partner-marquee__item span { color: var(--n-text-secondary); font-size: .65rem; white-space: nowrap; }
   .partner-marquee__viewport:hover .partner-marquee__track, .partner-marquee__track.is-paused { animation-play-state: paused; }
   @keyframes partner-scroll { to { transform: translateX(-50%); } }
