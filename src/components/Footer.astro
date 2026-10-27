@@ -43,7 +43,7 @@ const liveLinks: Record<string, string> = {
     {columns.map((column) => (
       <div class="footer-column">
         <p>{column.title}</p>
-        {column.links.map((link) => <a href={liveLinks[link]}>{link}</a>)}
+        {column.links.map((link) => <a href={liveLinks[link]} data-open-advice={link === "Termin" || undefined}>{link}</a>)}
       </div>
     ))}
   </div>

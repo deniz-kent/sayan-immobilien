@@ -6,6 +6,7 @@
 - SAYAN-Grün behutsam von #ADCA06 auf das ruhigere #A6BF36 abgestimmt.
 - Beratungs-Pop-up gleitet nach zehn Sekunden von unten ein; Gespräch und Wertermittlung führen zu bestehenden Angeboten.
 - Schließen per Button und Escape, Sitzungs-Merker, Rücksicht auf Datenschutzhinweis, Menüs, Formulare und reduzierte Bewegung.
+- Jederzeit erneut über „Termin vereinbaren“ oder den direkten Link /#beratung aufrufbar, auch nach vorherigem Schließen.
 - Titelbild, redaktionelle Fotos und onOffice-Angebote bleiben erhalten.
 
 ## 1.15 – 2026-10-21

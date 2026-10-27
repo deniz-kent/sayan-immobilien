@@ -2,7 +2,7 @@
 import { editorialImages } from "../data/editorial-images";
 ---
 
-<aside class="advice-popup" data-advice-popup hidden aria-labelledby="advice-title" aria-describedby="advice-description">
+<aside id="sayan-advice-popup" class="advice-popup" data-advice-popup tabindex="-1" hidden aria-labelledby="advice-title" aria-describedby="advice-description">
   <div class="advice-popup__intro">
     <img src={editorialImages.company.src} alt="Candan Sayan" width="72" height="72" loading="lazy" />
     <div><p class="eyebrow">SAYAN Immobilien · Köln</p><p class="advice-popup__name">Persönlich für Sie da.</p></div>
@@ -48,59 +48,80 @@ import { editorialImages } from "../data/editorial-images";
     const consent = document.querySelector<HTMLElement>("[data-consent]");
     const storageKey = "sayan-advice-dismissed";
     let dismissed = false;
-    try { dismissed = sessionStorage.getItem(storageKey) === "1"; } catch { /* Private browsing may disable storage. */ }
+    try { dismissed = sessionStorage.getItem(storageKey) === "1"; } catch { /* Storage is optional. */ }
     let eligible = false;
-    let closing = false;
+    let requested = window.location.hash === "#beratung";
+    let closingTimer: number | undefined;
+    let returnFocus: HTMLElement | null = null;
 
-    const stopWatching = () => {
-      observer.disconnect();
-      document.removeEventListener("visibilitychange", tryOpen);
-      document.removeEventListener("focusout", onFocusOut);
-    };
     function tryOpen() {
-      if (!eligible || dismissed || !popup || !popup.hidden || document.hidden) return;
+      if (!popup || !popup.hidden || document.hidden) return;
+      if (!requested && (!eligible || dismissed)) return;
       if (consent && !consent.hidden) return;
       if (document.body.classList.contains("menu-open") || document.querySelector('.nav-trigger[aria-expanded="true"], dialog[open]')) return;
-      if (document.activeElement?.matches("input, textarea, select, iframe, [contenteditable]")) return;
+      if (!requested && document.activeElement?.matches("input, textarea, select, iframe, [contenteditable]")) return;
+      const focusPopup = requested;
+      requested = false;
+      dismissed = true;
+      popup.inert = false;
       popup.hidden = false;
-      // Two frames let the browser paint the starting position before sliding up.
       requestAnimationFrame(() => requestAnimationFrame(() => {
-        if (!closing) popup.classList.add("is-open");
+        if (!popup.inert) {
+          popup.classList.add("is-open");
+          if (focusPopup) popup.focus({ preventScroll: true });
+        }
       }));
-      stopWatching();
-    }
-    function onFocusOut() { window.setTimeout(tryOpen, 0); }
-    const observer = new MutationObserver(tryOpen);
-    if (!dismissed) {
-      if (consent) observer.observe(consent, { attributes: true, attributeFilter: ["hidden"] });
-      observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
-      document.querySelectorAll(".nav-trigger, dialog").forEach((element) => observer.observe(element, { attributes: true, attributeFilter: ["aria-expanded", "open"] }));
-      document.addEventListener("visibilitychange", tryOpen);
-      document.addEventListener("focusout", onFocusOut);
-      window.setTimeout(() => { eligible = true; tryOpen(); }, 10000);
     }
     const closePopup = () => {
-      if (popup.hidden || closing) return;
-      closing = true;
+      if (popup.hidden || popup.inert) return;
+      requested = false;
       dismissed = true;
-      try { sessionStorage.setItem(storageKey, "1"); } catch { /* Keep dismissal in memory. */ }
-      const containedFocus = popup.contains(document.activeElement);
-      if (containedFocus) document.querySelector<HTMLAnchorElement>(".nav-cta")?.focus({ preventScroll: true });
+      try { sessionStorage.setItem(storageKey, "1"); } catch { /* Dismissal also works in memory. */ }
+      if (popup.contains(document.activeElement)) {
+        const target = returnFocus?.isConnected && returnFocus.getClientRects().length
+          ? returnFocus : document.querySelector<HTMLElement>(".nav-cta, .menu-toggle");
+        target?.focus({ preventScroll: true });
+      }
       popup.inert = true;
       popup.classList.remove("is-open");
-      window.setTimeout(() => { popup.hidden = true; closing = false; }, window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 600);
-      stopWatching();
+      closingTimer = window.setTimeout(() => { popup.hidden = true; closingTimer = undefined; }, window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 600);
     };
+    const requestOpen = (trigger: HTMLElement | null = null) => {
+      returnFocus = trigger;
+      requested = true;
+      if (closingTimer !== undefined) {
+        window.clearTimeout(closingTimer);
+        closingTimer = undefined;
+        popup.hidden = true;
+      }
+      if (document.body.classList.contains("menu-open")) document.querySelector<HTMLButtonElement>(".menu-close")?.click();
+      tryOpen();
+    };
+    document.querySelectorAll<HTMLAnchorElement>("[data-open-advice]").forEach((trigger) => {
+      trigger.addEventListener("click", (event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+        event.preventDefault();
+        requestOpen(trigger);
+      });
+    });
     popup.querySelectorAll("[data-close-advice]").forEach((button) => button.addEventListener("click", closePopup));
     popup.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => {
-      try { sessionStorage.setItem(storageKey, "1"); } catch { /* Navigation still works without storage. */ }
+      try { sessionStorage.setItem(storageKey, "1"); } catch { /* Navigation needs no storage. */ }
     }));
     document.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && !popup.hidden) closePopup();
     });
-    // The privacy notice always takes priority, including when reopened in the footer.
-    if (consent) new MutationObserver(() => {
-      if (!consent.hidden && !popup.hidden) closePopup();
-    }).observe(consent, { attributes: true, attributeFilter: ["hidden"] });
+    const observer = new MutationObserver(() => {
+      if (consent && !consent.hidden && !popup.hidden) closePopup();
+      else tryOpen();
+    });
+    if (consent) observer.observe(consent, { attributes: true, attributeFilter: ["hidden"] });
+    observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+    document.querySelectorAll(".nav-trigger, dialog").forEach((element) => observer.observe(element, { attributes: true, attributeFilter: ["aria-expanded", "open"] }));
+    document.addEventListener("visibilitychange", tryOpen);
+    document.addEventListener("focusout", () => window.setTimeout(tryOpen, 0));
+    window.addEventListener("hashchange", () => { if (window.location.hash === "#beratung") requestOpen(); });
+    if (!dismissed) window.setTimeout(() => { eligible = true; tryOpen(); }, 10000);
+    tryOpen();
   }
 </script>
