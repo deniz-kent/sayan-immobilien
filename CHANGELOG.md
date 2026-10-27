@@ -2,6 +2,8 @@
 
 ## 1.17 – 2026-10-27
 
+- Warmer Offwhite-Grundton (#F6F3EB), ruhigere Satzschreibung und Schriftgewichte, weniger Pillen-Labels und weichere Kontraste. Hero als klarer Text-/Bild-Einstieg mit unverändertem Titelmotiv.
+
 - Kompakteres Layout über Startseite, Leistungen, Exposés, Kontakt und Bewertungsformular: kleinere Abschnittsabstände, breitere Inhaltsflächen und deutlich kürzerer Footer.
 - Hero mit Bewertungs-Hauptbutton, Positionierung für Immobilienverkauf in Köln und sichtbar einschiebendem Erfahrungsnachweis „Seit 1999“.
 - Zwei Bewertungskarten: online oder persönlich vor Ort; auch im automatisch von rechts unten erscheinenden Pop-up.

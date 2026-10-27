@@ -48,7 +48,7 @@ const liveLinks: Record<string, string> = {
   "Besichtigungen": "/leistung/besichtigungen/",
   "Bauträgervertrieb": "/leistung/bautraeger-vertrieb/",
   "Portfoliovertrieb": "/leistung/portfolio-vertrieb/",
-  "Alle Leistungen": "/leistung/",
+  "Alle Leistungen": "/leistung/#all-services-title",
   "Über SAYAN": "/#unternehmen",
   "Arbeitsweise": "/#ablauf",
   "Leistungen": "/leistung/",
@@ -88,7 +88,7 @@ const liveLinks: Record<string, string> = {
             </div>
           </div>
         ))}
-        <a href="/leistung/">Alle Leistungen</a>
+        <a href="/leistung/#all-services-title">Alle Leistungen</a>
         <a href="/kontakt/">Kontakt</a>
       </nav>
 
@@ -111,7 +111,7 @@ const liveLinks: Record<string, string> = {
           {group.columns.flatMap((column) => column.links).map((link) => <a href={liveLinks[link]}>{link}</a>)}
         </details>
       ))}
-      <a href="/leistung/">Alle Leistungen</a>
+      <a href="/leistung/#all-services-title">Alle Leistungen</a>
       <a href="/kontakt/">Kontakt</a>
     </div>
     <div class="mobile-menu__footer">

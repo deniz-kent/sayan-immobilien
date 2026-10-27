@@ -82,7 +82,11 @@ const image = serviceImages[service.slug];
 
 <style>
   .service-hero { padding-bottom: 2rem; }
-  .service-hero h1 { max-width: 18ch; }
+  .service-hero > .container { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,.9fr); gap: .85rem 2.5rem; align-items: center; }
+  .service-hero .breadcrumbs, .service-hero .eyebrow { grid-column: 1 / -1; justify-self: start; margin-bottom: 0; }
+  .service-hero .service-hero__intro { grid-column: 2; grid-row: 3; margin-top: 0; }
+  .service-hero .text-link { grid-column: 1 / -1; }
+  .service-hero h1 { max-width: 20ch; font-size: clamp(2rem, 3vw, 2.8rem); }
   .service-hero__intro { max-width: 65ch !important; }
   .service-hero .text-link { margin-top: 1.75rem; }
   .breadcrumbs { display: flex; flex-wrap: wrap; gap: .55rem; margin-bottom: 1.25rem; font-size: .85rem; color: var(--n-text-secondary); }
@@ -111,7 +115,8 @@ const image = serviceImages[service.slug];
   .cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; }
   .wide-cta .button--outline { border-color: var(--n-border); background: transparent; color: var(--n-text); }
   @media (max-width: 767px) {
-    .detail-grid, .related-layout { grid-template-columns: 1fr; }
+    .detail-grid, .related-layout, .service-hero > .container { grid-template-columns: 1fr; }
+    .service-hero .service-hero__intro { grid-column: auto; grid-row: auto; }
     .related-links a { grid-template-columns: 1fr; gap: .3rem; }
   }
 </style>

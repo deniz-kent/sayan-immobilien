@@ -23,11 +23,11 @@ const { compact = false } = Astro.props;
   .valuation-option p { color: var(--ink-muted); font-size: .9rem; }
   .valuation-option strong { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-top: 1.2rem; font-size: .85rem; }
   .valuation-options--compact { grid-template-columns: 1fr; gap: .75rem; }
-  .valuation-options--compact .valuation-option { padding: 1rem; gap: .75rem; }
-  .valuation-options--compact .valuation-option__icon { width: 2.5rem; height: 2.5rem; }
+  .valuation-options--compact .valuation-option { padding: .75rem; gap: .65rem; }
+  .valuation-options--compact .valuation-option__icon { width: 2.25rem; height: 2.25rem; }
   .valuation-options--compact h3 { margin-bottom: .3rem; font-size: 1rem; }
-  .valuation-options--compact p { font-size: .8rem; }
-  .valuation-options--compact strong { margin-top: .7rem; font-size: .78rem; }
+  .valuation-options--compact p { display: none; }
+  .valuation-options--compact strong { margin-top: .4rem; font-size: .78rem; }
   .valuation-options--compact .valuation-option__label { display: none; }
   @media (max-width: 640px) { .valuation-options { grid-template-columns: 1fr; } .valuation-option { padding: 1.15rem; } }
 </style>

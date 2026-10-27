@@ -22,11 +22,12 @@
 
 <script>
   const consent = document.querySelector<HTMLElement>("[data-consent]");
-  const savedChoice = localStorage.getItem("sayan-consent");
+  let savedChoice: string | null = null;
+  try { savedChoice = localStorage.getItem("sayan-consent"); } catch { /* The notice also works when browser storage is blocked. */ }
   if (consent && !savedChoice) consent.hidden = false;
   document.querySelectorAll<HTMLButtonElement>("[data-consent-choice]").forEach((button) => {
     button.addEventListener("click", () => {
-      localStorage.setItem("sayan-consent", button.dataset.consentChoice ?? "deny");
+      try { localStorage.setItem("sayan-consent", button.dataset.consentChoice ?? "acknowledged"); } catch { /* Acknowledge for the current page without storage. */ }
       if (consent) consent.hidden = true;
     });
   });

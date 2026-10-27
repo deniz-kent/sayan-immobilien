@@ -18,7 +18,8 @@ const groups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"]
       <div class="container">
         <p class="eyebrow">Unsere Leistungen</p>
         <h1>Was können wir für Sie tun?</h1>
-        <p>Ob Sie verkaufen, vermieten oder sich zunächst über den Wert Ihrer Immobilie informieren möchten: Wählen Sie das Thema, das Sie interessiert. Auf den Unterseiten erklären wir die einzelnen Leistungen.</p>
+        <p>Verkaufen, vermieten oder bewerten: Wählen Sie Ihren Einstieg. Alle weiteren Leistungen finden Sie direkt im Überblick.</p>
+        <div class="overview-jumps"><a class="button button--dark" href="#all-services-title">Alle 19 Leistungen im Überblick ↓</a><a class="text-link" href="/leistung/fotografie-und-expose/">Professionelle Immobilienfotografie ↗</a></div>
       </div>
     </section>
 
@@ -68,6 +69,7 @@ const groups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"]
 </BaseLayout>
 
 <style>
+  .overview-jumps { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: .5rem; }
   .overview-hero { padding-bottom: 2rem; }
   .overview-hero h1 { max-width: 16ch; }
   .overview-hero p:last-child { max-width: 66ch; }

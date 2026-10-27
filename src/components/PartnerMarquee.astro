@@ -11,7 +11,7 @@ const partners = [
   </div></div>
 </section>
 <style>
-  .partner-marquee { padding-block: 1.75rem; overflow: hidden; border-top: 1px solid var(--n-border); background: var(--paper); }
+  .partner-marquee { padding-block: 1.75rem; overflow: hidden; border-top: 1px solid var(--n-border); background: var(--n-bg); }
   .partner-marquee__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
   .partner-marquee .eyebrow { margin-bottom: .4rem; padding: 0; border: 0; background: none; font-size: .72rem; }
   .partner-marquee h2 { font-size: 1.25rem; text-transform: none; }
@@ -20,7 +20,7 @@ const partners = [
   .partner-marquee__track { display: flex; width: max-content; animation: partner-scroll 32s linear infinite; }
   .partner-marquee__group { display: flex; flex-shrink: 0; }
   .partner-marquee__item { display: grid; place-items: center; align-content: center; gap: .5rem; width: 11.5rem; padding: .5rem 1rem; border-right: 1px solid var(--n-border); }
-  .partner-marquee__item img { width: auto; height: 4.5rem; max-width: 7.3rem; object-fit: contain; }
+  .partner-marquee__item img { width: auto; height: 4.5rem; max-width: 7.3rem; object-fit: contain; filter: grayscale(1); opacity: .8; mix-blend-mode: multiply; }
   .partner-marquee__item span { color: var(--n-text-secondary); font-size: .65rem; white-space: nowrap; }
   .partner-marquee__viewport:hover .partner-marquee__track, .partner-marquee__track.is-paused { animation-play-state: paused; }
   @keyframes partner-scroll { to { transform: translateX(-50%); } }
