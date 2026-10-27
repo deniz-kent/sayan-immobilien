@@ -10,7 +10,7 @@ const orderedImages = cover ? [cover, ...images.filter(image => image.url !== co
   <div class="property-gallery__grid">
     {orderedImages.map((image, index) => <button
       type="button" class:list={["property-gallery__trigger", { "property-gallery__cover": index === 0 }]}
-      data-gallery-trigger aria-haspopup="dialog" aria-label={`${image.title || image.category || title} – Bild ${index + 1} groß ansehen`}>
+      data-gallery-trigger aria-haspopup="dialog" aria-label={`${image.title || image.category || title}. Bild ${index + 1} groß ansehen`}>
       <img src={image.url} alt={image.title || image.category || title} width="1600" height="1200"
         loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} />
       {index === 0 && <span class="property-gallery__hint">Bilder groß ansehen ↗</span>}

@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.18.1 – 2026-10-27
+
+Wir sprechen Besucher in den redaktionellen Texten konsequent als Team an. Persönliche Namensnennungen wurden aus Marketingtexten und Bildbeschreibungen entfernt. Formulierungen mit Bindezeichen und Gedankenstrichen wurden ausgeschrieben.
+
 ## 1.18 – 2026-10-27
 
 - Großes Desktop-Mega-Menü mit breiter Fläche, großen Icon-Links, klaren Spalten, Bildkachel und schließbarem Hintergrund.

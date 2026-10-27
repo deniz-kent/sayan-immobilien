@@ -28,7 +28,7 @@ export const services: Service[] = [
     title: "Immobilie vermieten",
     group: "Eigentümer",
     summary: "Mieter finden, prüfen und die Wohnung übergeben.",
-    intro: "Wir kümmern uns um die Vermietung Ihrer Wohn- oder Gewerbeimmobilie – von den Fotos bis zum Mietvertrag und zur Übergabe.",
+    intro: "Wir kümmern uns um die Vermietung Ihrer Wohnimmobilie oder Gewerbeimmobilie. Von den Fotos bis zum Mietvertrag und zur Übergabe.",
     details: [
       "Wir erstellen das Exposé, veröffentlichen das Angebot auf passenden Kanälen und berücksichtigen vorgemerkte Interessenten aus unserer Kartei. Anfragen und Besichtigungen koordinieren wir für Sie.",
       "Vor einer Entscheidung prüfen wir die Interessenten. Anschließend unterstützen wir bei Mietvertrag, Energieausweis und Wohnungsübergabe. Auf Wunsch helfen wir auch bei Handwerkerfragen oder der Mietverwaltung.",
@@ -44,7 +44,7 @@ export const services: Service[] = [
     intro: "Wer verkaufen möchte, muss wissen, was die eigene Immobilie am Markt wert ist. Dafür reicht ein Blick auf den Quadratmeterpreis nicht aus.",
     details: [
       "Wir sehen uns Lage, Zustand, Ausstattung und Unterlagen an. Auch die aktuelle Nachfrage und vergleichbare Immobilien fließen in unsere Einschätzung ein.",
-      "Die Online-Bewertung bietet einen ersten Einstieg. Über den Angebotspreis für die Vermarktung sprechen wir erst nach einer persönlichen Prüfung des Objekts.",
+      "Die Onlinebewertung bietet einen ersten Einstieg. Über den Angebotspreis für die Vermarktung sprechen wir erst nach einer persönlichen Prüfung des Objekts.",
     ],
     points: ["Immobilie und Unterlagen prüfen", "Lage und Nachfrage berücksichtigen", "Angebotspreis gemeinsam festlegen"],
     related: ["marktpreisanalyse", "immobilienverkauf"],
@@ -67,7 +67,7 @@ export const services: Service[] = [
     title: "Verkaufsunterlagen",
     group: "Eigentümer",
     summary: "Die nötigen Dokumente rechtzeitig zusammenstellen.",
-    intro: "Fehlende Unterlagen kosten Zeit – oft gerade dann, wenn ein Käufer bereits gefunden ist. Wir klären frühzeitig, was für Ihre Immobilie benötigt wird.",
+    intro: "Fehlende Unterlagen kosten oft gerade dann Zeit, wenn ein Käufer bereits gefunden ist. Wir klären frühzeitig, was für Ihre Immobilie benötigt wird.",
     details: [
       "Je nach Objekt gehören dazu beispielsweise Grundbuchauszug, Bauunterlagen, Grundrisse, Flächenangaben und Energieausweis. Bei Eigentumswohnungen kommen Unterlagen der Gemeinschaft hinzu.",
       "Wir prüfen mit Ihnen, was vorhanden ist und welche Dokumente noch beschafft werden müssen. So können Interessenten und finanzierende Banken die Immobilie besser beurteilen.",
@@ -98,7 +98,7 @@ export const services: Service[] = [
       "Nach der Besichtigung vereinbaren wir einen Fototermin. Wir berücksichtigen Licht, Räume und die Besonderheiten des Objekts. Grundrisse und die wesentlichen Angaben bereiten wir für Interessenten auf.",
       "Das Exposé soll neugierig machen, aber auch Fragen beantworten. Wir stimmen die Darstellung und die Veröffentlichung mit Ihnen ab.",
     ],
-    points: ["Professionelle Innen- und Außenaufnahmen", "Grundrisse und Objektdaten aufbereiten", "Individuelles Exposé erstellen"],
+    points: ["Professionelle Innenaufnahmen und Außenaufnahmen", "Grundrisse und Objektdaten aufbereiten", "Individuelles Exposé erstellen"],
     related: ["home-staging", "rundgang-360-grad", "vermarktung"],
   },
   {
@@ -116,7 +116,7 @@ export const services: Service[] = [
   },
   {
     slug: "rundgang-360-grad",
-    title: "360-Grad-Besichtigung",
+    title: "Besichtigung in 360 Grad",
     group: "Vermarktung",
     summary: "Ein erster Rundgang, bevor jemand vor Ort ist.",
     intro: "Bei passenden Immobilien ermöglichen wir Interessenten einen digitalen Rundgang. So können sie sich vor einem Termin einen besseren Eindruck von den Räumen verschaffen.",
@@ -148,7 +148,7 @@ export const services: Service[] = [
     intro: "Sie möchten keine öffentlichen Anzeigen oder Bilder Ihrer Immobilie? Dann sprechen wir ausgewählte Interessenten direkt an.",
     details: [
       "Grundlage dafür ist unsere über Jahre gewachsene Interessentenkartei und unser regionales Netzwerk. Informationen geben wir gezielt weiter und besprechen mit Ihnen, was potenzielle Käufer erfahren dürfen.",
-      "Diskretion kann bei Wohn-, Gewerbe- und Anlageimmobilien wichtig sein. Sie bestimmen mit, wie sichtbar Ihr Verkaufsvorhaben sein soll.",
+      "Diskretion kann bei Wohnimmobilien, Gewerbeimmobilien und Anlageimmobilien wichtig sein. Sie bestimmen mit, wie sichtbar Ihr Verkaufsvorhaben sein soll.",
     ],
     points: ["Keine öffentlichen Objektbilder nötig", "Ausgewählte Interessenten ansprechen", "Informationen kontrolliert weitergeben"],
     related: ["vermarktung", "interessentenpruefung"],
@@ -158,9 +158,9 @@ export const services: Service[] = [
     title: "Besichtigungen",
     group: "Vermarktung",
     summary: "Termine mit gut vorbereiteten Interessenten.",
-    intro: "Nicht jede Anfrage muss sofort zu einem Vor-Ort-Termin führen. Wir klären wichtige Fragen vorher und organisieren Besichtigungen mit Interessenten, für die das Objekt infrage kommt.",
+    intro: "Nicht jede Anfrage muss sofort zu einem Termin vor Ort führen. Wir klären wichtige Fragen vorher und organisieren Besichtigungen mit Interessenten, für die das Objekt infrage kommt.",
     details: [
-      "Fotos, Exposé und gegebenenfalls ein 360-Grad-Rundgang helfen bei der Vorbereitung. Bei der Besichtigung zeigen wir die Immobilie und beantworten Fragen zu Lage, Ausstattung und Ablauf.",
+      "Fotos, Exposé und gegebenenfalls ein Rundgang in 360 Grad helfen bei der Vorbereitung. Bei der Besichtigung zeigen wir die Immobilie und beantworten Fragen zu Lage, Ausstattung und Ablauf.",
       "Je nach Objekt kommen Einzeltermine, ein Open House oder eine weitere Besichtigung mit den entscheidenden Personen infrage. Wir stimmen die Termine mit Ihnen ab.",
     ],
     points: ["Anfragen vorab einordnen", "Einzeltermine oder Open House planen", "Interessenten durch das Objekt führen"],
@@ -194,10 +194,10 @@ export const services: Service[] = [
   },
   {
     slug: "after-sales-service",
-    title: "Übergabe und After-Sales-Service",
+    title: "Übergabe und Service nach dem Abschluss",
     group: "Abschluss",
     summary: "Auch nach dem Vertrag bleiben wir ansprechbar.",
-    intro: "Mit der Unterschrift ist nicht jede Frage erledigt. Auf Wunsch begleiten wir die Schlüssel- oder Wohnungsübergabe und halten den Zustand in einem Protokoll fest.",
+    intro: "Mit der Unterschrift ist nicht jede Frage erledigt. Auf Wunsch begleiten wir die Schlüsselübergabe oder Wohnungsübergabe und halten den Zustand in einem Protokoll fest.",
     details: [
       "Wir unterstützen bei Fragen zur Vertragsabwicklung und können Kontakte zu bewährten Handwerkern, Umzugsunternehmen oder anderen Fachleuten aus der Region vermitteln.",
       "Bei einer Vermietung gehören auf Wunsch auch die Wohnungsübergabe beim Einzug und die Abnahme beim Auszug zu unserer Betreuung.",
@@ -223,7 +223,7 @@ export const services: Service[] = [
     title: "Portfoliovertrieb",
     group: "Weitere Leistungen",
     summary: "Immobilienbestände bewerten, vermieten oder verkaufen.",
-    intro: "Wir arbeiten auch für Eigentümer größerer Wohn- und Gewerbebestände. Dabei kann es um die Vermietung einzelner Einheiten oder den Verkauf eines ganzen Portfolios gehen.",
+    intro: "Wir arbeiten auch für Eigentümer größerer Bestände an Wohnimmobilien und Gewerbeimmobilien. Dabei kann es um die Vermietung einzelner Einheiten oder den Verkauf eines ganzen Portfolios gehen.",
     details: [
       "Wir erfassen den Bestand, erarbeiten passende Abläufe und stimmen die Vermarktung auf die Ziele des Auftraggebers ab. Für den selektiven Verkauf nutzen wir Kontakte zu privaten und institutionellen Anlegern.",
       "Diskretion ist bei Portfolios häufig entscheidend. Vertraulichkeit und Freigaben für Interessenten vereinbaren wir deshalb vorab.",
@@ -252,7 +252,7 @@ export const services: Service[] = [
     intro: "Wenn Sie von einer Immobilie erfahren, die verkauft werden soll, können Sie uns darauf aufmerksam machen. Wir besprechen mit Ihnen, ob und wie wir Kontakt zum Eigentümer aufnehmen können.",
     details: [
       "Wichtig ist, dass der Eigentümer mit einer Kontaktaufnahme einverstanden ist. Vertrauliche Informationen behandeln wir entsprechend sorgfältig.",
-      "Melden Sie sich telefonisch oder per E-Mail, bevor Sie persönliche Daten weitergeben. Wir erklären Ihnen dann den Ablauf und die Bedingungen für einen Tipp.",
+      "Melden Sie sich telefonisch oder per Email, bevor Sie persönliche Daten weitergeben. Wir erklären Ihnen dann den Ablauf und die Bedingungen für einen Tipp.",
     ],
     points: ["Tipp zunächst mit uns besprechen", "Einverständnis des Eigentümers beachten", "Bedingungen vorab klären"],
     related: ["immobilienverkauf"],

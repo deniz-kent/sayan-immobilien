@@ -110,7 +110,7 @@ export function mapProperty(id: unknown, raw: Record<string, unknown>, fields: F
   const rent = firstPositive(raw.kaltmiete, raw.nettokaltmiete);
   const price = askPrice ? "Preis auf Anfrage" : type === "kaufen" ? money(raw.kaufpreis) : money(rent);
   const facts: Array<[string, string]> = [
-    ["Objekt-Nr.", plainText(raw.objektnr_extern) || safeId],
+    ["Objektnummer", plainText(raw.objektnr_extern) || safeId],
     ["Objektart", label("objekttyp", raw.objekttyp, fields) || category],
     ["Wohnfläche", quantity(raw.wohnflaeche, " m²")],
     ["Nutzfläche", quantity(raw.nutzflaeche, " m²")],

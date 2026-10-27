@@ -7,13 +7,13 @@ const autoOpen = Astro.url.pathname === "/";
 
 <aside id="sayan-advice-popup" class:list={["advice-popup", { "is-open": autoOpen, "advice-popup--entrance": autoOpen }]} data-advice-popup tabindex="-1" hidden={!autoOpen} aria-labelledby="advice-title" aria-describedby="advice-description">
   <div class="advice-popup__intro">
-    <img src={editorialImages.company.src} alt="Candan Sayan" width="72" height="72" loading="lazy" />
+    <img src={editorialImages.company.src} alt="Unser Team von SAYAN Immobilien" width="72" height="72" loading="lazy" />
     <div><p class="eyebrow">SAYAN Immobilien · Köln</p><p class="advice-popup__name">In der Branche seit 1999.</p></div>
     <button class="advice-popup__close" type="button" data-close-advice aria-label="Beratungshinweis schließen">×</button>
   </div>
   <div class="advice-popup__body">
     <h2 id="advice-title">Was ist Ihre Immobilie wert?</h2>
-    <p id="advice-description">Online oder persönlich vor Ort – Sie entscheiden.</p>
+    <p id="advice-description">Online oder persönlich vor Ort. Sie entscheiden.</p>
     <ValuationOptions compact />
     <button class="advice-popup__later" type="button" data-close-advice>Vielleicht später</button>
   </div>
