@@ -9,11 +9,13 @@ const solidBackgrounds: Record<string, string> = { bvfi: "black", onoffice: "whi
   <defs>
     <filter id="partner-remove-white" color-interpolation-filters="sRGB">
       <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  -1 -1 -1 0 3" />
-      <feComponentTransfer><feFuncA type="linear" slope="255" intercept="-1" /></feComponentTransfer>
+      <feComponentTransfer result="keyed"><feFuncA type="linear" slope="255" intercept="-1" /></feComponentTransfer>
+      <feComposite in="keyed" in2="SourceGraphic" operator="in" />
     </filter>
     <filter id="partner-remove-black" color-interpolation-filters="sRGB">
       <feColorMatrix type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  1 1 1 0 0" />
-      <feComponentTransfer><feFuncA type="linear" slope="255" intercept="-1" /></feComponentTransfer>
+      <feComponentTransfer result="keyed"><feFuncA type="linear" slope="255" intercept="-1" /></feComponentTransfer>
+      <feComposite in="keyed" in2="SourceGraphic" operator="in" />
     </filter>
   </defs>
 </svg>
