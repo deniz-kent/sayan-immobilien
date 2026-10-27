@@ -31,16 +31,16 @@
 }
 
 :root {
-  /* Brand tokens — unverändert, siehe Analyse. Nicht antasten. */
+  /* Behutsam modernisierte SAYAN-Farbe, abgestimmt am 27. Oktober 2026. */
   --brand-900: #333b3e;
   --brand-800: #2b3235;
   --brand-700: #54544f;
-  --brand-100: #f0f4d3;
+  --brand-100: #f0f3df;
   --cream: #f4f4f2;
   --paper: #ffffff;
   --ink: #333b3e;
   --ink-muted: #54544f;
-  --accent: #adca06;
+  --accent: #a6bf36;
   --accent-ink: #333b3e;
   --ok: #768a05;
   --warn: #9a564a;

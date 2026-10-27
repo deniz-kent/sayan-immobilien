@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import CookieConsent from "../components/CookieConsent.astro";
+import AdvicePopup from "../components/AdvicePopup.astro";
 
 interface Props {
   title: string;
@@ -12,6 +13,8 @@ interface Props {
 const { title, description, noindex = false, bodyClass = "" } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
 const socialImage = new URL("/brand/open-graph-1200x630.png", Astro.site ?? Astro.url.origin);
+const showAdvice = Astro.url.pathname === "/" || Astro.url.pathname === "/immobilien/" ||
+  (Astro.url.pathname.startsWith("/leistung/") && Astro.url.pathname !== "/leistung/formular/");
 ---
 
 <!doctype html>
@@ -19,7 +22,7 @@ const socialImage = new URL("/brand/open-graph-1200x630.png", Astro.site ?? Astr
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#AECB06" />
+    <meta name="theme-color" content="#A6BF36" />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta property="og:type" content="website" />
@@ -44,6 +47,7 @@ const socialImage = new URL("/brand/open-graph-1200x630.png", Astro.site ?? Astr
     <a class="skip-link" href="#main">Zum Inhalt springen</a>
     <slot />
     <CookieConsent />
+    {showAdvice && <AdvicePopup />}
     <script>
       document.documentElement.classList.add("js");
       const revealItems = document.querySelectorAll<HTMLElement>("[data-reveal]");
