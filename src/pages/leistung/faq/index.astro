@@ -2,20 +2,24 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Header from "../../../components/Header.astro";
 import Footer from "../../../components/Footer.astro";
+import EditorialPhoto from "../../../components/EditorialPhoto.astro";
+import { editorialImages } from "../../../data/editorial-images";
 import { faqQuestions } from "../../../data/faq";
 ---
 <BaseLayout title="Häufige Fragen | SAYAN Immobilien Köln" description="Antworten auf häufige Fragen zum Immobilienverkauf und zur Vermietung.">
   <Header />
   <main id="main">
-    <section class="page-hero"><div class="container"><p class="eyebrow">Gut zu wissen</p><h1>Häufige Fragen</h1><p>Hier finden Sie Antworten auf Fragen, die uns Eigentümer häufig stellen.</p></div></section>
+    <section class="page-hero faq-hero"><div class="container"><div><p class="eyebrow">Gut zu wissen</p><h1>Häufige Fragen</h1><p>Hier finden Sie Antworten auf Fragen, die uns Eigentümer häufig stellen.</p></div><div class="faq-hero__photo"><EditorialPhoto image={editorialImages.company} priority /></div></div></section>
     <section class="section section--paper"><div class="container faq-content">
       {faqQuestions.map(([question, answer]) => <article><h2>{question}</h2><p>{answer}</p></article>)}
-      <p>Ihre Frage ist nicht dabei? <a href="/kontakt/">Sprechen Sie mit uns →</a></p>
+      <p>Ihre Frage ist nicht dabei? <a href="/kontakt/">Sprechen Sie mit uns</a></p>
     </div></section>
   </main>
   <Footer />
 </BaseLayout>
 <style>
+  .faq-hero__photo { height: 18rem; border-radius: var(--radius-media); overflow: hidden; }
+  @media (max-width: 767px) { .faq-hero__photo { height: auto; aspect-ratio: 16 / 9; } }
   .faq-content { max-width: 56rem; }
   .faq-content article { padding: 1.75rem 0; border-top: 1px solid var(--n-border); }
   .faq-content h2 { font-size: clamp(1.2rem, 2vw, 1.6rem); text-transform: none; }

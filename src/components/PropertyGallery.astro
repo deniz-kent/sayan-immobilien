@@ -13,7 +13,7 @@ const orderedImages = cover ? [cover, ...images.filter(image => image.url !== co
       data-gallery-trigger aria-haspopup="dialog" aria-label={`${image.title || image.category || title}. Bild ${index + 1} groß ansehen`}>
       <img src={image.url} alt={image.title || image.category || title} width="1600" height="1200"
         loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} />
-      {index === 0 && <span class="property-gallery__hint">Bilder groß ansehen ↗</span>}
+      {index === 0 && <span class="property-gallery__hint">Bilder groß ansehen</span>}
     </button>)}
   </div>
   <dialog class="property-gallery__dialog" aria-label="Bildergalerie zur Immobilie">

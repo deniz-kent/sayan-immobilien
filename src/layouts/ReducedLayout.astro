@@ -5,7 +5,7 @@ interface Props { title: string; description: string; noindex?: boolean; }
 const { title, description, noindex = false } = Astro.props;
 ---
 <BaseLayout {title} {description} {noindex}>
-  <header class="reduced-head"><a href="/" aria-label="Zur Startseite"><Logo variant="dark" /></a><a href="/">Zur Startseite →</a></header>
+  <header class="reduced-head"><a href="/" aria-label="Zur Startseite"><Logo variant="dark" /></a><a href="/">Zur Startseite</a></header>
   <slot />
 </BaseLayout>
 <style>

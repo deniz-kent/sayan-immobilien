@@ -5,9 +5,10 @@ interface Props {
   image: EditorialImage;
   sizes?: string;
   decorative?: boolean;
+  priority?: boolean;
 }
 
-const { image, sizes = "(max-width: 767px) 100vw, 55vw", decorative = false } = Astro.props;
+const { image, sizes = "(max-width: 767px) 100vw, 55vw", decorative = false, priority = false } = Astro.props;
 ---
 
 <img
@@ -17,7 +18,8 @@ const { image, sizes = "(max-width: 767px) 100vw, 55vw", decorative = false } = 
   width="1440"
   height="966"
   alt={decorative ? "" : image.alt}
-  loading="lazy"
+  loading={priority ? "eager" : "lazy"}
+  fetchpriority={priority ? "high" : undefined}
   decoding="async"
   style={`object-position: ${image.position}`}
 />

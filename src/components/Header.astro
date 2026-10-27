@@ -18,7 +18,7 @@ const groups = [
     label: "Verkaufen",
     columns: [
       { title: "Eigentümer", links: ["Immobilie verkaufen", "Immobilie vermieten", "Diskret vermarkten"] },
-      { title: "Weitere Leistungen", links: ["Wertermittlung", "Fotografie", "Besichtigungen", "Bauträgervertrieb", "Portfoliovertrieb", "Alle Leistungen"] },
+      { title: "Weitere Leistungen", links: ["Alle Leistungen", "Wertermittlung", "Fotografie", "Besichtigungen", "Bauträgervertrieb", "Portfoliovertrieb"] },
     ],
     promo: "Immobilie bewerten lassen",
     promoHref: "/leistung/formular/",
@@ -29,7 +29,7 @@ const groups = [
     label: "Unternehmen",
     columns: [
       { title: "SAYAN", links: ["Über SAYAN", "Arbeitsweise"] },
-      { title: "Einblicke", links: ["Leistungen", "Kontakt", "Häufige Fragen"] },
+      { title: "Einblicke", links: ["Alle Leistungen", "Kontakt", "Häufige Fragen"] },
     ],
     promo: "SAYAN Immobilien Köln seit 2001",
     promoHref: "/#unternehmen",
@@ -80,10 +80,10 @@ const linkIcon = (label: string) => {
         {groups.map((group, index) => (
           <div class="nav-group">
             <button class="nav-trigger" type="button" aria-expanded="false" aria-controls={`mega-${index}`}>
-              {group.label}<span aria-hidden="true">⌄</span>
+              {group.label}
             </button>
             <div class="mega-menu" id={`mega-${index}`} hidden>
-              <div class="container mega-menu__head"><div><p>SAYAN Immobilien Köln</p><h2>{group.label}</h2></div><button type="button" data-close-mega>Schließen <span aria-hidden="true">×</span></button></div>
+              <div class="container mega-menu__head"><div><p>SAYAN Immobilien Köln</p><h2>{group.label}</h2></div><a class="mega-all-services" href="/leistung/#all-services-title">Alle Leistungen</a><button type="button" data-close-mega>Schließen <span aria-hidden="true">×</span></button></div>
               <div class="container mega-menu__inner">
                 {group.columns.map((column) => (
                   <div class="mega-column">
@@ -101,8 +101,7 @@ const linkIcon = (label: string) => {
             </div>
           </div>
         ))}
-        <a href="/leistung/#all-services-title">Alle Leistungen</a>
-        <a href="/kontakt/">Kontakt</a>
+          <a href="/kontakt/">Kontakt</a>
       </nav>
 
       <a class="nav-cta" href="/#online-bewertung" data-open-advice><span class="nav-cta__dot" aria-hidden="true"></span>Immobilie bewerten</a>
@@ -118,13 +117,13 @@ const linkIcon = (label: string) => {
       <button class="menu-close" type="button" aria-label="Menü schließen">×</button>
     </div>
     <div class="mobile-menu__groups">
+      <a class="mobile-all-services" href="/leistung/#all-services-title">Alle Leistungen</a>
       {groups.map((group) => (
         <details>
           <summary>{group.label}</summary>
           {group.columns.flatMap((column) => column.links).map((link) => <a href={liveLinks[link]}>{link}</a>)}
         </details>
       ))}
-      <a href="/leistung/#all-services-title">Alle Leistungen</a>
       <a href="/kontakt/">Kontakt</a>
     </div>
     <div class="mobile-menu__footer">

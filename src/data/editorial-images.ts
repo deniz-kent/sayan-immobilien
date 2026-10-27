@@ -1,3 +1,5 @@
+import type { Service } from "./services";
+
 export type EditorialImage = {
   src: string;
   srcSet: string;
@@ -21,8 +23,27 @@ export const editorialImages = {
   contact: photo("sayan-kontakt", "Unser Immobilienberater in einem hellen Wohnraum", "55% 35%"),
 };
 
-// Only use a photograph where its subject supports the service being explained.
-export const serviceImages: Partial<Record<string, EditorialImage>> = {
+const interior: EditorialImage = {
+  src: "/images/altbau-wohnzimmer-fischgraet.webp",
+  srcSet: "/images/altbau-wohnzimmer-fischgraet.webp 1312w",
+  alt: "Heller Wohnraum mit Fischgrätparkett und sorgfältig abgestimmter Einrichtung",
+  position: "50% 50%",
+};
+const building: EditorialImage = {
+  src: "/images/haus-modern-klinker.webp",
+  srcSet: "/images/haus-modern-klinker.webp 1122w",
+  alt: "Modernes Wohngebäude mit Klinkerfassade und großen Fenstern",
+  position: "50% 50%",
+};
+const portfolio: EditorialImage = {
+  src: "/images/fassade-balkone-klinker.webp",
+  srcSet: "/images/fassade-balkone-klinker.webp 941w",
+  alt: "Wohngebäude mit Balkonen und Klinkerfassade",
+  position: "50% 50%",
+};
+
+// Every service has a visible lead photograph with a subject appropriate to its content.
+export const serviceImages: Record<Service["slug"], EditorialImage> = {
   "immobilienverkauf": editorialImages.viewing,
   "immobilienvermietung": editorialImages.rental,
   "wertermittlung": editorialImages.advice,
@@ -33,4 +54,13 @@ export const serviceImages: Partial<Record<string, EditorialImage>> = {
   "interessentenpruefung": editorialImages.documents,
   "verkaufsabwicklung": editorialImages.documents,
   "finanzierung": editorialImages.documents,
+  "energieausweis": editorialImages.documents,
+  "fotografie-und-expose": interior,
+  "home-staging": interior,
+  "rundgang-360-grad": editorialImages.advice,
+  "vermarktung": interior,
+  "after-sales-service": editorialImages.viewing,
+  "bautraeger-vertrieb": building,
+  "portfolio-vertrieb": portfolio,
+  "tippgeber": editorialImages.company,
 };

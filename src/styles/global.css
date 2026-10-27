@@ -152,8 +152,7 @@ address { font-style: normal; }
 .desktop-nav > a, .nav-trigger { border: 0; background: transparent; color: var(--n-text-secondary); cursor: pointer; font-size: .85rem; font-weight: 500; transition: color var(--motion-hover) ease; }
 .desktop-nav > a:hover, .nav-trigger:hover { color: var(--n-text); }
 .nav-trigger { display: inline-flex; align-items: center; gap: .4rem; min-height: 4.75rem; padding: 1rem 0; }
-.nav-trigger span { font-size: .7rem; transition: transform 160ms ease; }
-.nav-trigger[aria-expanded="true"] span { transform: rotate(180deg); }
+.nav-trigger[aria-expanded="true"] { color: var(--n-text); box-shadow: inset 0 -2px var(--accent); }
 .nav-group { display: grid; }
 .site-header.mega-open { z-index: 650; }
 .nav-wrap { position: relative; z-index: 1; }
@@ -163,6 +162,8 @@ address { font-style: normal; }
 .mega-menu__head { display: flex; align-items: center; justify-content: space-between; gap: 2rem; margin-bottom: 1.5rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--n-border); }
 .mega-menu__head p { margin-bottom: .3rem; color: var(--ink-muted); font-size: .7rem; letter-spacing: .09em; text-transform: uppercase; }
 .mega-menu__head h2 { font-size: clamp(1.8rem, 2.5vw, 2.5rem); font-weight: 500; text-transform: none; }
+.mega-all-services { margin-left: auto; padding: .65rem 1.15rem; border-radius: var(--radius-pill); background: var(--accent); color: var(--ink); font-weight: 600; font-size: .9rem; }
+.mega-all-services:hover { background: var(--brand-100); }
 .mega-menu__head button { display: inline-flex; align-items: center; gap: .75rem; min-height: 2.75rem; padding: .5rem 1rem; border: 1px solid var(--n-border); border-radius: var(--radius-pill); background: transparent; color: var(--ink); font-size: .85rem; cursor: pointer; }
 .mega-menu__head button span { font-size: 1.5rem; line-height: 1; }
 .mega-menu__inner { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.1fr) minmax(0,1.05fr); gap: clamp(1.5rem, 3vw, 3rem); align-items: start; }
@@ -195,6 +196,7 @@ address { font-style: normal; }
 .mobile-menu details, .mobile-menu__groups > a { border-bottom: 1px solid var(--n-border); }
 .mobile-menu summary, .mobile-menu__groups > a { padding: 1.1rem 0; cursor: pointer; font: 600 1.75rem/1.15 var(--font-display); list-style: none; text-transform: uppercase; }
 .mobile-menu details a { display: flex; justify-content: space-between; padding: .65rem 0; font-size: 1.05rem; color: var(--n-text-secondary); text-transform: none; }
+.mobile-menu__groups > .mobile-all-services { color: var(--ink); background: var(--brand-100); padding-inline: 1rem; }
 .mobile-menu__footer { display: grid; gap: 1.2rem; margin-top: 3rem; text-align: center; }
 .mobile-menu__footer .button { justify-content: center; }
 
