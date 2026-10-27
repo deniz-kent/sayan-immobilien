@@ -7,7 +7,7 @@ const partners = [
 <section class="partner-marquee" aria-labelledby="partners-title">
   <div class="container partner-marquee__head"><div><p class="eyebrow">Gut vernetzt</p><h2 id="partners-title">Partner & Netzwerk</h2></div><button type="button" data-marquee-toggle aria-pressed="false">Laufleiste pausieren <span aria-hidden="true">Ⅱ</span></button></div>
   <div class="partner-marquee__viewport"><div class="partner-marquee__track" data-partner-track>
-    {[false, true].map((duplicate) => <div class="partner-marquee__group" aria-hidden={duplicate || undefined}>{partners.map(([file, name]) => <div class="partner-marquee__item"><img src={`/partners/${file}.png`} alt={duplicate ? "" : name} loading="lazy" width="117" height="115" /><span>{name}</span></div>)}</div>)}
+    {[false, true].map((duplicate) => <div class="partner-marquee__group" aria-hidden={duplicate || undefined}>{partners.map(([file, name]) => <div class="partner-marquee__item"><img src={`/partners/${file}.png`} alt={duplicate ? "" : name} loading="eager" width="117" height="115" /><span>{name}</span></div>)}</div>)}
   </div></div>
 </section>
 <style>

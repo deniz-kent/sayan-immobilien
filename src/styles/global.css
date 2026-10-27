@@ -195,7 +195,7 @@ address { font-style: normal; }
 .footer-social { display: flex; gap: .75rem; margin-top: 1rem; }
 .footer-social a { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; background: color-mix(in srgb, #fff 10%, transparent); color: #fff; transition: background var(--motion-hover) ease; }
 .footer-social a:hover { background: var(--accent); color: var(--accent-ink); }
-.footer-column { display: grid; align-content: start; gap: .85rem; }
+.footer-column { display: grid; align-content: start; gap: .3rem; }
 .footer-column > p { margin-bottom: .35rem; font-size: 1rem; font-weight: 600; }
 .footer-column a { font-size: .88rem; color: color-mix(in srgb, #fff 85%, transparent); }
 .footer-legal { display: flex; justify-content: space-between; gap: 1rem; padding-block: 1.2rem; border-top: 1px solid color-mix(in srgb, #fff 12%, transparent); color: color-mix(in srgb, #fff 55%, transparent); font-size: .8rem; }

@@ -354,7 +354,7 @@ const process = [
   @media (prefers-reduced-motion: reduce) { .hero-experience { animation: none; } .proof-line__track { animation: none; } }
   /* Ruhiger, warmer Einstieg: Text und Original-Titelbild haben eigene Flächen. */
   .home-hero__media { min-height: 0; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); align-items: stretch; gap: clamp(1.5rem,4vw,4rem); overflow: visible; border-radius: 0; background: transparent; }
-  .home-hero__media > img { position: relative; inset: auto; grid-column: 2; grid-row: 1; min-height: 28rem; border-radius: var(--radius-media); }
+  .home-hero__media > img { position: relative; inset: auto; grid-column: 2; grid-row: 1; height: clamp(27rem, 40vw, 33rem); min-height: 0; border-radius: var(--radius-media); }
   .home-hero__shade { display: none; }
   .home-hero__copy { grid-column: 1; grid-row: 1; align-self: center; width: 100%; padding: 1.5rem 0; color: var(--ink); }
   .home-hero__copy .eyebrow { padding: 0; border: 0; background: transparent; color: var(--ink-muted); backdrop-filter: none; }
