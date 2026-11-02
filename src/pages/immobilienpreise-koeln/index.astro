@@ -1,0 +1,316 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Reviews from "../../components/Reviews.astro";
+import { lagen, stichtag, quelle } from "../../data/immobilienpreise";
+
+const median = (values: number[]) => {
+  const s = [...values].sort((a, b) => a - b);
+  const m = Math.floor(s.length / 2);
+  return s.length % 2 ? s[m] : Math.round((s[m - 1] + s[m]) / 2);
+};
+const fmt = (n: number) => n.toLocaleString("de-DE");
+const change = (r: { wert: number; vorjahr: number | null } | null) =>
+  r && r.vorjahr ? ((r.wert - r.vorjahr) / r.vorjahr) * 100 : null;
+const pct = (v: number | null) => v === null ? "" : `${v > 0 ? "+" : v < 0 ? "−" : "±"}${Math.abs(v).toLocaleString("de-DE", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %`;
+
+const wohnungen = lagen.filter((l) => l.wohnung).map((l) => l.wohnung!);
+const haeuser = lagen.filter((l) => l.haus).map((l) => l.haus!);
+const medWohnung = median(wohnungen.map((r) => r.wert));
+const medHaus = median(haeuser.map((r) => r.wert));
+const changes = [...wohnungen, ...haeuser].map(change).filter((v): v is number => v !== null);
+const medChange = changes.length ? median(changes.map((v) => Math.round(v * 10))) / 10 : 0;
+
+const top = [...lagen].sort((a, b) => Math.max(b.wohnung?.wert ?? 0, b.haus?.wert ?? 0) - Math.max(a.wohnung?.wert ?? 0, a.haus?.wert ?? 0)).slice(0, 3);
+---
+
+<BaseLayout
+  title="Immobilienpreise Köln 2026 nach Stadtteil | SAYAN Immobilien"
+  description={`Immobilienpreise in Köln: amtliche Immobilienrichtwerte zum ${stichtag} für ${lagen.length} Lagen. Eigentumswohnung und Haus in €/m², mit Veränderung zum Vorjahr.`}
+>
+  <Header />
+  <main id="main">
+    <section class="prices-hero">
+      <div class="prices-hero__media" aria-hidden="true"><img src="/images/strasse-altbau-koeln.webp" alt="" fetchpriority="high" data-parallax="0.1" /></div>
+      <div class="prices-hero__shade" aria-hidden="true"></div>
+      <div class="container prices-hero__grid">
+        <div class="prices-hero__copy" data-reveal>
+          <p class="eyebrow">Immobilienpreise · Köln · Stand {stichtag}</p>
+          <h1>Immobilienpreise Köln 2026. Was Ihre Lage <em>wirklich wert ist.</em></h1>
+          <p class="prices-hero__lead">Keine Angebotspreise aus Portalen, sondern die amtlichen Immobilienrichtwerte des Gutachterausschusses der Stadt Köln. Abgeleitet aus tatsächlich beurkundeten Kaufverträgen, für {lagen.length} Lagen im Stadtgebiet.</p>
+          <div class="prices-hero__actions">
+            <a class="button" href="/leistung/formular/">Online-Bewertung starten <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="prices-hero__link" href="#stadtteile">Preise nach Stadtteil <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+
+        <form class="value-card" action="/leistung/formular/" method="get" data-reveal>
+          <p class="value-card__eyebrow">Kostenlos · unverbindlich</p>
+          <h2>Was ist Ihre Immobilie wert?</h2>
+          <p class="value-card__lead">Die amtlichen Richtwerte für Köln, Stand {stichtag}.</p>
+          <div class="value-card__stats">
+            <div><span>Wohnung Median</span><strong>{fmt(medWohnung)} €/m²</strong></div>
+            <div><span>Haus Median</span><strong>{fmt(medHaus)} €/m²</strong></div>
+            <div><span>Zum Vorjahr</span><strong>{pct(medChange)}</strong></div>
+          </div>
+          <fieldset class="value-card__types">
+            <legend class="sr-only">Art der Immobilie</legend>
+            {["Haus", "Wohnung", "Mehrfamilienhaus"].map((art, i) => (
+              <label><input type="radio" name="art" value={art.toLowerCase()} checked={i === 0} /><span>{art}</span></label>
+            ))}
+          </fieldset>
+          <label class="value-card__label" for="adresse">Adresse der Immobilie</label>
+          <div class="value-card__row">
+            <input id="adresse" name="adresse" type="text" placeholder="Straße, PLZ Köln" autocomplete="street-address" />
+            <button type="submit" aria-label="Bewertung starten">→</button>
+          </div>
+          <p class="value-card__note"><span aria-hidden="true">●</span> Kostenlos · unverbindlich · vertraulich</p>
+        </form>
+      </div>
+    </section>
+
+    <section class="section section--white" id="stadtteile">
+      <div class="container">
+        <div class="table-head" data-reveal>
+          <div>
+            <p class="eyebrow">Marktdaten · amtlich</p>
+            <h2>Immobilienwerte, <em>transparent gemacht.</em></h2>
+            <p class="section-lead">Die Datengrundlage, mit der wir bewerten. Durchsuchen, sortieren, vergleichen.</p>
+          </div>
+          <div class="table-tabs" role="group" aria-label="Ansicht">
+            <button type="button" class="is-active" data-view="all">Alle Lagen</button>
+            <button type="button" data-view="top">Top 10</button>
+          </div>
+        </div>
+
+        <div class="table-tools" data-reveal>
+          <input type="search" placeholder="Stadtteil oder Lage suchen …" aria-label="Stadtteil suchen" data-search />
+          <p data-count>{lagen.length} Lagen · Klick auf eine Spalte sortiert</p>
+        </div>
+
+        <div class="price-table" data-reveal>
+          <table>
+            <thead>
+              <tr>
+                <th><button type="button" data-sort="name">Lage <span aria-hidden="true">↕</span></button></th>
+                <th><button type="button" data-sort="bezirk">Bezirk <span aria-hidden="true">↕</span></button></th>
+                <th class="num"><button type="button" data-sort="wohnung">Wohnung €/m² <span aria-hidden="true">↕</span></button></th>
+                <th class="num"><button type="button" data-sort="haus">Haus €/m² <span aria-hidden="true">↕</span></button></th>
+              </tr>
+            </thead>
+            <tbody>
+              {lagen.map((l) => (
+                <tr data-name={l.name.toLowerCase()} data-bezirk={l.bezirk} data-wohnung={l.wohnung?.wert ?? 0} data-haus={l.haus?.wert ?? 0}>
+                  <td><strong>{l.name}</strong></td>
+                  <td>{l.bezirk}</td>
+                  <td class="num">
+                    {l.wohnung ? <><span class="val">{fmt(l.wohnung.wert)}</span><small class:list={["trend", { up: (change(l.wohnung) ?? 0) > 0, down: (change(l.wohnung) ?? 0) < 0 }]}>{pct(change(l.wohnung))}</small><small class="ref">Bj. {l.wohnung.baujahr}, {l.wohnung.flaeche} m²</small></> : <span class="none">–</span>}
+                  </td>
+                  <td class="num">
+                    {l.haus ? <><span class="val">{fmt(l.haus.wert)}</span><small class:list={["trend", { up: (change(l.haus) ?? 0) > 0, down: (change(l.haus) ?? 0) < 0 }]}>{pct(change(l.haus))}</small><small class="ref">Bj. {l.haus.baujahr}, {l.haus.flaeche} m²</small></> : <span class="none">–</span>}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p class="table-empty" data-empty hidden>Keine Lage gefunden. Versuchen Sie einen anderen Stadtteil.</p>
+        </div>
+
+        <div class="table-notes">
+          <p><strong>So lesen Sie die Werte:</strong> Immobilienrichtwerte gelten für ein typisches Referenzobjekt der jeweiligen Lage (Baujahr und Wohnfläche unter dem Wert). Abweichungen bei Größe, Zustand, Ausstattung oder Etage verändern den Preis Ihrer Immobilie. Die Prozentzahl zeigt die Veränderung gegenüber dem Vorjahr. Ein Strich bedeutet, dass für diese Lage kein Richtwert für den Teilmarkt vorliegt.</p>
+          <p>Quelle: <a href={quelle.url} target="_blank" rel="noopener">{quelle.name}</a>, Immobilienrichtwerte Stand {stichtag} und Vorjahr, Daten von opengeodata.nrw.de.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--paper">
+      <div class="container">
+        <div data-reveal>
+          <p class="eyebrow">Die teuersten Lagen</p>
+          <h2>Wo Köln <em>am meisten kostet.</em></h2>
+        </div>
+        <div class="top-lagen" data-reveal-group>
+          {top.map((l, i) => (
+            <article data-reveal style={`--stagger:${i}`}>
+              <span class="top-lagen__num">0{i + 1}</span>
+              <h3>{l.name}</h3>
+              <p class="top-lagen__bezirk">Bezirk {l.bezirk}</p>
+              <dl>
+                {l.wohnung && <div><dt>Wohnung</dt><dd>{fmt(l.wohnung.wert)} €/m²</dd></div>}
+                {l.haus && <div><dt>Haus</dt><dd>{fmt(l.haus.wert)} €/m²</dd></div>}
+              </dl>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <Reviews />
+
+    <section class="contact-cta section--brand">
+      <div class="container contact-cta__grid">
+        <div data-reveal><p class="eyebrow">Richtwert ist nicht Verkaufspreis</p><h2>Was ist <em>Ihre</em> Immobilie wert?</h2><p>Der Richtwert ist der Anfang. Was Ihre Immobilie am Markt bringt, sehen wir uns bei Ihnen vor Ort an. Kostenlos und unverbindlich.</p></div>
+        <div class="contact-cta__links" data-reveal>
+          <a href="/kontakt/#termin"><small>Persönlich</small><strong>Termin vor Ort vereinbaren</strong></a>
+          <a href="/leistung/formular/"><small>Online</small><strong>Online-Bewertung starten</strong></a>
+          <a href="tel:+4922116892660"><small>Telefon</small><strong>0221 168 926 60</strong></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .section--white { background: #fff; }
+
+  .prices-hero { position: relative; padding: 11rem 0 clamp(3rem, 6vw, 5rem); overflow: hidden; background: var(--ink); color: #fff; }
+  .prices-hero__media { position: absolute; inset: 0; overflow: hidden; }
+  .prices-hero__media img { position: absolute; inset: -6% 0; width: 100%; height: 112%; object-fit: cover; object-position: 50% 40%; }
+  .prices-hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(28 33 35 / .88) 0%, rgb(28 33 35 / .65) 50%, rgb(28 33 35 / .35) 100%); }
+  .prices-hero__grid { position: relative; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .prices-hero .eyebrow { color: rgb(255 255 255 / .82); }
+  .prices-hero h1 { max-width: 16ch; color: #fff; }
+  .prices-hero h1 em { background-size: 100% .09em; background-position: 0 96%; }
+  .prices-hero__lead { max-width: 50ch; margin-top: 1.5rem; color: rgb(255 255 255 / .86); font-size: clamp(1.1rem, 1.3vw, 1.25rem); }
+  .prices-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; margin-top: 2.25rem; }
+  .prices-hero__link { font-weight: 600; }
+  .prices-hero__link:hover { color: var(--accent); }
+
+  .value-card { padding: clamp(1.5rem, 2.5vw, 2.25rem); border-radius: 18px; background: #fff; color: var(--ink); box-shadow: 0 40px 80px -40px rgb(0 0 0 / .6); }
+  .value-card__eyebrow { color: var(--n-text-secondary); font-size: .78rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; }
+  .value-card h2 { margin: .75rem 0 .5rem; font-size: clamp(1.6rem, 2.2vw, 2rem); }
+  .value-card__lead { color: var(--n-text-secondary); font-size: 1rem; }
+  .value-card__stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; margin: 1.5rem 0; }
+  .value-card__stats div { display: grid; gap: .5rem; padding: 1rem .75rem; border-radius: 10px; background: var(--n-bg); text-align: center; }
+  .value-card__stats span { color: var(--n-text-secondary); font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+  .value-card__stats strong { font-size: 1.05rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .value-card__types { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; margin: 0 0 1.25rem; padding: 0; border: 0; }
+  .value-card__types label { cursor: pointer; }
+  .value-card__types input { position: absolute; opacity: 0; pointer-events: none; }
+  .value-card__types span { display: grid; place-items: center; min-height: 3rem; padding: 0 .5rem; border: 1px solid var(--n-border); border-radius: 8px; font-size: .95rem; text-align: center; transition: background 200ms ease, color 200ms ease, border-color 200ms ease; }
+  .value-card__types input:checked + span { border-color: var(--ink); background: var(--ink); color: #fff; }
+  .value-card__types input:focus-visible + span { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .value-card__label { display: block; margin-bottom: .5rem; font-size: 1rem; font-weight: 600; }
+  .value-card__row { display: grid; grid-template-columns: minmax(0, 1fr) 3.5rem; gap: .5rem; }
+  .value-card__row input { height: 3.5rem; padding: 0 1rem; border: 1px solid var(--n-border); border-radius: 8px; background: var(--n-bg); font-size: 1rem; }
+  .value-card__row input:focus { outline: none; border-color: var(--ink); background: #fff; }
+  .value-card__row button { border: 0; border-radius: 8px; background: var(--accent); color: var(--accent-ink); font-size: 1.3rem; cursor: pointer; transition: filter 200ms ease; }
+  .value-card__row button:hover { filter: brightness(1.06); }
+  .value-card__note { margin-top: 1rem; color: var(--n-text-secondary); font-size: .9rem; }
+  .value-card__note span { color: var(--accent); }
+
+  .table-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.5rem; margin-bottom: 2rem; }
+  .table-tabs { display: flex; gap: .5rem; }
+  .table-tabs button { min-height: 3rem; padding: 0 1.4rem; border: 1px solid var(--n-border); border-radius: 999px; background: #fff; color: var(--ink); font-size: .95rem; font-weight: 500; cursor: pointer; }
+  .table-tabs button.is-active { border-color: var(--ink); background: var(--ink); color: #fff; }
+  .table-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.5rem; }
+  .table-tools input { width: min(100%, 26rem); height: 3.5rem; padding: 0 1.1rem; border: 1px solid var(--n-border); border-radius: 8px; background: var(--n-bg); font-size: 1rem; }
+  .table-tools input:focus { outline: none; border-color: var(--ink); background: #fff; }
+  .table-tools p { color: var(--n-text-secondary); font-size: .95rem; }
+
+  .price-table { overflow-x: auto; border: 1px solid var(--n-border); border-radius: 16px; }
+  .price-table table { width: 100%; min-width: 40rem; border-collapse: collapse; }
+  .price-table th { position: sticky; top: 0; padding: 0; background: var(--n-bg); text-align: left; }
+  .price-table th button { display: inline-flex; align-items: center; gap: .4rem; width: 100%; padding: 1.25rem 1.25rem; border: 0; background: none; color: var(--ink); font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; cursor: pointer; }
+  .price-table th.num button { justify-content: flex-end; }
+  .price-table th button[aria-sort] { color: var(--blue); }
+  .price-table td { padding: .9rem 1.25rem; border-top: 1px solid var(--n-border); vertical-align: top; }
+  .price-table tbody tr { transition: background 200ms ease; }
+  .price-table tbody tr:hover { background: #fbfaf6; }
+  .price-table td strong { font-weight: 600; }
+  .price-table td:nth-child(2) { color: var(--n-text-secondary); }
+  .price-table .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .price-table .val { font-size: 1.1rem; font-weight: 600; }
+  .price-table small { display: block; font-size: .82rem; }
+  .price-table small.trend { display: inline; margin-left: .5rem; }
+  .price-table .trend { color: var(--n-text-secondary); }
+  .price-table .trend.up { color: #5a7a00; }
+  .price-table .trend.down { color: #a0473b; }
+  .price-table .ref { color: var(--n-text-secondary); opacity: .75; }
+  .price-table .none { color: var(--n-text-secondary); }
+  .table-empty { padding: 2rem 1.25rem; color: var(--n-text-secondary); }
+  .table-notes { display: grid; gap: .75rem; max-width: 70ch; margin-top: 1.5rem; color: var(--n-text-secondary); font-size: .95rem; }
+  .table-notes a { text-decoration: underline; text-underline-offset: .2em; }
+
+  .top-lagen { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+  .top-lagen article { padding: clamp(1.75rem, 3vw, 2.5rem); border-radius: 18px; background: #fff; }
+  .top-lagen__num { display: block; margin-bottom: 1.5rem; color: var(--blue); font: 500 1.75rem/1 var(--font-display); }
+  .top-lagen__bezirk { margin-top: .4rem; color: var(--n-text-secondary); }
+  .top-lagen dl { display: grid; gap: .75rem; margin: 1.5rem 0 0; padding-top: 1.25rem; border-top: 1px solid var(--n-border); }
+  .top-lagen dl div { display: flex; justify-content: space-between; }
+  .top-lagen dt { color: var(--n-text-secondary); }
+  .top-lagen dd { margin: 0; font-weight: 600; }
+
+  .contact-cta { padding-block: var(--section-space); }
+  .contact-cta__grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .contact-cta__grid > div > p:not(.eyebrow) { max-width: 46ch; margin-top: 1.5rem; font-size: 1.2rem; }
+  .contact-cta__links { display: grid; }
+  .contact-cta__links > a { display: grid; gap: .3rem; padding: 1.4rem 0; border-top: 1px solid rgb(43 49 52 / .22); transition: padding 300ms var(--ease-out-expo); }
+  .contact-cta__links > a:hover { padding-left: .5rem; }
+  .contact-cta__links small { font-size: .95rem; font-weight: 500; }
+  .contact-cta__links strong { font: 500 clamp(1.4rem, 2vw, 1.8rem)/1.2 var(--font-display); }
+
+  @media (max-width: 1023px) { .prices-hero { padding-top: 8rem; } }
+  @media (max-width: 900px) {
+    .prices-hero__grid, .contact-cta__grid { grid-template-columns: 1fr; }
+    .top-lagen { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) { .value-card__stats { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  const tbody = document.querySelector<HTMLTableSectionElement>(".price-table tbody");
+  const search = document.querySelector<HTMLInputElement>("[data-search]");
+  const count = document.querySelector<HTMLElement>("[data-count]");
+  const empty = document.querySelector<HTMLElement>("[data-empty]");
+  const tabs = document.querySelectorAll<HTMLButtonElement>("[data-view]");
+  if (tbody && search && count) {
+    const rows = [...tbody.querySelectorAll<HTMLTableRowElement>("tr")];
+    let sortKey = "name";
+    let sortDir = 1;
+    let view = "all";
+    const top10 = new Set([...rows].sort((a, b) => Math.max(+b.dataset.wohnung!, +b.dataset.haus!) - Math.max(+a.dataset.wohnung!, +a.dataset.haus!)).slice(0, 10));
+
+    const render = () => {
+      const q = search.value.trim().toLowerCase();
+      const sorted = [...rows].sort((a, b) => {
+        const av = a.dataset[sortKey] ?? "", bv = b.dataset[sortKey] ?? "";
+        if (sortKey === "wohnung" || sortKey === "haus") return (Number(av) - Number(bv)) * sortDir || a.dataset.name!.localeCompare(b.dataset.name!, "de");
+        return av.localeCompare(bv, "de") * sortDir;
+      });
+      let shown = 0;
+      sorted.forEach((row) => {
+        const match = (!q || row.dataset.name!.includes(q) || row.dataset.bezirk!.toLowerCase().includes(q)) && (view === "all" || top10.has(row));
+        row.hidden = !match;
+        if (match) shown++;
+        tbody.appendChild(row);
+      });
+      count.textContent = `${shown} ${shown === 1 ? "Lage" : "Lagen"} · Klick auf eine Spalte sortiert`;
+      if (empty) empty.hidden = shown > 0;
+    };
+
+    document.querySelectorAll<HTMLButtonElement>("[data-sort]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const key = button.dataset.sort!;
+        sortDir = key === sortKey ? -sortDir : (key === "wohnung" || key === "haus" ? -1 : 1);
+        sortKey = key;
+        document.querySelectorAll("[data-sort]").forEach((b) => b.removeAttribute("aria-sort"));
+        button.setAttribute("aria-sort", sortDir === 1 ? "ascending" : "descending");
+        render();
+      });
+    });
+    tabs.forEach((tab) => tab.addEventListener("click", () => {
+      view = tab.dataset.view!;
+      tabs.forEach((t) => t.classList.toggle("is-active", t === tab));
+      if (view === "top") { sortKey = "wohnung"; sortDir = -1; }
+      render();
+    }));
+    search.addEventListener("input", render);
+
+    const ort = new URLSearchParams(location.search).get("ort");
+    if (ort) search.value = ort;
+    render();
+  }
+</script>
