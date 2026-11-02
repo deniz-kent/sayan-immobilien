@@ -37,7 +37,7 @@ const autoOpen = Astro.url.pathname === "/";
 </aside>
 
 <style>
-  .advice-popup { position: fixed; z-index: 300; right: max(1.25rem, env(safe-area-inset-right)); bottom: max(1.25rem, env(safe-area-inset-bottom)); width: min(23rem, calc(100% - 2.5rem)); overflow: hidden; border: 1px solid var(--n-border); border-radius: 18px; background: #fff; color: var(--ink); box-shadow: 0 30px 70px -25px rgb(43 49 52 / .45); opacity: 0; transform: translate3d(0, 1.5rem, 0); transition: transform var(--motion-panel) var(--ease-out-expo), opacity 300ms ease; }
+  .advice-popup { position: fixed; z-index: 300; right: max(1.25rem, env(safe-area-inset-right)); bottom: max(1.25rem, env(safe-area-inset-bottom)); width: min(23rem, calc(100% - 2.5rem)); overflow: hidden; border: 1px solid var(--n-border); border-radius: 18px; background: #fff; color: var(--ink); box-shadow: 0 30px 70px -25px rgb(36 28 24 / .45); opacity: 0; transform: translate3d(0, 1.5rem, 0); transition: transform var(--motion-panel) var(--ease-out-expo), opacity 300ms ease; }
   .advice-popup[hidden] { display: none; }
   .advice-popup.is-open { opacity: 1; transform: none; }
   .advice-popup__band { display: flex; gap: .85rem; align-items: center; padding: .9rem 1rem .9rem 1.1rem; background: var(--accent); color: var(--accent-ink); }

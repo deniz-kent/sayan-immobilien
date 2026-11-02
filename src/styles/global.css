@@ -3,17 +3,17 @@
 @font-face { font-family: "Hanken Grotesk"; src: url("/fonts/hanken-grotesk-latin-ext-wght-normal.woff2") format("woff2"); font-display: swap; font-style: normal; font-weight: 100 900; unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 
 :root {
-  /* Behutsam modernisierte SAYAN-Farbe, abgestimmt am 27. Oktober 2026. */
-  --brand-900: #333b3e;
-  --brand-800: #2b3235;
+  /* SAYAN-Palette (02.11.2026): Limette #AECB06 (Marke, unverändert), Espresso #241C18, warmes Off-White #F5F3EF. --blue ist historisch benannt und trägt jetzt Espresso. */
+  --brand-900: #241c18;
+  --brand-800: #1b1512;
   --brand-700: #54544f;
   --brand-100: #f1f6d2;
-  --cream: #f6f4ee;
+  --cream: #f5f3ef;
   --paper: #fdfcf8;
-  --ink: #2b3134;
-  --ink-muted: #54544f;
+  --ink: #241c18;
+  --ink-muted: #625952;
   --accent: #aecb06;
-  --accent-ink: #2b3134;
+  --accent-ink: #241c18;
   --ok: #768a05;
   --warn: #9a564a;
   --hairline: color-mix(in srgb, var(--cream) 18%, transparent);
@@ -24,17 +24,17 @@
   --radius-sm: 4px;
   --font-display: "Hanken Grotesk", Arial, sans-serif;
   --font-body: "Hanken Grotesk", Arial, sans-serif;
-  --blue: #2c5aa0;
-  --blue-deep: #234a85;
-  --blue-50: #e8eef7;
+  --blue: #241c18;
+  --blue-deep: #3a2e27;
+  --blue-50: #efebe6;
 
   /* Neutrale Erweiterung fürs Redesign — reine Neutrals, keine Markenfarben. */
-  --n-bg: #f6f4ee;
-  --n-surface: #edeae1;
-  --n-border: #dfdbd0;
-  --n-text: #2b3134;
-  --n-text-body: #2b3134;
-  --n-text-secondary: #4a5254;
+  --n-bg: #f5f3ef;
+  --n-surface: #eae6e0;
+  --n-border: #ded8d0;
+  --n-text: #241c18;
+  --n-text-body: #2f2621;
+  --n-text-secondary: #625952;
   --n-dark: var(--brand-900);
 
   --container: 76rem;
