@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import CookieConsent from "../components/CookieConsent.astro";
 import AdvicePopup from "../components/AdvicePopup.astro";
+import { siteSettings } from "../data/site-settings";
 
 interface Props {
   title: string;
@@ -13,8 +14,8 @@ interface Props {
 const { title, description, noindex = false, bodyClass = "" } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
 const socialImage = new URL("/brand/open-graph-1200x630.png", Astro.site ?? Astro.url.origin);
-const showAdvice = Astro.url.pathname === "/" || Astro.url.pathname === "/immobilien/" ||
-  (Astro.url.pathname.startsWith("/leistung/") && Astro.url.pathname !== "/leistung/formular/");
+const showAdvice = siteSettings.showAdvicePopup && (Astro.url.pathname === "/" || Astro.url.pathname === "/immobilien/" ||
+  (Astro.url.pathname.startsWith("/leistung/") && Astro.url.pathname !== "/leistung/formular/"));
 ---
 
 <!doctype html>
