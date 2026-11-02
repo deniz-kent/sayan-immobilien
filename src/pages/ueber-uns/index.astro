@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import Reviews from "../../components/Reviews.astro";
 
 // Texte von Candan Sayan, übernommen von sayan-immo.de (Über uns, Team, Warum wir).
 const career = [
@@ -32,12 +33,6 @@ const reasons = [
   ["Motivierte und qualifizierte Mitarbeiter.", "Die Mitarbeiter von SAYAN Immobilien Köln bilden sich ständig weiter. Wir sind stets auf dem aktuellsten Stand, insbesondere bei gesetzlichen Neuerungen und Änderungen rechtlicher Vorschriften."],
 ];
 
-const quotes = [
-  "Wir waren sehr zufrieden.",
-  "Angenehme, fachlich kompetente und umfassende Beratung, Danke!",
-  "Alles bestens gelaufen. Sehr seriös und gewissenhaft.",
-  "Es lief alles zur besten Zufriedenheit.",
-];
 ---
 
 <BaseLayout
@@ -90,14 +85,17 @@ const quotes = [
     <section class="section section--paper">
       <div class="container pillars" data-reveal-group>
         <article data-reveal style="--stagger:0">
+          <span class="pillar__num">01</span>
           <h3>Individuelle Strategien.</h3>
           <p>Da wir unabhängig sind, keinem Finanzinstitut oder Franchiseunternehmen angehören, ist der Kontakt besonders intensiv und produktiv. Wir beraten Sie als fairer Partner. Dazu gehört selbstverständlich, dass wir auch nach dem Notartermin noch weiter für Sie da sind.</p>
         </article>
         <article data-reveal style="--stagger:1">
+          <span class="pillar__num">02</span>
           <h3>Präsenz in der Region.</h3>
           <p>Wir vermitteln Wohn- und Geschäftsimmobilien insbesondere in Köln sowie in ganz Nordrhein-Westfalen. Der Schwerpunkt liegt auf Ein- und Mehrfamilienhäusern, Miet- und Eigentumswohnungen. Wir arbeiten mit den hier ansässigen Notaren, Banken, Architekten und Handwerkern eng zusammen.</p>
         </article>
         <article data-reveal style="--stagger:2">
+          <span class="pillar__num">03</span>
           <h3>Zufriedenheit als Basis.</h3>
           <p>Wir leben davon, weiterempfohlen zu werden. Für Eigentümer unternehmen wir alles, um Ihre Immobilie zu einem marktgerechten Preis zu verkaufen. Käufern und Mietern verhelfen wir dazu, ihre Traumwohnung oder ihr Traumhaus zu finden.</p>
         </article>
@@ -147,14 +145,7 @@ const quotes = [
       </div>
     </section>
 
-    <section class="section section--paper">
-      <div class="container">
-        <p class="eyebrow" data-reveal>Stimmen unserer Kunden</p>
-        <div class="quotes" data-reveal-group>
-          {quotes.map((quote, i) => <blockquote data-reveal style={`--stagger:${i}`}>„{quote}“</blockquote>)}
-        </div>
-      </div>
-    </section>
+    <Reviews tone="paper" />
 
     <section class="contact-cta section--brand">
       <div class="container contact-cta__grid">
@@ -194,9 +185,11 @@ const quotes = [
   .timeline p { color: var(--n-text-secondary); }
 
   .pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
-  .pillars article { padding: clamp(1.5rem, 2.5vw, 2.25rem); border-radius: 18px; background: #fff; }
-  .pillars h3 { margin-bottom: .85rem; }
-  .pillars p { color: var(--n-text-secondary); }
+  .pillars article { padding: clamp(1.75rem, 3vw, 2.75rem); border-radius: 18px; background: #fff; transition: transform 500ms var(--ease-out-expo), box-shadow 500ms var(--ease-out-expo); }
+  .pillars article:hover { transform: translateY(-4px); box-shadow: 0 30px 60px -36px rgb(43 49 52 / .35); }
+  .pillar__num { display: block; margin-bottom: 2rem; color: var(--blue); font: 500 1.75rem/1 var(--font-display); }
+  .pillars h3 { margin-bottom: 1rem; }
+  .pillars p { color: var(--n-text-secondary); font-size: 1.0625rem; line-height: 1.7; }
 
   .team { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; }
   .person { display: grid; align-content: start; gap: .3rem; padding: 1.5rem; border-radius: 18px; background: var(--n-bg); }
@@ -213,8 +206,6 @@ const quotes = [
   .reasons h3 { margin-bottom: .5rem; color: #fff; font-size: 1.3rem; }
   .reasons p { color: rgb(255 255 255 / .86); }
 
-  .quotes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
-  .quotes blockquote { margin: 0; padding: 1.75rem; border-radius: 18px; background: #fff; font: 600 1.3rem/1.35 var(--font-display); letter-spacing: -.01em; }
 
   .contact-cta { padding-block: var(--section-space); }
   .contact-cta__grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
@@ -224,7 +215,7 @@ const quotes = [
   .contact-cta__links small { font-size: .95rem; font-weight: 500; }
   .contact-cta__links strong { font: 600 clamp(1.5rem, 2.2vw, 2rem)/1.2 var(--font-display); overflow-wrap: anywhere; }
 
-  @media (max-width: 1100px) { .team { grid-template-columns: repeat(3, minmax(0, 1fr)); } .quotes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 1100px) { .team { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   @media (max-width: 900px) {
     .about-hero__grid, .story, .contact-cta__grid { grid-template-columns: 1fr; }
     .pillars, .reasons { grid-template-columns: 1fr; }
@@ -234,7 +225,7 @@ const quotes = [
   }
   @media (max-width: 767px) {
     .about-hero { padding-top: 7rem; }
-    .team, .quotes { grid-template-columns: 1fr; }
+    .team { grid-template-columns: 1fr; }
     .timeline li { grid-template-columns: 1fr; gap: .5rem; }
   }
 </style>

@@ -9,6 +9,7 @@ import { faqQuestions } from "../data/faq";
 import EditorialPhoto from "../components/EditorialPhoto.astro";
 import { editorialImages } from "../data/editorial-images";
 import ValuationOptions from "../components/ValuationOptions.astro";
+import Reviews from "../components/Reviews.astro";
 
 export const prerender = false;
 const catalog = await getPropertyCatalog();
@@ -177,6 +178,9 @@ const process = [
       </div>
     </section>
 
+
+    <Reviews />
+
     <section class="section section--blue" id="ablauf">
       <div class="container">
         <SectionHeader eyebrow="So arbeiten wir" title="Vom ersten Termin bis zur <em>Übergabe.</em>" lead="Vier Schritte, ein Ansprechpartner. Sie wissen jederzeit, wo Ihr Verkauf steht." />
@@ -299,6 +303,7 @@ const process = [
   .photo-strip figure:hover img { transform: scale(1.05); }
   @keyframes strip { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { .photo-strip__track { animation: none; } }
+
 
   .empty-note { max-width: 60ch; color: var(--n-text-secondary); }
 

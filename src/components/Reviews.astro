@@ -1,0 +1,43 @@
+---
+import { reviews, googleRating } from "../data/reviews";
+interface Props { tone?: "white" | "paper"; }
+const { tone = "white" } = Astro.props;
+---
+    <section class:list={["section", tone === "white" ? "reviews--white" : "section--paper", "reviews"]} aria-labelledby="reviews-title">
+      <div class="container">
+        <div class="reviews__head" data-reveal>
+          <p class="reviews__score"><span class="stars" aria-hidden="true">★★★★★</span> <strong>{googleRating.value.toLocaleString("de-DE")}</strong> bei Google · {googleRating.count} Rezensionen</p>
+          <a class="text-link" href={googleRating.url} target="_blank" rel="noopener">Alle Rezensionen lesen <span aria-hidden="true">→</span></a>
+        </div>
+        <h2 id="reviews-title" class="sr-only">Kundenstimmen</h2>
+        <div class="reviews__grid" data-reveal-group>
+          {reviews.map((review, i) => (
+            <figure class="review" data-reveal style={`--stagger:${i}`}>
+              <span class="stars" aria-label="5 von 5 Sternen">★★★★★</span>
+              <blockquote>„{review.text}“</blockquote>
+              <figcaption><span class="review__avatar" aria-hidden="true">{review.author[0]}</span><span><strong>{review.author}</strong><small>via Google</small></span></figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+<style>
+  .reviews--white { background: #fff; }
+  .reviews--white .review { background: var(--n-bg); }
+  .reviews--white .review__avatar { background: #fff; }
+  /* Google-Rezensionen */
+  .reviews__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; }
+  .reviews__score { display: flex; align-items: center; gap: .6rem; font-size: 1.125rem; }
+  .stars { color: #e2b13c; letter-spacing: .12em; }
+  .reviews__score .stars { font-size: 1.4rem; }
+  .reviews__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+  .review { display: flex; flex-direction: column; margin: 0; padding: clamp(1.5rem, 2.5vw, 2.25rem); border-radius: 18px; background: #fff; }
+  .review blockquote { flex: 1; margin: 1rem 0 1.5rem; font: 400 1.2rem/1.55 var(--font-display); color: var(--n-text); }
+  .review figcaption { display: flex; align-items: center; gap: .85rem; padding-top: 1.25rem; border-top: 1px solid var(--n-border); }
+  .review__avatar { display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--n-bg); font-weight: 600; }
+  .review figcaption strong { display: block; font-size: 1rem; }
+  .review figcaption small { color: var(--n-text-secondary); font-size: .9rem; }
+  @media (max-width: 900px) { .reviews__grid { grid-template-columns: 1fr; } }
+
+</style>

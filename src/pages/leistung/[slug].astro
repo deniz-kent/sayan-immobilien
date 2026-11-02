@@ -5,7 +5,6 @@ import Footer from "../../components/Footer.astro";
 import { services, serviceBySlug, type Service } from "../../data/services";
 import EditorialPhoto from "../../components/EditorialPhoto.astro";
 import { serviceImages } from "../../data/editorial-images";
-import ServiceIcon from "../../components/ServiceIcon.astro";
 
 export function getStaticPaths() {
   return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
@@ -26,7 +25,7 @@ const image = serviceImages[service.slug];
         </nav>
         <div class="service-hero__copy">
           <p class="eyebrow">{service.group}</p>
-          <div class="service-heading"><span><ServiceIcon name={service.slug} size={32}/></span><h1>{service.title}</h1></div>
+          <h1>{service.title}</h1>
           <p class="service-hero__intro">{service.intro}</p>
           <a class="button button--dark" href="/kontakt/">Sprechen Sie mit uns</a>
         </div>
@@ -107,7 +106,7 @@ const image = serviceImages[service.slug];
   .detail-copy > p:not(.detail-label) { margin-top: 1.1rem; color: var(--n-text-secondary); }
   .detail-aside { padding: 1.25rem; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; }
   .service-heading { display: flex; align-items: center; gap: 1rem; }
-  .service-heading > span { display: grid; place-items: center; flex: 0 0 3.75rem; height: 3.75rem; border-radius: var(--radius-field); background: var(--accent); color: var(--ink); }
+  .service-heading > span { display: grid; place-items: center; flex: 0 0 3.75rem; height: 3.75rem; border-radius: 14px; background: #fff; color: var(--ink); box-shadow: 0 0 0 1px var(--n-border); }
   .detail-aside .button { margin-top: 1rem; width: 100%; }
   .detail-aside h2 { margin-bottom: 1rem; font-size: 1.2rem; text-transform: none; }
   .detail-aside ul { margin: 0; padding: 0; list-style: none; }

@@ -5,7 +5,6 @@ import Footer from "../../components/Footer.astro";
 import { services } from "../../data/services";
 import EditorialPhoto from "../../components/EditorialPhoto.astro";
 import { serviceImages } from "../../data/editorial-images";
-import ServiceIcon from "../../components/ServiceIcon.astro";
 
 const featured = ["immobilienverkauf", "immobilienvermietung", "wertermittlung"];
 const groups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"] as const;
@@ -30,7 +29,7 @@ const groups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"]
           {featured.map((slug) => {
             const service = services.find((item) => item.slug === slug)!;
             const image = serviceImages[slug];
-            return <a class="featured-card" href={`/leistung/${service.slug}/`}>{image && <div class="featured-card__photo"><EditorialPhoto image={image} sizes="(max-width: 767px) 100vw, 30vw" decorative /></div>}<div class="featured-card__meta"><ServiceIcon name={service.slug}/><span>{service.group}</span></div><h3>{service.title}</h3><p>{service.summary}</p><strong>Mehr erfahren</strong></a>;
+            return <a class="featured-card" href={`/leistung/${service.slug}/`}>{image && <div class="featured-card__photo"><EditorialPhoto image={image} sizes="(max-width: 767px) 100vw, 30vw" decorative /></div>}<div class="featured-card__meta"><span>{service.group}</span></div><h3>{service.title}</h3><p>{service.summary}</p><strong>Mehr erfahren</strong></a>;
           })}
         </div>
       </div>
@@ -49,7 +48,7 @@ const groups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"]
               <h3>{group}</h3>
               <div class="service-links">
                 {services.filter((service) => service.group === group).map((service) => (
-                  <a href={`/leistung/${service.slug}/`}><span class="service-links__icon"><ServiceIcon name={service.slug}/></span><span>{service.title}</span><small>{service.summary}</small></a>
+                  <a href={`/leistung/${service.slug}/`}><span class="service-links__icon">{String(services.indexOf(service) + 1).padStart(2, "0")}</span><span>{service.title}</span><small>{service.summary}</small></a>
                 ))}
               </div>
             </div>
@@ -92,7 +91,7 @@ const groups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"]
   .service-links a { display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); gap: .2rem .75rem; padding: .9rem 0; border-top: 1px solid var(--n-border); }
   .service-links a:hover > span:first-child, .service-links a:focus-visible > span:first-child { text-decoration: underline; text-underline-offset: .2em; }
   .service-links a > span:nth-child(2) { font-weight: 600; }
-  .service-links__icon { grid-row: 1 / span 2; align-self: center; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 10px; background: var(--brand-100); color: var(--ink); }
+  .service-links__icon { grid-row: 1 / span 2; align-self: center; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 0; background: none; color: var(--blue); font: 500 1.4rem/1 var(--font-display); }
   .service-links small { grid-column: 2; color: var(--n-text-secondary); font-size: .85rem; }
   .overview-contact { padding: var(--section-space) 0; background: var(--paper); }
   .overview-contact__inner { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 2rem; align-items: end; }
