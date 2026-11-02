@@ -1,0 +1,155 @@
+---
+// Interaktiver Wert-Schnellcheck auf Basis der amtlichen Immobilienrichtwerte Köln.
+import { lagen, stichtag } from "../data/immobilienpreise";
+
+const fmt = (n: number) => n.toLocaleString("de-DE");
+const change = (r: { wert: number; vorjahr: number | null } | null) => (r && r.vorjahr ? ((r.wert - r.vorjahr) / r.vorjahr) * 100 : null);
+const median = (v: number[]) => { const s = [...v].sort((a, b) => a - b); const m = Math.floor(s.length / 2); return s.length % 2 ? s[m] : Math.round((s[m - 1] + s[m]) / 2); };
+
+const medWohnung = median(lagen.filter((l) => l.wohnung).map((l) => l.wohnung!.wert));
+const rises = lagen.flatMap((l) => [
+  l.wohnung ? { name: l.name, typ: "Wohnung", c: change(l.wohnung) } : null,
+  l.haus ? { name: l.name, typ: "Haus", c: change(l.haus) } : null,
+]).filter((x): x is { name: string; typ: string; c: number } => !!x && x.c !== null);
+const topRise = rises.sort((a, b) => b.c - a.c)[0];
+const top = [...lagen].sort((a, b) => Math.max(b.wohnung?.wert ?? 0, b.haus?.wert ?? 0) - Math.max(a.wohnung?.wert ?? 0, a.haus?.wert ?? 0))[0];
+const topWert = Math.max(top.wohnung?.wert ?? 0, top.haus?.wert ?? 0);
+
+const data = lagen.map((l) => ({ n: l.name, b: l.bezirk, w: l.wohnung?.wert ?? null, wv: l.wohnung?.vorjahr ?? null, h: l.haus?.wert ?? null, hv: l.haus?.vorjahr ?? null }));
+const bezirke = [...new Set(lagen.map((l) => l.bezirk))].sort((a, b) => a.localeCompare(b, "de"));
+const startIndex = Math.max(0, lagen.findIndex((l) => l.name === "Sülz"));
+---
+
+<section class="section section--white price-check" id="preis-check" aria-labelledby="price-check-title">
+  <div class="container">
+    <div class="price-check__head" data-reveal>
+      <div>
+        <p class="eyebrow">Preis-Check Köln · Stand {stichtag}</p>
+        <h2 id="price-check-title">Was ist Ihre Immobilie <em>ungefähr wert?</em></h2>
+      </div>
+      <p class="price-check__lead">Stadtteil wählen, Wohnfläche eingeben, fertig. Die Spanne basiert auf den amtlichen Richtwerten des Gutachterausschusses Köln.</p>
+    </div>
+
+    <div class="price-check__grid" data-reveal>
+      <form class="pc-form" onsubmit="return false" aria-label="Wert-Schnellcheck">
+        <label class="pc-label" for="pc-lage">Stadtteil / Lage</label>
+        <select id="pc-lage" class="pc-select" data-pc-lage>
+          {bezirke.map((bezirk) => (
+            <optgroup label={`Bezirk ${bezirk}`}>
+              {lagen.map((l, i) => l.bezirk === bezirk && <option value={i} selected={i === startIndex}>{l.name}</option>)}
+            </optgroup>
+          ))}
+        </select>
+
+        <span class="pc-label">Art der Immobilie</span>
+        <div class="pc-types" role="radiogroup" aria-label="Art der Immobilie">
+          <label><input type="radio" name="pc-typ" value="w" checked data-pc-typ /><span>Wohnung</span></label>
+          <label><input type="radio" name="pc-typ" value="h" data-pc-typ /><span>Haus</span></label>
+        </div>
+
+        <label class="pc-label" for="pc-flaeche">Wohnfläche: <strong data-pc-flaeche-out>80</strong> m²</label>
+        <input id="pc-flaeche" class="pc-range" type="range" min="25" max="300" step="5" value="80" data-pc-flaeche />
+        <div class="pc-range__scale" aria-hidden="true"><span>25 m²</span><span>300 m²</span></div>
+      </form>
+
+      <div class="pc-result" aria-live="polite">
+        <p class="pc-result__label">Grobe Orientierung</p>
+        <p class="pc-result__value" data-pc-range>–</p>
+        <p class="pc-result__meta" data-pc-meta></p>
+        <p class="pc-result__note" data-pc-note>Richtwerte gelten für ein typisches Referenzobjekt. Zustand, Ausstattung, Etage und Grundriss können den echten Wert deutlich verschieben.</p>
+        <a class="button pc-result__cta" href="/kontakt/#termin">Genauen Wert vor Ort ermitteln <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="pc-result__link" href="/immobilienpreise-koeln/">Alle 116 Lagen vergleichen →</a>
+      </div>
+    </div>
+
+    <div class="pc-facts" data-reveal-group>
+      <div data-reveal><span>Median Eigentumswohnung</span><strong>{fmt(medWohnung)} €/m²</strong><small>über alle Kölner Lagen</small></div>
+      <div data-reveal style="--stagger:1"><span>Stärkster Anstieg</span><strong>+{topRise.c.toLocaleString("de-DE", { maximumFractionDigits: 1 })} %</strong><small>{topRise.typ} in {topRise.name}, zum Vorjahr</small></div>
+      <div data-reveal style="--stagger:2"><span>Teuerste Lage</span><strong>{fmt(topWert)} €/m²</strong><small>{top.name}</small></div>
+    </div>
+  </div>
+</section>
+
+<script type="application/json" id="pc-data" set:html={JSON.stringify(data)}></script>
+
+<style>
+  .price-check { background: #fff; }
+  .price-check__head { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 1rem 3rem; align-items: end; margin-bottom: 2.5rem; }
+  .price-check__lead { color: var(--n-text-secondary); font-size: 1.1rem; }
+  .price-check__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.25rem; }
+
+  .pc-form { display: grid; align-content: start; gap: .6rem; padding: clamp(1.5rem, 3vw, 2.5rem); border-radius: 20px; background: var(--n-bg); }
+  .pc-label { margin-top: .9rem; font-size: 1rem; font-weight: 600; }
+  .pc-label:first-child { margin-top: 0; }
+  .pc-select { width: 100%; height: 3.5rem; padding: 0 1rem; border: 1px solid var(--n-border); border-radius: 10px; background: #fff; color: var(--ink); font-size: 1.05rem; }
+  .pc-select:focus { outline: 2px solid var(--ink); outline-offset: 1px; }
+  .pc-types { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+  .pc-types label { cursor: pointer; }
+  .pc-types input { position: absolute; opacity: 0; pointer-events: none; }
+  .pc-types span { display: grid; place-items: center; min-height: 3.25rem; border: 1px solid var(--n-border); border-radius: 10px; background: #fff; font-weight: 500; transition: background 200ms ease, color 200ms ease; }
+  .pc-types input:checked + span { border-color: var(--ink); background: var(--ink); color: #fff; }
+  .pc-types input:disabled + span { opacity: .4; cursor: not-allowed; }
+  .pc-types input:focus-visible + span { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .pc-range { width: 100%; accent-color: var(--ink); height: 2rem; }
+  .pc-range__scale { display: flex; justify-content: space-between; color: var(--n-text-secondary); font-size: .85rem; }
+
+  .pc-result { display: flex; flex-direction: column; padding: clamp(1.75rem, 3vw, 2.75rem); border-radius: 20px; background: var(--ink); color: #fff; }
+  .pc-result__label { color: var(--accent); font-size: .8rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+  .pc-result__value { margin-top: .9rem; font: 500 clamp(2.1rem, 3.6vw, 3.2rem)/1.05 var(--font-display); letter-spacing: -.03em; font-variant-numeric: tabular-nums; }
+  .pc-result__meta { margin-top: 1rem; color: rgb(255 255 255 / .85); font-size: 1.05rem; }
+  .pc-result__meta b { color: var(--accent); font-weight: 600; }
+  .pc-result__note { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid rgb(255 255 255 / .15); color: rgb(255 255 255 / .65); font-size: .92rem; }
+  .pc-result__cta { margin-top: auto; justify-content: space-between; }
+  .pc-result__note + .pc-result__cta { margin-top: 1.75rem; }
+  .pc-result__link { margin-top: 1rem; color: rgb(255 255 255 / .85); font-weight: 600; text-align: center; }
+  .pc-result__link:hover { color: var(--accent); }
+
+  .pc-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; margin-top: 1.25rem; }
+  .pc-facts div { display: grid; gap: .35rem; padding: 1.5rem 1.75rem; border: 1px solid var(--n-border); border-radius: 18px; }
+  .pc-facts span { color: var(--n-text-secondary); font-size: .78rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .pc-facts strong { font: 600 clamp(1.7rem, 2.4vw, 2.2rem)/1.1 var(--font-display); letter-spacing: -.02em; }
+  .pc-facts small { color: var(--n-text-secondary); font-size: .95rem; }
+
+  @media (max-width: 900px) {
+    .price-check__head, .price-check__grid { grid-template-columns: 1fr; }
+    .pc-facts { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+  type Row = { n: string; b: string; w: number | null; wv: number | null; h: number | null; hv: number | null };
+  const data: Row[] = JSON.parse(document.getElementById("pc-data")?.textContent ?? "[]");
+  const lage = document.querySelector<HTMLSelectElement>("[data-pc-lage]");
+  const typs = [...document.querySelectorAll<HTMLInputElement>("[data-pc-typ]")];
+  const flaeche = document.querySelector<HTMLInputElement>("[data-pc-flaeche]");
+  const flaecheOut = document.querySelector<HTMLElement>("[data-pc-flaeche-out]");
+  const range = document.querySelector<HTMLElement>("[data-pc-range]");
+  const meta = document.querySelector<HTMLElement>("[data-pc-meta]");
+  const eur = (n: number) => n.toLocaleString("de-DE");
+  const round = (n: number) => Math.round(n / 5000) * 5000;
+
+  const update = () => {
+    if (!lage || !flaeche || !range || !meta) return;
+    const row = data[Number(lage.value)];
+    if (!row) return;
+    const wIn = typs.find((t) => t.value === "w")!, hIn = typs.find((t) => t.value === "h")!;
+    wIn.disabled = row.w === null; hIn.disabled = row.h === null;
+    if (wIn.checked && wIn.disabled) hIn.checked = true;
+    if (hIn.checked && hIn.disabled) wIn.checked = true;
+    const isHaus = hIn.checked;
+    const wert = isHaus ? row.h : row.w;
+    const vorjahr = isHaus ? row.hv : row.wv;
+    const qm = Number(flaeche.value);
+    if (flaecheOut) flaecheOut.textContent = String(qm);
+    if (!wert) { range.textContent = "–"; meta.textContent = "Für diese Lage gibt es keinen Richtwert."; return; }
+    const mid = wert * qm;
+    range.textContent = `${eur(round(mid * 0.88))} – ${eur(round(mid * 1.12))} €`;
+    const c = vorjahr ? ((wert - vorjahr) / vorjahr) * 100 : null;
+    const trend = c === null ? "" : ` · <b>${c > 0 ? "+" : c < 0 ? "−" : "±"}${Math.abs(c).toLocaleString("de-DE", { maximumFractionDigits: 1, minimumFractionDigits: 1 })} %</b> zum Vorjahr`;
+    meta.innerHTML = `Richtwert ${isHaus ? "Haus" : "Wohnung"} in ${row.n}: ${eur(wert)} €/m²${trend}`;
+  };
+  lage?.addEventListener("change", update);
+  typs.forEach((t) => t.addEventListener("change", update));
+  flaeche?.addEventListener("input", update);
+  update();
+</script>

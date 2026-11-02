@@ -10,6 +10,7 @@ import EditorialPhoto from "../components/EditorialPhoto.astro";
 import { editorialImages } from "../data/editorial-images";
 import ValuationOptions from "../components/ValuationOptions.astro";
 import Reviews from "../components/Reviews.astro";
+import PriceCheck from "../components/PriceCheck.astro";
 
 export const prerender = false;
 const catalog = await getPropertyCatalog();
@@ -186,7 +187,9 @@ const process = [
     </section>
 
 
-    <Reviews />
+    <PriceCheck />
+
+    <Reviews tone="paper" />
 
     <section class="section section--blue" id="ablauf">
       <div class="container">
