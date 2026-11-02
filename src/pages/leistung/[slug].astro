@@ -41,7 +41,10 @@ const image = serviceImages[service.slug];
         <div class="detail-copy">
           <p class="detail-label">Was wir für Sie tun</p>
           <h2>{service.summary}</h2>
-          {service.details.map((paragraph) => <p>{paragraph}</p>)}
+          {service.details.map((paragraph) => {
+            const phase = paragraph.match(/^(Phase \d+:[^.!?]+[.!?])\s(.*)$/s);
+            return phase ? <p class="detail-phase"><strong>{phase[1]}</strong> {phase[2]}</p> : <p>{paragraph}</p>;
+          })}
 
         </div>
         <aside class="detail-aside" aria-label="Leistungsüberblick">
@@ -128,4 +131,5 @@ const image = serviceImages[service.slug];
     .service-heading > span { flex-basis: 3rem; height: 3rem; }
     .related-links a { grid-template-columns: 5rem minmax(0,1fr); gap: .75rem; }
   }
+  .detail-phase strong { display: block; margin-bottom: .35rem; color: var(--n-text); font-size: 1.2rem; font-weight: 600; }
 </style>

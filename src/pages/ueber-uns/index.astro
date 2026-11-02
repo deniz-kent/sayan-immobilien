@@ -1,0 +1,240 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+// Texte von Candan Sayan, übernommen von sayan-immo.de (Über uns, Team, Warum wir).
+const career = [
+  { year: "1998", title: "Einstieg in den Immobiliensektor", copy: "Bereits seit 1998 ist Candan Sayan im Immobiliensektor tätig." },
+  { year: "2001", title: "Ausbildung und Gründung", copy: "Ausbildung zum Kaufmann in der Grundstücks- und Wohnungswirtschaft bei einem der führenden Kölner Immobilienmakler. Im selben Jahr gründet er SAYAN Immobilien Köln." },
+  { year: "2008", title: "Diplom-Kaufmann (FH)", copy: "Berufsbegleitendes Studium der Wirtschaftswissenschaften an der Rheinischen Fachhochschule Köln. Thema der Diplomarbeit: „Chancen und Risiken des zielgruppenorientierten Immobilienmarketings“." },
+  { year: "Heute", title: "Inhabergeführt und bankenunabhängig", copy: "Ein Team, das das gesamte Spektrum der Immobilienvermittlung abdeckt, in Köln und ganz Nordrhein-Westfalen." },
+];
+
+const team = [
+  { name: "Candan Sayan", role: "Geschäftsinhaber", detail: "Diplom-Kaufmann (FH), Immobilienkaufmann", phone: "0221 168 926 60", tel: "+4922116892660", mail: "info@sayan-immo.de" },
+  { name: "Cenk Sayan", role: "Leiter Vermietung", detail: "Immobilienmakler, Leiter Vermietungsabteilung", phone: "0221 168 926 62", tel: "+4922116892662", mail: "ces@sayan-immo.de" },
+  { name: "Özgür Fidan", role: "Einkauf / Verkauf", detail: "Immobilienkaufmann, angehender Immobilienökonom", phone: "0221 168 926 60", tel: "+4922116892660", mail: "fidan@sayan-immo.de" },
+  { name: "Yildirim Beyrek", role: "Technischer Leiter", detail: "Problem-Löser", phone: "0221 168 926 60", tel: "+4922116892660", mail: "yb@sayan-immo.de" },
+  { name: "Goldfisch „Franz“", role: "Assistent der Geschäftsführung", detail: "Gute Laune", phone: "0221 168 926 60", tel: "+4922116892660", mail: "info@sayan-immo.de" },
+];
+
+const reasons = [
+  ["Sie und Ihre Immobilie stehen im Mittelpunkt.", "SAYAN Immobilien Köln handelt ausschließlich in Ihrem Interesse. Wir arbeiten persönlich, unabhängig von großen anonymen Institutionen. Unser gesamtes Vorgehen sprechen wir mit Ihnen ab. Bei uns geht es um Sie."],
+  ["Sie gehen kein Risiko ein.", "Wir arbeiten für Sie auf Provisionsbasis. Das bedeutet: Ihr Erfolg ist auch unser Erfolg. Nur bei einem abgeschlossenen, erfolgreichen Verkauf erhalten wir unsere Courtage (Provision). Dauer und Umfang unserer Tätigkeit werden im Vorfeld vertraglich festgelegt."],
+  ["Schnellstmögliche Abwicklung in Ihrem und unserem Interesse.", "Wir unternehmen alles, damit Ihre Immobilie so zügig wie möglich zum marktgerechten Preis verkauft wird. Durch unsere langjährige Erfahrung können wir Immobilien im Raum Köln, Düsseldorf und Umgebung schnell und zielgerichtet vermitteln."],
+  ["Regionale Stärke und umfassende Erfahrung.", "SAYAN Immobilien Köln ist seit 2001 in der Region Köln, Bonn und Düsseldorf aktiv. Unsere Auftraggeber profitieren von unserer genauen Kenntnis des lokalen Immobilienmarktes."],
+  ["Bestens bewährtes örtliches Netzwerk.", "SAYAN Immobilien Köln ist mit verschiedenen Handwerkern, Architekten, Banken und Sachverständigen vernetzt. Davon profitieren Sie als Immobilieneigentümer, auch wenn es um schnelle, unkomplizierte Hilfestellung geht."],
+  ["Stark in der Vermarktung.", "SAYAN Immobilien Köln weiß, wie man eine Immobilie in den unterschiedlichen Vertriebskanälen am effektivsten präsentiert. Wir erstellen professionelle, ansprechende Fotos und Texte. Wir schalten nicht nur in den Immobilienportalen Anzeigen, sondern auch in regionalen Medien. Und werben per Mailing, in unserem Schaufenster usw."],
+  ["Umfangreiche, gepflegte Interessentenkartei.", "Unsere Interessentenkartei ist stets „up to date“ und gefüllt mit aktuellen, konkreten Suchanfragen solventer, potenzieller Käufer und Mieter. Vielleicht befindet sich der ideale Käufer Ihrer Immobilie schon jetzt in unserer Kartei."],
+  ["Diskretion und Direktvermittlung.", "Bei jedem Immobilienverkauf durch unser Team ist Diskretion höchstes Gebot. Falls gewünscht, vermitteln wir Ihre Immobilie so, dass keinerlei Rückschlüsse auf das Objekt möglich sind. Oft gelingt der Verkauf ausschließlich über unser Netzwerk. Auf diese Weise ist gar keine Anzeige notwendig."],
+  ["Ihr ganz persönlicher Ansprechpartner.", "Bei SAYAN Immobilien Köln haben Sie immer einen festen Ansprechpartner, der sich um alles kümmert und der Ihre Immobilie genau kennt."],
+  ["Motivierte und qualifizierte Mitarbeiter.", "Die Mitarbeiter von SAYAN Immobilien Köln bilden sich ständig weiter. Wir sind stets auf dem aktuellsten Stand, insbesondere bei gesetzlichen Neuerungen und Änderungen rechtlicher Vorschriften."],
+];
+
+const quotes = [
+  "Wir waren sehr zufrieden.",
+  "Angenehme, fachlich kompetente und umfassende Beratung, Danke!",
+  "Alles bestens gelaufen. Sehr seriös und gewissenhaft.",
+  "Es lief alles zur besten Zufriedenheit.",
+];
+---
+
+<BaseLayout
+  title="Über uns | SAYAN Immobilien Köln"
+  description="SAYAN Immobilien Köln: inhabergeführt und bankenunabhängig, gegründet 2001 von Candan Sayan, Diplom-Kaufmann (FH). Team, Werdegang und 10 gute Gründe."
+>
+  <Header />
+  <main id="main">
+    <section class="about-hero">
+      <div class="container about-hero__grid">
+        <div data-reveal>
+          <p class="eyebrow">Über uns</p>
+          <h1>Ihr Immobilienpartner <em>an Ihrer Seite.</em></h1>
+          <p class="about-hero__lead">Das erprobte Team von SAYAN Immobilien Köln steht für fachkundige, seriöse und engagierte Vermittlungsarbeit. Wir führen Verkäufer und Käufer, Vermieter und Mieter zusammen, zum Wohle aller Beteiligten.</p>
+        </div>
+        <div class="about-hero__media zoom-media" data-reveal>
+          <img src="/images/buero-candan-sayan-koeln.jpg" alt="Candan Sayan in seinem Büro in Köln" width="1400" height="788" fetchpriority="high" />
+        </div>
+      </div>
+    </section>
+
+    <section class="track-record" aria-label="Erfahrung in Zahlen">
+      <div class="container track-record__grid">
+        <div class="track-record__item"><p class="track-record__value"><span data-count="2001" data-count-from="1980" data-plain="true">2001</span></p><p class="track-record__label">gegründet in Köln</p></div>
+        <div class="track-record__item"><p class="track-record__value"><span data-count="500" data-count-from="0">500</span>+</p><p class="track-record__label">vermittelte Verkaufsobjekte</p></div>
+        <div class="track-record__item"><p class="track-record__value"><span data-count="10000" data-count-from="0">10.000</span>+</p><p class="track-record__label">Suchprofile in unserer Kartei</p></div>
+        <div class="track-record__item"><p class="track-record__value">100 %</p><p class="track-record__label">inhabergeführt und bankenunabhängig</p></div>
+      </div>
+    </section>
+
+    <section class="section section--white">
+      <div class="container story">
+        <div class="story__intro" data-reveal>
+          <p class="eyebrow">Werdegang</p>
+          <h2>Gelernt. Studiert. <em>Aufgebaut.</em></h2>
+          <p>SAYAN Immobilien Köln ist ein inhabergeführtes und bankenunabhängiges Unternehmen. Inhaber der Firma SAYAN Immobilien Köln ist Candan Sayan.</p>
+          <p>Nach seiner Ausbildung war er im selben Unternehmen für die Vermietung und den Verkauf von Wohn- und Gewerbeimmobilien zuständig. Zu seinen Aufgabengebieten gehörten neben der klassischen Vermittlung auch der Aufbau der Marketing-Abteilung sowie die Einführung von neuen Vertriebsstrategien.</p>
+        </div>
+        <ol class="timeline" data-reveal-group>
+          {career.map((step, i) => (
+            <li data-reveal style={`--stagger:${i}`}>
+              <span class="timeline__year">{step.year}</span>
+              <div><h3>{step.title}</h3><p>{step.copy}</p></div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="section section--paper">
+      <div class="container pillars" data-reveal-group>
+        <article data-reveal style="--stagger:0">
+          <h3>Individuelle Strategien.</h3>
+          <p>Da wir unabhängig sind, keinem Finanzinstitut oder Franchiseunternehmen angehören, ist der Kontakt besonders intensiv und produktiv. Wir beraten Sie als fairer Partner. Dazu gehört selbstverständlich, dass wir auch nach dem Notartermin noch weiter für Sie da sind.</p>
+        </article>
+        <article data-reveal style="--stagger:1">
+          <h3>Präsenz in der Region.</h3>
+          <p>Wir vermitteln Wohn- und Geschäftsimmobilien insbesondere in Köln sowie in ganz Nordrhein-Westfalen. Der Schwerpunkt liegt auf Ein- und Mehrfamilienhäusern, Miet- und Eigentumswohnungen. Wir arbeiten mit den hier ansässigen Notaren, Banken, Architekten und Handwerkern eng zusammen.</p>
+        </article>
+        <article data-reveal style="--stagger:2">
+          <h3>Zufriedenheit als Basis.</h3>
+          <p>Wir leben davon, weiterempfohlen zu werden. Für Eigentümer unternehmen wir alles, um Ihre Immobilie zu einem marktgerechten Preis zu verkaufen. Käufern und Mietern verhelfen wir dazu, ihre Traumwohnung oder ihr Traumhaus zu finden.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section--white" id="team">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow">Team</p>
+            <h2>Kaum zu schlagen: <em>unsere Erfahrung vor Ort.</em></h2>
+            <p class="section-lead">Das dürfen Sie von uns erwarten: persönliche Beratung, Engagement, Flexibilität und viel Sachverstand. Unser Team kennt den lokalen Immobilienmarkt und bildet sich regelmäßig weiter, unter anderem in rechtlichen Fragen und im Immobilien-Marketing.</p>
+          </div>
+        </header>
+        <div class="team" data-reveal-group>
+          {team.map((person, i) => (
+            <article class="person" data-reveal style={`--stagger:${i}`}>
+              <span class="person__initials" aria-hidden="true">{person.name.replace(/[„“]/g, "").split(" ").map((w) => w[0]).slice(0, 2).join("")}</span>
+              <h3>{person.name}</h3>
+              <p class="person__role">{person.role}</p>
+              <p class="person__detail">{person.detail}</p>
+              <a href={`tel:${person.tel}`}>{person.phone}</a>
+              <a href={`mailto:${person.mail}`}>{person.mail}</a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--blue" id="warum-wir">
+      <div class="container">
+        <header class="section-head" data-reveal>
+          <div>
+            <p class="eyebrow">Warum wir</p>
+            <h2>10 gute Gründe für <em>SAYAN Immobilien.</em></h2>
+          </div>
+        </header>
+        <ol class="reasons" data-reveal-group>
+          {reasons.map(([title, copy], i) => (
+            <li data-reveal style={`--stagger:${i % 2}`}>
+              <span>{String(i + 1).padStart(2, "0")}</span>
+              <div><h3>{title}</h3><p>{copy}</p></div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="section section--paper">
+      <div class="container">
+        <p class="eyebrow" data-reveal>Stimmen unserer Kunden</p>
+        <div class="quotes" data-reveal-group>
+          {quotes.map((quote, i) => <blockquote data-reveal style={`--stagger:${i}`}>„{quote}“</blockquote>)}
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-cta section--brand">
+      <div class="container contact-cta__grid">
+        <div data-reveal><p class="eyebrow">Kontakt</p><h2>Was dürfen wir <em>für Sie tun?</em></h2><p>Kontaktieren Sie uns unverbindlich. Wir freuen uns auf Sie.</p></div>
+        <div class="contact-cta__links" data-reveal>
+          <a href="tel:+4922116892660"><small>Telefon</small><strong>0221 168 926 60</strong></a>
+          <a href="mailto:info@sayan-immo.de"><small>E-Mail</small><strong>info@sayan-immo.de</strong></a>
+          <span><small>Büro</small><strong>Sternengasse 3, 50676 Köln</strong></span>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</BaseLayout>
+
+<style>
+  .section--white { background: #fff; }
+  .about-hero { padding: 9rem 0 clamp(3rem, 6vw, 5rem); background: var(--n-bg); }
+  .about-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .about-hero__lead { max-width: 50ch; margin-top: 1.5rem; color: var(--n-text-secondary); font-size: clamp(1.125rem, 1.4vw, 1.3rem); }
+  .about-hero__media { aspect-ratio: 4 / 3; border-radius: 20px; }
+  .about-hero__media img { width: 100%; height: 100%; object-fit: cover; }
+
+  .track-record { background: var(--accent); color: var(--accent-ink); }
+  .track-record__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .track-record__item { padding: clamp(1.75rem, 3.5vw, 2.75rem) clamp(1rem, 2vw, 2rem); border-left: 1px solid rgb(43 49 52 / .18); }
+  .track-record__item:first-child { border-left: 0; padding-left: 0; }
+  .track-record__value { font: 600 clamp(2.5rem, 4.4vw, 4rem)/1 var(--font-display); font-variant-numeric: tabular-nums; letter-spacing: -.025em; }
+  .track-record__label { margin-top: .6rem; font-size: 1rem; font-weight: 600; }
+
+  .story { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+  .story__intro p:not(.eyebrow) { max-width: 50ch; margin-top: 1.25rem; color: var(--n-text-secondary); }
+  .timeline { display: grid; margin: 0; padding: 0; list-style: none; }
+  .timeline li { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1.5rem; padding: 1.75rem 0; border-top: 1px solid var(--n-border); }
+  .timeline__year { color: var(--blue); font: 600 2rem/1 var(--font-display); }
+  .timeline h3 { margin-bottom: .4rem; }
+  .timeline p { color: var(--n-text-secondary); }
+
+  .pillars { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+  .pillars article { padding: clamp(1.5rem, 2.5vw, 2.25rem); border-radius: 18px; background: #fff; }
+  .pillars h3 { margin-bottom: .85rem; }
+  .pillars p { color: var(--n-text-secondary); }
+
+  .team { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; }
+  .person { display: grid; align-content: start; gap: .3rem; padding: 1.5rem; border-radius: 18px; background: var(--n-bg); }
+  .person__initials { display: grid; place-items: center; width: 3.5rem; height: 3.5rem; margin-bottom: .75rem; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-weight: 700; }
+  .person h3 { font-size: 1.25rem; }
+  .person__role { color: var(--blue); font-weight: 600; }
+  .person__detail { margin-bottom: .5rem; color: var(--n-text-secondary); font-size: 1rem; }
+  .person a { font-size: .95rem; overflow-wrap: anywhere; }
+  .person a:hover { color: var(--blue); }
+
+  .reasons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(2rem, 4vw, 4rem); margin: 0; padding: 0; list-style: none; }
+  .reasons li { display: grid; grid-template-columns: 3.5rem minmax(0, 1fr); gap: 1rem; padding: 1.75rem 0; border-top: 1px solid rgb(255 255 255 / .28); }
+  .reasons span { color: var(--accent); font: 600 1.6rem/1 var(--font-display); }
+  .reasons h3 { margin-bottom: .5rem; color: #fff; font-size: 1.3rem; }
+  .reasons p { color: rgb(255 255 255 / .86); }
+
+  .quotes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+  .quotes blockquote { margin: 0; padding: 1.75rem; border-radius: 18px; background: #fff; font: 600 1.3rem/1.35 var(--font-display); letter-spacing: -.01em; }
+
+  .contact-cta { padding-block: var(--section-space); }
+  .contact-cta__grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .contact-cta__grid > div > p:not(.eyebrow) { max-width: 46ch; margin-top: 1.5rem; font-size: 1.2rem; }
+  .contact-cta__links { display: grid; }
+  .contact-cta__links > a, .contact-cta__links > span { display: grid; gap: .3rem; padding: 1.4rem 0; border-top: 1px solid rgb(43 49 52 / .22); }
+  .contact-cta__links small { font-size: .95rem; font-weight: 500; }
+  .contact-cta__links strong { font: 600 clamp(1.5rem, 2.2vw, 2rem)/1.2 var(--font-display); overflow-wrap: anywhere; }
+
+  @media (max-width: 1100px) { .team { grid-template-columns: repeat(3, minmax(0, 1fr)); } .quotes { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 900px) {
+    .about-hero__grid, .story, .contact-cta__grid { grid-template-columns: 1fr; }
+    .pillars, .reasons { grid-template-columns: 1fr; }
+    .track-record__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .track-record__item:nth-child(3) { border-left: 0; padding-left: 0; }
+    .track-record__item:nth-child(n+3) { border-top: 1px solid rgb(43 49 52 / .18); }
+  }
+  @media (max-width: 767px) {
+    .about-hero { padding-top: 7rem; }
+    .team, .quotes { grid-template-columns: 1fr; }
+    .timeline li { grid-template-columns: 1fr; gap: .5rem; }
+  }
+</style>
