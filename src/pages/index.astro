@@ -42,12 +42,19 @@ const services = [
 // Bildstreifen: Objekt- und Stadtfotos, läuft langsam durch.
 const gallery = [
   photo("/images/altbau-fassade-stuck.webp", "Altbaufassade mit Stuck und Erkern"),
+  photo("/images/sayan-besichtigung-1440.webp", "Candan Sayan bei einer Besichtigung", "50% 40%"),
   photo("/images/altbau-wohnzimmer-fischgraet.webp", "Altbau-Wohnzimmer mit Fischgrätparkett"),
+  photo("/images/sayan-persoenlich-1440.webp", "Candan Sayan im Büro", "50% 30%"),
   photo("/images/strasse-altbau-koeln.webp", "Altbau-Straße in Köln"),
+  photo("/images/sayan-beratung-1440.webp", "Candan Sayan in einer Wohnung", "55% 35%"),
   photo("/images/wohnzimmer-modern-domblick.webp", "Wohnzimmer mit Domblick"),
+  photo("/images/sayan-vermietung-1440.webp", "Candan Sayan am Fenster", "50% 30%"),
   photo("/images/fassade-balkone-klinker.webp", "Klinkerfassade mit Balkonen"),
+  photo("/images/buero-candan-sayan-koeln.jpg", "Büro von SAYAN Immobilien mit Domblick"),
   photo("/images/altbau-zimmer-leer.webp", "Leerer Altbauraum"),
+  photo("/images/sayan-unterlagen-1440.webp", "Candan Sayan mit Unterlagen", "50% 35%"),
   photo("/images/haus-modern-klinker.webp", "Modernes Haus mit Klinker"),
+  photo("/images/sayan-kontakt-1440.webp", "Candan Sayan in einem hellen Wohnraum", "55% 30%"),
 ];
 
 const process = [
@@ -157,7 +164,7 @@ const process = [
         {[0, 1].map((copy) => (
           <div class="photo-strip__group" aria-hidden={copy === 1 ? "true" : undefined}>
             {gallery.map((img) => (
-              <figure><img src={img.src} alt={copy === 1 ? "" : img.alt} loading="lazy" decoding="async" /></figure>
+              <figure><img src={img.src} alt={copy === 1 ? "" : img.alt} loading="lazy" decoding="async" style={`object-position:${img.position}`} /></figure>
             ))}
           </div>
         ))}
@@ -294,8 +301,7 @@ const process = [
   /* Bildstreifen */
   .photo-strip { padding: var(--section-space) 0; overflow: hidden; background: #fff; }
   .photo-strip__head { margin-bottom: clamp(2rem, 3.5vw, 3rem); }
-  .photo-strip__track { display: flex; width: max-content; animation: strip 70s linear infinite; }
-  .photo-strip:hover .photo-strip__track { animation-play-state: paused; }
+  .photo-strip__track { display: flex; width: max-content; animation: strip 120s linear infinite; }
   .photo-strip__group { display: flex; gap: 1.25rem; padding-right: 1.25rem; }
   .photo-strip figure { flex: 0 0 auto; width: clamp(15rem, 24vw, 22rem); aspect-ratio: 4 / 5; margin: 0; overflow: hidden; border-radius: 18px; }
   .photo-strip figure:nth-child(even) { aspect-ratio: 1 / 1; align-self: center; }

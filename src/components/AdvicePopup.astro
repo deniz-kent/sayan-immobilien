@@ -27,10 +27,10 @@ const autoOpen = Astro.url.pathname === "/";
   </div>
   <div class="advice-popup__body">
     <h2 id="advice-title">Was ist Ihre Immobilie wert?</h2>
-    <p id="advice-description">Kostenlos und unverbindlich. Online in wenigen Minuten oder persönlich vor Ort.</p>
+    <p id="advice-description">Kostenlos und unverbindlich. Wir kommen zu Ihnen und sagen Ihnen ehrlich, was Ihre Immobilie am Markt bringt.</p>
     <div class="advice-popup__actions">
-      <a class="advice-popup__btn advice-popup__btn--blue" href="/leistung/formular/">Online bewerten <span aria-hidden="true">→</span></a>
-      <a class="advice-popup__btn advice-popup__btn--dark" href="/kontakt/#termin">Termin vor Ort <span aria-hidden="true">→</span></a>
+      <a class="advice-popup__btn advice-popup__btn--primary" href="/kontakt/#termin"><span><strong>Termin vor Ort vereinbaren</strong><small>Persönlich, genau, mit Preisempfehlung</small></span><span aria-hidden="true">→</span></a>
+      <a class="advice-popup__online" href="/leistung/formular/">Lieber erst online schätzen <span aria-hidden="true">→</span></a>
     </div>
     <button class="advice-popup__later" type="button" data-close-advice>Nicht mehr anzeigen</button>
   </div>
@@ -52,8 +52,11 @@ const autoOpen = Astro.url.pathname === "/";
   .advice-popup__actions { display: grid; gap: .6rem; margin-top: 1.1rem; }
   .advice-popup__btn { display: flex; align-items: center; justify-content: space-between; padding: .85rem 1.1rem; border-radius: 10px; color: #fff; font-size: 1rem; font-weight: 600; transition: filter 200ms ease; }
   .advice-popup__btn:hover { filter: brightness(1.1); }
-  .advice-popup__btn--blue { background: var(--blue); }
-  .advice-popup__btn--dark { background: var(--ink); }
+  .advice-popup__btn--primary { padding: 1rem 1.15rem; background: var(--accent); color: var(--accent-ink); }
+  .advice-popup__btn--primary strong { display: block; font-size: 1.05rem; }
+  .advice-popup__btn--primary small { display: block; margin-top: .15rem; font-size: .85rem; font-weight: 500; opacity: .8; }
+  .advice-popup__online { display: flex; justify-content: center; gap: .4rem; padding: .6rem; color: var(--blue); font-weight: 600; }
+  .advice-popup__online:hover { text-decoration: underline; text-underline-offset: .2em; }
   .advice-popup__later { display: block; margin: .75rem auto 0; padding: .4rem; border: 0; background: none; color: var(--n-text-secondary); font-size: .9rem; text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
   :global(body:has(.advice-popup:not([hidden])) .consent:not([hidden])) { top: 1rem; bottom: auto; }
   @media (max-width: 767px) { .advice-popup { right: .75rem; bottom: max(.75rem, env(safe-area-inset-bottom)); width: calc(100% - 1.5rem); } }
