@@ -8,7 +8,6 @@ import { getPropertyCatalog, setPropertyCacheHeaders } from "../server/propertie
 import { faqQuestions } from "../data/faq";
 import EditorialPhoto from "../components/EditorialPhoto.astro";
 import { editorialImages } from "../data/editorial-images";
-import ServiceIcon from "../components/ServiceIcon.astro";
 import ValuationOptions from "../components/ValuationOptions.astro";
 
 export const prerender = false;
@@ -16,110 +15,127 @@ const catalog = await getPropertyCatalog();
 setPropertyCacheHeaders(Astro.response.headers, catalog.available);
 const featuredProperties = catalog.properties.slice(0, 3);
 
+// Track-Record: Zahlen laut Kundenangabe (Meeting 02.11.2026).
+const trackRecord = [
+  { value: 1999, from: 1970, plain: true, suffix: "", label: "Immobilienexpertise seit" },
+  { value: 27, from: 0, plain: false, suffix: "", label: "Jahre Erfahrung" },
+  { value: 500, from: 0, plain: false, suffix: "+", label: "vermittelte Verkaufsobjekte" },
+  { value: 10000, from: 0, plain: false, suffix: "+", label: "Suchprofile in unserer Kartei" },
+];
+
+const career = [
+  { year: "1999", title: "Einstieg in die Immobilienbranche", copy: "Der Beruf von Grund auf gelernt. Als Diplom-Kaufmann, nicht als Quereinsteiger." },
+  { year: "2001", title: "SAYAN Immobilien in Köln", copy: "Seitdem begleiten wir Eigentümer in Köln beim Verkauf und bei der Vermietung." },
+  { year: "Heute", title: "Inhabergeführt. Über 500 Verkäufe.", copy: "Ein fester Ansprechpartner, ein Team vor Ort und Beratung auf Deutsch und Türkisch." },
+];
+
 const services = [
-  {
-    number: "01",
-    title: "Verkaufen",
-    copy: "Wir bewerten Ihre Immobilie, bereiten Exposé und Vermarktung vor, prüfen Interessenten und begleiten Sie bis zum Notartermin und zur Übergabe.",
-    href: "/leistung/immobilienverkauf/",
-    link: "Verkauf vorbereiten",
-    image: editorialImages.viewing,
-  },
-  {
-    number: "02",
-    title: "Vermieten",
-    copy: "Von den Fotos über Besichtigungen und Bonitätsprüfung bis zum Mietvertrag und zur Wohnungsübergabe kümmern wir uns um die Vermietung.",
-    href: "/leistung/immobilienvermietung/",
-    link: "Vermietung besprechen",
-    image: editorialImages.rental,
-  },
+  { title: "Verkaufen", copy: "Von der Bewertung bis zur Schlüsselübergabe. Ein Ansprechpartner, ein klarer Plan.", href: "/leistung/immobilienverkauf/", image: editorialImages.viewing },
+  { title: "Bewerten", copy: "Online als erste Orientierung oder persönlich vor Ort mit klarer Preisempfehlung.", href: "/leistung/wertermittlung/", image: editorialImages.advice },
+  { title: "Vermieten", copy: "Passende Mieter, geprüfte Unterlagen, ein sauberer Vertrag und eine ordentliche Übergabe.", href: "/leistung/immobilienvermietung/", image: editorialImages.rental },
+  { title: "Suchservice", copy: "Sie suchen in Köln? Legen Sie Ihr Suchprofil an, passende Angebote kommen direkt von uns.", href: "/suchservice/", image: editorialImages.documents },
 ];
 
 const process = [
-  ["01", "Besichtigen", "Wir sehen uns Ihre Immobilie an und besprechen, was Sie vorhaben."],
-  ["02", "Bewerten", "Wir prüfen Unterlagen, Lage und Markt und legen den Angebotspreis mit Ihnen fest."],
-  ["03", "Vermarkten", "Wir erstellen Fotos und Exposé, wählen die passenden Kanäle und organisieren Besichtigungen."],
-  ["04", "Abwickeln", "Wir prüfen Interessenten, führen Verhandlungen und begleiten Vertrag und Übergabe."],
+  ["01", "Besichtigen", "Wir sehen uns Ihre Immobilie an und hören zu, was Sie vorhaben."],
+  ["02", "Bewerten", "Lage, Zustand, Unterlagen und Markt. Daraus legen wir den Angebotspreis gemeinsam fest."],
+  ["03", "Vermarkten", "Fotos, Exposé, die richtigen Kanäle und unsere Suchprofile. Besichtigungen organisieren wir."],
+  ["04", "Abschließen", "Wir prüfen Interessenten, verhandeln und begleiten Sie bis zum Notar und zur Übergabe."],
 ];
 ---
 
 <BaseLayout
-  title="Immobilie verkaufen in Köln | SAYAN Immobilien"
-  description="Ihre Immobilie verkaufen in Köln: SAYAN Immobilien. Persönliche Beratung auf Deutsch und Türkisch, Erfahrung seit 1999, Bewertung und professionelle Immobilienfotografie."
+  title="Immobilienmakler Köln seit 1999 | SAYAN Immobilien"
+  description="SAYAN Immobilien Köln: Immobilienexpertise seit 1999, über 500 vermittelte Verkaufsobjekte. Bewertung, Verkauf und Vermietung, inhabergeführt, auf Deutsch und Türkisch."
 >
   <Header />
   <main id="main">
     <section class="home-hero">
-      <div class="container">
-        <div class="home-hero__media">
-          <img src="/images/haus-modern-klinker.webp" alt="" fetchpriority="high" />
-          <div class="home-hero__shade" aria-hidden="true"></div>
-          <div class="home-hero__copy" data-reveal>
-            <p class="eyebrow">Ihr Immobilienmakler in Köln</p>
-            <h1>Ihre Immobilie. <em>Unser persönlicher Einsatz.</em></h1>
-            <p class="home-hero__lead">
-              Ihr Verkauf beginnt mit einem guten Gespräch. Wir begleiten Sie persönlich auf Deutsch und Türkisch und bringen unsere Erfahrung und Marktkenntnis vor Ort ein.
+      <div class="home-hero__media" aria-hidden="true">
+        <!-- Platzhalter: wird durch das Header-Video ersetzt (poster = dieses Bild). -->
+        <img src="/images/footer-lichtzimmer-koeln.jpg" alt="" fetchpriority="high" data-parallax="0.12" />
+      </div>
+      <div class="home-hero__shade" aria-hidden="true"></div>
+      <div class="container home-hero__copy">
+        <p class="eyebrow" data-reveal>Immobilienmakler in Köln · seit 1999</p>
+        <h1 data-reveal style="--stagger:1">Ihre Immobilie verdient <em>mehr als einen Schätzwert.</em></h1>
+        <p class="home-hero__lead" data-reveal>
+          27 Jahre im Geschäft, gelernt und nicht quer eingestiegen. Wir bewerten persönlich, vermarkten mit System und bleiben bis zum Notartermin an Ihrer Seite.
+        </p>
+        <div class="home-hero__actions" data-reveal>
+          <a class="button" href="#bewertung" data-open-advice>Immobilie bewerten <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="button button--ghost" href="/immobilien/">Aktuelle Angebote</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="track-record" aria-label="Unsere Erfahrung in Zahlen">
+      <div class="container track-record__grid">
+        {trackRecord.map((item) => (
+          <div class="track-record__item">
+            <p class="track-record__value">
+              <span data-count={item.value} data-count-from={item.from} data-plain={item.plain ? "true" : undefined}>{item.plain ? item.value : item.value.toLocaleString("de-DE")}</span>{item.suffix}
             </p>
-            <div class="home-hero__actions">
-              <a class="button button--light" href="#online-bewertung" data-open-advice>Jetzt Immobilie bewerten</a>
-              <a class="button button--glass" href="/leistung/immobilienverkauf/">Immobilie verkaufen</a>
-            </div>
-            <p class="hero-experience"><strong>Seit 1999</strong><span>in der Immobilienbranche</span></p>
+            <p class="track-record__label">{item.label}</p>
           </div>
-        </div>
-      </div>
-      <div class="proof-line">
-        <div class="proof-line__track">
-          <div class="proof-line__group">
-            <span>Persönlicher Ansprechpartner</span>
-            <span>Fundierte Wertermittlung</span>
-            <span>Öffentliche oder diskrete Vermarktung</span>
-            <span>Köln & Region</span>
-            <span>Erfahrung seit 1999</span>
-            <span>Inhabergeführt</span>
-            <span>Verkauf & Vermietung</span>
-            <span>Verbindliche Beratung</span>
-          </div>
-          <div class="proof-line__group" aria-hidden="true">
-            <span>Persönlicher Ansprechpartner</span>
-            <span>Fundierte Wertermittlung</span>
-            <span>Öffentliche oder diskrete Vermarktung</span>
-            <span>Köln & Region</span>
-            <span>Erfahrung seit 1999</span>
-            <span>Inhabergeführt</span>
-            <span>Verkauf & Vermietung</span>
-            <span>Verbindliche Beratung</span>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
 
-    <section class="quick-access" aria-labelledby="quick-title">
+    <section class="section section--paper" id="bewertung">
       <div class="container">
-        <div class="quick-access__head"><h2 id="quick-title">Was möchten Sie tun?</h2><a class="text-link" href="/leistung/#all-services-title">Alle Leistungen ansehen</a></div>
-        <div class="quick-access__grid">
-          {[['immobilienverkauf','Immobilie verkaufen','Von der Bewertung bis zum Notartermin.'],['immobilienvermietung','Immobilie vermieten','Den passenden Mieter finden.'],['wertermittlung','Immobilie bewerten','Online oder persönlich vor Ort.'],['fotografie-und-expose','Immobilienfotografie','Bilder, die Ihre Immobilie zeigen.']].map(([slug,title,copy]) => <a href={slug === 'wertermittlung' ? '#online-bewertung' : `/leistung/${slug}/`} class="quick-access__card"><ServiceIcon name={slug}/><h3>{title}</h3><p>{copy}</p></a>)}
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--light valuation-section" id="online-bewertung">
-      <div class="container">
-        <SectionHeader eyebrow="Der erste Schritt zum Verkauf" title="Ihre Immobilie. Zwei Wege zur <em>Bewertung.</em>" lead="Starten Sie mit einer Online-Einschätzung oder vereinbaren Sie eine persönliche Bewertung vor Ort." />
+        <SectionHeader eyebrow="Der erste Schritt zum Verkauf" title="Was ist Ihre Immobilie <em>wirklich wert?</em>" lead="Schnell online oder gründlich vor Ort. Beides ist unverbindlich. Für einen Verkauf empfehlen wir den Termin, weil kein Rechner Ihren Grundriss, Ihre Lage und Ihren Zustand so sieht wie wir." />
         <ValuationOptions />
       </div>
     </section>
 
-    <section class="section section--paper photo-feature" id="immobilienfotografie">
-      <div class="container photo-feature__grid">
-        <a href="/leistung/fotografie-und-expose/" class="photo-feature__image" aria-label="Mehr über professionelle Immobilienfotografie"><img src="/images/altbau-wohnzimmer-fischgraet.webp" alt="Heller Altbau-Wohnraum mit Fischgrätparkett" loading="lazy" width="1200" height="800"/><span><ServiceIcon name="camera"/> Professionelle Immobilienfotografie</span></a>
-        <div class="photo-feature__copy"><p class="eyebrow">Der erste Eindruck entscheidet</p><h2>Gute Immobilien verdienen <em>gute Bilder.</em></h2><p>Professionelle Immobilienfotografie ist ein fester Teil unserer Vermarktung. Wir zeigen Räume, Licht und die Besonderheiten Ihres Objekts im Exposé und auf den Immobilienportalen.</p><ul><li>Aussagekräftige Fotos Ihrer Immobilie</li><li>Ein Exposé, das die richtigen Fragen beantwortet</li><li>Auf Wunsch mit Besichtigung in 360 Grad und Home Staging</li></ul><a class="button button--dark" href="/leistung/fotografie-und-expose/">Immobilienfotografie entdecken</a></div>
+    <section class="section section--white" id="unternehmen">
+      <div class="container career">
+        <div class="career__media zoom-media" data-reveal>
+          <EditorialPhoto image={editorialImages.company} sizes="(max-width: 900px) 100vw, 45vw" />
+          <p class="career__badge"><strong>Inhabergeführt</strong><span>seit 2001 in Köln</span></p>
+        </div>
+        <div class="career__copy">
+          <div data-reveal>
+            <p class="eyebrow">Unser Werdegang</p>
+            <h2>27 Jahre aufgebaut. <em>Nicht gekauft.</em></h2>
+            <p class="career__lead">Makler kann sich in Deutschland fast jeder nennen. Wir haben den Beruf gelernt, ein Unternehmen aufgebaut und über 500 Verkäufe begleitet. Diese Erfahrung steckt in jeder Bewertung.</p>
+          </div>
+          <ol class="timeline" data-reveal-group>
+            {career.map((step, i) => (
+              <li data-reveal style={`--stagger:${i}`}>
+                <span class="timeline__year">{step.year}</span>
+                <div><h3>{step.title}</h3><p>{step.copy}</p></div>
+              </li>
+            ))}
+          </ol>
+          <a class="text-link" href="/kontakt/" data-reveal>Persönlich kennenlernen <span aria-hidden="true">→</span></a>
+        </div>
       </div>
     </section>
 
-    <section class="section section--paper" id="objekte-vorschau">
+    <section class="section section--paper" id="leistungen">
       <div class="container">
-        <SectionHeader eyebrow="Immobilien" title="Ein Blick auf unsere <em>Angebote.</em>" lead="Unsere aktuellen Kauf- und Mietangebote. Weitere Informationen, Fotos und Objektdaten finden Sie im jeweiligen Exposé." />
+        <SectionHeader eyebrow="Leistungen" title="Vier Dinge, die wir <em>richtig gut</em> können." linkLabel="Alle Leistungen" linkHref="/leistung/" />
+        <div class="services" data-reveal-group>
+          {services.map((service, i) => (
+            <a class="service" href={service.href} data-reveal style={`--stagger:${i}`}>
+              <div class="service__media"><EditorialPhoto image={service.image} sizes="(max-width: 767px) 100vw, (max-width: 1100px) 50vw, 25vw" /></div>
+              <div class="service__body">
+                <span class="service__num">0{i + 1}</span>
+                <h3>{service.title}</h3>
+                <p>{service.copy}</p>
+                <span class="service__more">Mehr erfahren <span aria-hidden="true">→</span></span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--white" id="objekte-vorschau">
+      <div class="container">
+        <SectionHeader eyebrow="Immobilien" title="Aktuell bei uns <em>im Angebot.</em>" linkLabel="Alle Angebote" linkHref="/immobilien/" />
         <div class="property-grid" data-reveal-group>
           {featuredProperties.map((property, index) => (
             <div data-reveal style={`--stagger:${index}`}>
@@ -127,81 +143,38 @@ const process = [
             </div>
           ))}
         </div>
-        {featuredProperties.length === 0 && <p role="status">{catalog.available ? "Zurzeit sind keine öffentlichen Immobilienangebote verfügbar. Sprechen Sie uns gern persönlich an." : "Unsere Angebote können gerade nicht geladen werden. Bitte versuchen Sie es später noch einmal oder kontaktieren Sie uns."}</p>}
-        <div class="property-preview__cta">
-          <a class="button" href="/immobilien/">Alle ansehen</a>
-        </div>
+        {featuredProperties.length === 0 && <p role="status" class="empty-note">{catalog.available ? "Zurzeit sind keine öffentlichen Angebote online. Viele Objekte vermitteln wir diskret über unsere Suchprofile. Sprechen Sie uns an." : "Unsere Angebote können gerade nicht geladen werden. Bitte versuchen Sie es später noch einmal oder rufen Sie uns an."}</p>}
       </div>
     </section>
 
-    <section class="section section--brand" id="unternehmen">
-      <div class="container owner-grid">
-        <div class="owner-mark" data-reveal>
-          <EditorialPhoto image={editorialImages.company} />
-        </div>
-        <div class="owner-copy" data-reveal>
-          <p class="eyebrow">Persönliche Immobilienbegleitung</p>
-          <h2>Wir begleiten Ihren Verkauf <em>in Köln.</em></h2>
-          <p>Wir sind seit 1999 in der Immobilienbranche tätig. Seit 2001 begleiten wir Eigentümer in Köln beim Verkauf und bei der Vermietung. Sie haben einen festen Ansprechpartner und ein Team vor Ort.</p>
-          <p>Wir beraten auf Deutsch und Türkisch. Von der ersten Werteinschätzung bis zur Übergabe erklären wir jeden Schritt verständlich und halten Sie persönlich auf dem Laufenden.</p>
-          <a class="text-link" href="/kontakt/">Nehmen Sie Kontakt mit uns auf</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--paper" id="leistungen">
+    <section class="section section--blue" id="ablauf">
       <div class="container">
-        <SectionHeader eyebrow="Für Eigentümer" title="Verkauf und Vermietung aus <em>einer Hand.</em>" lead="Von der Preisfindung über Fotos, Exposé und Besichtigungen bis zum Vertrag übernehmen wir die Arbeit, die eine Vermittlung mit sich bringt." />
-        <div class="service-grid" data-reveal-group>
-          {services.map((service, i) => (
-            <article class="service-card" data-reveal style={`--stagger:${i}`}>
-              <div class="service-card__media"><EditorialPhoto image={service.image} sizes="(max-width: 900px) 100vw, 45vw" /><span>{service.number}</span></div>
-              <h3>{service.title}.</h3><p>{service.copy}</p>
-              <a class="text-link" href={service.href}>{service.link}</a>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--dark-alt" id="ablauf">
-      <div class="container">
-        <SectionHeader eyebrow="So arbeiten wir" title="Vom ersten Termin bis zur <em>Übergabe.</em>" lead="Wir stimmen den Vermarktungsplan mit Ihnen ab und halten Sie über Anfragen und Besichtigungen auf dem Laufenden." />
-        <div class="process-grid" data-reveal-group>
+        <SectionHeader eyebrow="So arbeiten wir" title="Vom ersten Termin bis zur <em>Übergabe.</em>" lead="Vier Schritte, ein Ansprechpartner. Sie wissen jederzeit, wo Ihr Verkauf steht." />
+        <div class="process" data-reveal-group>
           {process.map(([number, title, copy], i) => (
-            <article data-reveal style={`--stagger:${i}`}><span>{number}</span><h3>{title}.</h3><p>{copy}</p></article>
+            <article data-reveal style={`--stagger:${i}`}><span>{number}</span><h3>{title}</h3><p>{copy}</p></article>
           ))}
         </div>
       </div>
     </section>
 
-    <section class="section section--dark" id="diskretion">
-      <div class="container discretion-grid">
-        <div class="section-photo" data-reveal><EditorialPhoto image={editorialImages.advice} sizes="(max-width: 767px) 100vw, 42vw" /></div>
+    <section class="section section--paper" id="diskretion">
+      <div class="container discretion">
+        <div class="discretion__media zoom-media" data-reveal><EditorialPhoto image={editorialImages.advice} sizes="(max-width: 767px) 100vw, 45vw" /></div>
         <div data-reveal>
           <p class="eyebrow">Diskrete Vermarktung</p>
           <h2>Nicht jede Immobilie braucht <em>Öffentlichkeit.</em></h2>
-          <p>Sie möchten Ihre Verkaufsabsicht nicht öffentlich machen? Dann bieten wir Ihre Immobilie ausgewählten Interessenten aus unserer Kartei an, ohne Anzeigen und öffentliche Bilder. Welche Informationen wir weitergeben, stimmen wir mit Ihnen ab.</p>
-          <a class="button" href="/kontakt/">Diskreten Verkauf besprechen</a>
+          <p class="discretion__copy">Kein Inserat, keine Fotos im Netz, keine Nachbarn, die fragen. Wir bieten Ihre Immobilie gezielt Interessenten aus über 10.000 Suchprofilen an. Was wir weitergeben, entscheiden Sie.</p>
+          <a class="button button--blue" href="/kontakt/">Diskreten Verkauf besprechen <span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
 
-    <section class="section section--paper">
-      <div class="container">
-        <SectionHeader eyebrow="Ihre Immobilie" title="Auch für besondere <em>Aufgaben.</em>" />
-        <div class="situation-grid">
-          {["Wohnimmobilien", "Gewerbeimmobilien", "Grundstücke", "Kapitalanlagen", "Bauträgerprojekte", "Immobilienportfolios"].map((item) => <span data-reveal>{item}</span>)}
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--light home-faq" id="faq" aria-labelledby="faq-title">
+    <section class="section section--white home-faq" id="faq" aria-labelledby="faq-title">
       <div class="container home-faq__layout">
-        <div class="home-faq__intro">
+        <div class="home-faq__intro" data-reveal>
           <p class="eyebrow">Häufige Fragen</p>
-          <h2 id="faq-title">Gut zu wissen, bevor es losgeht.</h2>
-          <p>Antworten auf Fragen, die uns Eigentümer oft stellen.</p>
+          <h2 id="faq-title">Gut zu wissen, <em>bevor es losgeht.</em></h2>
         </div>
         <div class="home-faq__questions">
           {faqQuestions.map(([question, answer]) => (
@@ -210,18 +183,18 @@ const process = [
               <p>{answer}</p>
             </details>
           ))}
-          <a class="text-link" href="/kontakt/">Weitere Frage? Sprechen Sie mit uns</a>
+          <a class="text-link" href="/kontakt/">Ihre Frage ist nicht dabei? Rufen Sie uns an <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
 
     <section class="contact-cta section--brand" id="kontakt">
       <div class="container contact-cta__grid">
-        <div data-reveal><p class="eyebrow">Sprechen Sie mit uns</p><h2>Was haben Sie mit Ihrer Immobilie <em>vor?</em></h2><p>Rufen Sie uns an oder schreiben Sie uns. Wir freuen uns auf Sie und Ihre Immobilie.</p></div>
+        <div data-reveal><p class="eyebrow">Sprechen Sie mit uns</p><h2>Was haben Sie mit Ihrer Immobilie <em>vor?</em></h2><p>Ein Anruf reicht. Wir hören zu, schätzen ehrlich ein und sagen Ihnen, was sinnvoll ist. Auf Deutsch oder Türkisch.</p></div>
         <div class="contact-cta__links" data-reveal>
-          <a href="tel:+4922116892660"><small>Telefon</small><strong>+49 221 168 926 60</strong><span>Direkt anrufen</span></a>
-          <a href="mailto:info@sayan-immo.de"><small>Email</small><strong>info@sayan-immo.de</strong><span>Nachricht schreiben</span></a>
-          <span><small>Adresse</small><strong>Sternengasse 3</strong><span>50676 Köln</span></span>
+          <a href="tel:+4922116892660"><small>Telefon</small><strong>+49 221 168 926 60</strong></a>
+          <a href="mailto:info@sayan-immo.de"><small>E-Mail</small><strong>info@sayan-immo.de</strong></a>
+          <span><small>Büro</small><strong>Sternengasse 3, 50676 Köln</strong></span>
         </div>
       </div>
     </section>
@@ -230,129 +203,109 @@ const process = [
 </BaseLayout>
 
 <style>
-  :global(.site-header .nav-wrap) { background: color-mix(in srgb, var(--n-bg) 96%, transparent); border-color: var(--n-border); backdrop-filter: blur(12px); }
+  .section--white { background: #fff; }
 
-  .home-hero { padding-top: 5.6rem; overflow: hidden; background: var(--n-bg); }
-  .home-hero__media { position: relative; min-height: clamp(28rem, 38vw, 35rem); display: flex; align-items: flex-end; overflow: hidden; border-radius: clamp(18px, 2vw, 28px); background: var(--brand-900); }
-  .home-hero__media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .home-hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgb(20 24 25 / .82) 0%, rgb(20 24 25 / .58) 42%, rgb(20 24 25 / .08) 78%); }
-  .home-hero__copy { position: relative; z-index: 1; width: min(100%, 42rem); padding: clamp(1.5rem, 3vw, 3rem); color: #fff; }
-  .home-hero__copy .eyebrow { padding: 0; border: 0; background: transparent; color: #fff; }
-  .home-hero__copy h1 { max-width: 15ch; font-size: clamp(2.4rem, 4.3vw, 4rem); line-height: 1.03; font-weight: 500; letter-spacing: -.035em; }
-  .home-hero__copy em { color: var(--accent); font-style: normal; }
-  .home-hero__lead { max-width: 47ch; margin-top: 1.25rem; font-size: clamp(.98rem, 1.2vw, 1.08rem); color: rgb(255 255 255 / .82); }
-  .home-hero__actions, .inline-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-top: 2rem; }
-  .button--light { border-color: var(--accent); background: var(--accent); color: var(--n-text); }
-  .button--glass { border-color: rgb(255 255 255 / .45); background: rgb(255 255 255 / .08); color: #fff; backdrop-filter: blur(8px); }
+  /* Hero: volle Breite, später Video. */
+  .home-hero { position: relative; display: flex; align-items: flex-end; min-height: min(100svh, 56rem); padding: 9rem 0 clamp(3rem, 7vw, 6rem); overflow: hidden; background: var(--ink); color: #fff; }
+  .home-hero__media { position: absolute; inset: 0; overflow: hidden; }
+  .home-hero__media img, .home-hero__media :global(video) { position: absolute; inset: -6% 0; width: 100%; height: 112%; object-fit: cover; transform: scale(1.12); animation: hero-zoom 2.4s var(--ease-out-expo) both; }
+  @keyframes hero-zoom { from { opacity: 0; scale: 1.08; } to { opacity: 1; scale: 1; } }
+  .home-hero__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(28 33 35 / .35) 0%, rgb(28 33 35 / .2) 40%, rgb(28 33 35 / .78) 100%), linear-gradient(90deg, rgb(28 33 35 / .55) 0%, transparent 70%); }
+  .home-hero__copy { position: relative; z-index: 1; }
+  .home-hero .eyebrow { color: var(--accent); }
+  .home-hero h1 { max-width: 15ch; color: #fff; }
+  .home-hero h1 em { background-size: 100% .09em; background-position: 0 96%; }
+  .js .home-hero h1:not(.is-visible) em { background-size: 0% .09em; }
+  .home-hero__lead { max-width: 46ch; margin-top: 1.5rem; color: rgb(255 255 255 / .88); font-size: clamp(1.125rem, 1.4vw, 1.3rem); }
+  .home-hero__actions { display: flex; flex-wrap: wrap; gap: .85rem; margin-top: 2.25rem; }
+  .button--ghost { border-color: rgb(255 255 255 / .55); background: rgb(255 255 255 / .06); color: #fff; backdrop-filter: blur(6px); }
+  .button--ghost:hover { background: rgb(255 255 255 / .16); filter: none; }
 
-  .valuation-section { border-bottom: 1px solid var(--n-border); }
-  .proof-line { margin-top: 1.25rem; overflow: hidden; border-top: 1px solid var(--accent); border-bottom: 1px solid var(--accent); background: var(--accent); }
-  .proof-line__track { display: flex; width: max-content; animation: proof-scroll 36s linear infinite; }
-  .proof-line:hover .proof-line__track { animation-play-state: paused; }
-  .proof-line__group { display: flex; flex-shrink: 0; }
-  .proof-line span { display: flex; align-items: center; justify-content: center; width: 16rem; padding: .9rem 1rem; border-left: 1px solid color-mix(in srgb, #fff 35%, transparent); font-size: .75rem; font-weight: 600; color: var(--accent-ink); text-align: center; white-space: nowrap; }
-  @keyframes proof-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  /* Track-Record-Leiste in Limette. */
+  .track-record { background: var(--accent); color: var(--accent-ink); }
+  .track-record__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .track-record__item { padding: clamp(1.75rem, 3.5vw, 2.75rem) clamp(1rem, 2vw, 2rem); border-left: 1px solid rgb(51 59 62 / .18); }
+  .track-record__item:first-child { border-left: 0; padding-left: 0; }
+  .track-record__value { font: 300 clamp(2.6rem, 4.6vw, 4.25rem)/1 var(--font-display); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+  .track-record__label { margin-top: .6rem; font-size: 1rem; font-weight: 600; }
 
-  .owner-grid, .valuation-grid, .buyer-grid, .discretion-grid, .contact-cta__grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(1.5rem, 3vw, 2.75rem); align-items: center; }
-  .owner-grid { grid-template-columns: 1fr 1fr; }
-  .section-photo { position: relative; min-height: 19rem; border-radius: var(--radius-media); overflow: hidden; background: var(--n-surface); }
-  .section-photo :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  /* Werdegang */
+  .career { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 5vw, 5.5rem); align-items: start; }
+  .career__media { position: sticky; top: 7rem; aspect-ratio: 4 / 5; border-radius: 20px; }
+  .career__media :global(img) { height: 100%; }
+  .career__badge { position: absolute; left: 1.25rem; bottom: 1.25rem; display: grid; padding: 1rem 1.25rem; border-radius: 12px; background: var(--accent); color: var(--accent-ink); }
+  .career__badge strong { font: 400 1.5rem/1.1 var(--font-display); }
+  .career__badge span { font-size: .95rem; font-weight: 500; }
+  .career__lead { max-width: 52ch; margin-top: 1.5rem; color: var(--n-text-secondary); font-size: 1.2rem; }
+  .timeline { display: grid; margin: 2.5rem 0; padding: 0; list-style: none; }
+  .timeline li { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1.5rem; padding: 1.75rem 0; border-top: 1px solid var(--n-border); }
+  .timeline__year { color: var(--blue); font: 300 2.25rem/1 var(--font-display); }
+  .timeline h3 { margin-bottom: .4rem; }
+  .timeline p { color: var(--n-text-secondary); }
 
-  .owner-mark { position: relative; aspect-ratio: 16 / 10; border-radius: var(--radius-media); overflow: hidden; background: var(--brand-900); }
-  .owner-mark :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .owner-copy p:not(.eyebrow) { max-width: 60ch; margin-top: 1.2rem; color: var(--n-text-secondary); }
-  .owner-copy .text-link { margin-top: 1.8rem; }
+  /* Leistungen: vier klare Karten. */
+  .services { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; }
+  .service { display: flex; flex-direction: column; overflow: hidden; border-radius: 18px; background: #fff; transition: transform 500ms var(--ease-out-expo), box-shadow 500ms var(--ease-out-expo); }
+  .service:hover { transform: translateY(-6px); box-shadow: 0 30px 60px -32px rgb(51 59 62 / .4); }
+  .service__media { aspect-ratio: 4 / 3; overflow: hidden; }
+  .service__media :global(img) { transition: transform 1200ms var(--ease-out-expo); }
+  .service:hover .service__media :global(img) { transform: scale(1.06); }
+  .service__body { display: flex; flex: 1; flex-direction: column; padding: 1.5rem 1.5rem 1.75rem; }
+  .service__num { color: var(--blue); font-size: .95rem; font-weight: 600; }
+  .service h3 { margin: .5rem 0 .75rem; font-size: 1.9rem; font-weight: 300; }
+  .service p { color: var(--n-text-secondary); font-size: 1.0625rem; }
+  .service__more { margin-top: auto; padding-top: 1.25rem; color: var(--blue); font-weight: 600; }
 
-  .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
-  .service-card { display: grid; align-content: start; padding: 1.25rem; border-radius: var(--radius-card); background: var(--n-surface); border: 1px solid transparent; transition: background var(--motion-hover) ease, border-color var(--motion-hover) ease; }
-  .service-card:hover { background: #fff; border-color: var(--n-border); }
-  .service-card__media { position: relative; aspect-ratio: 16 / 9; margin-bottom: 1rem; border-radius: var(--radius-field); overflow: hidden; }
-  .service-card__media :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 700ms var(--ease-out-expo); }
-  .service-card:hover .service-card__media :global(img) { transform: scale(1.04); }
-  .service-card__media span { position: absolute; left: 1rem; bottom: 1rem; display: grid; place-items: center; width: 3.25rem; height: 3.25rem; border-radius: var(--radius-pill); background: var(--accent); color: var(--accent-ink); font-size: 1rem; font-weight: 600; }
-  .service-card h3 { margin: 0 0 .65rem; text-transform: none; }
-  .service-card p { color: var(--n-text-secondary); }
-  .service-card .text-link { margin-top: 1rem; padding-top: 0; }
+  .empty-note { max-width: 60ch; color: var(--n-text-secondary); }
 
-  .process-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
-  .process-grid article { padding: 1.75rem 0; border-top: 1px solid color-mix(in srgb, #fff 18%, transparent); }
-  .process-grid span { color: var(--accent); font-size: .95rem; font-weight: 600; }
-  .process-grid h3 { margin: 1.75rem 0 .65rem; text-transform: none; color: #fff; }
-  .process-grid p, .discretion-grid p { color: color-mix(in srgb, #fff 70%, transparent); }
+  /* Ablauf in Blau */
+  .process { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1rem, 2.5vw, 2.5rem); }
+  .process article { padding-top: 1.75rem; border-top: 1px solid rgb(255 255 255 / .3); }
+  .process span { color: var(--accent); font: 300 2.5rem/1 var(--font-display); }
+  .process h3 { margin: 1.25rem 0 .6rem; color: #fff; }
+  .process p { color: rgb(255 255 255 / .85); }
+  #ablauf :global(.section-lead) { color: rgb(255 255 255 / .85); }
 
-  .discretion-grid .button { margin-top: 2rem; }
+  .discretion { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .discretion__media { aspect-ratio: 5 / 4; border-radius: 20px; }
+  .discretion__copy { max-width: 50ch; margin: 1.5rem 0 2.25rem; color: var(--n-text-secondary); font-size: 1.2rem; }
 
-  .situation-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-  .situation-grid span { display: flex; align-items: center; min-height: 4.5rem; padding: 1.25rem; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; font: 500 1rem/1.25 var(--font-display); }
-
-  .property-preview__cta { display: flex; justify-content: center; margin-top: 1.5rem; }
-  .home-faq { scroll-margin-top: 6rem; }
-  .home-faq__layout { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(1.5rem, 3vw, 2.75rem); align-items: start; }
-  .home-faq__intro p:last-child { margin-top: 1rem; color: var(--n-text-secondary); }
+  .home-faq__layout { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: clamp(2rem, 4vw, 4rem); align-items: start; }
   .home-faq__item { border-top: 1px solid var(--n-border); }
-  .home-faq__item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.3rem 0; cursor: pointer; font-size: clamp(1rem, 1.3vw, 1.15rem); font-weight: 600; list-style: none; }
+  .home-faq__item summary { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.5rem 0; cursor: pointer; font: 400 clamp(1.3rem, 1.6vw, 1.5rem)/1.3 var(--font-display); list-style: none; }
   .home-faq__item summary::-webkit-details-marker { display: none; }
-  .home-faq__item summary span { display: grid; flex: 0 0 2.3rem; place-items: center; width: 2.3rem; height: 2.3rem; border: 1px solid var(--n-border); border-radius: 50%; font-size: 1.35rem; font-weight: 400; }
-  .home-faq__item[open] summary span { transform: rotate(45deg); }
-  .home-faq__item > p { max-width: 65ch; padding: 0 3rem 1.5rem 0; color: var(--n-text-secondary); }
-  .home-faq__questions > .text-link { margin-top: 1.5rem; }
-  .contact-cta { padding-block: var(--section-space); }
-  .contact-cta__grid > div > p:not(.eyebrow) { max-width: 50ch; margin-top: 1.2rem; color: var(--accent-ink); }
-  .contact-cta__links { display: grid; }
-  .contact-cta__links > a, .contact-cta__links > span { display: grid; grid-template-columns: 4rem minmax(0, 1fr); gap: .75rem; align-items: center; padding: 1.4rem 0; border-top: 1px solid color-mix(in srgb, var(--accent-ink) 24%, transparent); }
-  .contact-cta__links > a > span, .contact-cta__links > span > span { grid-column: 2; }
-  @media (max-width: 767px) { .contact-cta__links > span > span { grid-column: 1; } }
-  .contact-cta__links strong { overflow-wrap: anywhere; }
-  .contact-cta__links small, .contact-cta__links span span { font-size: .8rem; color: var(--accent-ink); }
-  .contact-cta__links > a > span { font-size: .85rem; font-weight: 600; }
+  .home-faq__item summary span { display: grid; flex: 0 0 2.6rem; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 50%; background: var(--n-bg); font: 400 1.4rem/1 var(--font-body); transition: transform 300ms var(--ease-out-expo), background 300ms ease; }
+  .home-faq__item[open] summary span { transform: rotate(45deg); background: var(--accent); }
+  .home-faq__item > p { max-width: 62ch; padding: 0 3rem 1.75rem 0; color: var(--n-text-secondary); }
+  .home-faq__questions > .text-link { margin-top: 2rem; }
 
+  .contact-cta { padding-block: var(--section-space); }
+  .contact-cta__grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .contact-cta__grid > div > p:not(.eyebrow) { max-width: 46ch; margin-top: 1.5rem; font-size: 1.2rem; }
+  .contact-cta__links { display: grid; }
+  .contact-cta__links > a, .contact-cta__links > span { display: grid; gap: .3rem; padding: 1.4rem 0; border-top: 1px solid rgb(51 59 62 / .22); transition: padding 300ms var(--ease-out-expo); }
+  .contact-cta__links > a:hover { padding-left: .5rem; }
+  .contact-cta__links small { font-size: .95rem; font-weight: 500; }
+  .contact-cta__links strong { font: 400 clamp(1.5rem, 2.2vw, 2rem)/1.2 var(--font-display); overflow-wrap: anywhere; }
+
+  @media (max-width: 1100px) {
+    .services { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .process { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
   @media (max-width: 900px) {
-    .process-grid { grid-template-columns: 1fr 1fr; }
-    .service-grid { grid-template-columns: 1fr 1fr; }
-    .situation-grid { grid-template-columns: 1fr 1fr; }
+    .track-record__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .track-record__item:nth-child(3) { border-left: 0; padding-left: 0; }
+    .track-record__item:nth-child(n+3) { border-top: 1px solid rgb(51 59 62 / .18); }
+    .career, .discretion, .home-faq__layout, .contact-cta__grid { grid-template-columns: 1fr; }
+    .career__media { position: relative; top: 0; aspect-ratio: 4 / 3; }
   }
   @media (max-width: 767px) {
-    .owner-grid, .valuation-grid, .buyer-grid, .discretion-grid, .contact-cta__grid, .home-faq__layout { grid-template-columns: 1fr; }
-    .home-hero { padding-top: 5rem; }
-    .home-hero__media { min-height: 30rem; }
-    .home-hero__shade { background: linear-gradient(0deg, rgb(20 24 25 / .86) 0%, rgb(20 24 25 / .48) 68%, rgb(20 24 25 / .12) 100%); }
-    .home-hero__copy { padding: 1.5rem; }
-    .home-hero__copy h1 { max-width: 16ch; font-size: clamp(2rem, 8.4vw, 2.8rem); overflow-wrap: normal; }
-    .home-hero__actions { align-items: stretch; }
-    .home-hero__actions .button { flex: 1 1 auto; }
-    .owner-mark { aspect-ratio: 3 / 2; }
-    .service-grid { grid-template-columns: 1fr; }
-    .process-grid { grid-template-columns: 1fr; }
-    .situation-grid { grid-template-columns: 1fr 1fr; }
-    .proof-line { margin-top: .75rem; }
-    .proof-line span { width: 12.5rem; padding-block: .75rem; }
-    .contact-cta__links > a, .contact-cta__links > span { grid-template-columns: 1fr; }
-    .contact-cta__links > a > span { display: none; }
+    .home-hero { min-height: 92svh; padding-top: 7rem; }
+    .home-hero__actions .button { flex: 1 1 100%; }
+    .track-record__item { padding-block: 1.5rem; }
+    .services, .process { grid-template-columns: 1fr; }
+    .timeline li { grid-template-columns: 1fr; gap: .5rem; }
+    .home-faq__item > p { padding-right: 0; }
   }
-  .hero-experience { display: flex; align-items: center; gap: .75rem; width: fit-content; margin-top: 1.5rem; padding: .65rem .85rem; border-left: 3px solid var(--accent); background: rgb(20 24 25 / .55); animation: experience-in 350ms ease 2s both; }
-  .hero-experience strong { color: var(--accent); font-size: 1.4rem; white-space: nowrap; }
-  .hero-experience span { max-width: 15ch; font-size: .8rem; line-height: 1.25; }
-  @keyframes experience-in { from { opacity: 0; transform: translateY(.5rem); } to { opacity: 1; transform: none; } }
-  .quick-access { padding-block: 1.5rem; background: var(--paper); }
-  .quick-access__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
-  .quick-access__head h2 { text-transform: none; font-size: 1.2rem; }
-  .quick-access__grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: .85rem; }
-  .quick-access__card { position: relative; display: grid; align-content: start; gap: .65rem; padding: 1.25rem; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: var(--paper); }
-  .quick-access__card:hover { border-color: var(--ink); background: var(--brand-100); }
-  .quick-access__card :global(svg) { color: var(--ink); }
-  .quick-access__card h3 { font-size: 1rem; }
-  .quick-access__card p { margin: 0; color: var(--ink-muted); font-size: .8rem; }
-  .quick-access__card > span { position: absolute; top: 1rem; right: 1rem; font-size: 1.2rem; }
-  .photo-feature__grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem,3vw,2.75rem); align-items: center; }
-  .photo-feature__image { position: relative; display: block; aspect-ratio: 16/11; overflow: hidden; border-radius: var(--radius-media); }
-  .photo-feature__image img { width: 100%; height: 100%; object-fit: cover; }
-  .photo-feature__image > span { position: absolute; inset: auto 1rem 1rem; display: flex; align-items: center; gap: .65rem; padding: .85rem; border-radius: var(--radius-field); background: var(--brand-900); color: white; font-size: .8rem; }
-  .photo-feature__copy > p:not(.eyebrow) { margin-top: 1rem; color: var(--ink-muted); }
-  .photo-feature__copy ul { display: grid; gap: .4rem; margin: 1rem 0 1.25rem; padding-left: 1.2rem; font-size: .9rem; }
-  @media (max-width: 900px) { .quick-access__grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
-  @media (max-width: 767px) { .photo-feature__grid { grid-template-columns: 1fr; } .quick-access__head { align-items: start; flex-direction: column; gap: .5rem; } .quick-access__card { padding: 1rem; } .hero-experience { margin-top: 1rem; } }
-  @media (prefers-reduced-motion: reduce) { .hero-experience { animation: none; } .proof-line__track { animation: none; } }
-  .quick-access { background: var(--n-bg); }
-  .proof-line { margin-top: 1.5rem; border-color: var(--n-border); background: var(--brand-100); }
-  .proof-line span { border-color: var(--n-border); font-weight: 500; }
+  @media (prefers-reduced-motion: reduce) { .home-hero__media img { animation: none; } }
 </style>
