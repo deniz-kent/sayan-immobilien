@@ -29,11 +29,24 @@ const career = [
   { year: "Heute", title: "Inhabergeführt. Über 500 Verkäufe.", copy: "Ein fester Ansprechpartner, ein Team vor Ort und Beratung auf Deutsch und Türkisch." },
 ];
 
+const photo = (src: string, alt: string, position = "50% 50%") => ({ src, srcSet: `${src} 1200w`, alt, position });
+
 const services = [
-  { title: "Verkaufen", copy: "Von der Bewertung bis zur Schlüsselübergabe. Ein Ansprechpartner, ein klarer Plan.", href: "/leistung/immobilienverkauf/", image: editorialImages.viewing },
+  { title: "Verkaufen", copy: "Von der Bewertung bis zur Schlüsselübergabe. Ein Ansprechpartner, ein klarer Plan.", href: "/leistung/immobilienverkauf/", image: photo("/images/haus-modern-klinker.webp", "Modernes Wohnhaus mit Klinkerfassade", "50% 60%") },
   { title: "Bewerten", copy: "Online als erste Orientierung oder persönlich vor Ort mit klarer Preisempfehlung.", href: "/leistung/wertermittlung/", image: editorialImages.advice },
-  { title: "Vermieten", copy: "Passende Mieter, geprüfte Unterlagen, ein sauberer Vertrag und eine ordentliche Übergabe.", href: "/leistung/immobilienvermietung/", image: editorialImages.rental },
-  { title: "Suchservice", copy: "Sie suchen in Köln? Legen Sie Ihr Suchprofil an, passende Angebote kommen direkt von uns.", href: "/suchservice/", image: editorialImages.documents },
+  { title: "Vermieten", copy: "Passende Mieter, geprüfte Unterlagen, ein sauberer Vertrag und eine ordentliche Übergabe.", href: "/leistung/immobilienvermietung/", image: photo("/images/altbau-zimmer-leer.webp", "Heller, leerer Altbauraum mit Fischgrätparkett") },
+  { title: "Suchservice", copy: "Sie suchen in Köln? Legen Sie Ihr Suchprofil an, passende Angebote kommen direkt von uns.", href: "/suchservice/", image: photo("/images/wohnzimmer-modern-domblick.webp", "Modernes Wohnzimmer mit Blick auf den Kölner Dom", "50% 55%") },
+];
+
+// Bildstreifen: Objekt- und Stadtfotos, läuft langsam durch.
+const gallery = [
+  photo("/images/altbau-fassade-stuck.webp", "Altbaufassade mit Stuck und Erkern"),
+  photo("/images/altbau-wohnzimmer-fischgraet.webp", "Altbau-Wohnzimmer mit Fischgrätparkett"),
+  photo("/images/strasse-altbau-koeln.webp", "Altbau-Straße in Köln"),
+  photo("/images/wohnzimmer-modern-domblick.webp", "Wohnzimmer mit Domblick"),
+  photo("/images/fassade-balkone-klinker.webp", "Klinkerfassade mit Balkonen"),
+  photo("/images/altbau-zimmer-leer.webp", "Leerer Altbauraum"),
+  photo("/images/haus-modern-klinker.webp", "Modernes Haus mit Klinker"),
 ];
 
 const process = [
@@ -133,7 +146,24 @@ const process = [
       </div>
     </section>
 
-    <section class="section section--white" id="objekte-vorschau">
+
+    <section class="photo-strip" aria-label="Eindrücke aus Köln">
+      <div class="photo-strip__head container" data-reveal>
+        <p class="eyebrow">Unser Markt</p>
+        <h2>Köln. Vom Altbau bis zum <em>Neubau.</em></h2>
+      </div>
+      <div class="photo-strip__track">
+        {[0, 1].map((copy) => (
+          <div class="photo-strip__group" aria-hidden={copy === 1 ? "true" : undefined}>
+            {gallery.map((img) => (
+              <figure><img src={img.src} alt={copy === 1 ? "" : img.alt} loading="lazy" decoding="async" /></figure>
+            ))}
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="section section--paper" id="objekte-vorschau">
       <div class="container">
         <SectionHeader eyebrow="Immobilien" title="Aktuell bei uns <em>im Angebot.</em>" linkLabel="Alle Angebote" linkHref="/immobilien/" />
         <div class="property-grid" data-reveal-group>
@@ -255,6 +285,20 @@ const process = [
   .service h3 { margin: .5rem 0 .75rem; font-size: 1.65rem; }
   .service p { color: var(--n-text-secondary); font-size: 1.0625rem; }
   .service__more { margin-top: auto; padding-top: 1.25rem; color: var(--blue); font-weight: 600; }
+
+
+  /* Bildstreifen */
+  .photo-strip { padding: var(--section-space) 0; overflow: hidden; background: #fff; }
+  .photo-strip__head { margin-bottom: clamp(2rem, 3.5vw, 3rem); }
+  .photo-strip__track { display: flex; width: max-content; animation: strip 70s linear infinite; }
+  .photo-strip:hover .photo-strip__track { animation-play-state: paused; }
+  .photo-strip__group { display: flex; gap: 1.25rem; padding-right: 1.25rem; }
+  .photo-strip figure { flex: 0 0 auto; width: clamp(15rem, 24vw, 22rem); aspect-ratio: 4 / 5; margin: 0; overflow: hidden; border-radius: 18px; }
+  .photo-strip figure:nth-child(even) { aspect-ratio: 1 / 1; align-self: center; }
+  .photo-strip img { width: 100%; height: 100%; object-fit: cover; transition: transform 1200ms var(--ease-out-expo); }
+  .photo-strip figure:hover img { transform: scale(1.05); }
+  @keyframes strip { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .photo-strip__track { animation: none; } }
 
   .empty-note { max-width: 60ch; color: var(--n-text-secondary); }
 
