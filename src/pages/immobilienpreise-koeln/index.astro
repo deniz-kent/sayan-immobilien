@@ -86,7 +86,7 @@ const top = [...lagen].sort((a, b) => Math.max(b.wohnung?.wert ?? 0, b.haus?.wer
 
         <div class="table-tools" data-reveal>
           <input type="search" placeholder="Stadtteil oder Lage suchen …" aria-label="Stadtteil suchen" data-search />
-          <p data-count>{lagen.length} Lagen · Klick auf eine Spalte sortiert</p>
+          <p data-row-count>{lagen.length} Lagen · Klick auf eine Spalte sortiert</p>
         </div>
 
         <div class="price-table" data-reveal>
@@ -263,7 +263,7 @@ const top = [...lagen].sort((a, b) => Math.max(b.wohnung?.wert ?? 0, b.haus?.wer
 <script>
   const tbody = document.querySelector<HTMLTableSectionElement>(".price-table tbody");
   const search = document.querySelector<HTMLInputElement>("[data-search]");
-  const count = document.querySelector<HTMLElement>("[data-count]");
+  const count = document.querySelector<HTMLElement>("[data-row-count]");
   const empty = document.querySelector<HTMLElement>("[data-empty]");
   const tabs = document.querySelectorAll<HTMLButtonElement>("[data-view]");
   if (tbody && search && count) {

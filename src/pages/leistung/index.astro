@@ -7,60 +7,104 @@ import EditorialPhoto from "../../components/EditorialPhoto.astro";
 import { serviceImages } from "../../data/editorial-images";
 
 const featured = ["immobilienverkauf", "immobilienvermietung", "wertermittlung"];
-const groups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"] as const;
+const groups = [
+  { name: "Eigentümer", lead: "Für alle, die verkaufen, vermieten oder wissen wollen, was ihre Immobilie wert ist." },
+  { name: "Vermarktung", lead: "Wie Ihre Immobilie gesehen wird, online, im Exposé und bei der Besichtigung." },
+  { name: "Abschluss", lead: "Bis zum Notartermin und auch danach sind wir für Sie da." },
+  { name: "Weitere Leistungen", lead: "Für Bauträger, Investoren, Käufer und alle, die uns einen Tipp geben." },
+] as const;
+const num = (slug: string) => String(services.findIndex((s) => s.slug === slug) + 1).padStart(2, "0");
 ---
 
-<BaseLayout title="Leistungen | SAYAN Immobilien Köln" description="Verkauf, Vermietung, Bewertung und weitere Leistungen von SAYAN Immobilien Köln im Überblick.">
+<BaseLayout title="Leistungen | SAYAN Immobilien Köln" description="Verkauf, Vermietung, Bewertung und alle weiteren Leistungen von SAYAN Immobilien Köln im Überblick.">
   <Header />
   <main id="main">
-    <section class="page-hero overview-hero">
-      <div class="container">
-        <p class="eyebrow">Unsere Leistungen</p>
-        <h1>Was können wir für Sie tun?</h1>
-        <p>Verkaufen, vermieten oder bewerten: Wählen Sie Ihren Einstieg. Alle weiteren Leistungen finden Sie direkt im Überblick.</p>
-        <div class="overview-jumps"><a class="button button--dark" href="#all-services-title">Alle 19 Leistungen im Überblick</a><a class="text-link" href="/leistung/fotografie-und-expose/">Professionelle Immobilienfotografie</a></div>
+    <section class="overview-hero">
+      <div class="container overview-hero__grid">
+        <div data-reveal>
+          <p class="eyebrow">Unsere Leistungen</p>
+          <h1>Alles aus einer Hand. <em>Von A bis Z.</em></h1>
+        </div>
+        <div data-reveal>
+          <p class="overview-hero__lead">Verkaufen, vermieten oder bewerten: Wählen Sie Ihren Einstieg. Dahinter stehen {services.length} Leistungen, die wir für Sie übernehmen, damit Sie sich um nichts kümmern müssen.</p>
+          <a class="text-link" href="#alle-leistungen">Alle {services.length} Leistungen ansehen <span aria-hidden="true">→</span></a>
+        </div>
       </div>
     </section>
 
     <section class="section section--paper featured-section" aria-labelledby="featured-title">
       <div class="container">
-        <h2 id="featured-title">Der erste Schritt</h2>
-        <div class="featured-grid">
-          {featured.map((slug) => {
+        <h2 id="featured-title" class="sr-only">Der erste Schritt</h2>
+        <div class="featured-grid" data-reveal-group>
+          {featured.map((slug, i) => {
             const service = services.find((item) => item.slug === slug)!;
-            const image = serviceImages[slug];
-            return <a class="featured-card" href={`/leistung/${service.slug}/`}>{image && <div class="featured-card__photo"><EditorialPhoto image={image} sizes="(max-width: 767px) 100vw, 30vw" decorative /></div>}<div class="featured-card__meta"><span>{service.group}</span></div><h3>{service.title}</h3><p>{service.summary}</p><strong>Mehr erfahren</strong></a>;
+            return (
+              <a class="featured-card" href={`/leistung/${service.slug}/`} data-reveal style={`--stagger:${i}`}>
+                <div class="featured-card__photo"><EditorialPhoto image={serviceImages[slug]} sizes="(max-width: 767px) 100vw, 33vw" decorative /></div>
+                <div class="featured-card__body">
+                  <span class="featured-card__num">0{i + 1}</span>
+                  <h3>{service.title}</h3>
+                  <p>{service.summary}</p>
+                  <span class="featured-card__more">Mehr erfahren <span aria-hidden="true">→</span></span>
+                </div>
+              </a>
+            );
           })}
         </div>
       </div>
     </section>
 
-    <section class="section section--light all-services" aria-labelledby="all-services-title">
+    <section class="section section--white" id="alle-leistungen" aria-labelledby="all-services-title">
       <div class="container">
-        <div class="section-intro">
+        <div class="section-intro" data-reveal>
           <p class="eyebrow">Im Detail</p>
-          <h2 id="all-services-title">Alle Leistungen</h2>
-          <p>Von der Vorbereitung bis zur Übergabe: Jeder Bereich hat seine eigene Seite.</p>
+          <h2 id="all-services-title">Alle Leistungen, <em>sortiert nach Bereich.</em></h2>
         </div>
-        <div class="service-groups">
-          {groups.map((group) => (
-            <div class="service-group">
-              <h3>{group}</h3>
-              <div class="service-links">
-                {services.filter((service) => service.group === group).map((service) => (
-                  <a href={`/leistung/${service.slug}/`}><span class="service-links__icon">{String(services.indexOf(service) + 1).padStart(2, "0")}</span><span>{service.title}</span><small>{service.summary}</small></a>
-                ))}
+
+        {groups.map((group) => {
+          const items = services.filter((s) => s.group === group.name);
+          const [lead, ...rest] = items;
+          return (
+            <div class="service-block" data-reveal>
+              <header class="service-block__head">
+                <h3>{group.name}</h3>
+                <p>{group.lead}</p>
+                <span>{items.length} Leistungen</span>
+              </header>
+              <div class="service-block__body">
+                <a class="lead-service" href={`/leistung/${lead.slug}/`}>
+                  <div class="lead-service__photo"><EditorialPhoto image={serviceImages[lead.slug]} sizes="(max-width: 900px) 100vw, 30vw" decorative /></div>
+                  <div class="lead-service__copy">
+                    <span class="lead-service__num">{num(lead.slug)}</span>
+                    <h4>{lead.title}</h4>
+                    <p>{lead.summary}</p>
+                    <span class="lead-service__more">Mehr erfahren <span aria-hidden="true">→</span></span>
+                  </div>
+                </a>
+                <div class="service-tiles">
+                  {rest.map((service) => (
+                    <a class="service-tile" href={`/leistung/${service.slug}/`}>
+                      <span class="service-tile__num">{num(service.slug)}</span>
+                      <span class="service-tile__title">{service.title}</span>
+                      <span class="service-tile__arrow" aria-hidden="true">→</span>
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
     </section>
 
-    <section class="overview-contact">
-      <div class="container overview-contact__inner">
-        <div><p class="eyebrow">Persönlich klären</p><h2>Sie wissen noch nicht, wo Sie anfangen sollen?</h2><p>Beschreiben Sie uns kurz Ihr Vorhaben. Wir besprechen mit Ihnen, welche Schritte sinnvoll sind.</p></div>
-        <div class="overview-actions"><a class="button" href="/kontakt/">Kontakt aufnehmen</a><a class="text-link" href="/leistung/formular/">Onlinebewertung starten</a></div>
+    <section class="contact-cta section--brand">
+      <div class="container contact-cta__grid">
+        <div data-reveal><p class="eyebrow">Persönlich klären</p><h2>Sie wissen noch nicht, <em>wo Sie anfangen sollen?</em></h2><p>Beschreiben Sie uns kurz Ihr Vorhaben. Wir besprechen mit Ihnen, welche Schritte sinnvoll sind.</p></div>
+        <div class="contact-cta__links" data-reveal>
+          <a href="/kontakt/"><small>Persönlich</small><strong>Kontakt aufnehmen</strong></a>
+          <a href="/leistung/formular/"><small>Online</small><strong>Online-Bewertung starten</strong></a>
+          <a href="tel:+4922116892660"><small>Telefon</small><strong>0221 168 926 60</strong></a>
+        </div>
       </div>
     </section>
   </main>
@@ -68,40 +112,64 @@ const groups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"]
 </BaseLayout>
 
 <style>
-  .overview-jumps { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: .5rem; }
-  .overview-hero { padding-bottom: 2rem; }
-  .overview-hero h1 { max-width: 16ch; }
-  .overview-hero p:last-child { max-width: 66ch; }
-  .featured-section { padding-top: 2rem; }
-  .featured-section h2 { margin-bottom: 1.5rem; }
-  .featured-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
-  .featured-card { display: flex; flex-direction: column; min-height: 0; padding: 1.25rem; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; }
-  .featured-card:hover, .featured-card:focus-visible { border-color: var(--accent); }
-  .featured-card__photo { aspect-ratio: 16 / 9; margin-bottom: 1rem; overflow: hidden; border-radius: var(--radius-field); }
-  .featured-card__meta { display: flex; align-items: center; gap: .65rem; }
-  .featured-card__meta > span { font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--n-text-secondary); }
-  .featured-card h3 { margin: .85rem 0 .5rem; text-transform: none; }
+  .section--white { background: #fff; }
+
+  .overview-hero { padding: 11rem 0 clamp(2.5rem, 5vw, 4rem); background: var(--n-bg); }
+  .overview-hero__grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: end; }
+  .overview-hero h1 { max-width: 14ch; }
+  .overview-hero__lead { max-width: 46ch; margin-bottom: 1.5rem; color: var(--n-text-secondary); font-size: clamp(1.1rem, 1.3vw, 1.25rem); }
+
+  .featured-section { padding-top: 0; }
+  .featured-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+  .featured-card { display: flex; flex-direction: column; overflow: hidden; border-radius: 20px; background: #fff; transition: transform 500ms var(--ease-out-expo), box-shadow 500ms var(--ease-out-expo); }
+  .featured-card:hover { transform: translateY(-6px); box-shadow: 0 34px 70px -38px rgb(43 49 52 / .45); }
+  .featured-card__photo { aspect-ratio: 4 / 3; overflow: hidden; }
+  .featured-card__photo :global(img) { transition: transform 1200ms var(--ease-out-expo); }
+  .featured-card:hover .featured-card__photo :global(img) { transform: scale(1.06); }
+  .featured-card__body { display: flex; flex: 1; flex-direction: column; padding: clamp(1.5rem, 2.5vw, 2.25rem); }
+  .featured-card__num { color: var(--blue); font: 500 1.5rem/1 var(--font-display); }
+  .featured-card h3 { margin: 1.25rem 0 .6rem; font-size: clamp(1.6rem, 2.2vw, 2rem); }
   .featured-card p { color: var(--n-text-secondary); }
-  .featured-card strong { margin-top: auto; padding-top: 1.5rem; font-size: .9rem; }
-  .section-intro { margin-bottom: 1.5rem; }
-  .section-intro p:last-child { max-width: 60ch; color: var(--n-text-secondary); }
-  .service-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
-  .service-group { padding: 1.25rem; background: var(--paper); border: 1px solid var(--n-border); border-radius: var(--radius-card); }
-  .service-group h3 { margin-bottom: .75rem; font-size: 1.15rem; text-transform: none; }
-  .service-links a { display: grid; grid-template-columns: 2.75rem minmax(0, 1fr); gap: .2rem .75rem; padding: .9rem 0; border-top: 1px solid var(--n-border); }
-  .service-links a:hover > span:first-child, .service-links a:focus-visible > span:first-child { text-decoration: underline; text-underline-offset: .2em; }
-  .service-links a > span:nth-child(2) { font-weight: 600; }
-  .service-links__icon { grid-row: 1 / span 2; align-self: center; display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 0; background: none; color: var(--blue); font: 500 1.4rem/1 var(--font-display); }
-  .service-links small { grid-column: 2; color: var(--n-text-secondary); font-size: .85rem; }
-  .overview-contact { padding: var(--section-space) 0; background: var(--paper); }
-  .overview-contact__inner { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 2rem; align-items: end; }
-  .overview-contact h2 { max-width: 20ch; }
-  .overview-contact p:last-child { max-width: 55ch; color: var(--n-text-secondary); }
-  .overview-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; }
-  @media (max-width: 767px) {
-    .featured-grid, .service-groups, .overview-contact__inner { grid-template-columns: 1fr; }
-    .featured-card { min-height: 0; }
-    .featured-card h3 { margin-top: 1rem; }
-    .service-groups { gap: 2rem; }
+  .featured-card__more { margin-top: auto; padding-top: 1.5rem; color: var(--blue); font-weight: 600; }
+
+  .section-intro { margin-bottom: clamp(2.5rem, 4vw, 3.5rem); }
+  .service-block { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.6fr); gap: clamp(1.5rem, 4vw, 4rem); padding: clamp(2rem, 4vw, 3.5rem) 0; border-top: 1px solid var(--n-border); }
+  .service-block__head h3 { font-size: clamp(1.5rem, 2vw, 1.85rem); }
+  .service-block__head p { margin-top: .75rem; color: var(--n-text-secondary); font-size: 1.0625rem; }
+  .service-block__head span { display: inline-block; margin-top: 1.25rem; padding: .35rem .8rem; border-radius: 999px; background: var(--n-bg); color: var(--n-text-secondary); font-size: .85rem; font-weight: 600; }
+  .service-block__body { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 1.25rem; align-items: stretch; }
+
+  .lead-service { display: flex; flex-direction: column; overflow: hidden; border-radius: 18px; background: var(--n-bg); transition: transform 500ms var(--ease-out-expo); }
+  .lead-service:hover { transform: translateY(-4px); }
+  .lead-service__photo { aspect-ratio: 16 / 10; overflow: hidden; }
+  .lead-service__photo :global(img) { transition: transform 1200ms var(--ease-out-expo); }
+  .lead-service:hover .lead-service__photo :global(img) { transform: scale(1.05); }
+  .lead-service__copy { display: flex; flex: 1; flex-direction: column; padding: 1.5rem 1.75rem 1.75rem; }
+  .lead-service__num { color: var(--blue); font: 500 1.25rem/1 var(--font-display); }
+  .lead-service h4 { margin: .9rem 0 .5rem; font: 500 1.6rem/1.2 var(--font-display); letter-spacing: -.02em; }
+  .lead-service p { color: var(--n-text-secondary); }
+  .lead-service__more { margin-top: auto; padding-top: 1.25rem; color: var(--blue); font-weight: 600; }
+
+  .service-tiles { display: grid; align-content: start; gap: .6rem; }
+  .service-tile { display: grid; grid-template-columns: 2.5rem minmax(0, 1fr) auto; align-items: center; gap: .75rem; padding: 1.1rem 1.25rem; border: 1px solid var(--n-border); border-radius: 12px; transition: border-color 250ms ease, background 250ms ease, transform 300ms var(--ease-out-expo); }
+  .service-tile:hover { border-color: var(--ink); background: var(--n-bg); transform: translateX(4px); }
+  .service-tile__num { color: var(--n-text-secondary); font-size: .95rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .service-tile__title { font-size: 1.0625rem; font-weight: 500; }
+  .service-tile__arrow { color: var(--blue); opacity: 0; transition: opacity 250ms ease; }
+  .service-tile:hover .service-tile__arrow { opacity: 1; }
+
+  .contact-cta { padding-block: var(--section-space); }
+  .contact-cta__grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .contact-cta__grid > div > p:not(.eyebrow) { max-width: 46ch; margin-top: 1.5rem; font-size: 1.2rem; }
+  .contact-cta__links { display: grid; }
+  .contact-cta__links > a { display: grid; gap: .3rem; padding: 1.4rem 0; border-top: 1px solid rgb(43 49 52 / .22); transition: padding 300ms var(--ease-out-expo); }
+  .contact-cta__links > a:hover { padding-left: .5rem; }
+  .contact-cta__links small { font-size: .95rem; font-weight: 500; }
+  .contact-cta__links strong { font: 500 clamp(1.4rem, 2vw, 1.8rem)/1.2 var(--font-display); }
+
+  @media (max-width: 1100px) { .service-block { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) {
+    .overview-hero { padding-top: 8rem; }
+    .overview-hero__grid, .featured-grid, .service-block__body, .contact-cta__grid { grid-template-columns: 1fr; }
   }
 </style>

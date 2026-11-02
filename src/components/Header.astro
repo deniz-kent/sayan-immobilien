@@ -1,6 +1,9 @@
 ---
 import Logo from "./Logo.astro";
 import { googleRating } from "../data/reviews";
+import { services } from "../data/services";
+
+const serviceGroups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"] as const;
 
 const groups = [
   {
@@ -42,6 +45,15 @@ const groups = [
     promoImage: "/images/sayan-beratung-640.webp",
   },
   {
+    label: "Leistungen",
+    columns: serviceGroups.map((title) => ({ title, links: services.filter((service) => service.group === title).map((service) => service.title) })),
+    promoEyebrow: "Alles aus einer Hand",
+    promo: "Alle Leistungen im Überblick",
+    promoText: "Von der Bewertung bis nach dem Notartermin.",
+    promoHref: "/leistung/",
+    promoImage: "/images/sayan-unterlagen-640.webp",
+  },
+  {
     label: "Über uns",
     columns: [
       { title: "SAYAN", links: ["Über SAYAN", "Team", "10 gute Gründe"] },
@@ -55,6 +67,7 @@ const groups = [
   },
 ];
 const liveLinks: Record<string, string> = {
+  ...Object.fromEntries(services.map((service) => [service.title, `/leistung/${service.slug}/`])),
   "Aktuelle Objekte": "/immobilien/",
   "Suchprofil anlegen": "/suchservice/",
   "After-Sales-Service": "/leistung/after-sales-service/",
