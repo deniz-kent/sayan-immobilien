@@ -13,9 +13,15 @@ export function getStaticPaths() {
 const { service } = Astro.props as { service: Service };
 const relatedServices = service.related.map((slug) => serviceBySlug[slug]).filter(Boolean);
 const image = serviceImages[service.slug];
+const metaDescription = (() => {
+  const text = `${service.intro} SAYAN Immobilien Köln.`;
+  if (text.length <= 158) return text;
+  const cut = service.intro.slice(0, 150);
+  return `${cut.slice(0, cut.lastIndexOf(" "))} …`;
+})();
 ---
 
-<BaseLayout title={`${service.title} | SAYAN Immobilien Köln`} description={service.intro}>
+<BaseLayout title={`${service.title} | SAYAN Immobilien Köln`} description={metaDescription}>
   <Header />
   <main id="main">
     <section class="page-hero service-hero">

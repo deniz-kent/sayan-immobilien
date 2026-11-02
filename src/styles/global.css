@@ -60,7 +60,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-padding-top: 8rem; scroll-behavior: smooth; background: var(--n-bg); }
+html { color-scheme: light; scroll-padding-top: 8rem; scroll-behavior: smooth; background: var(--n-bg); }
 body { margin: 0; min-width: 320px; background: var(--n-bg); color: var(--n-text-body); font: 400 1.125rem/1.7 var(--font-body); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 body.menu-open { overflow: hidden; }
 [hidden] { display: none !important; }
@@ -387,3 +387,10 @@ h1 em, h2 em, h3 em, .mark { font-style: normal; background-image: linear-gradie
 .mega-promo:hover em { color: var(--blue); }
 .site-header.is-scrolled .mega-menu { top: 5.4rem; }
 .site-header.is-scrolled .nav-backdrop { inset: 4.75rem 0 0; height: calc(100svh - 4.75rem); }
+
+.footer-legal__btn { padding: 0; border: 0; background: none; color: inherit; font: inherit; cursor: pointer; }
+.footer-legal__btn:hover { color: #fff; }
+/* Tap-Feedback auf Touch und Klick */
+.button:active, .nav-cta:active, .valuation-option__action:active, .advice-popup__btn:active, .table-tabs button:active, .value-card__row button:active { transform: scale(.97); }
+.button, .nav-cta { transition: background var(--motion-hover) ease, filter var(--motion-hover) ease, transform 120ms ease; }
+a, button { touch-action: manipulation; }
