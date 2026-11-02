@@ -394,3 +394,27 @@ h1 em, h2 em, h3 em, .mark { font-style: normal; background-image: linear-gradie
 .button:active, .nav-cta:active, .valuation-option__action:active, .advice-popup__btn:active, .table-tabs button:active, .value-card__row button:active { transform: scale(.97); }
 .button, .nav-cta { transition: background var(--motion-hover) ease, filter var(--motion-hover) ease, transform 120ms ease; }
 a, button { touch-action: manipulation; }
+
+/* Mobile-Menü im Homea-Stil: ruhig, gut tippbar */
+.mobile-menu { padding: 1.25rem 1.25rem 2rem; background: var(--n-bg); }
+.mobile-menu__groups { margin-top: 2rem; }
+.mobile-menu summary, .mobile-menu__groups > a { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 0; font: 500 1.4rem/1.2 var(--font-display); letter-spacing: -.01em; text-transform: none; }
+.mobile-menu summary::after { content: "+"; font-weight: 400; transition: transform 250ms var(--ease-out-expo); }
+.mobile-menu details[open] summary::after { transform: rotate(45deg); }
+.mobile-menu summary::-webkit-details-marker { display: none; }
+.mobile-menu details a { padding: .7rem 0 .7rem .25rem; color: var(--n-text-secondary); font-size: 1.05rem; }
+.mobile-menu details[open] { padding-bottom: .75rem; }
+.mobile-menu__footer { gap: .9rem; margin-top: 2rem; }
+.mobile-menu__phone { padding: .9rem; border: 1px solid var(--n-border); border-radius: 8px; font-weight: 600; }
+
+@media (max-width: 767px) {
+  :root { --section-space: 3rem; }
+  h2 { font-size: clamp(1.85rem, 7.5vw, 2.3rem); }
+  /* Horizontale Wischreihen statt endloser Stapel */
+  .services, .reviews__grid { display: grid !important; grid-auto-flow: column; grid-auto-columns: 82%; grid-template-columns: none !important; gap: .9rem; margin-inline: calc(-1 * var(--gutter)); padding: 0 var(--gutter) .5rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); scrollbar-width: none; }
+  .services::-webkit-scrollbar, .reviews__grid::-webkit-scrollbar { display: none; }
+  .services > *, .reviews__grid > * { scroll-snap-align: start; }
+  .valuation-option { padding: 1.4rem; }
+  .valuation-option__top { margin-bottom: 1.25rem; }
+  .valuation-option ul { margin: 1.25rem 0 1.5rem; padding-top: 1.25rem; }
+}

@@ -165,18 +165,18 @@ const liveLinks: Record<string, string> = {
       <button class="menu-close" type="button" aria-label="Menü schließen">×</button>
     </div>
     <div class="mobile-menu__groups">
-      <a class="mobile-all-services" href="/leistung/#all-services-title">Alle Leistungen</a>
       {groups.map((group) => (
         <details>
           <summary>{group.label}</summary>
           {group.columns.flatMap((column) => column.links).map((link) => <a href={liveLinks[link]}>{link}</a>)}
         </details>
       ))}
+      <a href="/immobilienpreise-koeln/">Immobilienpreise Köln</a>
       <a href="/kontakt/">Kontakt</a>
     </div>
     <div class="mobile-menu__footer">
       <a class="button" href="/kontakt/#termin">Termin vor Ort vereinbaren</a>
-      <a href="tel:+4922116892660">0221 / 168 926 60</a>
+      <a class="mobile-menu__phone" href="tel:+4922116892660">0221 168 926 60 anrufen</a>
     </div>
   </div>
 </header>

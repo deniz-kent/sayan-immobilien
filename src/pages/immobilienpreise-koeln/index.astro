@@ -115,6 +115,7 @@ const top = [...lagen].sort((a, b) => Math.max(b.wohnung?.wert ?? 0, b.haus?.wer
             </tbody>
           </table>
           <p class="table-empty" data-empty hidden>Keine Lage gefunden. Versuchen Sie einen anderen Stadtteil.</p>
+          <button type="button" class="table-more" data-more hidden>Alle Lagen anzeigen</button>
         </div>
 
         <div class="table-notes">
@@ -230,6 +231,32 @@ const top = [...lagen].sort((a, b) => Math.max(b.wohnung?.wert ?? 0, b.haus?.wer
   .price-table .trend.down { color: #a0473b; }
   .price-table .ref { color: var(--n-text-secondary); opacity: .75; }
   .price-table .none { color: var(--n-text-secondary); }
+  .table-more { display: block; width: 100%; padding: 1.1rem; border: 0; border-top: 1px solid var(--n-border); background: var(--n-bg); color: var(--ink); font-size: 1rem; font-weight: 600; cursor: pointer; }
+  .table-more:hover { background: #fff; }
+  @media (max-width: 700px) {
+    .price-table { overflow: visible; border: 0; }
+    .price-table table, .price-table tbody { display: block; min-width: 0; }
+    .price-table thead { display: block; }
+    .price-table thead tr { display: flex; gap: .4rem; overflow-x: auto; padding-bottom: .75rem; }
+    .price-table th { position: static; background: none; }
+    .price-table th button { width: auto; padding: .55rem .8rem; border: 1px solid var(--n-border); border-radius: 999px; background: #fff; font-size: .7rem; letter-spacing: .08em; white-space: nowrap; }
+    .price-table tbody tr { display: grid; grid-template-columns: 1fr 1fr; gap: .25rem 1rem; margin-bottom: .6rem; padding: 1rem 1.1rem; border: 1px solid var(--n-border); border-radius: 14px; background: #fff; }
+    .price-table tbody tr[hidden] { display: none; }
+    .price-table td { padding: 0; border: 0; }
+    .price-table td:nth-child(1) { grid-column: 1; }
+    .price-table td:nth-child(2) { grid-column: 2; text-align: right; font-size: .9rem; }
+    .price-table td.num { padding-top: .75rem; border-top: 1px solid var(--n-border); text-align: left; }
+    .price-table td.num::before { display: block; margin-bottom: .2rem; color: var(--n-text-secondary); font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .price-table td:nth-child(3)::before { content: "Wohnung €/m²"; }
+    .price-table td:nth-child(4)::before { content: "Haus €/m²"; }
+    .price-table small.trend { display: block; margin-left: 0; }
+    .table-more { border: 1px solid var(--n-border); border-radius: 12px; }
+    .value-card__types span { min-height: 2.75rem; font-size: .82rem; }
+    .value-card__stats { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+    .value-card__stats div { padding: .75rem .4rem; }
+    .value-card__stats span { font-size: .6rem; }
+    .value-card__stats strong { font-size: .9rem; }
+  }
   .table-empty { padding: 2rem 1.25rem; color: var(--n-text-secondary); }
   .table-notes { display: grid; gap: .75rem; max-width: 70ch; margin-top: 1.5rem; color: var(--n-text-secondary); font-size: .95rem; }
   .table-notes a { text-decoration: underline; text-underline-offset: .2em; }
@@ -257,7 +284,6 @@ const top = [...lagen].sort((a, b) => Math.max(b.wohnung?.wert ?? 0, b.haus?.wer
     .prices-hero__grid, .contact-cta__grid { grid-template-columns: 1fr; }
     .top-lagen { grid-template-columns: 1fr; }
   }
-  @media (max-width: 480px) { .value-card__stats { grid-template-columns: 1fr; } }
 </style>
 
 <script>
@@ -271,6 +297,10 @@ const top = [...lagen].sort((a, b) => Math.max(b.wohnung?.wert ?? 0, b.haus?.wer
     let sortKey = "name";
     let sortDir = 1;
     let view = "all";
+    let expanded = false;
+    const LIMIT = 15;
+    const more = document.querySelector<HTMLButtonElement>("[data-more]");
+    more?.addEventListener("click", () => { expanded = true; render(); });
     const top10 = new Set([...rows].sort((a, b) => Math.max(+b.dataset.wohnung!, +b.dataset.haus!) - Math.max(+a.dataset.wohnung!, +a.dataset.haus!)).slice(0, 10));
 
     const render = () => {
@@ -281,13 +311,18 @@ const top = [...lagen].sort((a, b) => Math.max(b.wohnung?.wert ?? 0, b.haus?.wer
         return av.localeCompare(bv, "de") * sortDir;
       });
       let shown = 0;
+      let total = 0;
+      const limited = !expanded && !q && view === "all";
       sorted.forEach((row) => {
         const match = (!q || row.dataset.name!.includes(q) || row.dataset.bezirk!.toLowerCase().includes(q)) && (view === "all" || top10.has(row));
-        row.hidden = !match;
-        if (match) shown++;
+        if (match) total++;
+        const visible = match && (!limited || total <= LIMIT);
+        row.hidden = !visible;
+        if (visible) shown++;
         tbody.appendChild(row);
       });
-      count.textContent = `${shown} ${shown === 1 ? "Lage" : "Lagen"} · Klick auf eine Spalte sortiert`;
+      if (more) { more.hidden = !limited || total <= LIMIT; more.textContent = `Alle ${total} Lagen anzeigen`; }
+      count.textContent = `${limited ? `${shown} von ${total}` : shown} ${shown === 1 ? "Lage" : "Lagen"} · Klick auf eine Spalte sortiert`;
       if (empty) empty.hidden = shown > 0;
     };
 
