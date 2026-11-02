@@ -4,7 +4,8 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import { services, serviceBySlug, type Service } from "../../data/services";
 import EditorialPhoto from "../../components/EditorialPhoto.astro";
-import { serviceImages } from "../../data/editorial-images";
+import { serviceImages, editorialImages } from "../../data/editorial-images";
+import { reviews, googleRating } from "../../data/reviews";
 
 export function getStaticPaths() {
   return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
@@ -13,79 +14,165 @@ export function getStaticPaths() {
 const { service } = Astro.props as { service: Service };
 const relatedServices = service.related.map((slug) => serviceBySlug[slug]).filter(Boolean);
 const image = serviceImages[service.slug];
+const index = services.findIndex((s) => s.slug === service.slug);
 const metaDescription = (() => {
   const text = `${service.intro} SAYAN Immobilien Köln.`;
   if (text.length <= 158) return text;
   const cut = service.intro.slice(0, 150);
   return `${cut.slice(0, cut.lastIndexOf(" "))} …`;
 })();
+
+// Texte strukturieren: Phasen als Timeline, Fragen als Zwischenüberschriften.
+type Block = { kind: "text"; head?: string; body: string } | { kind: "phase"; num: string; head: string; body: string };
+const blocks: Block[] = service.details.map((paragraph) => {
+  const phase = paragraph.match(/^Phase (\d+):\s*([^.!?]+[.!?])\s*(.*)$/s);
+  if (phase) return { kind: "phase", num: phase[1].padStart(2, "0"), head: phase[2], body: phase[3] };
+  const question = paragraph.match(/^([^.!?]{8,70}\?)\s+(.*)$/s);
+  if (question) return { kind: "text", head: question[1], body: question[2] };
+  return { kind: "text", body: paragraph };
+});
+const textBlocks = blocks.filter((b) => b.kind === "text");
+const phaseBlocks = blocks.filter((b) => b.kind === "phase");
+const [leadBlock, ...restText] = textBlocks;
+const splitAt = Math.min(2, restText.length);
+
+// Bild zwischen den Absätzen, abwechselnd aus den Objektfotos.
+const interiors = [
+  { src: "/images/altbau-wohnzimmer-fischgraet.webp", alt: "Altbau-Wohnzimmer mit Fischgrätparkett" },
+  { src: "/images/wohnzimmer-modern-domblick.webp", alt: "Wohnzimmer mit Blick auf den Kölner Dom" },
+  { src: "/images/altbau-zimmer-leer.webp", alt: "Heller, leerer Altbauraum" },
+  { src: "/images/strasse-altbau-koeln.webp", alt: "Altbau-Straße in Köln" },
+  { src: "/images/haus-modern-klinker.webp", alt: "Modernes Wohnhaus mit Klinkerfassade" },
+  { src: "/images/altbau-fassade-stuck.webp", alt: "Altbaufassade mit Stuck" },
+];
+const usedSrcs = new Set([image.src, ...relatedServices.map((r) => serviceImages[r.slug]?.src)]);
+const pool = interiors.filter((img) => !usedSrcs.has(img.src));
+const inline = (pool.length ? pool : interiors)[index % (pool.length || interiors.length)];
+const review = reviews[index % reviews.length];
 ---
 
 <BaseLayout title={`${service.title} | SAYAN Immobilien Köln`} description={metaDescription}>
   <Header />
   <main id="main">
-    <section class="page-hero service-hero">
-      <div class="container">
-        <nav class="breadcrumbs" aria-label="Brotkrumen">
-          <a href="/leistung/">Leistungen</a><span aria-hidden="true">/</span><span aria-current="page">{service.title}</span>
-        </nav>
-        <div class="service-hero__copy">
-          <p class="eyebrow">{service.group}</p>
+    <section class="svc-hero">
+      <div class="container svc-hero__grid">
+        <div class="svc-hero__copy" data-reveal>
+          <nav class="breadcrumbs" aria-label="Brotkrumen">
+            <a href="/leistung/">Leistungen</a><span aria-hidden="true">/</span><span>{service.group}</span>
+          </nav>
+          <p class="eyebrow">{String(index + 1).padStart(2, "0")} · {service.group}</p>
           <h1>{service.title}</h1>
-          <p class="service-hero__intro">{service.intro}</p>
-          <a class="button button--dark" href="/kontakt/">Sprechen Sie mit uns</a>
+          <p class="svc-hero__intro">{service.intro}</p>
+          <div class="svc-hero__actions">
+            <a class="button" href="/kontakt/#termin">Termin vor Ort vereinbaren <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="svc-hero__phone" href="tel:+4922116892660">0221 168 926 60</a>
+          </div>
+          <ul class="svc-hero__proof" aria-label="Auf einen Blick">
+            <li>Seit 2001 in Köln</li>
+            <li>Inhabergeführt</li>
+            <li><span class="stars" aria-hidden="true">★</span> {googleRating.value.toLocaleString("de-DE")} bei Google</li>
+          </ul>
         </div>
-        <div class="service-hero__photo">
-          <EditorialPhoto image={image} sizes="(max-width: 767px) 100vw, 48vw" priority />
+        <div class="svc-hero__media zoom-media" data-reveal>
+          <EditorialPhoto image={image} sizes="(max-width: 900px) 100vw, 46vw" priority />
         </div>
       </div>
     </section>
 
-    <section class="section section--paper">
-      <div class="container detail-grid">
-        <div class="detail-copy">
-          <p class="detail-label">Was wir für Sie tun</p>
+    <section class="section section--white">
+      <div class="container svc-body">
+        <article class="svc-text">
+          <p class="eyebrow">Was wir für Sie tun</p>
           <h2>{service.summary}</h2>
-          {service.details.map((paragraph) => {
-            const phase = paragraph.match(/^(Phase \d+:[^.!?]+[.!?])\s(.*)$/s);
-            return phase ? <p class="detail-phase"><strong>{phase[1]}</strong> {phase[2]}</p> : <p>{paragraph}</p>;
-          })}
+          {leadBlock && <>{leadBlock.head && <h3>{leadBlock.head}</h3>}<p class="svc-text__lead">{leadBlock.body}</p></>}
 
-        </div>
-        <aside class="detail-aside" aria-label="Leistungsüberblick">
-          <h2>Im Überblick</h2>
-          <ul>{service.points.map((point) => <li>{point}</li>)}</ul>
-          <a class="button button--dark" href="/kontakt/">Persönlich besprechen</a>
+          {restText.slice(0, splitAt).map((b) => <>{b.head && <h3>{b.head}</h3>}<p>{b.body}</p></>)}
+
+          {(restText.length > 0 || phaseBlocks.length > 0) && (
+            <figure class="svc-figure zoom-media" data-reveal>
+              <img src={inline.src} alt={inline.alt} loading="lazy" decoding="async" />
+            </figure>
+          )}
+
+          {restText.slice(splitAt).map((b) => <>{b.head && <h3>{b.head}</h3>}<p>{b.body}</p></>)}
+
+          {phaseBlocks.length > 0 && (
+            <ol class="svc-phases" data-reveal-group>
+              {phaseBlocks.map((b, i) => (
+                <li data-reveal style={`--stagger:${i % 3}`}>
+                  <span class="svc-phases__num">{b.num}</span>
+                  <div><h3>{b.head}</h3><p>{b.body}</p></div>
+                </li>
+              ))}
+            </ol>
+          )}
+        </article>
+
+        <aside class="svc-aside">
+          <div class="svc-card">
+            <div class="svc-card__person">
+              <img src={editorialImages.company.src} alt="" width="64" height="64" loading="lazy" />
+              <div><strong>Candan Sayan</strong><span>Inhaber, Diplom-Kaufmann (FH)</span></div>
+            </div>
+            <p class="svc-card__title">Sprechen wir über Ihre Immobilie.</p>
+            <p class="svc-card__text">Kostenlos und unverbindlich. Wir kommen zu Ihnen und sagen Ihnen ehrlich, was sinnvoll ist.</p>
+            <a class="button svc-card__btn" href="/kontakt/#termin">Termin vor Ort <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="svc-card__phone" href="tel:+4922116892660">oder anrufen: 0221 168 926 60</a>
+          </div>
         </aside>
       </div>
     </section>
 
-    <section class="section section--light">
-      <div class="container related-layout">
-        <div>
-          <p class="eyebrow">Weitere Leistungen</p>
-          <h2>Das könnte Sie auch interessieren.</h2>
+    {service.points.length > 0 && (
+      <section class="section section--paper">
+        <div class="container">
+          <div class="svc-points__head" data-reveal>
+            <p class="eyebrow">Im Überblick</p>
+            <h2>Das übernehmen wir <em>für Sie.</em></h2>
+          </div>
+          <ul class:list={["svc-points", { "svc-points--long": service.points.length > 6 }]} data-reveal-group>
+            {service.points.map((point, i) => (
+              <li data-reveal style={`--stagger:${i % 4}`}><span class="svc-points__check" aria-hidden="true">✓</span>{point}</li>
+            ))}
+          </ul>
         </div>
-        <div class="related-links">
-          {relatedServices.map((related) => (
-            <a href={`/leistung/${related.slug}/`}>
-              <div class="related-links__photo"><EditorialPhoto image={serviceImages[related.slug]} sizes="100px" decorative /></div>
-              <div><strong>{related.title}</strong><span>{related.summary}</span></div>
-            </a>
-          ))}
-          <a class="related-links__all" href="/leistung/#all-services-title"><strong>Alle Leistungen</strong><span>Zurück zur Übersicht</span></a>
-        </div>
+      </section>
+    )}
+
+    <section class="section section--white">
+      <div class="container svc-quote" data-reveal>
+        <span class="stars" aria-label="5 von 5 Sternen">★★★★★</span>
+        <blockquote>„{review.text}“</blockquote>
+        <p>{review.author} · via Google · <a href={googleRating.url} target="_blank" rel="noopener">{googleRating.value.toLocaleString("de-DE")} Sterne aus {googleRating.count} Bewertungen</a></p>
       </div>
     </section>
 
-    <section class="wide-cta">
-      <div class="container">
-        <p class="eyebrow">Kontakt</p>
-        <h2>Sprechen wir über Ihre Immobilie.</h2>
-        <p>Rufen Sie uns an oder schreiben Sie uns. Wir besprechen, welche Leistungen für Ihr Vorhaben sinnvoll sind.</p>
-        <div class="cta-actions">
-          <a class="button" href="/kontakt/">Kontakt aufnehmen</a>
-          <a class="button button--outline" href="tel:+4922116892660">0221 / 168 926 60</a>
+    {relatedServices.length > 0 && (
+      <section class="section section--paper">
+        <div class="container">
+          <div class="svc-related__head" data-reveal>
+            <div><p class="eyebrow">Weitere Leistungen</p><h2>Das könnte Sie auch <em>interessieren.</em></h2></div>
+            <a class="text-link" href="/leistung/">Alle Leistungen <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="svc-related" data-reveal-group>
+            {relatedServices.map((related, i) => (
+              <a class="svc-related__card" href={`/leistung/${related.slug}/`} data-reveal style={`--stagger:${i}`}>
+                <div class="svc-related__photo"><EditorialPhoto image={serviceImages[related.slug]} sizes="(max-width: 767px) 85vw, 30vw" decorative /></div>
+                <div class="svc-related__body"><h3>{related.title}</h3><p>{related.summary}</p><span>Mehr erfahren →</span></div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class="contact-cta section--brand">
+      <div class="container contact-cta__grid">
+        <div data-reveal><p class="eyebrow">Persönlich vor Ort</p><h2>Der beste nächste Schritt: <em>ein Termin.</em></h2><p>Wir sehen uns Ihre Immobilie an, beantworten Ihre Fragen und zeigen Ihnen, wie wir vorgehen würden. Kostenlos und unverbindlich.</p></div>
+        <div class="contact-cta__links" data-reveal>
+          <a href="/kontakt/#termin"><small>Persönlich</small><strong>Termin vor Ort vereinbaren</strong></a>
+          <a href="tel:+4922116892660"><small>Telefon</small><strong>0221 168 926 60</strong></a>
+          <a href="mailto:info@sayan-immo.de"><small>E-Mail</small><strong>info@sayan-immo.de</strong></a>
         </div>
       </div>
     </section>
@@ -94,47 +181,93 @@ const metaDescription = (() => {
 </BaseLayout>
 
 <style>
-  .service-hero { padding-bottom: 2rem; }
-  .service-hero > .container { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 1rem clamp(1.5rem, 4vw, 3.5rem); align-items: center; }
-  .service-hero .breadcrumbs { grid-column: 1 / -1; margin-bottom: .25rem; }
-  .service-hero__copy .eyebrow { margin-bottom: 1rem; }
-  .service-hero h1 { max-width: 20ch; font-size: clamp(1.85rem, 3vw, 2.8rem); overflow-wrap: anywhere; }
-  .service-hero .service-hero__intro { max-width: 55ch; margin-top: 1.1rem; }
-  .service-hero__copy .button { margin-top: 1.5rem; }
-  .service-hero__photo { height: clamp(20rem, 31vw, 28rem); overflow: hidden; border-radius: var(--radius-media); background: var(--n-surface); }
-  .breadcrumbs { display: flex; flex-wrap: wrap; gap: .55rem; margin-bottom: 1.25rem; font-size: .85rem; color: var(--n-text-secondary); }
+  .section--white { background: #fff; }
+
+  .svc-hero { padding: 10rem 0 clamp(3rem, 6vw, 5rem); background: var(--n-bg); }
+  .svc-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .breadcrumbs { display: flex; flex-wrap: wrap; gap: .55rem; margin-bottom: 1.75rem; color: var(--n-text-secondary); font-size: .9rem; }
   .breadcrumbs a { text-decoration: underline; text-underline-offset: .2em; }
-  .breadcrumbs a:hover { color: var(--n-text); }
-  .detail-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(16rem, 4fr); gap: clamp(1.5rem, 3vw, 2.5rem); align-items: start; }
-  .detail-copy { max-width: 68ch; }
-  .detail-label { margin-bottom: 1rem; color: var(--n-text-secondary); font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
-  .detail-copy h2 { max-width: 28ch; margin-bottom: 1rem; }
-  .detail-copy > p:not(.detail-label) { margin-top: 1.1rem; color: var(--n-text-secondary); }
-  .detail-aside { padding: 1.25rem; border: 1px solid var(--n-border); border-radius: var(--radius-card); background: #fff; }
-  .service-heading { display: flex; align-items: center; gap: 1rem; }
-  .service-heading > span { display: grid; place-items: center; flex: 0 0 3.75rem; height: 3.75rem; border-radius: 14px; background: #fff; color: var(--ink); box-shadow: 0 0 0 1px var(--n-border); }
-  .detail-aside .button { margin-top: 1rem; width: 100%; }
-  .detail-aside h2 { margin-bottom: 1rem; font-size: 1.2rem; text-transform: none; }
-  .detail-aside ul { margin: 0; padding: 0; list-style: none; }
-  .detail-aside li { padding: .85rem 0; border-top: 1px solid var(--n-border); font-size: .95rem; }
-  .related-layout { display: grid; grid-template-columns: 4fr 7fr; gap: clamp(1.5rem, 3vw, 2.5rem); }
-  .related-layout h2 { max-width: 16ch; }
-  .related-links { display: grid; }
-  .related-links a { display: grid; grid-template-columns: 6rem minmax(0,1fr); gap: 1rem; align-items: center; padding: 1.1rem 0; border-top: 1px solid var(--n-border); }
-  .related-links a:hover strong { text-decoration: underline; text-underline-offset: .2em; }
-  .related-links strong { display: flex; align-items: center; gap: .6rem; font-weight: 600; }
-  .related-links__photo { height: 4.5rem; overflow: hidden; border-radius: var(--radius-field); }
-  .related-links__all { grid-template-columns: 1fr !important; gap: .25rem !important; }
-  .related-links span { display: block; margin-top: .25rem; color: var(--n-text-secondary); font-size: .9rem; }
-  .cta-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; }
-  .wide-cta .button--outline { border-color: var(--n-border); background: transparent; color: var(--n-text); }
-  @media (max-width: 767px) {
-    .detail-grid, .related-layout, .service-hero > .container { grid-template-columns: 1fr; }
-    .service-hero__photo { height: auto; aspect-ratio: 4 / 3; }
-    .service-hero .service-hero__intro { margin-top: 1rem; }
-    .service-heading { gap: .75rem; }
-    .service-heading > span { flex-basis: 3rem; height: 3rem; }
-    .related-links a { grid-template-columns: 5rem minmax(0,1fr); gap: .75rem; }
+  .svc-hero h1 { max-width: 14ch; }
+  .svc-hero__intro { max-width: 50ch; margin-top: 1.5rem; color: var(--n-text-secondary); font-size: clamp(1.1rem, 1.3vw, 1.25rem); }
+  .svc-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; margin-top: 2rem; }
+  .svc-hero__phone { font-weight: 600; text-decoration: underline; text-underline-offset: .25em; }
+  .svc-hero__proof { display: flex; flex-wrap: wrap; gap: .5rem; margin: 2rem 0 0; padding: 0; list-style: none; }
+  .svc-hero__proof li { padding: .45rem .85rem; border: 1px solid var(--n-border); border-radius: 999px; background: #fff; font-size: .9rem; font-weight: 500; }
+  .stars { color: #e2b13c; letter-spacing: .1em; }
+  .svc-hero__media { aspect-ratio: 4 / 5; border-radius: 22px; }
+  .svc-hero__media :global(img) { height: 100%; }
+
+  .svc-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(18rem, 22rem); gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+  .svc-text { max-width: 44rem; }
+  .svc-text > h2 { margin-bottom: 1.75rem; }
+  .svc-text > h3 { margin: 2.5rem 0 .75rem; font-size: clamp(1.3rem, 1.6vw, 1.5rem); }
+  .svc-text > p { margin-top: 1.1rem; color: var(--n-text-body); line-height: 1.8; }
+  .svc-text__lead { font-size: clamp(1.15rem, 1.35vw, 1.3rem); line-height: 1.7 !important; color: var(--n-text) !important; }
+  .svc-figure { margin: 2.75rem 0; aspect-ratio: 16 / 10; border-radius: 18px; }
+  .svc-figure img { width: 100%; height: 100%; object-fit: cover; }
+
+  .svc-phases { display: grid; gap: .75rem; margin: 2.75rem 0 0; padding: 0; list-style: none; }
+  .svc-phases li { display: grid; grid-template-columns: 3.5rem minmax(0, 1fr); gap: 1.25rem; padding: 1.5rem 1.5rem 1.6rem; border-radius: 16px; background: var(--n-bg); }
+  .svc-phases__num { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+  .svc-phases h3 { margin: .35rem 0 .5rem; font-size: 1.25rem; }
+  .svc-phases p { color: var(--n-text-secondary); line-height: 1.75; }
+
+  .svc-aside { position: sticky; top: 8rem; }
+  .svc-card { padding: 1.75rem; border-radius: 20px; background: var(--ink); color: #fff; }
+  .svc-card__person { display: flex; align-items: center; gap: .9rem; padding-bottom: 1.25rem; border-bottom: 1px solid rgb(255 255 255 / .15); }
+  .svc-card__person img { width: 3.5rem; height: 3.5rem; border: 2px solid var(--accent); border-radius: 50%; object-fit: cover; object-position: 50% 25%; }
+  .svc-card__person strong { display: block; font-size: 1.05rem; }
+  .svc-card__person span { color: rgb(255 255 255 / .7); font-size: .9rem; }
+  .svc-card__title { margin-top: 1.25rem; font: 500 1.45rem/1.2 var(--font-display); }
+  .svc-card__text { margin-top: .6rem; color: rgb(255 255 255 / .78); font-size: 1rem; }
+  .svc-card__btn { width: 100%; margin-top: 1.5rem; justify-content: space-between; }
+  .svc-card__phone { display: block; margin-top: .9rem; color: rgb(255 255 255 / .85); font-size: .95rem; text-align: center; }
+  .svc-card__phone:hover { color: var(--accent); }
+
+  .svc-points__head { margin-bottom: 2rem; }
+  .svc-points { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; margin: 0; padding: 0; list-style: none; }
+  .svc-points--long { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .svc-points li { display: flex; align-items: flex-start; gap: .85rem; padding: 1.1rem 1.25rem; border-radius: 14px; background: #fff; font-size: 1.05rem; font-weight: 500; }
+  .svc-points__check { display: grid; flex: 0 0 1.75rem; place-items: center; height: 1.75rem; border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-size: .85rem; font-weight: 700; }
+
+  .svc-quote { max-width: 52rem; text-align: center; }
+  .svc-quote .stars { font-size: 1.4rem; }
+  .svc-quote blockquote { margin: 1.25rem 0; font: 500 clamp(1.35rem, 2.2vw, 1.9rem)/1.4 var(--font-display); letter-spacing: -.015em; }
+  .svc-quote p { color: var(--n-text-secondary); }
+  .svc-quote a { text-decoration: underline; text-underline-offset: .2em; }
+
+  .svc-related__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; }
+  .svc-related { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+  .svc-related__card { display: flex; flex-direction: column; overflow: hidden; border-radius: 18px; background: #fff; transition: transform 500ms var(--ease-out-expo); }
+  .svc-related__card:hover { transform: translateY(-5px); }
+  .svc-related__photo { aspect-ratio: 16 / 10; overflow: hidden; }
+  .svc-related__photo :global(img) { transition: transform 1200ms var(--ease-out-expo); }
+  .svc-related__card:hover .svc-related__photo :global(img) { transform: scale(1.05); }
+  .svc-related__body { display: flex; flex: 1; flex-direction: column; padding: 1.4rem 1.5rem 1.6rem; }
+  .svc-related__body h3 { font-size: 1.35rem; }
+  .svc-related__body p { margin-top: .5rem; color: var(--n-text-secondary); font-size: 1rem; }
+  .svc-related__body span { margin-top: auto; padding-top: 1.1rem; font-weight: 600; }
+
+  .contact-cta { padding-block: var(--section-space); }
+  .contact-cta__grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .contact-cta__grid > div > p:not(.eyebrow) { max-width: 46ch; margin-top: 1.5rem; font-size: 1.2rem; }
+  .contact-cta__links { display: grid; }
+  .contact-cta__links > a { display: grid; gap: .3rem; padding: 1.4rem 0; border-top: 1px solid rgb(36 28 24 / .22); transition: padding 300ms var(--ease-out-expo); }
+  .contact-cta__links > a:hover { padding-left: .5rem; }
+  .contact-cta__links small { font-size: .95rem; font-weight: 500; }
+  .contact-cta__links strong { font: 500 clamp(1.4rem, 2vw, 1.8rem)/1.2 var(--font-display); overflow-wrap: anywhere; }
+
+  @media (max-width: 1100px) { .svc-points--long { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 900px) {
+    .svc-hero { padding-top: 7.5rem; }
+    .svc-hero__grid, .svc-body, .contact-cta__grid { grid-template-columns: 1fr; }
+    .svc-hero__media { aspect-ratio: 4 / 3; order: -1; }
+    .svc-aside { position: static; }
+    .svc-related { grid-template-columns: 1fr; }
   }
-  .detail-phase strong { display: block; margin-bottom: .35rem; color: var(--n-text); font-size: 1.2rem; font-weight: 600; }
+  @media (max-width: 600px) {
+    .svc-points, .svc-points--long { grid-template-columns: 1fr; }
+    .svc-phases li { grid-template-columns: 1fr; gap: .75rem; padding: 1.25rem; }
+    .svc-hero__actions .button { width: 100%; justify-content: space-between; }
+  }
 </style>
