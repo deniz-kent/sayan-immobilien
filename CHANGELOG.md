@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.25.1 · 2026.11.09
+
+Vorher-Nachher-Slider kompakter: drei nebeneinander auf dem Desktop, zwei auf dem Tablet, einer auf dem Handy. Leistungsseiten: Raster immer vollständig gefüllt, dafür je ein passender zusätzlicher Punkt statt einer gestreckten Karte. Mega-Menü: Spaltenüberschriften als Versal-Label mit grüner Linie.
+
 ## 1.25.0 · 2026.11.09
 
 Englische Fassung unter /en/ mit Sprachumschalter DE / EN oben rechts (mobil im Menü). Übersetzt sind Startseite, Über uns, Kontakt, Immobilien, Suchservice, Immobilienpreise und alle Leistungsseiten. Impressum, Datenschutz und Widerruf bleiben deutsch. Neue Texte müssen im Wörterbuch src/i18n/en.json ergänzt werden, sonst erscheinen sie auf Englisch noch deutsch.

@@ -448,3 +448,6 @@ a, button { touch-action: manipulation; }
 .lang-switch--mobile { justify-content: center; margin: .5rem auto 0; border-color: var(--n-border); }
 .lang-switch--mobile a { padding: .45rem 1rem; font-size: .9rem; letter-spacing: 0; }
 .top-bar__links { align-items: center; }
+
+/* Spaltenüberschriften im Mega-Menü klar von den Links abheben */
+.mega-column > p { margin: 0 0 .5rem; padding-bottom: .65rem; border-bottom: 2px solid var(--accent); color: var(--ink); font: 700 .74rem/1.2 var(--font-body); letter-spacing: .14em; text-transform: uppercase; text-align: left; }

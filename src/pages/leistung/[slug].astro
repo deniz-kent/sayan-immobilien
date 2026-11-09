@@ -133,7 +133,7 @@ const review = reviews[index % reviews.length];
             <p class="eyebrow">Im Überblick</p>
             <h2>Das übernehmen wir <em>für Sie.</em></h2>
           </div>
-          <ul class:list={["svc-points", { "svc-points--long": service.points.length > 6 }]} data-reveal-group>
+          <ul class:list={["svc-points", { "svc-points--long": service.points.length > 6 && service.points.length % 3 === 0 }]} data-reveal-group>
             {service.points.map((point, i) => (
               <li data-reveal style={`--stagger:${i % 4}`}><span class="svc-points__check" aria-hidden="true">✓</span>{point}</li>
             ))}
@@ -263,18 +263,7 @@ const review = reviews[index % reviews.length];
   .contact-cta__links strong { font: 500 clamp(1.4rem, 2vw, 1.8rem)/1.2 var(--font-display); overflow-wrap: anywhere; }
 
   @media (max-width: 1100px) { .svc-points--long { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  /* Keine einsame Karte in der letzten Reihe: übrig gebliebene Karten füllen die Zeile. */
-  .svc-points li { align-items: center; }
-  @media (min-width: 768px) {
-    .svc-points:not(.svc-points--long) li:last-child:nth-child(odd) { grid-column: 1 / -1; }
-  }
-  @media (min-width: 1101px) {
-    .svc-points--long li:last-child:nth-child(3n+1) { grid-column: 1 / -1; }
-    .svc-points--long li:last-child:nth-child(3n+2) { grid-column: span 2; }
-  }
-  @media (min-width: 768px) and (max-width: 1100px) {
-    .svc-points--long li:last-child:nth-child(odd) { grid-column: 1 / -1; }
-  }
+
   @media (max-width: 900px) {
     .svc-hero { padding-top: 7.5rem; }
     .svc-hero__grid, .svc-body, .contact-cta__grid { grid-template-columns: 1fr; }
