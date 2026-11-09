@@ -74,8 +74,10 @@ const process = [
   <main id="main">
     <section class="home-hero">
       <div class="home-hero__media" aria-hidden="true">
-        <!-- Platzhalter: wird durch das Header-Video ersetzt (poster = dieses Bild). -->
-        <img src="/images/footer-lichtzimmer-koeln.webp" alt="" fetchpriority="high" data-parallax="0.12" />
+        <video class="home-hero__video" autoplay muted loop playsinline preload="auto" poster="/images/sayan-hero-poster.webp" data-parallax="0.12" disablepictureinpicture disableremoteplayback>
+          <source src="/videos/sayan-hero-720.mp4" type="video/mp4" media="(max-width: 767px)" />
+          <source src="/videos/sayan-hero-1080.mp4" type="video/mp4" />
+        </video>
       </div>
       <div class="home-hero__shade" aria-hidden="true"></div>
       <div class="container home-hero__copy">
@@ -243,13 +245,26 @@ const process = [
       </div>
     </section>
   </main>
+
+<script>
+  const heroVideo = document.querySelector<HTMLVideoElement>(".home-hero__video");
+  if (heroVideo) {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const apply = () => {
+      if (reduce.matches) { heroVideo.pause(); heroVideo.removeAttribute("autoplay"); }
+      else { heroVideo.muted = true; heroVideo.play().catch(() => {}); }
+    };
+    apply();
+    reduce.addEventListener("change", apply);
+  }
+</script>
   <Footer />
 </BaseLayout>
 
 <style>
   .section--white { background: #fff; }
 
-  /* Hero: volle Breite, später Video. */
+  /* Hero: volle Breite mit Header-Video. */
   .home-hero { position: relative; display: flex; align-items: flex-end; min-height: min(100svh, 56rem); padding: 9rem 0 clamp(3rem, 7vw, 6rem); overflow: hidden; background: var(--ink); color: #fff; }
   .home-hero__media { position: absolute; inset: 0; overflow: hidden; }
   .home-hero__media img, .home-hero__media :global(video) { position: absolute; inset: -6% 0; width: 100%; height: 112%; object-fit: cover; transform: scale(1.12); animation: hero-zoom 2.4s var(--ease-out-expo) both; }
@@ -365,5 +380,5 @@ const process = [
     .timeline li { grid-template-columns: 1fr; gap: .5rem; }
     .home-faq__item > p { padding-right: 0; }
   }
-  @media (prefers-reduced-motion: reduce) { .home-hero__media img { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .home-hero__media img, .home-hero__media video { animation: none; } }
 </style>

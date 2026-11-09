@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.20.0 · 2026.11.09
+
+Header-Video auf der Startseite: Blick über Köln mit Dom, stumm und in Schleife. Mobil lädt eine leichtere 720p-Fassung, bis zum Start steht ein Standbild. Bei aktivierter Einstellung „Bewegung reduzieren“ bleibt das Standbild stehen.
+
 ## 1.19.1 · 2026.10.27
 
 Neue persönliche Überschrift auf der Startseite. Direkter Zugang zu allen Leistungen bleibt zusätzlich in der Hauptnavigation erhalten.
