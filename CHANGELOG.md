@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.24.2 · 2026.11.09
+
+Pop-up: Rahmen sitzt direkt auf der Kante, keine Lücke mehr.
+
 ## 1.24.1 · 2026.11.09
 
 Pop-up schlummert als dunkler Balken unten rechts und ist immer sichtbar. Ein Klick klappt es auf, Schließen klappt es wieder zum Balken ein.
