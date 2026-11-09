@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import SectionHeader from "../components/SectionHeader.astro";
+import VideoFeature from "../components/VideoFeature.astro";
 import PropertyCard from "../components/PropertyCard.astro";
 import { getPropertyCatalog, setPropertyCacheHeaders } from "../server/properties";
 import { faqQuestions } from "../data/faq";
@@ -23,12 +24,6 @@ const trackRecord = [
   { value: 28, from: 0, plain: false, suffix: "", label: "Jahre Erfahrung" },
   { value: 500, from: 0, plain: false, suffix: "+", label: "vermittelte Verkaufsobjekte" },
   { value: 10000, from: 0, plain: false, suffix: "+", label: "Suchprofile in unserer Kartei" },
-];
-
-const showreel = [
-  { src: "/videos/sayan-grundriss.mp4", poster: "/images/video-grundriss-poster.webp", title: "Grundriss und Raumgefühl", copy: "Aus dem Plan wird ein Zuhause, das man sich vorstellen kann.", label: "Animation: Grundriss wird zur eingerichteten Wohnung" },
-  { src: "/videos/sayan-lage.mp4", poster: "/images/video-lage-poster.webp", title: "Lage und Umgebung", copy: "Von außen nach innen, damit die Umgebung mitverkauft.", label: "Kamerafahrt von außen in eine Wohnung" },
-  { src: "/videos/sayan-fassade.mp4", poster: "/images/video-fassade-poster.webp", title: "Architektur im Detail", copy: "Fassade, Balkone und Materialien in Bewegung.", label: "Kamerafahrt entlang einer modernen Fassade" },
 ];
 
 const career = [
@@ -87,10 +82,10 @@ const process = [
       </div>
       <div class="home-hero__shade" aria-hidden="true"></div>
       <div class="container home-hero__copy">
-        <p class="eyebrow" data-reveal>Inhabergeführt · Candan Sayan</p>
-        <h1 data-reveal style="--stagger:1">Ihr Makler in Köln. <em>Seit 1998 an Ihrer Seite.</em></h1>
+        <p class="eyebrow" data-reveal>Immobilienmakler in Köln</p>
+        <h1 data-reveal style="--stagger:1">Gut beraten verkaufen.<br /> <em>Seit 1998 an Ihrer Seite.</em></h1>
         <p class="home-hero__lead" data-reveal>
-          Persönlich geführt von Candan Sayan. Wir bewerten vor Ort, vermarkten mit System und begleiten Sie bis zum Notartermin.
+          Ehrliche Bewertung vor Ort. Vermarktung mit System. Ein Ansprechpartner bis zum Notar.
         </p>
         <div class="home-hero__actions" data-reveal>
           <a class="button" href="/kontakt/#termin">Bewertung vor Ort vereinbaren <span class="arrow" aria-hidden="true">→</span></a>
@@ -122,7 +117,7 @@ const process = [
     <section class="section section--white" id="unternehmen">
       <div class="container career">
         <div class="career__media zoom-media" data-reveal>
-          <EditorialPhoto image={editorialImages.company} sizes="(max-width: 900px) 100vw, 45vw" />
+          <EditorialPhoto image={editorialImages.candanPortrait} sizes="(max-width: 900px) 100vw, 45vw" />
           <p class="career__badge"><strong>Inhabergeführt</strong><span>seit 1998 in Köln</span></p>
         </div>
         <div class="career__copy">
@@ -164,23 +159,7 @@ const process = [
     </section>
 
 
-    <section class="section section--white showreel" aria-labelledby="showreel-title">
-      <div class="container">
-        <SectionHeader eyebrow="So präsentieren wir Ihre Immobilie" title="Vom Grundriss bis zur <em>Fassade.</em>" lead="Interessenten entscheiden in Sekunden, ob sie weiterlesen. Deshalb zeigen wir Ihre Immobilie so, dass man sich den Alltag darin vorstellen kann: Raum für Raum, mit Lage und Architektur." />
-        <div class="showreel__grid" data-reveal-group>
-          {showreel.map((clip, i) => (
-            <figure class:list={["showreel__item", { "showreel__item--large": i === 0 }]} data-reveal style={`--stagger:${i}`}>
-              <div class="showreel__media">
-                <video muted loop playsinline preload="none" poster={clip.poster} data-showreel aria-label={clip.label}>
-                  <source src={clip.src} type="video/mp4" />
-                </video>
-              </div>
-              <figcaption><strong>{clip.title}</strong><span>{clip.copy}</span></figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
-    </section>
+    <VideoFeature src="/videos/sayan-grundriss.mp4" poster="/images/video-grundriss-poster.webp" label="Animation: Grundriss wird zur eingerichteten Wohnung" eyebrow="Grundriss und Raumgefühl" title="Aus dem Plan wird <em>ein Zuhause.</em>" copy="Käufer kaufen keine Quadratmeter. Sie kaufen Räume, in denen sie sich ihr Leben vorstellen können. Genau so zeigen wir Ihre Immobilie." />
 
     <section class="photo-strip" aria-label="Eindrücke aus Köln">
       <div class="photo-strip__head container" data-reveal>
@@ -213,6 +192,8 @@ const process = [
     </section>
 
 
+    <VideoFeature reverse src="/videos/sayan-lage.mp4" poster="/images/video-lage-poster.webp" label="Kamerafahrt von außen in eine Wohnung" eyebrow="Lage und Umgebung" title="Die Umgebung <em>verkauft mit.</em>" copy="Straße, Nachbarschaft, der erste Eindruck an der Tür. Wir zeigen, was rund um Ihre Immobilie zählt, bevor jemand zur Besichtigung kommt." />
+
     <PriceCheck />
 
     <Reviews tone="paper" />
@@ -230,7 +211,7 @@ const process = [
 
     <section class="section section--paper" id="diskretion">
       <div class="container discretion">
-        <div class="discretion__media zoom-media" data-reveal><EditorialPhoto image={editorialImages.advice} sizes="(max-width: 767px) 100vw, 45vw" /></div>
+        <div class="discretion__media zoom-media" data-reveal><EditorialPhoto image={editorialImages.candanColumns} sizes="(max-width: 767px) 100vw, 45vw" /></div>
         <div data-reveal>
           <p class="eyebrow">Diskrete Vermarktung</p>
           <h2>Nicht jede Immobilie braucht <em>Öffentlichkeit.</em></h2>
@@ -239,6 +220,8 @@ const process = [
         </div>
       </div>
     </section>
+
+    <VideoFeature src="/videos/sayan-fassade.mp4" poster="/images/video-fassade-poster.webp" label="Kamerafahrt entlang einer modernen Fassade" eyebrow="Architektur im Detail" title="Qualität, <em>die man sieht.</em>" copy="Fassade, Balkone, Materialien. Was Ihre Immobilie wertvoll macht, setzen wir so in Szene, dass Interessenten es auf den ersten Blick erkennen." />
 
     <section class="section section--white home-faq" id="faq" aria-labelledby="faq-title">
       <div class="container home-faq__layout">
@@ -271,18 +254,6 @@ const process = [
   </main>
 
 <script>
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const clips = [...document.querySelectorAll<HTMLVideoElement>("[data-showreel]")];
-  if (clips.length && "IntersectionObserver" in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(({ target, isIntersecting }) => {
-        const video = target as HTMLVideoElement;
-        if (isIntersecting && !reduceMotion.matches) { video.preload = "auto"; video.muted = true; video.play().catch(() => {}); }
-        else video.pause();
-      });
-    }, { threshold: 0.35 });
-    clips.forEach((clip) => io.observe(clip));
-  }
   const heroVideo = document.querySelector<HTMLVideoElement>(".home-hero__video");
   if (heroVideo) {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -311,7 +282,7 @@ const process = [
   .home-hero__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(30 23 19 / .35) 0%, rgb(30 23 19 / .2) 40%, rgb(30 23 19 / .78) 100%), linear-gradient(90deg, rgb(30 23 19 / .55) 0%, transparent 70%); }
   .home-hero__copy { position: relative; z-index: 1; }
   .home-hero .eyebrow { color: var(--accent); }
-  .home-hero h1 { max-width: 15ch; color: #fff; }
+  .home-hero h1 { max-width: 24ch; color: #fff; }
   .home-hero h1 em { background-size: 100% .09em; background-position: 0 96%; }
   .js .home-hero h1:not(.is-visible) em { background-size: 0% .09em; }
   .home-hero__lead { max-width: 46ch; margin-top: 1.5rem; color: rgb(255 255 255 / .88); font-size: clamp(1.125rem, 1.4vw, 1.3rem); }
@@ -356,21 +327,6 @@ const process = [
 
 
   /* Bildstreifen */
-  .showreel__grid { display: grid; grid-template-columns: 7fr 5fr; grid-template-rows: auto auto; gap: clamp(1rem, 2vw, 1.5rem); }
-  .showreel__item { display: grid; gap: .85rem; align-content: start; margin: 0; }
-  .showreel__item--large { grid-row: span 2; }
-  .showreel__media { position: relative; overflow: hidden; aspect-ratio: 16 / 9; border-radius: var(--radius-media, 18px); background: var(--ink); }
-  .showreel__item--large .showreel__media { aspect-ratio: auto; height: 100%; min-height: 20rem; }
-  .showreel__item--large { grid-template-rows: 1fr auto; }
-  .showreel video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .showreel figcaption { display: grid; gap: .25rem; }
-  .showreel figcaption strong { font-size: 1.05rem; }
-  .showreel figcaption span { color: var(--n-text-secondary); font-size: .95rem; text-align: justify; hyphens: auto; }
-  @media (max-width: 900px) {
-    .showreel__grid { grid-template-columns: 1fr; }
-    .showreel__item--large { grid-row: auto; }
-    .showreel__item--large .showreel__media { aspect-ratio: 16 / 9; height: auto; min-height: 0; }
-  }
   .photo-strip { padding: var(--section-space) 0; overflow: hidden; background: #fff; }
   .photo-strip__head { margin-bottom: clamp(2rem, 3.5vw, 3rem); }
   .photo-strip__track { display: flex; width: max-content; animation: strip 120s linear infinite; }

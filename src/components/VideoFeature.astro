@@ -1,0 +1,57 @@
+---
+// Einzelnes Video als dunkles Band zwischen zwei Abschnitten. Läuft nur, solange es sichtbar ist.
+interface Props {
+  src: string;
+  poster: string;
+  label: string;
+  eyebrow: string;
+  title: string;
+  copy: string;
+  reverse?: boolean;
+}
+const { src, poster, label, eyebrow, title, copy, reverse = false } = Astro.props;
+---
+<section class:list={["video-feature", { "video-feature--reverse": reverse }]}>
+  <div class="container video-feature__grid">
+    <div class="video-feature__media" data-reveal>
+      <video muted loop playsinline preload="none" poster={poster} data-video-feature aria-label={label}>
+        <source src={src} type="video/mp4" />
+      </video>
+    </div>
+    <div class="video-feature__copy" data-reveal style="--stagger:1">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 set:html={title} />
+      <p class="video-feature__text">{copy}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .video-feature { padding: clamp(3.5rem, 7vw, 6rem) 0; background: var(--ink); color: #fff; }
+  .video-feature__grid { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .video-feature--reverse .video-feature__media { order: 2; }
+  .video-feature__media { position: relative; overflow: hidden; aspect-ratio: 16 / 9; border-radius: var(--radius-media, 18px); background: #000; }
+  .video-feature video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .video-feature .eyebrow { color: var(--accent); }
+  .video-feature h2 { color: #fff; }
+  .video-feature__text { margin-top: 1.25rem; max-width: 34rem; color: rgb(255 255 255 / .8); font-size: clamp(1.05rem, 1.2vw, 1.15rem); }
+  @media (max-width: 900px) {
+    .video-feature__grid { grid-template-columns: 1fr; }
+    .video-feature--reverse .video-feature__media { order: 0; }
+  }
+</style>
+
+<script>
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const videos = [...document.querySelectorAll<HTMLVideoElement>("[data-video-feature]")];
+  if (videos.length && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(({ target, isIntersecting }) => {
+        const video = target as HTMLVideoElement;
+        if (isIntersecting && !reduce.matches) { video.preload = "auto"; video.muted = true; video.play().catch(() => {}); }
+        else video.pause();
+      });
+    }, { threshold: 0.35 });
+    videos.forEach((video) => io.observe(video));
+  }
+</script>

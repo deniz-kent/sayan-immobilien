@@ -20,6 +20,8 @@ export const editorialImages = {
   rental: photo("sayan-vermietung", "Unser Immobilienberater in einem hellen Innenraum am Fenster", "50% 35%"),
   advice: photo("sayan-beratung", "Unser Immobilienberater mit einem Tablet in einer Wohnung", "55% 40%"),
   documents: photo("sayan-unterlagen", "Unser Immobilienberater mit Unterlagen am Besprechungstisch", "50% 40%"),
+  candanPortrait: photo("candan-portrait", "Candan Sayan, Inhaber von SAYAN Immobilien Köln", "50% 25%"),
+  candanColumns: photo("candan-saeulen", "Candan Sayan zwischen hellen Säulen", "38% 30%"),
   contact: photo("sayan-kontakt", "Unser Immobilienberater in einem hellen Wohnraum", "55% 35%"),
 };
 

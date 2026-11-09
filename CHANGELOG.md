@@ -1,5 +1,11 @@
 # Änderungen
 
+## 1.22.0 · 2026.11.09
+
+- Header: Gut beraten verkaufen. Seit 1998 an Ihrer Seite. Kürzerer Einleitungstext.
+- Die drei Videos stehen jetzt einzeln als dunkle Bänder über die Startseite verteilt: nach den Leistungen, nach den Angeboten und nach der diskreten Vermarktung.
+- Neue Fotos von Candan Sayan in Werdegang und diskreter Vermarktung.
+
 ## 1.21.1 · 2026.11.09
 
 Neue Header-Überschrift auf der Startseite: Ihr Makler in Köln. Seit 1998 an Ihrer Seite.
