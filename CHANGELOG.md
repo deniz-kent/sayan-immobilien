@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.25.2 · 2026.11.09
+
+Fotografie und Exposé: Bild im Text ist jetzt eine eigene Aufnahme (Dachgeschoss). Kontaktkarte auf allen Leistungsseiten mit dem neuen Porträt von Candan Sayan.
+
 ## 1.25.1 · 2026.11.09
 
 Vorher-Nachher-Slider kompakter: drei nebeneinander auf dem Desktop, zwei auf dem Tablet, einer auf dem Handy. Leistungsseiten: Raster immer vollständig gefüllt, dafür je ein passender zusätzlicher Punkt statt einer gestreckten Karte. Mega-Menü: Spaltenüberschriften als Versal-Label mit grüner Linie.
