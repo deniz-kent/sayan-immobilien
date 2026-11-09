@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.25.4 · 2026.11.09
+
+Neue Überschriften: Wir kennen jedes Veedel. (Bildstreifen) und Erste Einschätzung in 30 Sekunden. (Preis-Check).
+
 ## 1.25.3 · 2026.11.09
 
 Fotografie und Exposé: Fassaden-Video (auf 7 Sekunden gekürzt) statt Foto im Text, startet beim Hineinscrollen.
