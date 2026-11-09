@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.24.1 · 2026.11.09
+
+Pop-up schlummert als dunkler Balken unten rechts und ist immer sichtbar. Ein Klick klappt es auf, Schließen klappt es wieder zum Balken ein.
+
 ## 1.24.0 · 2026.11.09
 
 - Pop-up: Schließen pausiert nur für den aktuellen Besuch. Danach bleibt unten rechts ein kleiner Button zum erneuten Öffnen. Erscheint auch direkt nach der Entscheidung im Datenschutz-Banner. Zum Testen: ?popup an die Adresse hängen.

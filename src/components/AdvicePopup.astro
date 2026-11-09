@@ -23,7 +23,7 @@ const autoOpen = Astro.url.pathname === "/";
       <p class="advice-popup__brand">SAYAN Immobilien Köln</p>
       <p class="advice-popup__since">Immobilienexpertise seit 1998</p>
     </div>
-    <button class="advice-popup__close" type="button" data-close-advice aria-label="Hinweis schließen">×</button>
+    <button class="advice-popup__close" type="button" data-close-advice aria-label="Hinweis einklappen">×</button>
   </div>
   <div class="advice-popup__body">
     <h2 id="advice-title">Was ist Ihre Immobilie wert?</h2>
@@ -35,19 +35,25 @@ const autoOpen = Astro.url.pathname === "/";
     <button class="advice-popup__later" type="button" data-close-advice>Später</button>
   </div>
 </aside>
-<button class="advice-launcher" type="button" data-advice-launcher hidden aria-controls="sayan-advice-popup">
-  <span class="advice-launcher__dot" aria-hidden="true"></span>Was ist Ihre Immobilie wert?
+<button class="advice-launcher" type="button" data-advice-launcher aria-controls="sayan-advice-popup" aria-expanded="false">
+  <img src={editorialImages.candanPortrait.src} alt="" width="36" height="36" loading="lazy" />
+  <span class="advice-launcher__text"><strong>Was ist Ihre Immobilie wert?</strong><small>Kostenlos und unverbindlich</small></span>
+  <span class="advice-launcher__chevron" aria-hidden="true"></span>
 </button>
 
 <style>
-  .advice-launcher { position: fixed; z-index: 480; right: 1rem; bottom: 1rem; display: inline-flex; align-items: center; gap: .55rem; min-height: 3rem; padding: .7rem 1.1rem; border: 0; border-radius: 999px; background: var(--accent); color: var(--accent-ink, #1e1713); font-weight: 600; font-size: .92rem; box-shadow: 0 10px 30px rgb(30 23 19 / .25); cursor: pointer; animation: launcher-in 500ms cubic-bezier(.16, 1, .3, 1) both; }
-  .advice-launcher[hidden] { display: none; }
-  .advice-launcher:hover { filter: brightness(1.05); }
-  .advice-launcher__dot { width: .5rem; height: .5rem; border-radius: 50%; background: currentColor; animation: launcher-pulse 1.8s ease-in-out infinite; }
-  @keyframes launcher-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
-  @keyframes launcher-pulse { 50% { opacity: .35; } }
-  :global(body:has([data-consent]:not([hidden]))) .advice-launcher { display: none; }
-  @media (prefers-reduced-motion: reduce) { .advice-launcher, .advice-launcher__dot { animation: none; } }
+  /* Schlummernder Balken unten rechts: immer sichtbar, ein Klick klappt das Pop-up auf. */
+  .advice-launcher { position: fixed; z-index: 290; right: max(1.25rem, env(safe-area-inset-right)); bottom: 0; display: flex; align-items: center; gap: .75rem; width: min(23rem, calc(100% - 2.5rem)); padding: .6rem .9rem calc(.6rem + env(safe-area-inset-bottom)) .7rem; border: 0; border-radius: 14px 14px 0 0; background: var(--ink, #241c18); color: #fff; text-align: left; box-shadow: 0 -8px 30px rgb(30 23 19 / .18); cursor: pointer; transition: transform 450ms cubic-bezier(.16, 1, .3, 1), opacity 300ms ease; }
+  .advice-launcher[hidden] { display: flex; transform: translateY(110%); opacity: 0; pointer-events: none; }
+  .advice-launcher:hover { transform: translateY(-3px); }
+  .advice-launcher img { flex: 0 0 auto; width: 2.25rem; height: 2.25rem; border-radius: 50%; object-fit: cover; object-position: 50% 20%; border: 2px solid var(--accent); }
+  .advice-launcher__text { display: grid; flex: 1; line-height: 1.2; }
+  .advice-launcher__text strong { font-size: .95rem; }
+  .advice-launcher__text small { font-size: .78rem; color: var(--accent); }
+  .advice-launcher__chevron { flex: 0 0 auto; width: .6rem; height: .6rem; margin-right: .2rem; border-top: 2px solid var(--accent); border-left: 2px solid var(--accent); transform: translateY(2px) rotate(45deg); }
+  :global(body:has([data-consent]:not([hidden]))) .advice-launcher { transform: translateY(110%); opacity: 0; pointer-events: none; }
+  @media (max-width: 767px) { .advice-launcher { right: .75rem; width: calc(100% - 1.5rem); } }
+  @media (prefers-reduced-motion: reduce) { .advice-launcher { transition: none; } }
   .advice-popup { position: fixed; z-index: 300; right: max(1.25rem, env(safe-area-inset-right)); bottom: max(1.25rem, env(safe-area-inset-bottom)); width: min(23rem, calc(100% - 2.5rem)); overflow: hidden; border: 1px solid var(--n-border); border-radius: 18px; background: #fff; color: var(--ink); box-shadow: 0 30px 70px -25px rgb(36 28 24 / .45); opacity: 0; transform: translate3d(0, 1.5rem, 0); transition: transform var(--motion-panel) var(--ease-out-expo), opacity 300ms ease; }
   .advice-popup[hidden] { display: none; }
   .advice-popup.is-open { opacity: 1; transform: none; }
@@ -92,7 +98,7 @@ const autoOpen = Astro.url.pathname === "/";
       if (closingTimer) window.clearTimeout(closingTimer);
       popup.inert = false;
       popup.hidden = false;
-      if (launcher) launcher.hidden = true;
+      if (launcher) { launcher.hidden = true; launcher.setAttribute("aria-expanded", "true"); }
       requestAnimationFrame(() => requestAnimationFrame(() => {
         popup.classList.add("is-open");
         if (focus) popup.focus({ preventScroll: true });
@@ -104,7 +110,8 @@ const autoOpen = Astro.url.pathname === "/";
       if (popup.contains(document.activeElement)) returnFocus?.focus({ preventScroll: true });
       popup.inert = true;
       popup.classList.remove("is-open");
-      closingTimer = window.setTimeout(() => { popup.hidden = true; if (launcher) launcher.hidden = false; }, window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 500);
+      if (launcher) { launcher.hidden = false; launcher.setAttribute("aria-expanded", "false"); }
+      closingTimer = window.setTimeout(() => { popup.hidden = true; }, window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 500);
     };
 
     document.querySelectorAll<HTMLAnchorElement>("[data-open-advice]").forEach((trigger) => {
@@ -117,7 +124,6 @@ const autoOpen = Astro.url.pathname === "/";
     popup.querySelectorAll("[data-close-advice]").forEach((button) => button.addEventListener("click", closePopup));
     document.addEventListener("keydown", (event) => { if (event.key === "Escape") closePopup(); });
     launcher?.addEventListener("click", () => openPopup(launcher));
-    if (dismissedRecently() && launcher) launcher.hidden = false;
     if (new URLSearchParams(window.location.search).has("popup")) openPopup();
     window.addEventListener("hashchange", () => { if (window.location.hash === "#beratung") openPopup(); });
     if (window.location.hash === "#beratung") openPopup();
