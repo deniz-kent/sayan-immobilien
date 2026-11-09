@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.21.1 · 2026.11.09
+
+Neue Header-Überschrift auf der Startseite: Ihr Makler in Köln. Seit 1998 an Ihrer Seite.
+
 ## 1.21.0 · 2026.11.09
 
 - Neuer Startseitenbereich mit drei Videos: Grundriss und Raumgefühl, Lage und Umgebung, Architektur im Detail. Die Videos laufen nur, solange sie sichtbar sind.
