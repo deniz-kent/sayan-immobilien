@@ -75,6 +75,7 @@ const process = [
   <main id="main">
     <section class="home-hero">
       <div class="home-hero__media" aria-hidden="true">
+        <img class="home-hero__poster" src="/images/sayan-hero-poster.webp" alt="" fetchpriority="high" decoding="async" data-parallax="0.12" data-parallax-scale="1" />
         <video class="home-hero__video" autoplay muted loop playsinline preload="auto" poster="/images/sayan-hero-poster.webp" data-parallax="0.12" data-parallax-scale="1">
           <source src="/videos/sayan-hero-mobil.mp4" type="video/mp4" media="(max-width: 767px) and (orientation: portrait)" />
           <source src="/videos/sayan-hero-1080.mp4" type="video/mp4" />
@@ -159,7 +160,7 @@ const process = [
     </section>
 
 
-    <VideoFeature src="/videos/sayan-grundriss.mp4" poster="/images/video-grundriss-poster.webp" label="Animation: Grundriss wird zur eingerichteten Wohnung" eyebrow="Grundriss und Raumgefühl" title="Aus einem Plan wird <em>ein Zuhause.</em>" copy="Käufer kaufen keine Quadratmeter. Sie kaufen Räume, in denen sie sich ihr Leben vorstellen können. Genau so zeigen wir Ihre Immobilie." />
+    <VideoFeature src="/videos/sayan-grundriss.mp4" poster="/images/video-grundriss-poster.webp" label="Animation: Grundriss wird zur eingerichteten Wohnung" href="/leistung/fotografie-und-expose/" linkLabel="Fotografie und Exposé" eyebrow="Grundriss und Raumgefühl" title="Aus einem Plan wird <em>ein Zuhause.</em>" copy="Käufer kaufen keine Quadratmeter. Sie kaufen Räume, in denen sie sich ihr Leben vorstellen können. Genau so zeigen wir Ihre Immobilie." />
 
     <section class="photo-strip" aria-label="Eindrücke aus Köln">
       <div class="photo-strip__head container" data-reveal>
@@ -192,7 +193,7 @@ const process = [
     </section>
 
 
-    <VideoFeature reverse src="/videos/sayan-lage.mp4" poster="/images/video-lage-poster.webp" label="Kamerafahrt von außen in eine Wohnung" eyebrow="Lage und Umgebung" title="Die Umgebung <em>verkauft mit.</em>" copy="Straße, Nachbarschaft, der erste Eindruck an der Tür. Wir zeigen, was rund um Ihre Immobilie zählt, bevor jemand zur Besichtigung kommt." />
+    <VideoFeature reverse src="/videos/sayan-lage.mp4" poster="/images/video-lage-poster.webp" label="Kamerafahrt von außen in eine Wohnung" href="/immobilienpreise-koeln/" linkLabel="Lagen und Preise in Köln" eyebrow="Lage und Umgebung" title="Die Umgebung <em>verkauft mit.</em>" copy="Straße, Nachbarschaft, der erste Eindruck an der Tür. Wir zeigen, was rund um Ihre Immobilie zählt, bevor jemand zur Besichtigung kommt." />
 
     <PriceCheck />
 
@@ -221,7 +222,7 @@ const process = [
       </div>
     </section>
 
-    <VideoFeature src="/videos/sayan-fassade.mp4" poster="/images/video-fassade-poster.webp" label="Kamerafahrt entlang einer modernen Fassade" eyebrow="Architektur im Detail" title="Qualität, <em>die man sieht.</em>" copy="Fassade, Balkone, Materialien. Was Ihre Immobilie wertvoll macht, setzen wir so in Szene, dass Interessenten es auf den ersten Blick erkennen." />
+    <VideoFeature src="/videos/sayan-fassade.mp4" poster="/images/video-fassade-poster.webp" label="Kamerafahrt entlang einer modernen Fassade" href="/leistung/vermarktung/" linkLabel="So vermarkten wir" eyebrow="Architektur im Detail" title="Qualität, <em>die man sieht.</em>" copy="Fassade, Balkone, Materialien. Was Ihre Immobilie wertvoll macht, setzen wir so in Szene, dass Interessenten es auf den ersten Blick erkennen." />
 
     <section class="section section--white home-faq" id="faq" aria-labelledby="faq-title">
       <div class="container home-faq__layout">
@@ -233,7 +234,7 @@ const process = [
           {faqQuestions.map(([question, answer]) => (
             <details class="home-faq__item">
               <summary>{question}<span aria-hidden="true">+</span></summary>
-              <p>{answer}</p>
+              <div class="home-faq__answer"><p>{answer}</p></div>
             </details>
           ))}
           <a class="text-link" href="/kontakt/">Ihre Frage ist nicht dabei? Rufen Sie uns an <span aria-hidden="true">→</span></a>
@@ -254,8 +255,37 @@ const process = [
   </main>
 
 <script>
+  // FAQ: weiches Auf- und Zuklappen mit Höhe und leichtem Einblenden des Textes.
+  const faqReduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  document.querySelectorAll<HTMLDetailsElement>(".home-faq__item").forEach((item) => {
+    const summary = item.querySelector("summary");
+    const answer = item.querySelector<HTMLElement>(".home-faq__answer");
+    const text = answer?.querySelector("p");
+    if (!summary || !answer || !text) return;
+    let running: Animation | null = null;
+    summary.addEventListener("click", (event) => {
+      if (faqReduce.matches) return;
+      event.preventDefault();
+      running?.cancel();
+      const opening = !item.open;
+      if (opening) item.open = true;
+      const full = answer.scrollHeight;
+      const from = opening ? 0 : answer.offsetHeight;
+      const to = opening ? full : 0;
+      const easing = "cubic-bezier(.16, 1, .3, 1)";
+      running = answer.animate([{ height: `${from}px` }, { height: `${to}px` }], { duration: opening ? 520 : 380, easing });
+      text.animate(opening
+        ? [{ opacity: 0, transform: "translateY(-8px)" }, { opacity: 1, transform: "none" }]
+        : [{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(-6px)" }],
+        { duration: opening ? 480 : 260, easing, fill: "both" });
+      running.onfinish = () => { running = null; if (!opening) item.open = false; };
+    });
+  });
   const heroVideo = document.querySelector<HTMLVideoElement>(".home-hero__video");
   if (heroVideo) {
+    const show = () => heroVideo.classList.add("is-playing");
+    heroVideo.addEventListener("playing", show, { once: true });
+    heroVideo.addEventListener("timeupdate", () => { if (heroVideo.currentTime > 0) show(); });
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
     const apply = () => {
       if (reduce.matches) { heroVideo.pause(); heroVideo.removeAttribute("autoplay"); }
@@ -276,8 +306,10 @@ const process = [
   .home-hero__media { position: absolute; inset: 0; overflow: hidden; }
   .home-hero__media img, .home-hero__media :global(video) { position: absolute; inset: -6% 0; width: 100%; height: 112%; object-fit: cover; transform: scale(1.12); animation: hero-zoom 2.4s var(--ease-out-expo) both; }
   /* Video nicht zusätzlich hochskalieren: der Puffer von 6 % oben und unten reicht für den Parallax. */
-  .home-hero__media video { transform: none; animation-name: hero-fade; }
-  @keyframes hero-fade { from { opacity: 0; } to { opacity: 1; } }
+  /* Standbild liegt sofort sichtbar unter dem Video; das Video blendet erst ein, wenn das erste Bild wirklich läuft. Kein schwarzer Moment. */
+  .home-hero__media .home-hero__poster, .home-hero__media video { transform: none; animation: none; }
+  .home-hero__media video { opacity: 0; transition: opacity .6s ease; }
+  .home-hero__media video.is-playing { opacity: 1; }
   @keyframes hero-zoom { from { opacity: 0; scale: 1.08; } to { opacity: 1; scale: 1; } }
   .home-hero__shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgb(30 23 19 / .35) 0%, rgb(30 23 19 / .2) 40%, rgb(30 23 19 / .78) 100%), linear-gradient(90deg, rgb(30 23 19 / .55) 0%, transparent 70%); }
   .home-hero__copy { position: relative; z-index: 1; }
@@ -359,7 +391,11 @@ const process = [
   .home-faq__item summary::-webkit-details-marker { display: none; }
   .home-faq__item summary span { display: grid; flex: 0 0 2.6rem; place-items: center; width: 2.6rem; height: 2.6rem; border-radius: 50%; background: var(--n-bg); font: 500 1.4rem/1 var(--font-body); transition: transform 300ms var(--ease-out-expo), background 300ms ease; }
   .home-faq__item[open] summary span { transform: rotate(45deg); background: var(--accent); }
-  .home-faq__item > p { max-width: 62ch; padding: 0 3rem 1.75rem 0; color: var(--n-text-secondary); }
+  .home-faq__answer { overflow: hidden; }
+  .home-faq__answer p { max-width: 62ch; padding: 0 3rem 1.75rem 0; color: var(--n-text-secondary); }
+  .home-faq__item summary { transition: color 200ms ease; }
+  .home-faq__item summary:hover { color: var(--brand-800, inherit); }
+  .home-faq__item summary:hover span { background: var(--accent); }
   .home-faq__questions > .text-link { margin-top: 2rem; }
 
   .contact-cta { padding-block: var(--section-space); }
@@ -388,7 +424,7 @@ const process = [
     .track-record__item { padding-block: 1.5rem; }
     .services, .process { grid-template-columns: 1fr; }
     .timeline li { grid-template-columns: 1fr; gap: .5rem; }
-    .home-faq__item > p { padding-right: 0; }
+    .home-faq__answer p { padding-right: 0; }
   }
   @media (prefers-reduced-motion: reduce) { .home-hero__media img, .home-hero__media video { animation: none; } }
 </style>

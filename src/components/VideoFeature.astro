@@ -8,20 +8,24 @@ interface Props {
   title: string;
   copy: string;
   reverse?: boolean;
+  href: string;
+  linkLabel: string;
 }
-const { src, poster, label, eyebrow, title, copy, reverse = false } = Astro.props;
+const { src, poster, label, eyebrow, title, copy, reverse = false, href, linkLabel } = Astro.props;
 ---
 <section class:list={["video-feature", { "video-feature--reverse": reverse }]}>
   <div class="container video-feature__grid">
-    <div class="video-feature__media" data-reveal>
-      <video muted loop playsinline preload="none" poster={poster} data-video-feature aria-label={label}>
+    <a class="video-feature__media" href={href} tabindex="-1" aria-hidden="true" data-reveal>
+      <img class="video-feature__poster" src={poster} alt="" loading="lazy" decoding="async" />
+      <video muted loop playsinline preload="metadata" poster={poster} data-video-feature aria-label={label}>
         <source src={src} type="video/mp4" />
       </video>
-    </div>
+    </a>
     <div class="video-feature__copy" data-reveal style="--stagger:1">
       <p class="eyebrow">{eyebrow}</p>
       <h2 set:html={title} />
       <p class="video-feature__text">{copy}</p>
+      <a class="button video-feature__link" href={href}>{linkLabel} <span class="arrow" aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>
@@ -31,8 +35,14 @@ const { src, poster, label, eyebrow, title, copy, reverse = false } = Astro.prop
   .video-feature__grid { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
   .video-feature--reverse .video-feature__media { order: 2; }
   .video-feature__media { position: relative; overflow: hidden; aspect-ratio: 16 / 9; border-radius: var(--radius-media, 18px); background: #000; }
-  .video-feature video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .video-feature video, .video-feature__poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  /* Video erst zeigen, wenn es wirklich läuft; bis dahin bleibt das Standbild stehen. */
+  .video-feature video { opacity: 0; transition: opacity .5s ease; }
+  .video-feature video.is-playing { opacity: 1; }
   .video-feature .eyebrow { color: var(--accent); }
+  .video-feature__media { display: block; transition: transform 600ms var(--ease-out-expo, ease); }
+  .video-feature__media:hover { transform: scale(1.01); }
+  .video-feature__link { margin-top: 2rem; }
   .video-feature h2 { color: #fff; }
   .video-feature__text { margin-top: 1.25rem; max-width: 34rem; color: rgb(255 255 255 / .8); font-size: clamp(1.05rem, 1.2vw, 1.15rem); }
   @media (max-width: 900px) {
@@ -45,13 +55,27 @@ const { src, poster, label, eyebrow, title, copy, reverse = false } = Astro.prop
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   const videos = [...document.querySelectorAll<HTMLVideoElement>("[data-video-feature]")];
   if (videos.length && "IntersectionObserver" in window) {
-    const io = new IntersectionObserver((entries) => {
+    videos.forEach((video) => {
+      const show = () => { if (video.currentTime > 0) video.classList.add("is-playing"); };
+      video.addEventListener("playing", show);
+      video.addEventListener("timeupdate", show);
+    });
+    // Schon vorladen, bevor das Video ins Bild scrollt, damit es sofort startet.
+    const preload = new IntersectionObserver((entries) => {
+      entries.forEach(({ target, isIntersecting }) => {
+        if (!isIntersecting) return;
+        const video = target as HTMLVideoElement;
+        video.preload = "auto"; video.load();
+        preload.unobserve(video);
+      });
+    }, { rootMargin: "800px 0px" });
+    const play = new IntersectionObserver((entries) => {
       entries.forEach(({ target, isIntersecting }) => {
         const video = target as HTMLVideoElement;
-        if (isIntersecting && !reduce.matches) { video.preload = "auto"; video.muted = true; video.play().catch(() => {}); }
+        if (isIntersecting && !reduce.matches) { video.muted = true; video.play().catch(() => {}); }
         else video.pause();
       });
-    }, { threshold: 0.35 });
-    videos.forEach((video) => io.observe(video));
+    }, { threshold: 0.25 });
+    videos.forEach((video) => { preload.observe(video); play.observe(video); });
   }
 </script>

@@ -1,5 +1,13 @@
 # Änderungen
 
+## 1.23.0 · 2026.11.09
+
+- Neue Navigation nach Absicht: Immobilien, Verkaufen, Bewerten als Menüs; Preise Köln, Über uns und Kontakt als direkte Links. Alle Menübilder im gleichen Format.
+- Datenschutz-Banner mit echter Auswahl: Alle akzeptieren, Nur notwendige, Einstellungen. BOTTIMMO wird erst nach Zustimmung geladen, sonst mit Button zum Laden. Änderbar über Datenschutzeinstellungen im Footer.
+- Videos: Standbild liegt sofort sichtbar unter dem Video, kein schwarzer Moment mehr. Jedes Videoband verlinkt auf die passende Unterseite.
+- FAQ klappt weich auf und zu.
+- Pop-up: erscheint nach 20 Sekunden und 30 Prozent Scrollen, nie gleichzeitig mit dem Datenschutz-Banner, nach dem Schließen 24 Stunden Pause statt 30 Tage.
+
 ## 1.22.2 · 2026.11.09
 
 Header: Wir kümmern uns. Seit 1998 an Ihrer Seite. Videoband: Aus einem Plan wird ein Zuhause.

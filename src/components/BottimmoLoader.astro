@@ -1,0 +1,64 @@
+---
+// Lädt das BOTTIMMO-Widget erst nach Einwilligung in externe Dienste.
+// Ohne Einwilligung erscheint an Stelle des Widgets ein Hinweis mit Button zum Laden.
+interface Props { label?: string }
+const { label = "Inhalt laden" } = Astro.props;
+---
+<template data-bottimmo-placeholder>
+  <div class="btm-gate">
+    <p class="btm-gate__title">Externer Dienst: BOTTIMMO</p>
+    <p class="btm-gate__text">Dieser Bereich wird von der BOTTIMMO AG bereitgestellt. Beim Laden werden Daten an BOTTIMMO übertragen. Mehr im <a href="/datenschutz/">Datenschutz</a>.</p>
+    <button class="button" type="button" data-bottimmo-accept>{label}</button>
+  </div>
+</template>
+
+<style is:global>
+  .btm-gate { display: grid; justify-items: start; gap: .75rem; max-width: 40rem; margin: 0 auto; padding: clamp(1.5rem, 3vw, 2.25rem); border: 1px dashed var(--n-border); border-radius: 16px; background: var(--n-bg); }
+  .btm-gate__title { font-weight: 700; }
+  .btm-gate__text { color: var(--n-text-secondary); font-size: .92rem; }
+  .btm-gate a { text-decoration: underline; text-underline-offset: .2em; }
+</style>
+
+<script is:inline>
+  (function () {
+    var SRC = "https://components.bottimmo.com/components/6a9a8e5ddd651d6512580de2/btm-widget/de-DE";
+    var loaded = false;
+    function consent() {
+      if (window.sayanConsent) return window.sayanConsent;
+      try { return JSON.parse(localStorage.getItem("sayan-consent-v2") || "null"); } catch (e) { return null; }
+    }
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      document.querySelectorAll(".btm-gate").forEach(function (gate) { gate.remove(); });
+      document.querySelectorAll("btm-widget").forEach(function (w) { w.hidden = false; });
+      var s = document.createElement("script");
+      s.src = SRC; s.defer = true;
+      document.head.appendChild(s);
+      window.dispatchEvent(new CustomEvent("sayan:bottimmo-loading"));
+    }
+    function gate() {
+      var tpl = document.querySelector("template[data-bottimmo-placeholder]");
+      document.querySelectorAll("btm-widget").forEach(function (w) {
+        w.hidden = true;
+        if (tpl) w.insertAdjacentElement("beforebegin", tpl.content.firstElementChild.cloneNode(true));
+      });
+      document.querySelectorAll("[data-bottimmo-accept]").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var value = { v: 2, external: true, at: Date.now() };
+          try { localStorage.setItem("sayan-consent-v2", JSON.stringify(value)); } catch (e) {}
+          window.sayanConsent = value;
+          var banner = document.querySelector("[data-consent]");
+          if (banner) banner.hidden = true;
+          load();
+        });
+      });
+    }
+    function init() {
+      var c = consent();
+      if (c && c.external) load(); else gate();
+      window.addEventListener("sayan:consent", function (e) { if (e.detail && e.detail.external) load(); });
+    }
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
+  })();
+</script>

@@ -5,66 +5,54 @@ import { services } from "../data/services";
 
 const serviceGroups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"] as const;
 
-const groups = [
+// Navigation nach Absicht der Besucher: suchen, verkaufen, Wert erfahren. Häufige Ziele (Preise, Über uns, Kontakt) sind direkte Links ohne Menü.
+type NavGroup = {
+  label: string;
+  href?: string;
+  columns?: { title: string; links: string[] }[];
+  promoEyebrow?: string; promo?: string; promoText?: string; promoHref?: string; promoImage?: string;
+};
+const groups: NavGroup[] = [
   {
-    label: "Kaufen",
+    label: "Immobilien",
     columns: [
-      { title: "Wohnimmobilien", links: ["Aktuelle Objekte", "Immobilien mieten", "Suchprofil anlegen", "Diskrete Angebote"] },
-      { title: "Service", links: ["Finanzierung", "Besichtigungen", "After-Sales-Service"] },
-      { title: "Lagen & Preise", links: ["Immobilienpreise Köln", "Köln-Marienburg", "Köln-Lindenthal", "Köln-Sülz", "Köln-Rodenkirchen", "Alle Stadtteile & Preise"] },
+      { title: "Angebote", links: ["Immobilien kaufen", "Immobilien mieten", "Alle Angebote"] },
+      { title: "Nichts Passendes dabei?", links: ["Suchprofil anlegen", "Finanzierung"] },
     ],
     promoEyebrow: "Kostenlos · unverbindlich",
     promo: "Suchprofil anlegen",
-    promoText: "Passende Angebote direkt von uns, auch diskrete Objekte.",
+    promoText: "Passende Angebote direkt von uns, auch Objekte, die nicht öffentlich inseriert sind.",
     promoHref: "/suchservice/",
-    promoImage: "/images/wohnzimmer-modern-domblick.webp",
+    promoImage: "/images/menu/suchen.webp",
   },
   {
     label: "Verkaufen",
     columns: [
-      { title: "Eigentümer", links: ["Immobilie verkaufen", "Immobilie vermieten", "Diskret vermarkten", "Alle Leistungen"] },
-      { title: "Vermarktung", links: ["Fotografie", "Home Staging", "360-Grad-Rundgang", "Besichtigungen"] },
+      { title: "Verkaufen und vermieten", links: ["Immobilie verkaufen", "Immobilie vermieten", "Diskret vermarkten", "Alle Leistungen"] },
+      { title: "So vermarkten wir", links: ["Fotografie", "Home Staging", "360-Grad-Rundgang", "Besichtigungen"] },
       { title: "Für Profis", links: ["Bauträgervertrieb", "Portfoliovertrieb", "Tippgeber"] },
     ],
-    promoEyebrow: "Seit 1998",
-    promo: "In 7 Phasen zum Verkauf",
-    promoText: "Vom ersten Kennenlernen bis nach dem Notartermin.",
-    promoHref: "/leistung/immobilienverkauf/",
-    promoImage: "/images/haus-modern-klinker.webp",
+    promoEyebrow: "Der erste Schritt",
+    promo: "Was ist Ihre Immobilie wert?",
+    promoText: "Online in wenigen Minuten oder persönlich vor Ort.",
+    promoHref: "/leistung/formular/",
+    promoImage: "/images/menu/verkaufen.webp",
   },
   {
     label: "Bewerten",
     columns: [
-      { title: "Bewertung", links: ["Online bewerten", "Bewertung vor Ort", "Wertermittlung"] },
-      { title: "Marktdaten", links: ["Immobilienpreise Köln", "Alle Stadtteile & Preise", "Energieausweis"] },
+      { title: "Wert erfahren", links: ["Online bewerten", "Bewertung vor Ort", "Wertermittlung", "Energieausweis"] },
+      { title: "Marktdaten", links: ["Immobilienpreise Köln", "Alle Stadtteile & Preise"] },
     ],
     promoEyebrow: "Kostenlos · unverbindlich",
-    promo: "Was ist Ihre Immobilie wert?",
-    promoText: "Online in wenigen Minuten oder persönlich vor Ort.",
-    promoHref: "/leistung/formular/",
-    promoImage: "/images/sayan-beratung-640.webp",
+    promo: "Bewertung vor Ort",
+    promoText: "Wir sehen uns Ihre Immobilie an und nennen Ihnen einen realistischen Preis.",
+    promoHref: "/kontakt/#termin",
+    promoImage: "/images/menu/bewerten.webp",
   },
-  {
-    label: "Leistungen",
-    columns: serviceGroups.map((title) => ({ title, links: services.filter((service) => service.group === title).map((service) => service.title) })),
-    promoEyebrow: "Alles aus einer Hand",
-    promo: "Alle Leistungen im Überblick",
-    promoText: "Von der Bewertung bis nach dem Notartermin.",
-    promoHref: "/leistung/",
-    promoImage: "/images/sayan-unterlagen-640.webp",
-  },
-  {
-    label: "Über uns",
-    columns: [
-      { title: "SAYAN", links: ["Über SAYAN", "Team", "10 gute Gründe"] },
-      { title: "Kontakt", links: ["Kontakt", "Termin vereinbaren", "Häufige Fragen"] },
-    ],
-    promoEyebrow: "Seit 1998 in Köln",
-    promo: "SAYAN Immobilien Köln",
-    promoText: "Gelernt, studiert und aufgebaut. Lernen Sie uns kennen.",
-    promoHref: "/ueber-uns/",
-    promoImage: "/images/sayan-persoenlich-640.webp",
-  },
+  { label: "Preise Köln", href: "/immobilienpreise-koeln/" },
+  { label: "Über uns", href: "/ueber-uns/" },
+  { label: "Kontakt", href: "/kontakt/" },
 ];
 const liveLinks: Record<string, string> = {
   ...Object.fromEntries(services.map((service) => [service.title, `/leistung/${service.slug}/`])),
@@ -105,6 +93,7 @@ const liveLinks: Record<string, string> = {
   "Arbeitsweise": "/#ablauf",
   "Leistungen": "/leistung/",
   "Kontakt": "/kontakt/",
+  "Alle Angebote": "/immobilien/",
   "Häufige Fragen": "/#faq",
 };
 ---
@@ -129,21 +118,23 @@ const liveLinks: Record<string, string> = {
       </a>
 
       <nav class="desktop-nav" aria-label="Hauptnavigation">
-        {groups.map((group, index) => (
+        {groups.map((group, index) => group.href ? (
+          <a href={group.href}>{group.label}</a>
+        ) : (
           <div class="nav-group">
             <button class="nav-trigger" type="button" aria-expanded="false" aria-controls={`mega-${index}`}>
               {group.label}
             </button>
             <div class="mega-menu" id={`mega-${index}`} hidden>
-              <div class="mega-menu__inner" style={`--cols:${group.columns.length}`}>
-                {group.columns.map((column) => (
+              <div class="mega-menu__inner" style={`--cols:${group.columns!.length}`}>
+                {group.columns!.map((column) => (
                   <div class="mega-column">
                     <p>{column.title}</p>
                     {column.links.map((link) => <a href={liveLinks[link]}>{link}</a>)}
                   </div>
                 ))}
                 <a class="mega-promo" href={group.promoHref}>
-                  <img src={group.promoImage} alt="" loading="lazy" width="640" height="430" />
+                  <img src={group.promoImage} alt="" loading="lazy" width="800" height="520" />
                   <span class="mega-promo__body"><small>{group.promoEyebrow}</small><strong>{group.promo}</strong><span>{group.promoText}</span><em>Mehr erfahren →</em></span>
                 </a>
               </div>
@@ -165,14 +156,14 @@ const liveLinks: Record<string, string> = {
       <button class="menu-close" type="button" aria-label="Menü schließen">×</button>
     </div>
     <div class="mobile-menu__groups">
-      {groups.map((group) => (
+      {groups.map((group) => group.href ? (
+        <a href={group.href}>{group.label}</a>
+      ) : (
         <details>
           <summary>{group.label}</summary>
-          {group.columns.flatMap((column) => column.links).map((link) => <a href={liveLinks[link]}>{link}</a>)}
+          {group.columns!.flatMap((column) => column.links).map((link) => <a href={liveLinks[link]}>{link}</a>)}
         </details>
       ))}
-      <a href="/immobilienpreise-koeln/">Immobilienpreise Köln</a>
-      <a href="/kontakt/">Kontakt</a>
     </div>
     <div class="mobile-menu__footer">
       <a class="button" href="/kontakt/#termin">Termin vor Ort vereinbaren</a>

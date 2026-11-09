@@ -12,6 +12,7 @@ const autoOpen = Astro.url.pathname === "/";
   data-auto-open={autoOpen ? "true" : undefined}
   data-delay={siteSettings.advicePopupDelaySeconds}
   data-scroll={siteSettings.advicePopupScrollPercent}
+  data-pause={siteSettings.advicePopupPauseHours}
   tabindex="-1"
   hidden
   aria-labelledby="advice-title"
@@ -66,11 +67,11 @@ const autoOpen = Astro.url.pathname === "/";
 <script>
   const popup = document.querySelector<HTMLElement>("[data-advice-popup]");
   const KEY = "sayan-advice-dismissed";
-  const DAYS = 30;
+  const PAUSE_HOURS = Number(popup?.dataset.pause || 24);
   const dismissedRecently = () => {
     try {
       const at = Number(localStorage.getItem(KEY));
-      return at > 0 && Date.now() - at < DAYS * 86400000;
+      return at > 0 && Date.now() - at < PAUSE_HOURS * 3600000;
     } catch { return false; }
   };
   const rememberDismiss = () => { try { localStorage.setItem(KEY, String(Date.now())); } catch { /* privater Modus */ } };
@@ -127,6 +128,7 @@ const autoOpen = Astro.url.pathname === "/";
         const scrollable = document.documentElement.scrollHeight - window.innerHeight;
         if (scrollable > 0 && window.scrollY / scrollable < minScroll) return;
         if (valuationVisible()) return;
+        if (document.querySelector("[data-consent]:not([hidden])")) return;
         done = true;
         window.removeEventListener("scroll", check);
         openPopup(null, false);

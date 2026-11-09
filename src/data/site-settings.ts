@@ -3,7 +3,9 @@ export const siteSettings = {
   // Bewertungs-Pop-up unten rechts: true = an, false = komplett aus.
   showAdvicePopup: true,
   // Frühestens nach so vielen Sekunden auf der Startseite ...
-  advicePopupDelaySeconds: 30,
+  advicePopupDelaySeconds: 20,
   // ... und erst, wenn der Besucher so viel Prozent der Seite gescrollt hat.
-  advicePopupScrollPercent: 50,
+  advicePopupScrollPercent: 30,
+  // Nach dem Schließen so viele Stunden nicht automatisch erneut zeigen.
+  advicePopupPauseHours: 24,
 };

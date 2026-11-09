@@ -1,4 +1,5 @@
 ---
+import BottimmoLoader from "../../../components/BottimmoLoader.astro";
 import ReducedLayout from "../../../layouts/ReducedLayout.astro";
 ---
 
@@ -41,26 +42,27 @@ import ReducedLayout from "../../../layouts/ReducedLayout.astro";
     </section>
   </main>
 
-  <script
-    is:inline
-    src="https://components.bottimmo.com/components/6a9a8e5ddd651d6512580de2/btm-widget/de-DE"
-    defer
-  ></script>
+  <BottimmoLoader label="Online Bewertung starten" />
   <script>
     const status = document.querySelector<HTMLElement>("[data-bottimmo-status]");
     const error = document.querySelector<HTMLElement>("[data-bottimmo-error]");
     let widgetReady = false;
-
-    window.customElements.whenDefined("btm-widget").then(() => {
-      widgetReady = true;
-      if (status) status.hidden = true;
-    });
-
-    window.setTimeout(() => {
-      if (widgetReady) return;
-      if (status) status.hidden = true;
-      if (error) error.hidden = false;
-    }, 12000);
+    // Ladehinweis und Fehler-Timer erst, wenn das Widget nach Einwilligung wirklich geladen wird.
+    if (status) status.hidden = true;
+    const startWatch = () => {
+      if (status && !widgetReady) status.hidden = false;
+      window.customElements.whenDefined("btm-widget").then(() => {
+        widgetReady = true;
+        if (status) status.hidden = true;
+      });
+      window.setTimeout(() => {
+        if (widgetReady) return;
+        if (status) status.hidden = true;
+        if (error) error.hidden = false;
+      }, 12000);
+    };
+    window.addEventListener("sayan:bottimmo-loading", startWatch, { once: true });
+    if (document.querySelector('script[src*="components.bottimmo.com"]')) startWatch();
   </script>
 </ReducedLayout>
 

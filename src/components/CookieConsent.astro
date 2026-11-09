@@ -1,40 +1,104 @@
-<aside class="consent" data-consent hidden aria-labelledby="consent-title">
-  <div>
-    <p class="eyebrow">Datenschutz</p>
-    <h2 id="consent-title">Hinweis zu externen Inhalten.</h2>
-    <p>Diese Website speichert Ihre Bestätigung lokal im Browser. Beim Aufruf der Online Immobilienbewertung wird ein externer Dienst von BOTTIMMO geladen. Details finden Sie im <a href="/datenschutz/">Datenschutz</a>.</p>
+---
+// Einwilligungs-Banner. Ohne Zustimmung werden keine externen Dienste geladen.
+// Gespeichert wird nur die Auswahl selbst (localStorage, Schlüssel "sayan-consent-v2").
+---
+<aside class="consent" data-consent hidden aria-labelledby="consent-title" aria-describedby="consent-text">
+  <div class="consent__main">
+    <p class="consent__eyebrow">Datenschutz</p>
+    <h2 id="consent-title">Ihre Privatsphäre ist uns wichtig.</h2>
+    <p id="consent-text">Wir verwenden nur technisch notwendige Speicherungen. Für die Online Immobilienbewertung und das Suchprofil binden wir mit Ihrer Zustimmung den Dienst BOTTIMMO ein. Sie können Ihre Auswahl jederzeit im Footer unter Datenschutzeinstellungen ändern. Mehr dazu im <a href="/datenschutz/">Datenschutz</a>.</p>
+
+    <div class="consent__settings" data-consent-settings hidden>
+      <label class="consent__option">
+        <input type="checkbox" checked disabled />
+        <span><strong>Notwendig</strong><small>Speichert Ihre Auswahl in diesem Banner. Immer aktiv.</small></span>
+      </label>
+      <label class="consent__option">
+        <input type="checkbox" data-consent-external />
+        <span><strong>Externe Dienste</strong><small>BOTTIMMO für Online Bewertung und Suchprofil. Dabei werden Daten an die BOTTIMMO AG übertragen.</small></span>
+      </label>
+    </div>
   </div>
   <div class="consent__actions">
-    <button class="button" type="button" data-consent-choice="acknowledged">Verstanden</button>
+    <button class="button consent__accept" type="button" data-consent-all>Alle akzeptieren</button>
+    <button class="consent__secondary" type="button" data-consent-necessary>Nur notwendige</button>
+    <button class="consent__link" type="button" data-consent-toggle aria-expanded="false">Einstellungen</button>
+    <button class="consent__secondary" type="button" data-consent-save hidden>Auswahl speichern</button>
   </div>
 </aside>
 
 <style>
-  .consent { position: fixed; z-index: 500; right: 1rem; bottom: 1rem; left: 1rem; width: min(calc(100% - 2rem), 58rem); margin-inline: auto; padding: 1.4rem; border: 1px solid var(--hairline); border-radius: var(--radius-card); background: var(--brand-900); color: var(--cream); box-shadow: var(--shadow-lg); }
-  .consent:not([hidden]) { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2rem; }
-  .consent h2 { max-width: none; font-size: 1.8rem; }
-  .consent p:not(.eyebrow) { max-width: 62ch; margin-top: .55rem; color: color-mix(in srgb, var(--cream) 66%, transparent); font-size: .72rem; }
-  .consent p a { text-decoration: underline; text-underline-offset: .2em; }
-  .consent__actions { display: flex; gap: .6rem; }
-  .consent .button--secondary { color: var(--cream); }
-  @media (max-width: 767px) { .consent:not([hidden]) { grid-template-columns: 1fr; } .consent__actions { display: grid; } }
+  .consent { position: fixed; z-index: 700; right: 1rem; bottom: 1rem; left: 1rem; width: min(calc(100% - 2rem), 60rem); margin-inline: auto; padding: clamp(1.25rem, 2.5vw, 1.75rem); border: 1px solid var(--n-border); border-radius: 18px; background: #fff; color: var(--ink); box-shadow: 0 24px 60px rgb(30 23 19 / .22); }
+  .consent:not([hidden]) { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: clamp(1.25rem, 3vw, 2.5rem); animation: consent-in 500ms cubic-bezier(.16, 1, .3, 1) both; }
+  @keyframes consent-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  .consent__eyebrow { margin-bottom: .5rem; color: var(--n-text-secondary); font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+  .consent h2 { max-width: none; color: var(--ink); font-size: clamp(1.3rem, 2vw, 1.6rem); }
+  .consent__main > p:not(.consent__eyebrow) { max-width: 64ch; margin-top: .6rem; color: var(--n-text-secondary); font-size: .9rem; }
+  .consent a { color: var(--ink); text-decoration: underline; text-underline-offset: .2em; }
+  .consent__settings { display: grid; gap: .6rem; margin-top: 1.1rem; }
+  .consent__settings[hidden] { display: none; }
+  .consent__option { display: flex; gap: .85rem; align-items: flex-start; padding: .85rem 1rem; border: 1px solid var(--n-border); border-radius: 12px; cursor: pointer; }
+  .consent__option input { flex: 0 0 auto; width: 1.15rem; height: 1.15rem; margin-top: .15rem; accent-color: var(--brand-800, #7a8f00); }
+  .consent__option strong { display: block; font-size: .95rem; }
+  .consent__option small { display: block; margin-top: .15rem; color: var(--n-text-secondary); font-size: .82rem; text-align: left; }
+  .consent__actions { display: grid; gap: .55rem; min-width: 13rem; }
+  .consent__accept { justify-content: center; }
+  .consent__secondary { min-height: 2.9rem; padding: .6rem 1.1rem; border: 1px solid var(--ink); border-radius: 8px; background: transparent; color: var(--ink); font-weight: 600; cursor: pointer; }
+  .consent__secondary:hover { background: var(--n-bg); }
+  .consent__link { padding: .4rem; border: 0; background: none; color: var(--n-text-secondary); font-size: .88rem; text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
+  .consent button[hidden] { display: none; }
+  @media (max-width: 767px) {
+    .consent { right: .75rem; bottom: max(.75rem, env(safe-area-inset-bottom)); left: .75rem; width: auto; max-height: calc(100svh - 1.5rem); overflow-y: auto; }
+    .consent:not([hidden]) { grid-template-columns: 1fr; }
+    .consent__actions { min-width: 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { .consent:not([hidden]) { animation: none; } }
 </style>
 
 <script>
-  const consent = document.querySelector<HTMLElement>("[data-consent]");
-  let savedChoice: string | null = null;
-  try { savedChoice = localStorage.getItem("sayan-consent"); } catch { /* The notice also works when browser storage is blocked. */ }
-  if (consent && !savedChoice) consent.hidden = false;
-  document.querySelectorAll<HTMLButtonElement>("[data-consent-choice]").forEach((button) => {
-    button.addEventListener("click", () => {
-      try { localStorage.setItem("sayan-consent", button.dataset.consentChoice ?? "acknowledged"); } catch { /* Acknowledge for the current page without storage. */ }
-      if (consent) consent.hidden = true;
-    });
-  });
+  type Consent = { v: 2; external: boolean; at: number };
+  const KEY = "sayan-consent-v2";
+  const banner = document.querySelector<HTMLElement>("[data-consent]");
+  const settings = banner?.querySelector<HTMLElement>("[data-consent-settings]");
+  const externalBox = banner?.querySelector<HTMLInputElement>("[data-consent-external]");
+  const toggle = banner?.querySelector<HTMLButtonElement>("[data-consent-toggle]");
+  const saveBtn = banner?.querySelector<HTMLButtonElement>("[data-consent-save]");
+
+  const read = (): Consent | null => {
+    try { const raw = localStorage.getItem(KEY); return raw ? (JSON.parse(raw) as Consent) : null; } catch { return null; }
+  };
+  const write = (external: boolean) => {
+    const value: Consent = { v: 2, external, at: Date.now() };
+    try { localStorage.setItem(KEY, JSON.stringify(value)); localStorage.removeItem("sayan-consent"); } catch { /* Auswahl gilt dann nur für diese Seite. */ }
+    (window as any).sayanConsent = value;
+    window.dispatchEvent(new CustomEvent("sayan:consent", { detail: value }));
+    if (banner) banner.hidden = true;
+  };
+  const showSettings = (open: boolean) => {
+    if (!settings || !toggle || !saveBtn) return;
+    settings.hidden = !open;
+    saveBtn.hidden = !open;
+    toggle.hidden = open;
+    toggle.setAttribute("aria-expanded", String(open));
+  };
+
+  const saved = read();
+  (window as any).sayanConsent = saved;
+  if (banner && !saved) banner.hidden = false;
+
+  banner?.querySelector("[data-consent-all]")?.addEventListener("click", () => write(true));
+  banner?.querySelector("[data-consent-necessary]")?.addEventListener("click", () => write(false));
+  toggle?.addEventListener("click", () => showSettings(true));
+  saveBtn?.addEventListener("click", () => write(Boolean(externalBox?.checked)));
+
+  // Später ändern: Link im Footer und alle Elemente mit data-open-consent.
   document.querySelectorAll<HTMLElement>("[data-open-consent]").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.preventDefault();
-      if (consent) consent.hidden = false;
+      if (!banner) return;
+      if (externalBox) externalBox.checked = Boolean(read()?.external);
+      showSettings(true);
+      banner.hidden = false;
     });
   });
 </script>
