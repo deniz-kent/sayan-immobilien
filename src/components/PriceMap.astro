@@ -1,0 +1,149 @@
+---
+// Interaktive Preiskarte: alle 86 Kölner Stadtteile, eingefärbt nach dem Median der amtlichen Richtwerte.
+import { stadtteile, mapViewBox } from "../data/koeln-karte";
+
+const fmt = (n: number) => n.toLocaleString("de-DE");
+const values = (key: "wohnung" | "haus") => stadtteile.map((s) => s[key]?.wert).filter((v): v is number => typeof v === "number");
+const range = { wohnung: [Math.min(...values("wohnung")), Math.max(...values("wohnung"))], haus: [Math.min(...values("haus")), Math.max(...values("haus"))] };
+const payload = stadtteile.map(({ d: _d, ...rest }) => rest);
+---
+<section class="section section--paper price-map" id="preiskarte" aria-labelledby="price-map-title">
+  <div class="container">
+    <div class="price-map__head" data-reveal>
+      <div>
+        <p class="eyebrow">Preiskarte</p>
+        <h2 id="price-map-title">Köln auf <em>einen Blick.</em></h2>
+        <p class="section-lead">Alle 86 Stadtteile, eingefärbt nach den amtlichen Richtwerten. Fahren Sie über die Karte oder tippen Sie auf einen Stadtteil.</p>
+      </div>
+      <div class="price-map__toggle" role="group" aria-label="Art der Immobilie">
+        <button type="button" class="is-active" data-map-type="wohnung" aria-pressed="true">Wohnung</button>
+        <button type="button" data-map-type="haus" aria-pressed="false">Haus</button>
+      </div>
+    </div>
+
+    <div class="price-map__grid">
+      <div class="price-map__canvas" data-reveal>
+        <svg viewBox={mapViewBox} role="img" aria-label="Karte der Kölner Stadtteile mit Immobilienpreisen" data-map>
+          {stadtteile.map((s, i) => (
+            <path d={s.d} data-i={i} tabindex="0" role="button" aria-label={s.name} class="price-map__area" />
+          ))}
+        </svg>
+        <div class="price-map__legend" aria-hidden="true">
+          <span data-legend-min>{fmt(range.wohnung[0])} €/m²</span>
+          <i></i>
+          <span data-legend-max>{fmt(range.wohnung[1])} €/m²</span>
+        </div>
+      </div>
+
+      <aside class="price-map__panel" data-reveal style="--stagger:1" aria-live="polite">
+        <div data-panel-empty>
+          <p class="price-map__hint">Stadtteil wählen</p>
+          <p class="price-map__hint-copy">Die Karte zeigt den Median aller Richtwertzonen eines Stadtteils. Grau bedeutet: Für diesen Teilmarkt gibt es keinen Richtwert.</p>
+        </div>
+        <div data-panel-info hidden>
+          <p class="price-map__name" data-p-name></p>
+          <dl class="price-map__values">
+            <div><dt>Wohnung</dt><dd data-p-wohnung></dd><small data-p-wohnung-trend></small></div>
+            <div><dt>Haus</dt><dd data-p-haus></dd><small data-p-haus-trend></small></div>
+          </dl>
+          <p class="price-map__lagen"><span>Richtwertzonen:</span> <span data-p-lagen></span></p>
+          <a class="button" href="/kontakt/#termin">Bewertung vor Ort vereinbaren <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </aside>
+    </div>
+  </div>
+  <script type="application/json" data-map-data set:html={JSON.stringify({ items: payload, range })} />
+</section>
+
+<style>
+  .price-map__values small.is-down { color: #e08a6d !important; }
+  .price-map__head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.5rem; margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+  .price-map__head .section-lead { max-width: 52ch; margin-top: 1rem; color: var(--n-text-secondary); }
+  .price-map__toggle { display: inline-flex; padding: .3rem; border: 1px solid var(--n-border); border-radius: 999px; background: #fff; }
+  .price-map__toggle button { min-height: 2.6rem; padding: .4rem 1.2rem; border: 0; border-radius: 999px; background: transparent; color: var(--ink); font-weight: 600; cursor: pointer; }
+  .price-map__toggle button.is-active { background: var(--ink); color: #fff; }
+  .price-map__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(1.25rem, 3vw, 2.5rem); align-items: start; }
+  .price-map__canvas { padding: clamp(1rem, 2vw, 1.75rem); border-radius: 18px; background: #fff; }
+  .price-map__canvas svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .price-map__area { stroke: #fff; stroke-width: 1.2; cursor: pointer; transition: fill 400ms ease, opacity 200ms ease; outline: none; }
+  .price-map__area.is-active, .price-map__area:focus-visible { stroke: var(--accent); stroke-width: 4; paint-order: stroke; }
+  svg:has(.is-active) .price-map__area:not(.is-active) { opacity: .55; }
+  .price-map__legend { display: flex; align-items: center; gap: .75rem; margin-top: 1rem; color: var(--n-text-secondary); font-size: .8rem; font-weight: 600; }
+  .price-map__legend i { flex: 1; height: .5rem; border-radius: 999px; background: linear-gradient(90deg, #efe7d6, #c9b9a0, #8c7a66, #4b3c31, #241c18); }
+  .price-map__panel { position: sticky; top: 7rem; padding: clamp(1.5rem, 3vw, 2.25rem); border-radius: 18px; background: var(--ink); color: #fff; }
+  .price-map__hint { font: 600 1.4rem/1.2 var(--font-display); }
+  .price-map__hint-copy { margin-top: .75rem; color: rgb(255 255 255 / .7); font-size: .95rem; text-align: left; }
+  .price-map__name { font: 600 clamp(1.5rem, 2.4vw, 2rem)/1.15 var(--font-display); }
+  .price-map__values { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin: 1.25rem 0; }
+  .price-map__values div { padding: .9rem 1rem; border-radius: 12px; background: rgb(255 255 255 / .07); }
+  .price-map__values dt { color: rgb(255 255 255 / .65); font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+  .price-map__values dd { margin: .35rem 0 .15rem; font: 600 1.35rem/1.1 var(--font-display); }
+  .price-map__values small { color: var(--accent); font-size: .82rem; font-weight: 600; }
+  .price-map__lagen { margin-bottom: 1.5rem; color: rgb(255 255 255 / .7); font-size: .88rem; text-align: left; }
+  .price-map__lagen span:first-child { color: #fff; font-weight: 600; }
+  @media (max-width: 900px) {
+    .price-map__grid { grid-template-columns: 1fr; }
+    .price-map__panel { position: static; }
+  }
+</style>
+
+<script>
+  type Item = { name: string; wohnung: { wert: number; trend: number | null } | null; haus: { wert: number; trend: number | null } | null; lagen: string[] };
+  const root = document.querySelector<HTMLElement>("#preiskarte");
+  const dataEl = root?.querySelector<HTMLScriptElement>("[data-map-data]");
+  if (root && dataEl) {
+    const en = document.documentElement.lang === "en";
+    const { items, range } = JSON.parse(dataEl.textContent || "{}") as { items: Item[]; range: Record<"wohnung" | "haus", [number, number]> };
+    const areas = [...root.querySelectorAll<SVGPathElement>(".price-map__area")];
+    const stops = ["#efe7d6", "#c9b9a0", "#8c7a66", "#4b3c31", "#241c18"];
+    const noData = "#e6e1d8";
+    const fmt = (n: number) => n.toLocaleString("de-DE");
+    const pct = (v: number | null) => v === null ? "" : `${v > 0 ? "+" : v < 0 ? "−" : "±"}${Math.abs(v).toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} % ${en ? "year on year" : "zum Vorjahr"}`;
+    const mix = (a: string, b: string, t: number) => {
+      const pa = a.match(/\w\w/g)!.map((h) => parseInt(h, 16)); const pb = b.match(/\w\w/g)!.map((h) => parseInt(h, 16));
+      return `rgb(${pa.map((v, i) => Math.round(v + (pb[i] - v) * t)).join(",")})`;
+    };
+    const colour = (value: number, [lo, hi]: [number, number]) => {
+      const t = Math.min(1, Math.max(0, (value - lo) / (hi - lo))) * (stops.length - 1);
+      const i = Math.min(stops.length - 2, Math.floor(t));
+      return mix(stops[i], stops[i + 1], t - i);
+    };
+    let type: "wohnung" | "haus" = "wohnung";
+    const paint = () => {
+      areas.forEach((path) => {
+        const item = items[Number(path.dataset.i)];
+        const v = item[type]?.wert;
+        path.style.fill = v ? colour(v, range[type]) : noData;
+      });
+      root.querySelector("[data-legend-min]")!.textContent = `${fmt(range[type][0])} €/m²`;
+      root.querySelector("[data-legend-max]")!.textContent = `${fmt(range[type][1])} €/m²`;
+    };
+    const none = en ? "no standard value" : "kein Richtwert";
+    const show = (path: SVGPathElement) => {
+      areas.forEach((p) => p.classList.toggle("is-active", p === path));
+      const item = items[Number(path.dataset.i)];
+      root.querySelector<HTMLElement>("[data-panel-empty]")!.hidden = true;
+      root.querySelector<HTMLElement>("[data-panel-info]")!.hidden = false;
+      root.querySelector("[data-p-name]")!.textContent = item.name;
+      root.querySelector("[data-p-wohnung]")!.textContent = item.wohnung ? `${fmt(item.wohnung.wert)} €/m²` : none;
+      root.querySelector("[data-p-wohnung-trend]")!.textContent = item.wohnung ? pct(item.wohnung.trend) : "";
+      root.querySelector("[data-p-wohnung-trend]")!.classList.toggle("is-down", (item.wohnung?.trend ?? 0) < 0);
+      root.querySelector("[data-p-haus]")!.textContent = item.haus ? `${fmt(item.haus.wert)} €/m²` : none;
+      root.querySelector("[data-p-haus-trend]")!.textContent = item.haus ? pct(item.haus.trend) : "";
+      root.querySelector("[data-p-haus-trend]")!.classList.toggle("is-down", (item.haus?.trend ?? 0) < 0);
+      root.querySelector("[data-p-lagen]")!.textContent = item.lagen.length ? item.lagen.join(", ") : (en ? "none in this district" : "keine eigene Zone");
+    };
+    areas.forEach((path) => {
+      path.addEventListener("mouseenter", () => show(path));
+      path.addEventListener("click", () => show(path));
+      path.addEventListener("focus", () => show(path));
+      path.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); show(path); } });
+    });
+    root.querySelectorAll<HTMLButtonElement>("[data-map-type]").forEach((btn) => btn.addEventListener("click", () => {
+      type = btn.dataset.mapType as "wohnung" | "haus";
+      root.querySelectorAll<HTMLButtonElement>("[data-map-type]").forEach((b) => { b.classList.toggle("is-active", b === btn); b.setAttribute("aria-pressed", String(b === btn)); });
+      paint();
+    }));
+    paint();
+  }
+</script>

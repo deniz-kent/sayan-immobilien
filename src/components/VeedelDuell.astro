@@ -1,0 +1,116 @@
+---
+// Veedel-Duell: zwei Lagen direkt nebeneinander vergleichen.
+import { lagen } from "../data/immobilienpreise";
+const rows = lagen.map((l) => ({ n: l.name, b: l.bezirk, w: l.wohnung, h: l.haus }));
+const names = [...lagen].map((l) => l.name).sort((a, b) => a.localeCompare(b, "de"));
+const defaults = ["Kalk", "Lindenthal"];
+---
+<section class="section section--paper duel" id="veedel-duell" aria-labelledby="duel-title">
+  <div class="container">
+    <div class="duel__head" data-reveal>
+      <p class="eyebrow">Veedel-Duell</p>
+      <h2 id="duel-title">Veedel gegen <em>Veedel.</em></h2>
+      <p class="section-lead">Zwei Lagen wählen und direkt vergleichen: Preis, Entwicklung und wie viel Wohnung es fürs gleiche Geld gibt.</p>
+    </div>
+
+    <div class="duel__arena" data-reveal style="--stagger:1">
+      {[0, 1].map((side) => (
+        <div class="duel__side" data-side={side}>
+          <label class="duel__label" for={`duel-${side}`}>{side === 0 ? "Veedel A" : "Veedel B"}</label>
+          <select id={`duel-${side}`} data-duel-select>
+            {names.map((n) => <option value={n} selected={n === defaults[side]}>{n}</option>)}
+          </select>
+          <p class="duel__bezirk" data-duel-bezirk></p>
+          <dl class="duel__stats">
+            <div><dt>Wohnung</dt><dd data-duel-w></dd><small data-duel-wt></small></div>
+            <div><dt>Haus</dt><dd data-duel-h></dd><small data-duel-ht></small></div>
+            <div><dt data-duel-budget-label>Für 400.000 €</dt><dd data-duel-qm></dd><small data-duel-qm-note></small></div>
+          </dl>
+        </div>
+      ))}
+      <div class="duel__vs" aria-hidden="true">VS</div>
+    </div>
+    <p class="duel__verdict" data-duel-verdict aria-live="polite"></p>
+  </div>
+  <script type="application/json" data-duel-data set:html={JSON.stringify(rows)} />
+</section>
+
+<style>
+  .duel__head { max-width: 46rem; margin-bottom: clamp(1.5rem, 3vw, 2.5rem); }
+  .duel .section-lead { margin-top: 1rem; color: var(--n-text-secondary); }
+  .duel__arena { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 3vw, 2.5rem); }
+  .duel__side { padding: clamp(1.25rem, 3vw, 2rem); border-radius: 18px; background: #fff; }
+  .duel__side[data-side="1"] { background: var(--ink); color: #fff; }
+  .duel__label { display: block; margin-bottom: .5rem; font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .65; }
+  .duel select { width: 100%; padding: .75rem 1rem; border: 1px solid var(--n-border); border-radius: 10px; background: #fff; color: var(--ink); font: 600 1.15rem var(--font-display); }
+  .duel__bezirk { margin-top: .6rem; font-size: .88rem; opacity: .7; text-align: left; }
+  .duel__stats { display: grid; gap: .6rem; margin: 1.25rem 0 0; }
+  .duel__stats div { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: .1rem 1rem; padding: .85rem 1rem; border-radius: 12px; background: var(--n-bg); }
+  .duel__side[data-side="1"] .duel__stats div { background: rgb(255 255 255 / .07); }
+  .duel__stats dt { font-size: .82rem; font-weight: 600; opacity: .75; }
+  .duel__stats dd { margin: 0; font: 600 1.35rem/1.1 var(--font-display); text-align: right; }
+  .duel__stats small { grid-column: 1 / -1; font-size: .8rem; font-weight: 600; color: var(--ok); }
+  .duel__side[data-side="1"] .duel__stats small { color: var(--accent); }
+  .duel__stats small.is-down, .duel__side[data-side="1"] .duel__stats small.is-down { color: #c2603f; }
+  .duel__vs { position: absolute; top: 50%; left: 50%; display: grid; place-items: center; width: 3.25rem; height: 3.25rem; translate: -50% -50%; border-radius: 50%; background: var(--accent); color: var(--ink); font: 800 .95rem var(--font-display); box-shadow: 0 8px 24px rgb(0 0 0 / .18); }
+  .duel__verdict { max-width: 56rem; margin: clamp(1.25rem, 3vw, 2rem) auto 0; font: 500 clamp(1.1rem, 1.6vw, 1.35rem)/1.5 var(--font-display); text-align: center; }
+  .duel__verdict strong { background: linear-gradient(var(--accent), var(--accent)) no-repeat 0 92% / 100% .3em; }
+  @media (max-width: 767px) {
+    .duel__arena { grid-template-columns: 1fr; }
+    .duel__vs { top: 50%; }
+  }
+</style>
+
+<script>
+  type R = { wert: number; vorjahr: number | null } | null;
+  type Row = { n: string; b: string; w: R; h: R };
+  const root = document.querySelector<HTMLElement>("#veedel-duell");
+  const dataEl = root?.querySelector<HTMLScriptElement>("[data-duel-data]");
+  if (root && dataEl) {
+    const en = document.documentElement.lang === "en";
+    const rows = JSON.parse(dataEl.textContent || "[]") as Row[];
+    const byName = new Map(rows.map((r) => [r.n, r]));
+    const selects = [...root.querySelectorAll<HTMLSelectElement>("[data-duel-select]")];
+    const sides = [...root.querySelectorAll<HTMLElement>("[data-side]")];
+    const BUDGET = 400000;
+    const fmt = (n: number) => n.toLocaleString("de-DE");
+    const trend = (r: R) => r && r.vorjahr ? ((r.wert - r.vorjahr) / r.vorjahr) * 100 : null;
+    const pct = (v: number | null) => v === null ? "" : `${v > 0 ? "+" : v < 0 ? "−" : "±"}${Math.abs(v).toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} % ${en ? "year on year" : "zum Vorjahr"}`;
+    const none = en ? "no value" : "kein Wert";
+    const render = () => {
+      const pair = selects.map((s) => byName.get(s.value)!);
+      pair.forEach((row, i) => {
+        const side = sides[i];
+                const set = (sel: string, text: string) => { side.querySelector(sel)!.textContent = text; };
+        set("[data-duel-bezirk]", `${en ? "District" : "Bezirk"} ${row.b}`);
+        set("[data-duel-w]", row.w ? `${fmt(row.w.wert)} €/m²` : none);
+        set("[data-duel-wt]", pct(trend(row.w)));
+        side.querySelector("[data-duel-wt]")!.classList.toggle("is-down", (trend(row.w) ?? 0) < 0);
+        set("[data-duel-h]", row.h ? `${fmt(row.h.wert)} €/m²` : none);
+        set("[data-duel-ht]", pct(trend(row.h)));
+        side.querySelector("[data-duel-ht]")!.classList.toggle("is-down", (trend(row.h) ?? 0) < 0);
+        (side.querySelector("[data-duel-h]")!.parentElement as HTMLElement).style.display = !pair[0].h && !pair[1].h ? "none" : "";
+        const base = row.w ?? row.h;
+        set("[data-duel-budget-label]", en ? `For ${fmt(BUDGET)} €` : `Für ${fmt(BUDGET)} €`);
+        set("[data-duel-qm]", base ? `${fmt(Math.round(BUDGET / base.wert))} m²` : none);
+        set("[data-duel-qm-note]", base ? (row.w ? (en ? "apartment" : "Wohnung") : (en ? "house" : "Haus")) : "");
+      });
+      const [a, b] = pair;
+      const verdict = root.querySelector<HTMLElement>("[data-duel-verdict]")!;
+      const key: "w" | "h" | null = a.w && b.w ? "w" : a.h && b.h ? "h" : null;
+      if (!key || a.n === b.n) { verdict.textContent = ""; return; }
+      const va = a[key]!.wert, vb = b[key]!.wert;
+      const [cheap, dear] = va <= vb ? [a, b] : [b, a];
+      const diff = Math.round((Math.max(va, vb) / Math.min(va, vb) - 1) * 100);
+      const extra = Math.round(BUDGET / Math.min(va, vb)) - Math.round(BUDGET / Math.max(va, vb));
+      const kind = key === "w" ? (en ? "apartment" : "Wohnung") : (en ? "house" : "Haus");
+      verdict.innerHTML = diff === 0
+        ? (en ? `Dead heat: <strong>${a.n}</strong> and <strong>${b.n}</strong> cost the same per m².` : `Unentschieden: <strong>${a.n}</strong> und <strong>${b.n}</strong> kosten pro m² gleich viel.`)
+        : (en
+          ? `${dear.n} is <strong>${diff} % more expensive</strong>. For ${fmt(BUDGET)} € you get about <strong>${fmt(extra)} m² more ${kind}</strong> in ${cheap.n}.`
+          : `${dear.n} ist <strong>${diff} % teurer</strong>. Für ${fmt(BUDGET)} € gibt es in ${cheap.n} rund <strong>${fmt(extra)} m² mehr ${kind}</strong>.`);
+    };
+    selects.forEach((s) => s.addEventListener("change", render));
+    render();
+  }
+</script>

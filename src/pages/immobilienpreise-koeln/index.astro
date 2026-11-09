@@ -3,6 +3,9 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import Reviews from "../../components/Reviews.astro";
+import PriceMap from "../../components/PriceMap.astro";
+import BudgetCheck from "../../components/BudgetCheck.astro";
+import VeedelDuell from "../../components/VeedelDuell.astro";
 import { lagen, stichtag, quelle } from "../../data/immobilienpreise";
 
 const median = (values: number[]) => {
@@ -69,6 +72,8 @@ const top = [...lagen].sort((a, b) => Math.max(b.wohnung?.wert ?? 0, b.haus?.wer
         </form>
       </div>
     </section>
+
+    <PriceMap />
 
     <section class="section section--white" id="stadtteile">
       <div class="container">
@@ -146,6 +151,9 @@ const top = [...lagen].sort((a, b) => Math.max(b.wohnung?.wert ?? 0, b.haus?.wer
         </div>
       </div>
     </section>
+
+    <BudgetCheck />
+    <VeedelDuell />
 
     <Reviews />
 

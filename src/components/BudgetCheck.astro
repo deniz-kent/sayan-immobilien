@@ -1,0 +1,108 @@
+---
+// "Was bekomme ich für mein Geld?" Budget eingeben, Rangliste der Lagen nach Quadratmetern.
+import { lagen } from "../data/immobilienpreise";
+const rows = lagen.map((l) => ({ n: l.name, b: l.bezirk, w: l.wohnung?.wert ?? null, h: l.haus?.wert ?? null }));
+---
+<section class="section section--white budget" id="budget" aria-labelledby="budget-title">
+  <div class="container budget__grid">
+    <div class="budget__intro" data-reveal>
+      <p class="eyebrow">Für Käufer</p>
+      <h2 id="budget-title">Was bekommen Sie <em>für Ihr Geld?</em></h2>
+      <p class="section-lead">Budget einstellen und sehen, wie viele Quadratmeter es dafür in jedem Veedel ungefähr gibt. Gerechnet mit den amtlichen Richtwerten, ohne Nebenkosten.</p>
+
+      <div class="budget__controls">
+        <label class="budget__label" for="budget-range">Ihr Budget</label>
+        <output class="budget__value" data-budget-out>500.000 €</output>
+        <input id="budget-range" type="range" min="150000" max="2000000" step="25000" value="500000" data-budget-range />
+        <div class="budget__scale" aria-hidden="true"><span>150.000 €</span><span>2 Mio. €</span></div>
+        <div class="budget__toggle" role="group" aria-label="Art der Immobilie">
+          <button type="button" class="is-active" data-budget-type="w" aria-pressed="true">Wohnung</button>
+          <button type="button" data-budget-type="h" aria-pressed="false">Haus</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="budget__result" data-reveal style="--stagger:1">
+      <div class="budget__extremes">
+        <div><span>Am meisten Platz</span><strong data-budget-max></strong><small data-budget-max-name></small></div>
+        <div><span>Am wenigsten Platz</span><strong data-budget-min></strong><small data-budget-min-name></small></div>
+      </div>
+      <ol class="budget__list" data-budget-list></ol>
+      <button type="button" class="budget__more" data-budget-more>Alle Lagen anzeigen</button>
+    </div>
+  </div>
+  <script type="application/json" data-budget-data set:html={JSON.stringify(rows)} />
+</section>
+
+<style>
+  .budget__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  .budget__intro { position: sticky; top: 7rem; }
+  .budget .section-lead { margin-top: 1rem; color: var(--n-text-secondary); }
+  .budget__controls { margin-top: 2rem; padding: 1.5rem; border-radius: 18px; background: var(--n-bg); }
+  .budget__label { display: block; color: var(--n-text-secondary); font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+  .budget__value { display: block; margin: .35rem 0 1rem; font: 600 clamp(2rem, 4vw, 2.75rem)/1 var(--font-display); }
+  .budget input[type="range"] { width: 100%; accent-color: var(--ink); }
+  .budget__scale { display: flex; justify-content: space-between; margin-top: .35rem; color: var(--n-text-secondary); font-size: .78rem; }
+  .budget__toggle { display: inline-flex; margin-top: 1.25rem; padding: .3rem; border: 1px solid var(--n-border); border-radius: 999px; background: #fff; }
+  .budget__toggle button { min-height: 2.5rem; padding: .35rem 1.1rem; border: 0; border-radius: 999px; background: transparent; color: var(--ink); font-weight: 600; cursor: pointer; }
+  .budget__toggle button.is-active { background: var(--ink); color: #fff; }
+  .budget__extremes { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: 1.25rem; }
+  .budget__extremes div { padding: 1.1rem 1.2rem; border-radius: 14px; background: var(--ink); color: #fff; }
+  .budget__extremes div:last-child { border: 1px solid var(--n-border); background: #fff; color: var(--ink); }
+  .budget__extremes span { display: block; font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .7; }
+  .budget__extremes strong { display: block; margin: .35rem 0 .2rem; font: 600 1.9rem/1 var(--font-display); }
+  .budget__extremes small { font-size: .88rem; opacity: .8; }
+  .budget__list { display: grid; gap: .35rem; margin: 0; padding: 0; list-style: none; }
+  .budget__list :global(li) { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr) 4.75rem; align-items: center; gap: .75rem; padding: .45rem 0; text-align: left; }
+  .budget__list :global(.budget__rank) { color: var(--n-text-secondary); font-size: .8rem; font-weight: 700; }
+  .budget__list :global(.budget__bar) { position: relative; min-height: 2.1rem; display: flex; align-items: center; padding: 0 .75rem; overflow: hidden; border-radius: 8px; background: var(--n-bg); font-size: .92rem; font-weight: 600; }
+  .budget__list :global(.budget__bar i) { position: absolute; inset: 0 auto 0 0; width: var(--w); border-radius: 8px; background: color-mix(in srgb, var(--accent) 55%, white); transition: width 500ms var(--ease-out-expo); }
+  .budget__list :global(.budget__bar span) { position: relative; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .budget__list :global(.budget__qm) { font: 600 1rem/1 var(--font-display); text-align: right; }
+  .budget__more { margin-top: 1rem; padding: .6rem 1.1rem; border: 1px solid var(--n-border); border-radius: 999px; background: transparent; color: var(--ink); font-weight: 600; cursor: pointer; }
+  @media (max-width: 900px) {
+    .budget__grid { grid-template-columns: 1fr; }
+    .budget__intro { position: static; }
+  }
+</style>
+
+<script>
+  type Row = { n: string; b: string; w: number | null; h: number | null };
+  const root = document.querySelector<HTMLElement>("#budget");
+  const dataEl = root?.querySelector<HTMLScriptElement>("[data-budget-data]");
+  if (root && dataEl) {
+    const en = document.documentElement.lang === "en";
+    const rows = JSON.parse(dataEl.textContent || "[]") as Row[];
+    const range = root.querySelector<HTMLInputElement>("[data-budget-range]")!;
+    const out = root.querySelector<HTMLOutputElement>("[data-budget-out]")!;
+    const list = root.querySelector<HTMLOListElement>("[data-budget-list]")!;
+    const more = root.querySelector<HTMLButtonElement>("[data-budget-more]")!;
+    const fmt = (n: number) => n.toLocaleString("de-DE");
+    let type: "w" | "h" = "w";
+    let showAll = false;
+    const LIMIT = 12;
+    const render = () => {
+      const budget = Number(range.value);
+      out.textContent = budget >= 1000000 ? `${(budget / 1000000).toLocaleString("de-DE", { maximumFractionDigits: 2 })} ${en ? "m" : "Mio."} €` : `${fmt(budget)} €`;
+      const ranked = rows.filter((r) => r[type]).map((r) => ({ ...r, qm: Math.round(budget / (r[type] as number)) })).sort((a, b) => b.qm - a.qm);
+      const max = ranked[0]?.qm || 1;
+      const shown = showAll ? ranked : ranked.slice(0, LIMIT);
+      list.innerHTML = shown.map((r, i) => `<li><span class="budget__rank">${i + 1}</span><span class="budget__bar"><i style="--w:${Math.max(8, (r.qm / max) * 100)}%"></i><span>${r.n}</span></span><span class="budget__qm">${fmt(r.qm)} m²</span></li>`).join("");
+      const first = ranked[0]; const last = ranked[ranked.length - 1];
+      root.querySelector("[data-budget-max]")!.textContent = first ? `${fmt(first.qm)} m²` : "–";
+      root.querySelector("[data-budget-max-name]")!.textContent = first ? first.n : "";
+      root.querySelector("[data-budget-min]")!.textContent = last ? `${fmt(last.qm)} m²` : "–";
+      root.querySelector("[data-budget-min-name]")!.textContent = last ? last.n : "";
+      more.hidden = ranked.length <= LIMIT;
+      more.textContent = showAll ? (en ? "Show top 12" : "Nur Top 12 anzeigen") : (en ? `Show all ${ranked.length} locations` : `Alle ${ranked.length} Lagen anzeigen`);
+    };
+    range.addEventListener("input", render);
+    more.addEventListener("click", () => { showAll = !showAll; render(); });
+    root.querySelectorAll<HTMLButtonElement>("[data-budget-type]").forEach((btn) => btn.addEventListener("click", () => {
+      type = btn.dataset.budgetType as "w" | "h";
+      root.querySelectorAll<HTMLButtonElement>("[data-budget-type]").forEach((b) => { b.classList.toggle("is-active", b === btn); b.setAttribute("aria-pressed", String(b === btn)); });
+      render();
+    }));
+    render();
+  }
+</script>

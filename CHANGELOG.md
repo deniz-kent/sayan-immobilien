@@ -1,5 +1,13 @@
 # Änderungen
 
+## 1.26.0 · 2026.11.09
+
+- Neu auf /immobilienpreise-koeln/: interaktive Preiskarte mit allen 86 Kölner Stadtteilen (Wohnung/Haus, Median der amtlichen Richtwerte, Info-Panel mit Trend und Richtwertzonen).
+- Neu: Budget-Rechner „Was bekommen Sie für Ihr Geld?“ mit Rangliste aller Lagen nach Quadratmetern.
+- Neu: Veedel-Duell zum direkten Vergleich zweier Lagen inklusive Fazit.
+- Englische Übersetzungen für alle neuen Texte.
+- Geodaten: Stadtteilgrenzen Köln, Offene Daten Köln (dl-de/zero-2-0).
+
 ## 1.25.4 · 2026.11.09
 
 Neue Überschriften: Wir kennen jedes Veedel. (Bildstreifen) und Erste Einschätzung in 30 Sekunden. (Preis-Check).
