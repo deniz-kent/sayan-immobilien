@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.24.3 · 2026.11.09
+
+Neue Dateinamen für Partnerlogos und Header-Video, damit Browser nicht mehr die alten, zwischengespeicherten Versionen zeigen.
+
 ## 1.24.2 · 2026.11.09
 
 Pop-up: Rahmen sitzt direkt auf der Kante, keine Lücke mehr.
