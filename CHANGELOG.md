@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.25.3 · 2026.11.09
+
+Fotografie und Exposé: Fassaden-Video (auf 7 Sekunden gekürzt) statt Foto im Text, startet beim Hineinscrollen.
+
 ## 1.25.2 · 2026.11.09
 
 Fotografie und Exposé: Bild im Text ist jetzt eine eigene Aufnahme (Dachgeschoss). Kontaktkarte auf allen Leistungsseiten mit dem neuen Porträt von Candan Sayan.

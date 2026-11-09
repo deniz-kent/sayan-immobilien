@@ -93,7 +93,16 @@ const review = reviews[index % reviews.length];
 
           {(restText.length > 0 || phaseBlocks.length > 0) && (
             <figure class="svc-figure zoom-media" data-reveal>
-              <img src={inline.src} alt={inline.alt} loading="lazy" decoding="async" />
+              {service.slug === "fotografie-und-expose" ? (
+                <>
+                  <img src="/images/video-fotografie-poster.webp" alt="" loading="lazy" decoding="async" />
+                  <video class="svc-figure__video" muted loop playsinline preload="metadata" poster="/images/video-fotografie-poster.webp" aria-label="Kamerafahrt entlang einer modernen Fassade" data-svc-video>
+                    <source src="/videos/sayan-fotografie-fassade.mp4" type="video/mp4" />
+                  </video>
+                </>
+              ) : (
+                <img src={inline.src} alt={inline.alt} loading="lazy" decoding="async" />
+              )}
             </figure>
           )}
 
@@ -212,6 +221,9 @@ const review = reviews[index % reviews.length];
   .svc-text__lead { font-size: clamp(1.15rem, 1.35vw, 1.3rem); line-height: 1.7 !important; color: var(--n-text) !important; }
   .svc-figure { margin: 2.75rem 0; aspect-ratio: 16 / 10; border-radius: 18px; }
   .svc-figure img { width: 100%; height: 100%; object-fit: cover; }
+  .svc-figure { position: relative; overflow: hidden; }
+  .svc-figure__video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .5s ease; }
+  .svc-figure__video.is-playing { opacity: 1; }
 
   .svc-phases { display: grid; gap: .75rem; margin: 2.75rem 0 0; padding: 0; list-style: none; }
   .svc-phases li { display: grid; grid-template-columns: 3.5rem minmax(0, 1fr); gap: 1.25rem; padding: 1.5rem 1.5rem 1.6rem; border-radius: 16px; background: var(--n-bg); }
@@ -279,3 +291,16 @@ const review = reviews[index % reviews.length];
     .svc-hero__actions .button { width: 100%; justify-content: space-between; }
   }
 </style>
+
+<script>
+  // Video im Text: Standbild zuerst, Video blendet ein, sobald es läuft; spielt nur, solange es sichtbar ist.
+  const svcVideo = document.querySelector<HTMLVideoElement>("[data-svc-video]");
+  if (svcVideo && "IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const show = () => { if (svcVideo.currentTime > 0) svcVideo.classList.add("is-playing"); };
+    svcVideo.addEventListener("playing", show);
+    svcVideo.addEventListener("timeupdate", show);
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { svcVideo.muted = true; svcVideo.play().catch(() => {}); } else svcVideo.pause();
+    }, { threshold: 0.25, rootMargin: "300px 0px" }).observe(svcVideo);
+  }
+</script>
