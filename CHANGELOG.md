@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.25.0 · 2026.11.09
+
+Englische Fassung unter /en/ mit Sprachumschalter DE / EN oben rechts (mobil im Menü). Übersetzt sind Startseite, Über uns, Kontakt, Immobilien, Suchservice, Immobilienpreise und alle Leistungsseiten. Impressum, Datenschutz und Widerruf bleiben deutsch. Neue Texte müssen im Wörterbuch src/i18n/en.json ergänzt werden, sonst erscheinen sie auf Englisch noch deutsch.
+
 ## 1.24.4 · 2026.11.09
 
 Korrektorat über alle Seiten: Grammatik, Kommasetzung, Satzbau und einheitliche Schreibweisen (Online-Bewertung, E-Mail, IP-Adresse). Galerie: Bilder vergrößern statt Bilder groß ansehen.

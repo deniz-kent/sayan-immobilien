@@ -222,7 +222,7 @@ const documents = ["Grundrisse und Wohnflächenberechnung", "Energieausweis", "G
     const minutes = Number(get("hour")) * 60 + Number(get("minute"));
     const weekday = ["Mo", "Di", "Mi", "Do", "Fr"].some((d) => day.startsWith(d));
     if (weekday && minutes >= 570 && minutes < 1080) {
-      status.textContent = "Jetzt erreichbar, bis 18:00 Uhr";
+      status.textContent = document.documentElement.lang === "en" ? "Available now, until 6 pm" : "Jetzt erreichbar, bis 18:00 Uhr";
       status.classList.add("is-open");
     }
   }

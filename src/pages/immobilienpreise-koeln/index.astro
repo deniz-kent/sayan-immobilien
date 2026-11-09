@@ -249,6 +249,8 @@ const top = [...lagen].sort((a, b) => Math.max(b.wohnung?.wert ?? 0, b.haus?.wer
     .price-table td.num::before { display: block; margin-bottom: .2rem; color: var(--n-text-secondary); font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
     .price-table td:nth-child(3)::before { content: "Wohnung €/m²"; }
     .price-table td:nth-child(4)::before { content: "Haus €/m²"; }
+    :global(html[lang="en"]) .price-table td:nth-child(3)::before { content: "Apartment €/m²"; }
+    :global(html[lang="en"]) .price-table td:nth-child(4)::before { content: "House €/m²"; }
     .price-table small.trend { display: block; margin-left: 0; }
     .table-more { border: 1px solid var(--n-border); border-radius: 12px; }
     .value-card__types span { min-height: 2.75rem; font-size: .82rem; }
@@ -321,8 +323,10 @@ const top = [...lagen].sort((a, b) => Math.max(b.wohnung?.wert ?? 0, b.haus?.wer
         if (visible) shown++;
         tbody.appendChild(row);
       });
-      if (more) { more.hidden = !limited || total <= LIMIT; more.textContent = `Alle ${total} Lagen anzeigen`; }
-      count.textContent = `${limited ? `${shown} von ${total}` : shown} ${shown === 1 ? "Lage" : "Lagen"} · Klick auf eine Spalte sortiert`;
+      if (more) { more.hidden = !limited || total <= LIMIT; more.textContent = document.documentElement.lang === "en" ? `Show all ${total} locations` : `Alle ${total} Lagen anzeigen`; }
+      count.textContent = document.documentElement.lang === "en"
+        ? `${limited ? `${shown} of ${total}` : shown} ${shown === 1 ? "location" : "locations"} · click a column to sort`
+        : `${limited ? `${shown} von ${total}` : shown} ${shown === 1 ? "Lage" : "Lagen"} · Klick auf eine Spalte sortiert`;
       if (empty) empty.hidden = shown > 0;
     };
 

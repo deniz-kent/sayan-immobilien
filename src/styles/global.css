@@ -439,3 +439,12 @@ a, button { touch-action: manipulation; }
 .mega-promo__body { padding: .95rem 1.1rem 1.1rem; }
 .mega-promo__body strong { font-size: 1.15rem; }
 .mega-promo__body span { font-size: .88rem; text-align: left; }
+
+/* Sprachumschalter DE / EN */
+.lang-switch { display: inline-flex; align-items: center; gap: .1rem; margin-left: .5rem; padding: .15rem; border: 1px solid rgb(255 255 255 / .25); border-radius: 999px; }
+.lang-switch a { padding: .15rem .55rem; border-radius: 999px; font-size: .75rem; font-weight: 600; letter-spacing: .06em; opacity: .75; }
+.lang-switch a[aria-current="true"] { background: var(--accent); color: var(--accent-ink, #1e1713); opacity: 1; }
+.lang-switch a:hover { opacity: 1; }
+.lang-switch--mobile { justify-content: center; margin: .5rem auto 0; border-color: var(--n-border); }
+.lang-switch--mobile a { padding: .45rem 1rem; font-size: .9rem; letter-spacing: 0; }
+.top-bar__links { align-items: center; }

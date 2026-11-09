@@ -85,7 +85,7 @@ if (!catalog.available) Astro.response.status = 503;
       });
       if (empty && cards.length > 0) {
         empty.hidden = [...cards].some((card) => !card.hidden);
-        empty.textContent = "Für diese Auswahl sind zurzeit keine Immobilienangebote verfügbar.";
+        empty.textContent = document.documentElement.lang === "en" ? "There are currently no listings for this selection." : "Für diese Auswahl sind zurzeit keine Immobilienangebote verfügbar.";
       }
     }
 

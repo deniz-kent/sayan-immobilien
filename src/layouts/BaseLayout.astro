@@ -3,6 +3,7 @@ import "../styles/global.css";
 import CookieConsent from "../components/CookieConsent.astro";
 import AdvicePopup from "../components/AdvicePopup.astro";
 import { siteSettings } from "../data/site-settings";
+import { hasEnglish, toEnglishPath, toGermanPath } from "../i18n/translate";
 
 interface Props {
   title: string;
@@ -12,10 +13,14 @@ interface Props {
 }
 
 const { title, description, noindex = false, bodyClass = "" } = Astro.props;
-const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url.origin);
+const lang = Astro.locals.lang ?? "de";
+const dePath = toGermanPath(Astro.url.pathname);
+const origin = Astro.site ?? Astro.url.origin;
+const canonical = new URL(lang === "en" ? toEnglishPath(dePath) : dePath, origin);
+const alternates = hasEnglish(dePath) ? { de: new URL(dePath, origin), en: new URL(toEnglishPath(dePath), origin) } : null;
 const socialImage = new URL("/brand/open-graph-1200x630.png", Astro.site ?? Astro.url.origin);
-const showAdvice = siteSettings.showAdvicePopup && (Astro.url.pathname === "/" || Astro.url.pathname === "/immobilien/" ||
-  (Astro.url.pathname.startsWith("/leistung/") && Astro.url.pathname !== "/leistung/formular/"));
+const showAdvice = siteSettings.showAdvicePopup && (dePath === "/" || dePath === "/immobilien/" ||
+  (dePath.startsWith("/leistung/") && dePath !== "/leistung/formular/"));
 ---
 
 <!doctype html>
@@ -28,6 +33,9 @@ const showAdvice = siteSettings.showAdvicePopup && (Astro.url.pathname === "/" |
     <link rel="preload" href="/fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {alternates && <link rel="alternate" hreflang="de" href={alternates.de} />}
+    {alternates && <link rel="alternate" hreflang="en" href={alternates.en} />}
+    {alternates && <link rel="alternate" hreflang="x-default" href={alternates.de} />}
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="de_DE" />
     <meta property="og:title" content={title} />

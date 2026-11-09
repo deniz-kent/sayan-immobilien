@@ -35,7 +35,8 @@ const partners = [
     button.addEventListener("click", () => {
       const paused = button.getAttribute("aria-pressed") !== "true";
       button.setAttribute("aria-pressed", String(paused));
-      button.textContent = paused ? "Laufleiste fortsetzen ▶" : "Laufleiste pausieren Ⅱ";
+      const en = document.documentElement.lang === "en";
+      button.textContent = paused ? (en ? "Resume ticker ▶" : "Laufleiste fortsetzen ▶") : (en ? "Pause ticker Ⅱ" : "Laufleiste pausieren Ⅱ");
       button.closest(".partner-marquee")?.querySelector("[data-partner-track]")?.classList.toggle("is-paused", paused);
     });
   });

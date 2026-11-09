@@ -2,6 +2,12 @@
 import Logo from "./Logo.astro";
 import { googleRating } from "../data/reviews";
 import { services } from "../data/services";
+import { hasEnglish, toEnglishPath, toGermanPath } from "../i18n/translate";
+
+const lang = Astro.locals.lang ?? "de";
+const dePath = toGermanPath(Astro.url.pathname);
+const canSwitch = hasEnglish(dePath);
+const langLinks = { de: dePath, en: canSwitch ? toEnglishPath(dePath) : "/en/" };
 
 const serviceGroups = ["Eigentümer", "Vermarktung", "Abschluss", "Weitere Leistungen"] as const;
 
@@ -132,6 +138,10 @@ const liveLinks: Record<string, string> = {
         <a href="tel:+4922116892660">0221 168 926 60</a>
         <a href="mailto:info@sayan-immo.de">info@sayan-immo.de</a>
         <a href="/kontakt/#termin">Termin vereinbaren</a>
+        <span class="lang-switch" aria-label="Sprache / Language">
+          <a href={langLinks.de} hreflang="de" lang="de" aria-current={lang === "de" ? "true" : undefined}>DE</a>
+          <a href={langLinks.en} hreflang="en" lang="en" aria-current={lang === "en" ? "true" : undefined}>EN</a>
+        </span>
       </div>
     </div>
   </div>
@@ -193,6 +203,10 @@ const liveLinks: Record<string, string> = {
     <div class="mobile-menu__footer">
       <a class="button" href="/kontakt/#termin">Termin vor Ort vereinbaren</a>
       <a class="mobile-menu__phone" href="tel:+4922116892660">0221 168 926 60 anrufen</a>
+      <span class="lang-switch lang-switch--mobile" aria-label="Sprache / Language">
+        <a href={langLinks.de} hreflang="de" lang="de" aria-current={lang === "de" ? "true" : undefined}>Deutsch</a>
+        <a href={langLinks.en} hreflang="en" lang="en" aria-current={lang === "en" ? "true" : undefined}>English</a>
+      </span>
     </div>
   </div>
 </header>
