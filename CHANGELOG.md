@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.22.2 · 2026.11.09
+
+Header: Wir kümmern uns. Seit 1998 an Ihrer Seite. Videoband: Aus einem Plan wird ein Zuhause.
+
 ## 1.22.1 · 2026.11.09
 
 Inhabergeführt erscheint nur noch auf der Seite Über uns. Überall sonst stehen Seit 1998 in Köln oder Über 500 Verkäufe.
