@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.24.4 · 2026.11.09
+
+Korrektorat über alle Seiten: Grammatik, Kommasetzung, Satzbau und einheitliche Schreibweisen (Online-Bewertung, E-Mail, IP-Adresse). Galerie: Bilder vergrößern statt Bilder groß ansehen.
+
 ## 1.24.3 · 2026.11.09
 
 Neue Dateinamen für Partnerlogos und Header-Video, damit Browser nicht mehr die alten, zwischengespeicherten Versionen zeigen.

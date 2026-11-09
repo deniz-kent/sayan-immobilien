@@ -15,16 +15,16 @@ export const services: Service[] = [
     title: "Immobilie verkaufen",
     group: "Eigentümer",
     summary: "Engagiert für Sie und Ihr Objekt.",
-    intro: "Die Mehrheit der Immobilienbesitzer verkauft eine Immobilie häufig nur ein einziges Mal im Leben. Dabei geht es immer um hohe Werte. SAYAN Immobilien Köln bietet Ihnen das Rundum-Sorglos-Paket.",
+    intro: "Die meisten Eigentümer verkaufen nur ein einziges Mal im Leben eine Immobilie. Dabei geht es immer um hohe Werte. SAYAN Immobilien Köln bietet Ihnen das Rundum-Sorglos-Paket.",
     details: [
       "Die Statistiken zeigen: Die Mehrheit der Immobilienbesitzer verkauft Immobilien nur wenige Male, häufig sogar nur ein einziges Mal im Leben. Nahezu immer geht es dabei um hohe Werte. Da ist es verständlich, dass viele Immobilienverkäufer erst einmal verunsichert sind. Manche versuchen, die Käufer selbst anzusprechen. Doch dazu fehlt ihnen die Erfahrung.",
       "Verkauf und Vermietung sind Vollzeitjobs. Dazu gehören professionelles Marketing, das Erstellen von Exposés, das Durchführen von Besichtigungsterminen etc. Bei der Preisgestaltung, den Verkaufsverhandlungen und Verträgen (Notartermin) sind Praxiserfahrung, spezielle regionale und umfassende rechtliche Kenntnisse erforderlich.",
-      "SAYAN Immobilien Köln bietet Ihnen das Rundum-Sorglos-Paket. Wir kümmern uns von A bis Z um Ihren Immobilienverkauf. Dazu nutzen wir auch unser jahrelang gewachsenes, regionales Netzwerk. Vielleicht befindet sich der zukünftige Eigentümer Ihrer Immobilie bereits in unserer Kartei.",
+      "SAYAN Immobilien Köln bietet Ihnen das Rundum-Sorglos-Paket. Wir kümmern uns von A bis Z um Ihren Immobilienverkauf. Dazu nutzen wir auch unser über Jahre gewachsenes regionales Netzwerk. Vielleicht befindet sich der zukünftige Eigentümer Ihrer Immobilie bereits in unserer Kartei.",
       "Phase 1: Wir lernen uns persönlich kennen. Bei einem unverbindlichen Treffen besichtigen wir gemeinsam Ihre Immobilie. Sie erfahren das Wichtigste über unsere Leistungen, über unser Know-how und unsere Vorgehensweise. Wir wiederum gewinnen einen ersten Eindruck von Ihrem Objekt.",
       "Phase 2: Sie beauftragen uns und wir ermitteln für Sie den marktgerechten Kaufpreis. Wenn Sie sich für SAYAN Immobilien Köln entscheiden, treffen wir uns wieder: je nach Wunsch bei Ihnen, in Ihrer Immobilie oder in unseren Büroräumen. Sie schließen mit uns einen Makleralleinauftrag. Nun erstellen wir für Sie ein ausführliches Wertgutachten sowie eine Marktwertanalyse. Der Kaufpreis wird auf Basis dieser Fakten mit Ihnen gemeinsam individuell festgelegt.",
       "Phase 3: SAYAN Immobilien Köln vermarktet Ihre Immobilie professionell. Dazu gehört, wenn sinnvoll, auch die Anforderung von Bau- und Lageplänen bei den Behörden. Wir erstellen für Sie Skizzen, Fotos, Beschreibungen etc. Diese bündeln wir in einem repräsentativen, überzeugenden Exposé. Abgestimmt auf Ihr Objekt veranlassen wir Werbemaßnahmen, wie die Veröffentlichung von Anzeigen in Zeitungen und/oder im Internet. Selbstverständlich stimmen wir den Marketingplan mit Ihnen ab.",
       "Phase 4: Wir präsentieren Ihre Immobilie potenziellen Interessenten. SAYAN Immobilien Köln ist für Sie vor Ort und im Büro ständig präsent. Wir nehmen Anrufe entgegen, beantworten E-Mails, vereinbaren Termine und führen Besichtigungen durch. Anfragen potenzieller Interessenten werden von uns zügig beantwortet. Dabei halten wir Sie natürlich über alle wesentlichen Entwicklungen auf dem Laufenden.",
-      "Phase 5: In Ihrem Auftrag führen wir die Verkaufsverhandlungen. Dies ist eine besonders wichtige Phase. Denn jetzt gilt es, bei den Kaufinteressenten bei Bedarf telefonisch oder persönlich nachzuhaken. Auf etwaige Einwände einzugehen, gehört genauso dazu, wie die besonderen Vorzüge und Potenziale Ihrer Immobilie herauszustellen. In vielen Fällen schaffen wir auch Kontakte zwischen Interessenten und Architekten, Handwerkern und/oder Finanzinstituten. Parallel prüfen wir für Sie bereits in dieser Phase die Bonität der potenziellen Käufer.",
+      "Phase 5: In Ihrem Auftrag führen wir die Verkaufsverhandlungen. Dies ist eine besonders wichtige Phase. Denn jetzt gilt es, bei den Kaufinteressenten bei Bedarf telefonisch oder persönlich nachzuhaken. Auf etwaige Einwände einzugehen, gehört genauso dazu wie die besonderen Vorzüge und Potenziale Ihrer Immobilie herauszustellen. In vielen Fällen schaffen wir auch Kontakte zwischen Interessenten und Architekten, Handwerkern und/oder Finanzinstituten. Parallel prüfen wir für Sie bereits in dieser Phase die Bonität der potenziellen Käufer.",
       "Phase 6: Vorbereitung und Abstimmung des Notartermins. Gibt es mehrere Kaufinteressenten, berät Sie SAYAN Immobilien Köln bei der Auswahl des Käufers. Wir bereiten den Vertrag in Ihrem Sinne vor. Sobald die Finanzierungszusage des Kreditinstituts eingeht, wird diese sofort geprüft. Wir koordinieren den Notartermin und begleiten Sie dorthin.",
       "Phase 7: Auch nach dem Verkauf sind wir für Sie da. Wenn Sie es wünschen, übernehmen wir für Sie die Schlüsselübergabe oder begleiten Sie dabei. Wir helfen Ihnen gern bei Ihrem Auszug. Bei Bedarf finden wir selbstverständlich auch eine neue, passende Immobilie für Sie.",
     ],
@@ -55,7 +55,7 @@ export const services: Service[] = [
     summary: "Profitieren Sie von unserer umfassenden regionalen Expertise.",
     intro: "Verkauf und Vermietung sind Vollzeitjobs. SAYAN Immobilien Köln übernimmt die Vermietung Ihrer Immobilie, von den Fotos bis zur Wohnungsübergabe.",
     details: [
-      "Verkauf und Vermietung sind Vollzeitjobs. Dazu gehören professionelles Marketing, das Erstellen von Exposés, das Durchführen von Besichtigungsterminen etc. Dazu nutzen wir auch unser jahrelang gewachsenes, regionales Netzwerk und unsere sehr gut gepflegte Interessentenkartei.",
+      "Verkauf und Vermietung sind Vollzeitjobs. Dazu gehören professionelles Marketing, das Erstellen von Exposés, das Durchführen von Besichtigungsterminen etc. Dazu nutzen wir auch unser über Jahre gewachsenes regionales Netzwerk und unsere sehr gut gepflegte Interessentenkartei.",
       "Wann dürfen wir auch für Sie aktiv werden? Kontaktieren Sie uns unverbindlich. Wir freuen uns auf Sie und Ihre Immobilie.",
     ],
     points: [
@@ -83,7 +83,7 @@ export const services: Service[] = [
     details: [
       "Sie möchten Ihre Immobilie zum bestmöglichen Preis veräußern? Für eine erfolgreiche Transaktion bedarf es einer marktgerechten und objektiven Bewertung Ihres Objekts. SAYAN Immobilien Köln ist Ihr kompetenter Partner dafür. Wir arbeiten seit 1998 in Köln, Bonn und Düsseldorf und haben bereits mehrere hundert Immobilien bewertet und anschließend erfolgreich vermittelt. Profitieren Sie als Eigentümer von unserer langjährigen Erfahrung und exzellenten Ortskenntnis.",
       "Wir unterstützen Sie diskret und unverbindlich bei der Wertermittlung Ihrer Immobilie. Wie das geht? Ganz einfach: Nutzen Sie unser bequem zu bedienendes Wertermittlungs-Tool. Damit können Sie uns die Eckdaten Ihrer Immobilie schnell und einfach übertragen. Unsere Experten ermitteln dann den bestmöglichen Marktwert für Ihre Immobilie und nehmen Kontakt mit Ihnen auf.",
-      "Dieser Service ist für Sie unverbindlich und kostenfrei. Ihre Daten werden selbstverständlich vertraulich behandelt und nicht an Dritte weitergegeben. Sie haben Fragen zu unserer kostenlosen und unverbindlichen Wertermittlung? Dann nehmen Sie Kontakt zu uns auf unter 0221 168 926 60 oder per E-Mail unter info@sayan-immo.de.",
+      "Dieser Service ist für Sie unverbindlich und kostenfrei. Ihre Daten werden selbstverständlich vertraulich behandelt und nicht an Dritte weitergegeben. Sie haben Fragen zu unserer kostenlosen und unverbindlichen Wertermittlung? Dann erreichen Sie uns unter 0221 168 926 60 oder per E-Mail an info@sayan-immo.de.",
     ],
     points: [
       "Marktgerechte und objektive Bewertung",
@@ -127,10 +127,10 @@ export const services: Service[] = [
     summary: "Rechtlich immer auf der sicheren Seite mit SAYAN Immobilien Köln.",
     intro: "Mit dem Energieausweis informiert der Immobilienbesitzer über die Energieeffizienz seines Gebäudes bzw. seiner Wohnung.",
     details: [
-      "Mit dem Energieausweis informiert der Immobilienbesitzer über die Energieeffizienz seines Gebäudes bzw. seiner Wohnung. Für den Käufer oder Mieter sind die Vorteile klar: Ähnlich wie seit langem bei Kühlschränken oder Herden erfährt er mit einem Blick das Wesentliche über die „Verbrauchsklasse“ der Immobilie und über deren Energieeffizienz.",
+      "Mit dem Energieausweis informiert der Immobilienbesitzer über die Energieeffizienz seines Gebäudes bzw. seiner Wohnung. Für den Käufer oder Mieter sind die Vorteile klar: Ähnlich wie seit Langem bei Kühlschränken oder Herden erfährt er mit einem Blick das Wesentliche über die „Verbrauchsklasse“ der Immobilie und über deren Energieeffizienz.",
       "Immobilienverkäufer oder Vermieter, die keinen Makler beauftragen wollen, müssen hier einiges beachten. Nach dem Gebäudeenergiegesetz (GEG) muss der Energieausweis spätestens bei der Besichtigung vorgelegt werden. Die Energiedaten müssen bereits in den Immobilienanzeigen ausgewiesen werden. Sonst drohen empfindliche Bußgelder. Wenn Sie uns beauftragen, kümmern wir uns natürlich auch um sämtliche Details, die den Energieausweis betreffen.",
-      "Die 2 Formen des Energieausweises: Verbrauchsausweis und Bedarfsausweis. Der Verbrauchsausweis basiert auf dem Energieverbrauch. Grundlage für ihn ist der gemessene und dokumentierte Energieverbrauch der Bewohner in den letzten drei Jahren. Dagegen erfordert der Bedarfsausweis eine umfassende Analyse des Gebäudes. Anhand von Aspekten wie Qualität und Dämmwirkung der Gebäudehülle, der Außenwände, Decken und Fenster werden die Wärmeverluste berechnet. Auch die Heizungsanlage und andere technische Elemente fließen in die Bewertung ein. Ein gültiger Energieausweis kann nur von Fachleuten mit speziellen Ausbildungen und Qualifikationen erstellt werden.",
-      "SAYAN Immobilien Köln regelt alles. Damit Sie rechtlich immer auf der sicheren Seite sind. SAYAN Immobilien Köln arbeitet mit erfahrenen Profis, damit Sie einen vorschriftsmäßigen Ausweis erhalten. Wenn Sie uns einen Alleinauftrag erteilen, erstellen wir (falls nicht bereits vorhanden) Ihren Energieausweis kostenlos.",
+      "Es gibt zwei Formen des Energieausweises: den Verbrauchsausweis und den Bedarfsausweis. Der Verbrauchsausweis basiert auf dem Energieverbrauch. Grundlage für ihn ist der gemessene und dokumentierte Energieverbrauch der Bewohner in den letzten drei Jahren. Dagegen erfordert der Bedarfsausweis eine umfassende Analyse des Gebäudes. Anhand von Aspekten wie Qualität und Dämmwirkung der Gebäudehülle, der Außenwände, Decken und Fenster werden die Wärmeverluste berechnet. Auch die Heizungsanlage und andere technische Elemente fließen in die Bewertung ein. Ein gültiger Energieausweis kann nur von Fachleuten mit speziellen Ausbildungen und Qualifikationen erstellt werden.",
+      "SAYAN Immobilien Köln regelt alles, damit Sie rechtlich immer auf der sicheren Seite sind. SAYAN Immobilien Köln arbeitet mit erfahrenen Profis, damit Sie einen vorschriftsmäßigen Ausweis erhalten. Wenn Sie uns einen Alleinauftrag erteilen, erstellen wir (falls nicht bereits vorhanden) Ihren Energieausweis kostenlos.",
     ],
     points: [
       "Verbrauchsausweis oder Bedarfsausweis",
@@ -147,10 +147,10 @@ export const services: Service[] = [
     summary: "Für den ersten Eindruck gibt es keine zweite Chance.",
     intro: "Bilder sagen mehr als tausend Worte. Professionell aufgenommene Fotos zeigen die Stärken einer Immobilie und laden den Interessenten ein, sich mit dem Objekt näher zu befassen.",
     details: [
-      "Professionell aufgenommene Fotos zeigen die Stärken einer Immobilie, laden den Interessenten ein, sich mit dem Objekt näher zu befassen. Der Interessent schaut immer zuerst auf die äußeren Faktoren einer Immobilie, dann auf die Details. Die richtigen Fotos sind bei der Präsentation einer Immobilie wesentlich wichtiger als die beschreibenden Texte im Exposé. Wir von SAYAN Immobilien Köln haben uns auf diese Wünsche mit unserer eigenen Immobilienfotografie eingestellt.",
-      "Nach unserer Überzeugung trägt die Immobilienfotografie zum Verkauf eines Objektes entscheidend bei, denn bei der Vielzahl an Informationen, mit denen sich Interessenten auseinandersetzen müssen, bleiben vor allem Bilder im Gedächtnis haften. Das Titelfoto wird zuerst wahrgenommen, dann blättern die Interessenten durch Innen- und Außenansichten. Erst im dritten Schritt interessieren sie sich für Details wie Wohn- und Grundstücksfläche, Ausstattung, Lage und Preis.",
+      "Professionell aufgenommene Fotos zeigen die Stärken einer Immobilie und laden den Interessenten ein, sich mit dem Objekt näher zu befassen. Der Interessent schaut immer zuerst auf die äußeren Faktoren einer Immobilie, dann auf die Details. Die richtigen Fotos sind bei der Präsentation einer Immobilie wesentlich wichtiger als die beschreibenden Texte im Exposé. Wir von SAYAN Immobilien Köln haben uns auf diese Wünsche mit unserer eigenen Immobilienfotografie eingestellt.",
+      "Nach unserer Überzeugung trägt die Immobilienfotografie zum Verkauf eines Objektes entscheidend bei, denn bei der Vielzahl an Informationen, mit denen sich Interessenten auseinandersetzen müssen, bleiben vor allem Bilder im Gedächtnis. Das Titelfoto wird zuerst wahrgenommen, dann blättern die Interessenten durch Innen- und Außenansichten. Erst im dritten Schritt interessieren sie sich für Details wie Wohn- und Grundstücksfläche, Ausstattung, Lage und Preis.",
       "Was ist entscheidend? Interessenten betrachten ein Titelfoto bestenfalls für drei bis vier Sekunden, bevor sie sich in die Vorstellung dieser Immobilie vertiefen oder zum nächsten Objekt weiterklicken. Ein Immobilienfoto benötigt die beiden Attribute „hell“ und „klar“. Ein wichtiges Moment der Immobilienfotografie ist zudem die Emotionalität von Kaufentscheidungen. Wir achten daher immer auf warme Grundtöne und auf einen stimmigen Gesamteindruck, der das Gefühl von Symmetrie und Ausgewogenheit vermittelt.",
-      "Immobilienfotografie benötigt Technik. Gute Fotos sind ein wichtiger Teil unserer Arbeit, deren Nachbearbeitung mit modernster Technik erscheint ebenfalls essenziell. Grauschleier, störende Schatten, ausgeblichene Farben und unklare Konturen haben in der Immobilienfotografie nichts zu suchen.",
+      "Immobilienfotografie benötigt Technik. Gute Fotos sind ein wichtiger Teil unserer Arbeit. Ebenso wichtig ist ihre Nachbearbeitung mit moderner Technik. Grauschleier, störende Schatten, ausgeblichene Farben und unklare Konturen haben in der Immobilienfotografie nichts zu suchen.",
     ],
     points: [
       "Eigene Immobilienfotografie",
@@ -168,9 +168,9 @@ export const services: Service[] = [
     summary: "Steigern Sie die Nachfrage nach Ihrer Immobilie durch Wohlfühlatmosphäre.",
     intro: "Ein Topf mit Blumen neben der Eingangstür. Innen eine gepflegte Wohnung mit freundlichen Möbeln und frisch geputzten Fenstern. Beides hilft beim Verkauf.",
     details: [
-      "Ein Topf mit Blumen neben der Eingangstür. Innen eine gepflegte Wohnung mit freundlichen Möbeln und frisch geputzten Fenstern. Beides hilft beim Verkauf, denn 1. kann der Interessent auf diese Weise die spätere Nutzung besser visualisieren. Und 2. schließt er daraus, dass Sie als Verkäufer Ihr Objekt schätzen und es gut erhalten übergeben werden.",
-      "Home Staging setzt Ihre Immobilie perfekt in Szene, taucht sie in ein freundliches Licht. Mit Home Staging wird eine besondere Wohlfühlatmosphäre geschaffen und das Objekt optisch aufpoliert. Dies geschieht, indem zum Beispiel einige Möbel, Accessoires, Vorhänge etc. entfernt oder ausgetauscht werden. Kleine, gut arrangierte Details erzielen große Effekte. Ob Home Staging für Ihre Immobilie sinnvoll ist, entscheiden wir mit Ihnen gemeinsam.",
-      "Home Staging entfaltet seine Wirkung natürlich besonders bei Besichtigungen, aber auch bereits im Internet. Hier verweilen Interessenten im Schnitt nur 1 oder 2 Sekunden bei einer Immobilie, um dann zur nächsten überzugehen. Es sei denn, den Betrachter spricht das Foto besonders an!",
+      "Ein Topf mit Blumen neben der Eingangstür. Innen eine gepflegte Wohnung mit freundlichen Möbeln und frisch geputzten Fenstern. Beides hilft beim Verkauf: Der Interessent kann sich die spätere Nutzung besser vorstellen. Außerdem schließt er daraus, dass Sie Ihr Objekt schätzen und es gut erhalten übergeben werden.",
+      "Home Staging setzt Ihre Immobilie perfekt in Szene und taucht sie in ein freundliches Licht. Mit Home Staging wird eine besondere Wohlfühlatmosphäre geschaffen und das Objekt optisch aufpoliert. Dies geschieht, indem zum Beispiel einige Möbel, Accessoires, Vorhänge etc. entfernt oder ausgetauscht werden. Kleine, gut arrangierte Details erzielen große Effekte. Ob Home Staging für Ihre Immobilie sinnvoll ist, entscheiden wir mit Ihnen gemeinsam.",
+      "Home Staging entfaltet seine Wirkung natürlich besonders bei Besichtigungen, aber auch bereits im Internet. Hier verweilen Interessenten im Schnitt nur ein bis zwei Sekunden bei einer Immobilie, um dann zur nächsten überzugehen. Es sei denn, den Betrachter spricht das Foto besonders an!",
       "Daneben gibt es auch viele kleine Kniffe und Tipps, mit denen Sie Ihre Immobilie auf Fotos und bei Besichtigungen optisch attraktiver gestalten können. Auf Ablagen sollten sich zum Beispiel keine oder nur wenige Dinge befinden. Die Räume sollten nicht zugestellt sein. Der Balkon, der Rasen und der Garten insgesamt sollten gepflegt sein. Und tatsächlich, um das Beispiel vom Anfang aufzugreifen: Ein Topf mit blühenden Blumen im Eingangsbereich ist eine wunderbare Visitenkarte und bewirkt einen guten ersten Eindruck.",
     ],
     points: [
@@ -190,7 +190,7 @@ export const services: Service[] = [
     summary: "Ihre Immobilie „zum Greifen nah“.",
     intro: "Beim Immobilienverkauf stützen wir uns bereits seit mehreren Jahren auf 360-Grad-Online-Besichtigungen. Dadurch wird der Verkaufsprozess für den Eigentümer effizienter.",
     details: [
-      "Wie funktioniert das bei Ihrem Hausverkauf? Ihr Haus oder Ihre Wohnung wird für den Verkauf hergerichtet. Mit Hilfe professioneller Fototechnik wird Ihr Haus oder Ihre Wohnung an mehreren Standpunkten in verschiedenen Perspektiven mit einem Fischaugen-Objektiv aufgenommen. Die Einzelbilder in HDR-Technik werden mittels einer Spezialsoftware zu einem Kugelpanorama zusammengesetzt.",
+      "Wie funktioniert das bei Ihrem Hausverkauf? Ihr Haus oder Ihre Wohnung wird für den Verkauf hergerichtet. Mithilfe professioneller Fototechnik wird Ihr Haus oder Ihre Wohnung an mehreren Standpunkten in verschiedenen Perspektiven mit einem Fischaugen-Objektiv aufgenommen. Die Einzelbilder in HDR-Technik werden mittels einer Spezialsoftware zu einem Kugelpanorama zusammengesetzt.",
       "Dieses Kugelpanorama ermöglicht die Einrichtung einer Online-Tour, die der Interessent selbst steuern kann. Im Internet kann er sich so von Ihrem Haus oder Ihrer Wohnung bereits einen qualifizierten Eindruck von der Raumsituation und dem Wohnambiente machen. Bei den 360-Grad-Online-Rundgängen kann der Interessent eigenständig navigieren und so von einem Zimmer zum nächsten gehen. So wird Ihre Immobilie bereits im Vorfeld für den Interessenten „zum Greifen nah“.",
       "Kann jeder meine Immobilie online besichtigen? Die 360-Grad-Besichtigungstouren Ihrer Immobilie sind passwortgeschützt. Wer Ihre Immobilie online besichtigen möchte, muss sich dazu von uns freischalten lassen und ein Passwort beantragen. Wer, wie oft, wie lange und wann die Online-Besichtigung wahrgenommen hat, wird von uns erfasst.",
       "Selbstverständlich können unsere fertigen Kugelpanoramen mit dem iPhone, iPad oder anderen Smartphones und Tablets angesehen werden. Wenn Sie mehr über die verkaufsfördernden Möglichkeiten dieser Technik erfahren möchten, rufen Sie uns an unter 0221 168 926 60. Gerne schalten wir Sie auch probeweise für eine 360-Grad-Tour frei.",
@@ -210,12 +210,12 @@ export const services: Service[] = [
     title: "Immobilienvermarktung",
     group: "Vermarktung",
     summary: "Die gelungene Präsentation Ihrer Immobilie.",
-    intro: "Ansprechende Werbemittel-Gestaltung und aufrichtige Kommunikation beschleunigen die zeitnahe Vermarktung.",
+    intro: "Ansprechend gestaltete Werbemittel und ehrliche Kommunikation beschleunigen die Vermarktung.",
     details: [
       "SAYAN Immobilien Köln bringt die Interessen von Verkäufer und Käufer in Einklang. Dieser Gedanke bestimmt bei uns das Marketing: Gelungene Immobilienwerbung macht neugierig auf Ihr Objekt, informiert und weckt zugleich positive Emotionen. Grundlegend für die Vermarktung Ihrer Immobilie ist folgende Tatsache: Viele Menschen kaufen nur ein- oder zweimal in ihrem Leben eine Immobilie. Deshalb will sich jeder Immobilienkäufer gründlich informieren. Ihr Objekt soll ansprechend und wertig präsentiert werden. Zugleich muss alles rechtlich korrekt sein.",
       "Die beste Vermarktungsstrategie für Ihr Objekt finden wir, indem wir uns intensiv mit Ihrer Immobilie und deren speziellen Vorzügen auseinandersetzen. Dies kombinieren wir mit umfassenden Kenntnissen des lokalen Marktes und der Zielgruppe.",
       "Nach der ersten Besichtigung vereinbaren wir in aller Regel zügig einen Fototermin. Hierbei nutzen wir selbstverständlich professionelle Kameras und die entsprechende Ausrüstung. Wir berücksichtigen auch Tages- und Jahreszeit. Denn gutes Licht, und zwar möglichst Tageslicht, macht Ihre Immobilie für die Kamera und für potenzielle Käufer noch attraktiver. Wo es sinnvoll ist, erstellen wir auch 360-Grad-Rundgänge und hochwertige Videoclips.",
-      "Im nächsten Schritt verfassen wir eine ansprechende Beschreibung Ihrer Immobilie. Dieser Text wird mit den Bildern zusammen grafisch aufbereitet und gestaltet. Das Resultat ist ein individuelles Exposé, das beides leistet: informieren und verkaufen. Je nach Objekt platzieren wir Ihre Immobilie in den passenden Print- und Online-Medien. Über weitere mögliche Maßnahmen, wie die Anbringung von Werbetafeln, Fahnen usw. entscheiden wir gemeinsam mit Ihnen.",
+      "Im nächsten Schritt verfassen wir eine ansprechende Beschreibung Ihrer Immobilie. Dieser Text wird mit den Bildern zusammen grafisch aufbereitet und gestaltet. Das Resultat ist ein individuelles Exposé, das beides leistet: informieren und verkaufen. Je nach Objekt platzieren wir Ihre Immobilie in den passenden Print- und Online-Medien. Über weitere Maßnahmen wie Werbetafeln oder Fahnen entscheiden wir gemeinsam mit Ihnen.",
     ],
     points: [
       "Individuelle Vermarktungsstrategie",
@@ -233,15 +233,15 @@ export const services: Service[] = [
     summary: "Vermarktung auf „leisen Sohlen“.",
     intro: "Sie wollen Ihre Verkaufsabsicht nicht öffentlich annoncieren? Erfahren Sie, wie SAYAN Immobilien Köln trotzdem den passenden Käufer findet.",
     details: [
-      "Zahlreiche Immobilien, Häuser, Wohnungen, Grundstücke und Gewerbeobjekte, werden von uns diskret angeboten und ebenso diskret vermittelt. Immobilienverkäufer haben für ihren Wunsch nach Diskretion ganz unterschiedliche Beweggründe. Häufig ist, gerade bei hochwertigen Objekten, der Sicherheitsaspekt ausschlaggebend. Es gibt aber eine Vielzahl weiterer Ursachen: Scheidung, Familienstreitigkeiten, Todesfälle, Arbeitsplatzwechsel, Pensionierung oder eine aktuelle finanzielle Schieflage.",
-      "In einigen Fällen ist der Verkäufer auch „prominent“, regional oder überregional. Manchmal ist das Gebäude selbst „prominent“, z. B. ein Schloss oder ein anderes historisches Bauwerk. Und besonders bei Gewerbeimmobilien, Hotels beispielsweise, will man die Verkaufsabsicht häufig erst dann publik machen, wenn die Verhandlungen erfolgreich abgeschlossen sind. Wir verstehen das. Und bieten Ihnen deshalb immer an, Ihre Immobilie diskret zu vermitteln.",
-      "Unsere Kundenkartei bringt Verkäufer und Käufer zusammen. „Diskret“ heißt natürlich: keine Anzeigen im Internet, keine öffentlichen Bilder und Grundrisse. Grundlage für unsere Verkaufserfolge in diesen Fällen ist unsere in Jahren gewachsene Kundenkartei, die wir ständig auf dem aktuellsten Stand halten. Gerade junge Familien, Unternehmer, Handwerker, aber auch Investoren fragen uns regelmäßig nach passenden Objekten.",
+      "Zahlreiche Immobilien, ob Häuser, Wohnungen, Grundstücke oder Gewerbeobjekte, werden von uns diskret angeboten und ebenso diskret vermittelt. Immobilienverkäufer haben für ihren Wunsch nach Diskretion ganz unterschiedliche Beweggründe. Häufig ist, gerade bei hochwertigen Objekten, der Sicherheitsaspekt ausschlaggebend. Es gibt aber eine Vielzahl weiterer Ursachen: Scheidung, Familienstreitigkeiten, Todesfälle, Arbeitsplatzwechsel, Pensionierung oder eine aktuelle finanzielle Schieflage.",
+      "In einigen Fällen ist der Verkäufer auch „prominent“, regional oder überregional. Manchmal ist das Gebäude selbst „prominent“, z. B. ein Schloss oder ein anderes historisches Bauwerk. Und besonders bei Gewerbeimmobilien, Hotels beispielsweise, will man die Verkaufsabsicht häufig erst dann publik machen, wenn die Verhandlungen erfolgreich abgeschlossen sind. Wir verstehen das und bieten Ihnen deshalb immer an, Ihre Immobilie diskret zu vermitteln.",
+      "Unsere Kundenkartei bringt Verkäufer und Käufer zusammen. „Diskret“ heißt natürlich: keine Anzeigen im Internet, keine öffentlichen Bilder und Grundrisse. Grundlage für unsere Verkaufserfolge in diesen Fällen ist unsere über Jahre gewachsene Kundenkartei, die wir ständig auf dem neuesten Stand halten. Gerade junge Familien, Unternehmer, Handwerker, aber auch Investoren fragen uns regelmäßig nach passenden Objekten.",
       "Vertrauen Sie auf unser regionales Netzwerk und unsere Vertriebsstärke. SAYAN Immobilien Köln findet für Sie den passenden Käufer auch ohne Werbung.",
     ],
     points: [
       "Keine Anzeigen im Internet",
       "Keine öffentlichen Bilder und Grundrisse",
-      "In Jahren gewachsene Kundenkartei",
+      "Über Jahre gewachsene Kundenkartei",
       "Regionales Netzwerk",
     ],
     related: ["vermarktung", "interessentenpruefung"],
@@ -251,13 +251,13 @@ export const services: Service[] = [
     title: "Besichtigungen",
     group: "Vermarktung",
     summary: "Gut vorbereitet ist halb gewonnen.",
-    intro: "Bereits vor einer Besichtigung muss klar sein, ob Ihr Objekt und der jeweilige Kauf- oder Miet-Interessent zusammenpassen könnten. SAYAN Immobilien Köln filtert für Sie die echten Interessenten heraus.",
+    intro: "Bereits vor einer Besichtigung muss klar sein, ob Ihr Objekt und der jeweilige Kauf- oder Mietinteressent zusammenpassen könnten. SAYAN Immobilien Köln filtert für Sie die echten Interessenten heraus.",
     details: [
-      "Bereits vor einer Besichtigung muss klar sein, ob Ihr Objekt und der jeweilige Kauf- oder Miet-Interessent zusammenpassen könnten. Erst wenn dies geprüft und bejaht wurde, ist eine Besichtigung überhaupt sinnvoll. Deshalb kontaktieren wir die Interessenten, beantworten wichtige Fragen und kommen in nur 4 Stufen zum Erfolg.",
+      "Bereits vor einer Besichtigung muss klar sein, ob Ihr Objekt und der jeweilige Kauf- oder Mietinteressent zusammenpassen könnten. Erst wenn dies geprüft und bejaht wurde, ist eine Besichtigung überhaupt sinnvoll. Deshalb kontaktieren wir die Interessenten, beantworten wichtige Fragen und kommen in nur 4 Stufen zum Erfolg.",
       "Phase 1: Virtuelle Besichtigung mit gutem Foto- und Informationsmaterial. Professionelle Bilder, vereinfachte Farb-Grundrisse und aussagefähige Beschreibungen geben allen Interessenten die Möglichkeit, Ihr Objekt bereits im Internet genau in Augenschein zu nehmen. Für die Entscheidungsfindung können u. U. ein 360-Grad-Rundgang oder ein Video sinnvoll sein.",
       "Phase 2: Der Interessent prüft für sich die Lage. Wie nah liegen Arbeitsplatz, Schule, Kindergarten, Einkaufsmöglichkeiten, Parks, kulturelle Einrichtungen etc.? Wie sind die Verkehrsanbindungen? Gefällt ihm das soziale Umfeld? Wir empfehlen hier dringend, die Gegend zu Fuß zu erkunden.",
-      "Phase 3: Ihre Immobilie wird live erfassbar, die Erstbesichtigung. Der Interessent kommt bereits gut informiert in Ihr Objekt. Wir haben die Erfahrung gemacht, dass Erstbesichtigungen als offene Besichtigungen mit mehreren Interessenten sehr gut funktionieren. Meist genügt ein Zeitfenster von 1 bis 1,5 Stunden.",
-      "Phase 4: Kurz vor Abschluss, die Zweitbesichtigung. Wenn bei der Erstbesichtigung alles gestimmt hat, werden essenzielle Punkte wie die Finanzierung besprochen. Bei der Zweitbesichtigung sollten alle wichtigen Personen anwesend sein. Meist ist die eigentliche Kaufentscheidung schon getroffen und es geht jetzt nur noch um kleinere Details und Fragen der Abwicklung.",
+      "Phase 3: Die Erstbesichtigung: Ihre Immobilie live erleben. Der Interessent kommt bereits gut informiert in Ihr Objekt. Wir haben die Erfahrung gemacht, dass Erstbesichtigungen als offene Besichtigungen mit mehreren Interessenten sehr gut funktionieren. Meist genügt ein Zeitfenster von 1 bis 1,5 Stunden.",
+      "Phase 4: Die Zweitbesichtigung kurz vor dem Abschluss. Wenn bei der Erstbesichtigung alles gestimmt hat, werden essenzielle Punkte wie die Finanzierung besprochen. Bei der Zweitbesichtigung sollten alle wichtigen Personen anwesend sein. Meist ist die eigentliche Kaufentscheidung schon getroffen und es geht jetzt nur noch um kleinere Details und Fragen der Abwicklung.",
     ],
     points: [
       "Virtuelle Besichtigung mit gutem Material",
@@ -287,7 +287,7 @@ export const services: Service[] = [
     summary: "Verkaufsverhandlungen, Vertrag und Notartermin.",
     intro: "In Ihrem Auftrag führen wir die Verkaufsverhandlungen, bereiten den Vertrag in Ihrem Sinne vor und begleiten Sie zum Notartermin.",
     details: [
-      "In Ihrem Auftrag führen wir die Verkaufsverhandlungen. Dies ist eine besonders wichtige Phase. Denn jetzt gilt es, bei den Kaufinteressenten bei Bedarf telefonisch oder persönlich nachzuhaken. Auf etwaige Einwände einzugehen, gehört genauso dazu, wie die besonderen Vorzüge und Potenziale Ihrer Immobilie herauszustellen. Parallel prüfen wir für Sie bereits in dieser Phase die Bonität der potenziellen Käufer.",
+      "In Ihrem Auftrag führen wir die Verkaufsverhandlungen. Dies ist eine besonders wichtige Phase. Denn jetzt gilt es, bei den Kaufinteressenten bei Bedarf telefonisch oder persönlich nachzuhaken. Auf etwaige Einwände einzugehen, gehört genauso dazu wie die besonderen Vorzüge und Potenziale Ihrer Immobilie herauszustellen. Parallel prüfen wir für Sie bereits in dieser Phase die Bonität der potenziellen Käufer.",
       "Gibt es mehrere Kaufinteressenten, berät Sie SAYAN Immobilien Köln bei der Auswahl des Käufers. Wir bereiten den Vertrag in Ihrem Sinne vor. Sobald die Finanzierungszusage des Kreditinstituts eingeht, wird diese sofort geprüft. Wir koordinieren den Notartermin und begleiten Sie dorthin.",
     ],
     points: [
@@ -307,13 +307,13 @@ export const services: Service[] = [
     summary: "Wir vergessen Sie auch nach dem erfolgreichen Verkauf nicht!",
     intro: "Ein guter After-Sales-Service ist ein wesentlicher Bestandteil unserer Unternehmensphilosophie.",
     details: [
-      "Ein guter After-Sales-Service ist ein wesentlicher Bestandteil unserer Unternehmensphilosophie. Wir begleiten Sie bei der Übergabe, beraten Sie mit unseren Spezialisten und Partnern über wichtige Fragen von Versicherungsschutz oder vermitteln Ihnen Kontakte und Ansprechpartner zu seriösen Firmen vom Umzug bis zur bevorstehenden Renovierung und Einrichtung.",
-      "Unser Service endet nicht mit dem Verkauf oder der Vermietung einer Immobilie. Im Rahmen unseres After-Sales-Service werden Kunden und Auftraggeber von uns, als zuverlässige Immobilienmakler, nach Vertragsabschluss weiterhin betreut. Gerne gehen wir auf anstehende Fragen bezüglich der Vertragsabwicklung ein. Auf Wunsch vermitteln wir bewährte Handwerker aus Köln und Region oder Architekten, Steuerberater usw. Bei der Wohnungs- oder Hausübergabe sind wir ebenfalls behilflich und protokollieren diese.",
+      "Ein guter After-Sales-Service ist ein wesentlicher Bestandteil unserer Unternehmensphilosophie. Wir begleiten Sie bei der Übergabe, beraten Sie mit unseren Spezialisten und Partnern zu wichtigen Fragen des Versicherungsschutzes oder vermitteln Ihnen Kontakte und Ansprechpartner zu seriösen Firmen vom Umzug bis zur bevorstehenden Renovierung und Einrichtung.",
+      "Unser Service endet nicht mit dem Verkauf oder der Vermietung einer Immobilie. Im Rahmen unseres After-Sales-Service betreuen wir Kunden und Auftraggeber auch nach dem Vertragsabschluss weiter. Gerne gehen wir auf anstehende Fragen bezüglich der Vertragsabwicklung ein. Auf Wunsch vermitteln wir bewährte Handwerker aus Köln und Region oder Architekten, Steuerberater usw. Bei der Wohnungs- oder Hausübergabe sind wir ebenfalls behilflich und protokollieren diese.",
     ],
     points: [
       "Übergabetermin mit Übergabeprotokoll",
-      "Empfehlung Umzugsunternehmen",
-      "Empfehlungen Handwerksunternehmen",
+      "Empfehlung von Umzugsunternehmen",
+      "Empfehlung von Handwerksbetrieben",
       "Informationen über Schulen und Kindergärten",
       "Überwachung der notariellen Abwicklung",
       "Mietersuche nach Kauf",
@@ -337,7 +337,7 @@ export const services: Service[] = [
       "Eigene Homepage für Ihr Projekt (falls sinnvoll)",
       "Präsentation auf allen wichtigen Immobilienportalen",
       "Social-Media-Marketing",
-      "Anzeigen in Print-Medien",
+      "Anzeigen in Printmedien",
       "Außenwerbung (Verkaufsschilder, Banner, Fahnen etc.)",
       "Prospekt- und Flyermaterial",
       "Attraktive Visualisierung Ihrer Grundrisse",
@@ -353,8 +353,8 @@ export const services: Service[] = [
     summary: "Vermarktung für institutionelle Immobilienbesitzer.",
     intro: "Bereits seit mehreren Jahren sind wir für diverse institutionelle Immobilienbesitzer sowie börsennotierte Immobilienunternehmen mit der Vermarktung ihrer Immobilienwerte beauftragt.",
     details: [
-      "Bereits seit mehreren Jahren sind wir für diverse institutionelle Immobilienbesitzer sowie börsennotierte Immobilienunternehmen mit der Vermarktung ihrer Immobilienwerte beauftragt. Was erst mit der schnellen und sehr erfolgreichen Vermarktung von Immobilien-Restanten in Düsseldorf begonnen hat, setzte sich in den folgenden Jahren erfolgreich fort.",
-      "Dabei liegt unser Fokus nicht nur auf der kurzfristigen Zufriedenstellung unseres Auftraggebers durch einen schnellen Vermarktungserfolg, sondern auch auf langfristiger Beständigkeit des Mietverhältnisses. Hierzu gehört es u. a., einen „glücklichen“ Mieter zu finden, da diese für ein Immobilienportfolio den wichtigsten Vermögenswert darstellen.",
+      "Bereits seit mehreren Jahren sind wir für diverse institutionelle Immobilienbesitzer sowie börsennotierte Immobilienunternehmen mit der Vermarktung ihrer Immobilienwerte beauftragt. Was mit der schnellen und sehr erfolgreichen Vermarktung von Immobilien-Restanten in Düsseldorf begann, setzte sich in den folgenden Jahren erfolgreich fort.",
+      "Dabei liegt unser Fokus nicht nur auf der kurzfristigen Zufriedenstellung unseres Auftraggebers durch einen schnellen Vermarktungserfolg, sondern auch auf langfristiger Beständigkeit des Mietverhältnisses. Hierzu gehört es u. a., zufriedene Mieter zu finden, denn sie sind für ein Immobilienportfolio der wichtigste Vermögenswert.",
       "Unser Leistungsspektrum umfasst von der Einwertung der Immobilie über die Erstellung von individuellen Prozessen für besondere Vermietungssituationen bis hin zur operativen Vermarktungsstrategie die gesamte Bandbreite der professionellen Vermittlung von Immobilien. Allein im Jahr 2015 konnten wir für zwei große Portfolios in Nordrhein-Westfalen insgesamt 210 Wohn- und Gewerbeeinheiten erfolgreich vermieten.",
       "Ebenso können wir Ihnen als kompetenter Partner nicht nur für die Vermietung, sondern auch für die Bewertung und den Verkauf von Wohnportfolios im gesamten Bundesgebiet zur Seite stehen. Diskretion und Vertrauen sind Werte, die wir schätzen und leben. Deshalb arbeiten wir gerne mit Vertraulichkeitsvereinbarungen und Kundenfreigaben. Gerne lassen wir Ihnen bei Bedarf eine aussagekräftige Referenz zukommen.",
     ],
@@ -374,7 +374,7 @@ export const services: Service[] = [
     summary: "Wir beraten Sie auf Wunsch umfassend bei der Baufinanzierung.",
     intro: "Bei allen Fragen rund um Immobilien helfen wir Ihnen stets kompetent und fair. Das gilt selbstverständlich auch für die Immobilienfinanzierung.",
     details: [
-      "Als Immobilienkäufer profitieren Sie von unserer Expertise als Makler und von unseren langjährigen Kontakten zu Kreditinstituten. Bei der Immobilienfinanzierung sind zahlreiche Fragen zu klären: Dazu gehört an erster Stelle die Ermittlung des Finanzierungsbedarfs für das von Ihnen gewünschte Objekt. Wie viel Eigenkapital ist vorhanden? Wie viel Fremdkapital muss aufgenommen werden? Wir rechnen Ihnen genau aus, welche Kredit- und Tilgungsraten für Sie sinnvoll sind. Erst nachdem diese Fragen geklärt sind, erfolgt der nächste Schritt: den geeigneten Finanzierungspartner zu finden.",
+      "Als Immobilienkäufer profitieren Sie von unserer Expertise als Makler und von unseren langjährigen Kontakten zu Kreditinstituten. Bei der Immobilienfinanzierung sind zahlreiche Fragen zu klären: Dazu gehört an erster Stelle die Ermittlung des Finanzierungsbedarfs für das von Ihnen gewünschte Objekt. Wie viel Eigenkapital ist vorhanden? Wie viel Fremdkapital muss aufgenommen werden? Wir rechnen Ihnen genau aus, welche Kredit- und Tilgungsraten für Sie sinnvoll sind. Erst nachdem diese Fragen geklärt sind, folgt der nächste Schritt: die Suche nach dem geeigneten Finanzierungspartner.",
       "Als ehrlicher und unabhängiger Makler arbeiten wir immer in Ihrem Interesse. Das heißt, wir weisen Sie auch auf Kosten hin, die vielfach „übersehen“ werden. Dazu gehören z. B. notwendige Versicherungen, Nebenkosten, Gebühren und die Grunderwerbsteuer. Außerdem raten wir dazu, immer einen finanziellen Puffer einzuplanen, damit Sie auch bei unerwarteten Änderungen noch sicher dastehen.",
       "Der Erwerb einer Immobilie ist eine komplexe Investition, die Sie genau kalkulieren und sorgfältig überdenken sollten. Wir beraten Sie dabei und helfen Ihnen, die richtigen Entscheidungen zu treffen.",
     ],
