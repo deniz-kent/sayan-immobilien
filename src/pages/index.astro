@@ -29,7 +29,7 @@ const trackRecord = [
 const career = [
   { year: "1998", title: "Einstieg in die Immobilienbranche", copy: "Candan Sayan lernt den Beruf von Grund auf und baut SAYAN Immobilien in Köln auf. Seitdem begleiten wir Eigentümer beim Verkauf und bei der Vermietung." },
   { year: "2008", title: "Diplom-Kaufmann (FH)", copy: "Berufsbegleitendes Studium der Wirtschaftswissenschaften an der Rheinischen Fachhochschule Köln, mit Schwerpunkt Immobilienmarketing." },
-  { year: "Heute", title: "Inhabergeführt. Über 500 Verkäufe.", copy: "Ein fester Ansprechpartner, ein Team vor Ort und Beratung auf Deutsch und Türkisch." },
+  { year: "Heute", title: "Über 500 Verkäufe.", copy: "Ein fester Ansprechpartner, ein Team vor Ort und Beratung auf Deutsch und Türkisch." },
 ];
 
 const photo = (src: string, alt: string, position = "50% 50%") => ({ src, srcSet: `${src} 1200w`, alt, position });
@@ -118,7 +118,7 @@ const process = [
       <div class="container career">
         <div class="career__media zoom-media" data-reveal>
           <EditorialPhoto image={editorialImages.candanPortrait} sizes="(max-width: 900px) 100vw, 45vw" />
-          <p class="career__badge"><strong>Inhabergeführt</strong><span>seit 1998 in Köln</span></p>
+          <p class="career__badge"><strong>Seit 1998</strong><span>in Köln</span></p>
         </div>
         <div class="career__copy">
           <div data-reveal>
