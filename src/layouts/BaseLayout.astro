@@ -104,7 +104,8 @@ const showAdvice = siteSettings.showAdvicePopup && (Astro.url.pathname === "/" |
               if (rect.bottom < 0 || rect.top > vh) return;
               const speed = Number(el.dataset.parallax || 0.08);
               const offset = (rect.top + rect.height / 2 - vh / 2) * -speed;
-              el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0) scale(1.12)`;
+              const scale = Number(el.dataset.parallaxScale || 1.12);
+              el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0) scale(${scale})`;
             });
             ticking = false;
           };

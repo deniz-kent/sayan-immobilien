@@ -1,5 +1,9 @@
 # Änderungen
 
+## 1.20.1 · 2026.11.09
+
+Header-Video deutlich schärfer: höhere Bitrate, volle 1080p-Auflösung, auf Smartphones ein nativer Hochformat-Ausschnitt statt hochskaliertem 720p. Das Video wird im Hero nicht mehr zusätzlich vergrößert.
+
 ## 1.20.0 · 2026.11.09
 
 Header-Video auf der Startseite: Blick über Köln mit Dom, stumm und in Schleife. Mobil lädt eine leichtere 720p-Fassung, bis zum Start steht ein Standbild. Bei aktivierter Einstellung „Bewegung reduzieren“ bleibt das Standbild stehen.
