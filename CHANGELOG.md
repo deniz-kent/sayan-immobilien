@@ -1,5 +1,13 @@
 # Änderungen
 
+## 1.24.0 · 2026.11.09
+
+- Pop-up: Schließen pausiert nur für den aktuellen Besuch. Danach bleibt unten rechts ein kleiner Button zum erneuten Öffnen. Erscheint auch direkt nach der Entscheidung im Datenschutz-Banner. Zum Testen: ?popup an die Adresse hängen.
+- Mega-Menü kompakt und zentriert, jeder Link mit kurzer Erklärung.
+- Leistungsseiten: lange Titel laufen nicht mehr unter das Bild; keine einzelne Karte mehr in der letzten Reihe.
+- Blocksatz nur noch für Fließtexte, nicht in Karten und Listen.
+- Über uns: Porträt im Werdegang, Bildergalerie und Videoband mit Domblick.
+
 ## 1.23.0 · 2026.11.09
 
 - Neue Navigation nach Absicht: Immobilien, Verkaufen, Bewerten als Menüs; Preise Köln, Über uns und Kontakt als direkte Links. Alle Menübilder im gleichen Format.

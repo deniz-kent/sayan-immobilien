@@ -12,14 +12,13 @@ const autoOpen = Astro.url.pathname === "/";
   data-auto-open={autoOpen ? "true" : undefined}
   data-delay={siteSettings.advicePopupDelaySeconds}
   data-scroll={siteSettings.advicePopupScrollPercent}
-  data-pause={siteSettings.advicePopupPauseHours}
   tabindex="-1"
   hidden
   aria-labelledby="advice-title"
   aria-describedby="advice-description"
 >
   <div class="advice-popup__band">
-    <img src={editorialImages.company.src} alt="" width="56" height="56" loading="lazy" />
+    <img src={editorialImages.candanPortrait.src} alt="" width="56" height="56" loading="lazy" style="object-position: 50% 20%" />
     <div>
       <p class="advice-popup__brand">SAYAN Immobilien Köln</p>
       <p class="advice-popup__since">Immobilienexpertise seit 1998</p>
@@ -33,11 +32,22 @@ const autoOpen = Astro.url.pathname === "/";
       <a class="advice-popup__btn advice-popup__btn--primary" href="/kontakt/#termin"><span><strong>Termin vor Ort vereinbaren</strong><small>Persönlich, genau, mit Preisempfehlung</small></span><span aria-hidden="true">→</span></a>
       <a class="advice-popup__online" href="/leistung/formular/">Lieber erst online schätzen <span aria-hidden="true">→</span></a>
     </div>
-    <button class="advice-popup__later" type="button" data-close-advice>Nicht mehr anzeigen</button>
+    <button class="advice-popup__later" type="button" data-close-advice>Später</button>
   </div>
 </aside>
+<button class="advice-launcher" type="button" data-advice-launcher hidden aria-controls="sayan-advice-popup">
+  <span class="advice-launcher__dot" aria-hidden="true"></span>Was ist Ihre Immobilie wert?
+</button>
 
 <style>
+  .advice-launcher { position: fixed; z-index: 480; right: 1rem; bottom: 1rem; display: inline-flex; align-items: center; gap: .55rem; min-height: 3rem; padding: .7rem 1.1rem; border: 0; border-radius: 999px; background: var(--accent); color: var(--accent-ink, #1e1713); font-weight: 600; font-size: .92rem; box-shadow: 0 10px 30px rgb(30 23 19 / .25); cursor: pointer; animation: launcher-in 500ms cubic-bezier(.16, 1, .3, 1) both; }
+  .advice-launcher[hidden] { display: none; }
+  .advice-launcher:hover { filter: brightness(1.05); }
+  .advice-launcher__dot { width: .5rem; height: .5rem; border-radius: 50%; background: currentColor; animation: launcher-pulse 1.8s ease-in-out infinite; }
+  @keyframes launcher-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  @keyframes launcher-pulse { 50% { opacity: .35; } }
+  :global(body:has([data-consent]:not([hidden]))) .advice-launcher { display: none; }
+  @media (prefers-reduced-motion: reduce) { .advice-launcher, .advice-launcher__dot { animation: none; } }
   .advice-popup { position: fixed; z-index: 300; right: max(1.25rem, env(safe-area-inset-right)); bottom: max(1.25rem, env(safe-area-inset-bottom)); width: min(23rem, calc(100% - 2.5rem)); overflow: hidden; border: 1px solid var(--n-border); border-radius: 18px; background: #fff; color: var(--ink); box-shadow: 0 30px 70px -25px rgb(36 28 24 / .45); opacity: 0; transform: translate3d(0, 1.5rem, 0); transition: transform var(--motion-panel) var(--ease-out-expo), opacity 300ms ease; }
   .advice-popup[hidden] { display: none; }
   .advice-popup.is-open { opacity: 1; transform: none; }
@@ -66,15 +76,12 @@ const autoOpen = Astro.url.pathname === "/";
 
 <script>
   const popup = document.querySelector<HTMLElement>("[data-advice-popup]");
+  // Geschlossen = nur für diesen Besuch (Tab) pausiert. Beim nächsten Besuch erscheint das Pop-up wieder.
   const KEY = "sayan-advice-dismissed";
-  const PAUSE_HOURS = Number(popup?.dataset.pause || 24);
-  const dismissedRecently = () => {
-    try {
-      const at = Number(localStorage.getItem(KEY));
-      return at > 0 && Date.now() - at < PAUSE_HOURS * 3600000;
-    } catch { return false; }
-  };
-  const rememberDismiss = () => { try { localStorage.setItem(KEY, String(Date.now())); } catch { /* privater Modus */ } };
+  try { localStorage.removeItem(KEY); } catch { /* alter Schlüssel, nicht mehr genutzt */ }
+  const launcher = document.querySelector<HTMLButtonElement>("[data-advice-launcher]");
+  const dismissedRecently = () => { try { return sessionStorage.getItem(KEY) === "1"; } catch { return false; } };
+  const rememberDismiss = () => { try { sessionStorage.setItem(KEY, "1"); } catch { /* privater Modus */ } };
 
   if (popup) {
     let returnFocus: HTMLElement | null = null;
@@ -85,6 +92,7 @@ const autoOpen = Astro.url.pathname === "/";
       if (closingTimer) window.clearTimeout(closingTimer);
       popup.inert = false;
       popup.hidden = false;
+      if (launcher) launcher.hidden = true;
       requestAnimationFrame(() => requestAnimationFrame(() => {
         popup.classList.add("is-open");
         if (focus) popup.focus({ preventScroll: true });
@@ -96,7 +104,7 @@ const autoOpen = Astro.url.pathname === "/";
       if (popup.contains(document.activeElement)) returnFocus?.focus({ preventScroll: true });
       popup.inert = true;
       popup.classList.remove("is-open");
-      closingTimer = window.setTimeout(() => { popup.hidden = true; }, window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 500);
+      closingTimer = window.setTimeout(() => { popup.hidden = true; if (launcher) launcher.hidden = false; }, window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 500);
     };
 
     document.querySelectorAll<HTMLAnchorElement>("[data-open-advice]").forEach((trigger) => {
@@ -108,6 +116,9 @@ const autoOpen = Astro.url.pathname === "/";
     });
     popup.querySelectorAll("[data-close-advice]").forEach((button) => button.addEventListener("click", closePopup));
     document.addEventListener("keydown", (event) => { if (event.key === "Escape") closePopup(); });
+    launcher?.addEventListener("click", () => openPopup(launcher));
+    if (dismissedRecently() && launcher) launcher.hidden = false;
+    if (new URLSearchParams(window.location.search).has("popup")) openPopup();
     window.addEventListener("hashchange", () => { if (window.location.hash === "#beratung") openPopup(); });
     if (window.location.hash === "#beratung") openPopup();
 
@@ -134,6 +145,8 @@ const autoOpen = Astro.url.pathname === "/";
         openPopup(null, false);
       };
       window.addEventListener("scroll", check, { passive: true });
+      // Sobald der Besucher im Datenschutz-Banner entschieden hat, kurz danach erneut prüfen.
+      window.addEventListener("sayan:consent", () => window.setTimeout(check, 1500));
       window.setTimeout(() => { timeUp = true; check(); }, Number(popup.dataset.delay || 30) * 1000);
     }
   }

@@ -6,6 +6,4 @@ export const siteSettings = {
   advicePopupDelaySeconds: 20,
   // ... und erst, wenn der Besucher so viel Prozent der Seite gescrollt hat.
   advicePopupScrollPercent: 30,
-  // Nach dem Schließen so viele Stunden nicht automatisch erneut zeigen.
-  advicePopupPauseHours: 24,
 };

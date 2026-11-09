@@ -62,7 +62,7 @@ const review = reviews[index % reviews.length];
             <a href="/leistung/">Leistungen</a><span aria-hidden="true">/</span><span>{service.group}</span>
           </nav>
           <p class="eyebrow">{String(index + 1).padStart(2, "0")} · {service.group}</p>
-          <h1>{service.title}</h1>
+          <h1 class:list={{ "svc-hero__title--long": service.title.split(" ").some((w) => w.length > 14) }}>{service.title}</h1>
           <p class="svc-hero__intro">{service.intro}</p>
           <div class="svc-hero__actions">
             <a class="button" href="/kontakt/#termin">Termin vor Ort vereinbaren <span class="arrow" aria-hidden="true">→</span></a>
@@ -190,7 +190,9 @@ const review = reviews[index % reviews.length];
   .svc-hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
   .breadcrumbs { display: flex; flex-wrap: wrap; gap: .55rem; margin-bottom: 1.75rem; color: var(--n-text-secondary); font-size: .9rem; }
   .breadcrumbs a { text-decoration: underline; text-underline-offset: .2em; }
-  .svc-hero h1 { max-width: 14ch; }
+  .svc-hero h1 { max-width: 14ch; overflow-wrap: break-word; -webkit-hyphens: auto; hyphens: auto; }
+  /* Lange Einzelwörter wie Immobilienfinanzierung: kleiner setzen, damit nichts unter das Bild läuft. */
+  .svc-hero h1.svc-hero__title--long { max-width: none; font-size: clamp(2.1rem, 3.4vw, 3.3rem); }
   .svc-hero__intro { max-width: 50ch; margin-top: 1.5rem; color: var(--n-text-secondary); font-size: clamp(1.1rem, 1.3vw, 1.25rem); }
   .svc-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem; margin-top: 2rem; }
   .svc-hero__phone { font-weight: 600; text-decoration: underline; text-underline-offset: .25em; }
@@ -261,6 +263,18 @@ const review = reviews[index % reviews.length];
   .contact-cta__links strong { font: 500 clamp(1.4rem, 2vw, 1.8rem)/1.2 var(--font-display); overflow-wrap: anywhere; }
 
   @media (max-width: 1100px) { .svc-points--long { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  /* Keine einsame Karte in der letzten Reihe: übrig gebliebene Karten füllen die Zeile. */
+  .svc-points li { align-items: center; }
+  @media (min-width: 768px) {
+    .svc-points:not(.svc-points--long) li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  }
+  @media (min-width: 1101px) {
+    .svc-points--long li:last-child:nth-child(3n+1) { grid-column: 1 / -1; }
+    .svc-points--long li:last-child:nth-child(3n+2) { grid-column: span 2; }
+  }
+  @media (min-width: 768px) and (max-width: 1100px) {
+    .svc-points--long li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  }
   @media (max-width: 900px) {
     .svc-hero { padding-top: 7.5rem; }
     .svc-hero__grid, .svc-body, .contact-cta__grid { grid-template-columns: 1fr; }

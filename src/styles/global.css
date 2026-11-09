@@ -420,5 +420,22 @@ a, button { touch-action: manipulation; }
 }
 
 /* Blocksatz für alle Fließtexte, mit Silbentrennung gegen große Lücken. */
-:where(p, li, blockquote, dd, figcaption) { text-align: justify; -webkit-hyphens: auto; hyphens: auto; hyphenate-limit-chars: 6 3 3; }
-:where(.section-head--center, .mobile-menu__footer, .wide-cta, .svc-quote) :where(p, li, blockquote) { text-align: center; }
+:where(p, blockquote, dd) { text-align: justify; -webkit-hyphens: auto; hyphens: auto; hyphenate-limit-chars: 6 3 3; }
+:where(.section-head--center, .mobile-menu__footer, .wide-cta, .svc-quote) :where(p, blockquote) { text-align: center; }
+/* Kurze Texte in Karten, Buttons und Menüs nie im Blocksatz: dort entstehen sonst große Lücken. */
+:where(li, figcaption, small, label) { text-align: left; }
+:where(li) p, .svc-card p, [class*="card"] p, [class*="__item"] p, [class*="-item"] p { text-align: left; }
+
+/* Kompaktes Mega-Menü: so breit wie der Inhalt, zentriert unter der Navigation. */
+.mega-menu { right: auto; left: 50%; width: max-content; max-width: calc(100vw - 2 * var(--gutter)); transform: translateX(-50%); }
+.mega-menu__inner { grid-template-columns: repeat(var(--cols, 3), 15.5rem) 17rem; gap: clamp(1.25rem, 2.2vw, 2.25rem); }
+.mega-column a { min-height: 0; padding: .65rem .75rem; margin-inline: -.75rem; border-radius: 10px; }
+.mega-column a::before { display: none; }
+.mega-column a:hover, .mega-column a:focus-visible { background: #fff; transform: none; }
+.mega-link__text > span { font-weight: 500; color: var(--ink); }
+.mega-link__text { display: grid; gap: .15rem; }
+.mega-link__text small { color: var(--n-text-secondary); font-size: .8rem; font-weight: 400; letter-spacing: 0; text-align: left; }
+.mega-promo img { aspect-ratio: 16 / 9; }
+.mega-promo__body { padding: .95rem 1.1rem 1.1rem; }
+.mega-promo__body strong { font-size: 1.15rem; }
+.mega-promo__body span { font-size: .88rem; text-align: left; }

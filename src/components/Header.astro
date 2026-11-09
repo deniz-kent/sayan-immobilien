@@ -54,6 +54,31 @@ const groups: NavGroup[] = [
   { label: "Über uns", href: "/ueber-uns/" },
   { label: "Kontakt", href: "/kontakt/" },
 ];
+// Kurze Erklärung unter jedem Menülink, damit man schneller findet, was man sucht.
+const linkHints: Record<string, string> = {
+  "Immobilien kaufen": "Aktuelle Kaufangebote in Köln",
+  "Immobilien mieten": "Wohnungen und Häuser zur Miete",
+  "Alle Angebote": "Kauf und Miete auf einen Blick",
+  "Suchprofil anlegen": "Passende Objekte direkt von uns",
+  "Finanzierung": "Unabhängig zur passenden Finanzierung",
+  "Immobilie verkaufen": "In 7 Phasen bis zum Notartermin",
+  "Immobilie vermieten": "Von den Fotos bis zur Übergabe",
+  "Diskret vermarkten": "Ohne öffentliches Inserat",
+  "Alle Leistungen": "Alle 19 Leistungen im Überblick",
+  "Fotografie": "Profifotos und Exposé",
+  "Home Staging": "Räume, die man sich vorstellen kann",
+  "360-Grad-Rundgang": "Besichtigen vom Sofa aus",
+  "Besichtigungen": "Organisiert und begleitet",
+  "Bauträgervertrieb": "Vertrieb für Neubauprojekte",
+  "Portfoliovertrieb": "Mehrere Objekte, ein Partner",
+  "Tippgeber": "Provision für Ihre Empfehlung",
+  "Online bewerten": "Erste Einschätzung in Minuten",
+  "Bewertung vor Ort": "Persönlich, mit Preisempfehlung",
+  "Wertermittlung": "So ermitteln wir den Wert",
+  "Energieausweis": "Pflicht beim Verkauf",
+  "Immobilienpreise Köln": "Amtliche Richtwerte",
+  "Alle Stadtteile & Preise": "116 Lagen durchsuchen",
+};
 const liveLinks: Record<string, string> = {
   ...Object.fromEntries(services.map((service) => [service.title, `/leistung/${service.slug}/`])),
   "Aktuelle Objekte": "/immobilien/",
@@ -130,7 +155,7 @@ const liveLinks: Record<string, string> = {
                 {group.columns!.map((column) => (
                   <div class="mega-column">
                     <p>{column.title}</p>
-                    {column.links.map((link) => <a href={liveLinks[link]}>{link}</a>)}
+                    {column.links.map((link) => <a href={liveLinks[link]}><span class="mega-link__text"><span>{link}</span>{linkHints[link] && <small>{linkHints[link]}</small>}</span></a>)}
                   </div>
                 ))}
                 <a class="mega-promo" href={group.promoHref}>
