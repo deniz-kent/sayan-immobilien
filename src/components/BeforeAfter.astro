@@ -1,0 +1,69 @@
+---
+// Vorher/Nachher-Vergleich: Regler ziehen, um zwischen Originalfoto und bearbeitetem Foto zu wechseln.
+const pairs = [
+  { slug: "dachgeschoss-wohnraum", title: "Dachgeschoss, Wohnraum mit Kamin" },
+  { slug: "dachgeschoss-kueche", title: "Dachgeschoss, offene Küche" },
+  { slug: "passage", title: "Gewerbefläche, Lichthof mit Rolltreppen" },
+];
+---
+<section class="section section--paper ba" aria-labelledby="ba-title">
+  <div class="container">
+    <div class="ba__head" data-reveal>
+      <p class="eyebrow">Vorher und nachher</p>
+      <h2 id="ba-title">Derselbe Raum. <em>Ein anderer Eindruck.</em></h2>
+      <p>Ziehen Sie den Regler zur Seite und vergleichen Sie eine einfache Aufnahme mit unserer professionellen Fotografie vom selben Objekt.</p>
+    </div>
+    <div class="ba__list">
+      {pairs.map((pair, i) => (
+        <figure class="ba__item" data-reveal style={`--stagger:${i}`}>
+          <div class="ba__frame" data-ba style="--pos: 50%">
+            <img class="ba__img" src={`/images/vorher-nachher/${pair.slug}-nachher.webp`} alt={`${pair.title}, nachher`} width="1800" height="1200" loading="lazy" decoding="async" />
+            <img class="ba__img ba__img--before" src={`/images/vorher-nachher/${pair.slug}-vorher.webp`} alt={`${pair.title}, vorher`} width="1800" height="1200" loading="lazy" decoding="async" />
+            <span class="ba__tag ba__tag--before" aria-hidden="true">Vorher</span>
+            <span class="ba__tag ba__tag--after" aria-hidden="true">Nachher</span>
+            <span class="ba__handle" aria-hidden="true"><span>‹ ›</span></span>
+            <input class="ba__range" type="range" min="0" max="100" value="50" step="0.5" aria-label={`Vorher und nachher vergleichen: ${pair.title}`} />
+          </div>
+          <figcaption>{pair.title}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .ba__head { max-width: 46rem; margin-bottom: clamp(2rem, 4vw, 3rem); }
+  .ba__head p:last-child { margin-top: 1rem; color: var(--n-text-secondary); }
+  .ba__list { display: grid; gap: clamp(2rem, 4vw, 3.5rem); }
+  .ba__item { margin: 0; }
+  .ba__frame { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border-radius: var(--radius-media, 18px); background: var(--n-surface); user-select: none; touch-action: pan-y; }
+  .ba__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+  .ba__img--before { clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+  .ba__handle { position: absolute; top: 0; bottom: 0; left: var(--pos); width: 2px; translate: -1px 0; background: #fff; box-shadow: 0 0 12px rgb(0 0 0 / .35); pointer-events: none; }
+  .ba__handle span { position: absolute; top: 50%; left: 50%; display: grid; place-items: center; width: 3rem; height: 3rem; translate: -50% -50%; border-radius: 50%; background: #fff; color: var(--ink); font-weight: 700; letter-spacing: .1em; box-shadow: 0 4px 18px rgb(0 0 0 / .25); }
+  .ba__tag { position: absolute; top: 1rem; padding: .35rem .75rem; border-radius: var(--radius-pill, 999px); background: rgb(30 23 19 / .6); color: #fff; font-size: .78rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; pointer-events: none; }
+  .ba__tag--before { left: 1rem; }
+  .ba__tag--after { right: 1rem; }
+  .ba__range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; -webkit-appearance: none; appearance: none; }
+  .ba__range:focus-visible + * { outline: none; }
+  .ba__frame:has(.ba__range:focus-visible) { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .ba__item figcaption { margin-top: .85rem; color: var(--n-text-secondary); font-size: .9rem; text-align: left; }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-ba]").forEach((frame) => {
+    const range = frame.querySelector<HTMLInputElement>(".ba__range");
+    if (!range) return;
+    const set = (value: number) => frame.style.setProperty("--pos", `${Math.min(100, Math.max(0, value))}%`);
+    range.addEventListener("input", () => set(Number(range.value)));
+    // Direkt an die angeklickte Stelle springen und mit gedrückter Maus oder Finger ziehen.
+    const fromPointer = (event: PointerEvent) => {
+      const rect = frame.getBoundingClientRect();
+      const value = ((event.clientX - rect.left) / rect.width) * 100;
+      range.value = String(value);
+      set(value);
+    };
+    range.addEventListener("pointerdown", (event) => { fromPointer(event); range.setPointerCapture(event.pointerId); });
+    range.addEventListener("pointermove", (event) => { if (range.hasPointerCapture(event.pointerId)) fromPointer(event); });
+  });
+</script>

@@ -4,6 +4,7 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import { services, serviceBySlug, type Service } from "../../data/services";
 import EditorialPhoto from "../../components/EditorialPhoto.astro";
+import BeforeAfter from "../../components/BeforeAfter.astro";
 import { serviceImages, editorialImages } from "../../data/editorial-images";
 import { reviews, googleRating } from "../../data/reviews";
 
@@ -68,7 +69,7 @@ const review = reviews[index % reviews.length];
             <a class="svc-hero__phone" href="tel:+4922116892660">0221 168 926 60</a>
           </div>
           <ul class="svc-hero__proof" aria-label="Auf einen Blick">
-            <li>Seit 2001 in Köln</li>
+            <li>Seit 1998 in Köln</li>
             <li>Inhabergeführt</li>
             <li><span class="stars" aria-hidden="true">★</span> {googleRating.value.toLocaleString("de-DE")} bei Google</li>
           </ul>
@@ -122,6 +123,8 @@ const review = reviews[index % reviews.length];
         </aside>
       </div>
     </section>
+
+    {service.slug === "fotografie-und-expose" && <BeforeAfter />}
 
     {service.points.length > 0 && (
       <section class="section section--paper">

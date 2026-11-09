@@ -19,15 +19,21 @@ const featuredProperties = catalog.properties.slice(0, 3);
 
 // Track-Record: Zahlen laut Kundenangabe (Meeting 02.11.2026).
 const trackRecord = [
-  { value: 1999, from: 1970, plain: true, suffix: "", label: "Immobilienexpertise seit" },
-  { value: 27, from: 0, plain: false, suffix: "", label: "Jahre Erfahrung" },
+  { value: 1998, from: 1970, plain: true, suffix: "", label: "Immobilienexpertise seit" },
+  { value: 28, from: 0, plain: false, suffix: "", label: "Jahre Erfahrung" },
   { value: 500, from: 0, plain: false, suffix: "+", label: "vermittelte Verkaufsobjekte" },
   { value: 10000, from: 0, plain: false, suffix: "+", label: "Suchprofile in unserer Kartei" },
 ];
 
+const showreel = [
+  { src: "/videos/sayan-grundriss.mp4", poster: "/images/video-grundriss-poster.webp", title: "Grundriss und Raumgefühl", copy: "Aus dem Plan wird ein Zuhause, das man sich vorstellen kann.", label: "Animation: Grundriss wird zur eingerichteten Wohnung" },
+  { src: "/videos/sayan-lage.mp4", poster: "/images/video-lage-poster.webp", title: "Lage und Umgebung", copy: "Von außen nach innen, damit die Umgebung mitverkauft.", label: "Kamerafahrt von außen in eine Wohnung" },
+  { src: "/videos/sayan-fassade.mp4", poster: "/images/video-fassade-poster.webp", title: "Architektur im Detail", copy: "Fassade, Balkone und Materialien in Bewegung.", label: "Kamerafahrt entlang einer modernen Fassade" },
+];
+
 const career = [
-  { year: "1999", title: "Einstieg in die Immobilienbranche", copy: "Der Beruf von Grund auf gelernt. Als Diplom-Kaufmann, nicht als Quereinsteiger." },
-  { year: "2001", title: "SAYAN Immobilien in Köln", copy: "Seitdem begleiten wir Eigentümer in Köln beim Verkauf und bei der Vermietung." },
+  { year: "1998", title: "Einstieg in die Immobilienbranche", copy: "Candan Sayan lernt den Beruf von Grund auf und baut SAYAN Immobilien in Köln auf. Seitdem begleiten wir Eigentümer beim Verkauf und bei der Vermietung." },
+  { year: "2008", title: "Diplom-Kaufmann (FH)", copy: "Berufsbegleitendes Studium der Wirtschaftswissenschaften an der Rheinischen Fachhochschule Köln, mit Schwerpunkt Immobilienmarketing." },
   { year: "Heute", title: "Inhabergeführt. Über 500 Verkäufe.", copy: "Ein fester Ansprechpartner, ein Team vor Ort und Beratung auf Deutsch und Türkisch." },
 ];
 
@@ -67,24 +73,24 @@ const process = [
 ---
 
 <BaseLayout
-  title="Immobilienmakler Köln seit 1999 | SAYAN Immobilien"
-  description="SAYAN Immobilien Köln: Immobilienexpertise seit 1999, über 500 vermittelte Verkaufsobjekte. Bewertung, Verkauf und Vermietung, inhabergeführt, auf Deutsch und Türkisch."
+  title="Immobilienmakler Köln seit 1998 | SAYAN Immobilien"
+  description="SAYAN Immobilien Köln: Immobilienexpertise seit 1998, über 500 vermittelte Verkaufsobjekte. Bewertung, Verkauf und Vermietung, inhabergeführt, auf Deutsch und Türkisch."
 >
   <Header />
   <main id="main">
     <section class="home-hero">
       <div class="home-hero__media" aria-hidden="true">
-        <video class="home-hero__video" autoplay muted loop playsinline preload="auto" poster="/images/sayan-hero-poster.webp" data-parallax="0.12" data-parallax-scale="1" disablepictureinpicture disableremoteplayback>
+        <video class="home-hero__video" autoplay muted loop playsinline preload="auto" poster="/images/sayan-hero-poster.webp" data-parallax="0.12" data-parallax-scale="1">
           <source src="/videos/sayan-hero-mobil.mp4" type="video/mp4" media="(max-width: 767px) and (orientation: portrait)" />
           <source src="/videos/sayan-hero-1080.mp4" type="video/mp4" />
         </video>
       </div>
       <div class="home-hero__shade" aria-hidden="true"></div>
       <div class="container home-hero__copy">
-        <p class="eyebrow" data-reveal>Immobilienmakler in Köln · seit 1999</p>
+        <p class="eyebrow" data-reveal>Immobilienmakler in Köln · seit 1998</p>
         <h1 data-reveal style="--stagger:1">Ihre Immobilie verdient <em>mehr als einen Schätzwert.</em></h1>
         <p class="home-hero__lead" data-reveal>
-          27 Jahre im Geschäft, gelernt und nicht quer eingestiegen. Wir bewerten persönlich, vermarkten mit System und bleiben bis zum Notartermin an Ihrer Seite.
+          Persönlich geführt von Candan Sayan. Wir bewerten vor Ort, vermarkten mit System und bleiben bis zum Notartermin an Ihrer Seite.
         </p>
         <div class="home-hero__actions" data-reveal>
           <a class="button" href="/kontakt/#termin">Bewertung vor Ort vereinbaren <span class="arrow" aria-hidden="true">→</span></a>
@@ -117,13 +123,13 @@ const process = [
       <div class="container career">
         <div class="career__media zoom-media" data-reveal>
           <EditorialPhoto image={editorialImages.company} sizes="(max-width: 900px) 100vw, 45vw" />
-          <p class="career__badge"><strong>Inhabergeführt</strong><span>seit 2001 in Köln</span></p>
+          <p class="career__badge"><strong>Inhabergeführt</strong><span>seit 1998 in Köln</span></p>
         </div>
         <div class="career__copy">
           <div data-reveal>
             <p class="eyebrow">Unser Werdegang</p>
-            <h2>27 Jahre aufgebaut. <em>Nicht gekauft.</em></h2>
-            <p class="career__lead">Makler kann sich in Deutschland fast jeder nennen. Wir haben den Beruf gelernt, ein Unternehmen aufgebaut und über 500 Verkäufe begleitet. Diese Erfahrung steckt in jeder Bewertung.</p>
+            <h2>28 Jahre Erfahrung. <em>Persönlich für Sie.</em></h2>
+            <p class="career__lead">Candan Sayan hat den Beruf von Grund auf gelernt, SAYAN Immobilien aufgebaut und über 500 Verkäufe begleitet. Diese Erfahrung steckt in jeder Bewertung.</p>
           </div>
           <ol class="timeline" data-reveal-group>
             {career.map((step, i) => (
@@ -157,6 +163,24 @@ const process = [
       </div>
     </section>
 
+
+    <section class="section section--white showreel" aria-labelledby="showreel-title">
+      <div class="container">
+        <SectionHeader eyebrow="So präsentieren wir Ihre Immobilie" title="Vom Grundriss bis zur <em>Fassade.</em>" lead="Interessenten entscheiden in Sekunden, ob sie weiterlesen. Deshalb zeigen wir Ihre Immobilie so, dass man sich den Alltag darin vorstellen kann: Raum für Raum, mit Lage und Architektur." />
+        <div class="showreel__grid" data-reveal-group>
+          {showreel.map((clip, i) => (
+            <figure class:list={["showreel__item", { "showreel__item--large": i === 0 }]} data-reveal style={`--stagger:${i}`}>
+              <div class="showreel__media">
+                <video muted loop playsinline preload="none" poster={clip.poster} data-showreel aria-label={clip.label}>
+                  <source src={clip.src} type="video/mp4" />
+                </video>
+              </div>
+              <figcaption><strong>{clip.title}</strong><span>{clip.copy}</span></figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
 
     <section class="photo-strip" aria-label="Eindrücke aus Köln">
       <div class="photo-strip__head container" data-reveal>
@@ -247,6 +271,18 @@ const process = [
   </main>
 
 <script>
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const clips = [...document.querySelectorAll<HTMLVideoElement>("[data-showreel]")];
+  if (clips.length && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(({ target, isIntersecting }) => {
+        const video = target as HTMLVideoElement;
+        if (isIntersecting && !reduceMotion.matches) { video.preload = "auto"; video.muted = true; video.play().catch(() => {}); }
+        else video.pause();
+      });
+    }, { threshold: 0.35 });
+    clips.forEach((clip) => io.observe(clip));
+  }
   const heroVideo = document.querySelector<HTMLVideoElement>(".home-hero__video");
   if (heroVideo) {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -320,6 +356,21 @@ const process = [
 
 
   /* Bildstreifen */
+  .showreel__grid { display: grid; grid-template-columns: 7fr 5fr; grid-template-rows: auto auto; gap: clamp(1rem, 2vw, 1.5rem); }
+  .showreel__item { display: grid; gap: .85rem; align-content: start; margin: 0; }
+  .showreel__item--large { grid-row: span 2; }
+  .showreel__media { position: relative; overflow: hidden; aspect-ratio: 16 / 9; border-radius: var(--radius-media, 18px); background: var(--ink); }
+  .showreel__item--large .showreel__media { aspect-ratio: auto; height: 100%; min-height: 20rem; }
+  .showreel__item--large { grid-template-rows: 1fr auto; }
+  .showreel video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .showreel figcaption { display: grid; gap: .25rem; }
+  .showreel figcaption strong { font-size: 1.05rem; }
+  .showreel figcaption span { color: var(--n-text-secondary); font-size: .95rem; text-align: justify; hyphens: auto; }
+  @media (max-width: 900px) {
+    .showreel__grid { grid-template-columns: 1fr; }
+    .showreel__item--large { grid-row: auto; }
+    .showreel__item--large .showreel__media { aspect-ratio: 16 / 9; height: auto; min-height: 0; }
+  }
   .photo-strip { padding: var(--section-space) 0; overflow: hidden; background: #fff; }
   .photo-strip__head { margin-bottom: clamp(2rem, 3.5vw, 3rem); }
   .photo-strip__track { display: flex; width: max-content; animation: strip 120s linear infinite; }

@@ -418,3 +418,7 @@ a, button { touch-action: manipulation; }
   .valuation-option__top { margin-bottom: 1.25rem; }
   .valuation-option ul { margin: 1.25rem 0 1.5rem; padding-top: 1.25rem; }
 }
+
+/* Blocksatz für alle Fließtexte, mit Silbentrennung gegen große Lücken. */
+:where(p, li, blockquote, dd, figcaption) { text-align: justify; -webkit-hyphens: auto; hyphens: auto; hyphenate-limit-chars: 6 3 3; }
+:where(.section-head--center, .mobile-menu__footer, .wide-cta, .svc-quote) :where(p, li, blockquote) { text-align: center; }

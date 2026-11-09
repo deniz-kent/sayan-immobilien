@@ -1,5 +1,14 @@
 # Änderungen
 
+## 1.21.0 · 2026.11.09
+
+- Neuer Startseitenbereich mit drei Videos: Grundriss und Raumgefühl, Lage und Umgebung, Architektur im Detail. Die Videos laufen nur, solange sie sichtbar sind.
+- Fotografie und Exposé: drei Vorher-Nachher-Vergleiche mit Schieberegler (Maus, Finger und Tastatur).
+- Partnerleiste mit neuen Logos: ImmoScout24, immowelt, onOffice, McGrundriss und BVFI. Alte Logos entfernt.
+- Alle Jahresangaben einheitlich auf seit 1998, 28 Jahre Erfahrung.
+- Formulierungen entfernt, die als Seitenhieb gegen andere Makler gelesen werden konnten. Candan Sayan wird stattdessen persönlich hervorgehoben.
+- Fließtexte seitenweit im Blocksatz mit Silbentrennung.
+
 ## 1.20.1 · 2026.11.09
 
 Header-Video deutlich schärfer: höhere Bitrate, volle 1080p-Auflösung, auf Smartphones ein nativer Hochformat-Ausschnitt statt hochskaliertem 720p. Das Video wird im Hero nicht mehr zusätzlich vergrößert.
